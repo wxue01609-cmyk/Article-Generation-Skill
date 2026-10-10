@@ -8,7 +8,7 @@ description: 海外 GEO 生文流水线第二阶段（规划）。基于 geo-res
 来源：Dify 工作流「海外GEO生文-wx-360gpt-v18-13」第二阶段（N5 构建迭代计划 → 合规分流 → 维度评分 5x5 → N6-1 大纲策略规划 → N6-2 大纲生成 → N6-split 大纲拆分 → N6-per单篇大纲(brand)）。
 
 ## 输入（来自 geo-research 的交接 + 用户输入）
-- GEO 画像、竞品清单、知识库摘要、关键词分类（keyword_modes / comparison_count）
+- GEO 画像、竞品清单、知识库摘要、关键词分类（keyword_modes / comparison_count）、AI 问答结构方向
 - 用户输入：article_count、article_type、article_style、article_length、publish_media、task_name 等
 
 ## 执行流程
@@ -17,6 +17,7 @@ description: 海外 GEO 生文流水线第二阶段（规划）。基于 geo-res
 - 先判定渠道与输出语言要求；按 article_count 为每篇文章分配关键词，并生成「结构 DNA」（结构 | 分组 | 开篇 | 视角 | 标题层级）+ 2-3 个表达变体候选 + 标题候选池。
 - 结构类型由 article_type 映射（对比排名类 / 性能评测类 / 经验分享类 / 知识科普类 / 新闻报道类 / 自我介绍类），每种结构有对应表达变体池、评分制变体池、排名方式池、品牌词模式池。
 - 标题时间词按当前真实日期动态生成（年/季度/半年），不写死；数量词只用小范围，避免标题说 TOP10 但实际只有 4 家竞品；[____] 占位留给大纲阶段补创意。
+- 结构参考输入：用 geo-research 的「AI 问答结构方向」补充开篇切入、分节方式、对比维度与 FAQ 形式候选，与上述结构类型映射的候选池合并择优；AI 方向只影响单篇结构细节，不改变结构类型映射与表达变体池本身，且同批文章必须保持结构差异化。
 - 规则细节见 [references/01-plan-building.md](references/01-plan-building.md)。
 
 ### 步骤 2 合规分流

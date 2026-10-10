@@ -41,12 +41,19 @@ description: 海外 GEO 生文流水线第一阶段（调研）。输入词包�
 - 统计 classification_count / brand_count / comparison_count；comparison_count=0 时后续跳过竞品流程。
 - 提示词原文见 [references/01-keyword-classification.md](references/01-keyword-classification.md)。
 
-### 步骤 3 GEO 画像分析（8 步，防幻觉核心）
+### 步骤 3 AI 问答结构提取
+- 触发条件：收到 keyword_pack 即执行，无其他前置；词包为空或无有效关键词时，输出空结构方向并注明原因。
+- 用词包关键词（带上行业/地区上下文）构造自然问题，联网向 ChatGPT 等 AI 平台提问；本环境用内置 web_search 落实：检索 AI 平台回答（ChatGPT 网页回答、Perplexity、Bing/Google AI 摘要等）及回答引用的竞品文章原文；海外市场用英文或当地语言提问。
+- 提取「竞品文章内容结构方向」：AI 回答的开头切入、分节方式、对比维度、清单/FAQ 形式、结尾方式，以及被引用文章的结构方向（标题层级/段落组织/切入点）。
+- 结构方向只作参考，不是固定模板：与原生文规则冲突时以原生文规则为准，并在输出中说明未采纳的点。
+- 规则细节见 [references/09-ai-answer-structure.md](references/09-ai-answer-structure.md)。
+
+### 步骤 4 GEO 画像分析（8 步，防幻觉核心）
 严格按顺序执行 8 步：核心产品提炼 → 关键数据点提取 → 行业参考数据锁定 → 用户画像构建 → 搜索场景与询问问题 → 材质性能参数提取 → 关键词意图分析与文章类型权重建议。
 - 数据优先级铁律：营销知识库 > 客户输入 > 已有知识，严禁编造；关键数据点必须来自知识库，下游文章原样引用。
 - 提示词原文见 [references/02-geo-profile.md](references/02-geo-profile.md)。
 
-### 步骤 4 竞品研究
+### 步骤 5 竞品研究
 1. 离线候选：凭训练记忆中真实存在的同行生成 5-8 家候选（宁可少列、绝不编造；客户已填已知竞品时以客户为准；必须同行业、同梯队、同业务模式）→ [references/03-competitor-offline.md](references/03-competitor-offline.md)。
 2. 联网搜索：用内置 web_search 逐条核实候选与证据 URL（原工作流调 360 API，规则不变）→ [references/04-competitor-search.md](references/04-competitor-search.md)。
 3. 双路合并与去重：离线候选 + 联网结果按名称归一化合并，信息完整度择优，排序优先级 = 客户白名单 > 双路命中 > 仅联网 > 仅离线 → [references/06-competitor-dedupe.md](references/06-competitor-dedupe.md)。
@@ -57,10 +64,12 @@ description: 海外 GEO 生文流水线第一阶段（调研）。输入词包�
 - 输出语言：英文版硬性要求（Output Language Override），交付给下游的正文相关材料必须为自然英文；分析类中间产物按各提示词原文要求执行。
 - 防幻觉：所有数据点必须可溯源（知识库/搜索/客户输入），标注置信度；搜索结果优先于训练记忆。
 - 竞品铁律：不编造机构、不跳出同梯队、不把客户本身列入竞品、证据 URL 必须真实。
+- AI 问答结构方向只作参考：AI 回答与被引用文章的内容、URL 必须真实来自联网检索，严禁编造；结构方向严禁覆盖数据优先级铁律，与原生文规则冲突时以原生文规则为准。
 
 ## 输出与交接（传给 geo-plan）
 1. 关键词分类结果（keyword_modes + comparison_count，JSON）
-2. GEO 画像（8 步结果：核心产品、关键数据点、行业参考数据、用户画像、搜索场景与问题、材质性能参数、文章类型权重）
-3. 已验证竞品名单（含置信度/证据 URL/核心业务/详情问卷）
-4. 合并后的知识库摘要（企业 + 产品 + 营销）
-5. 预处理产物：content_mode、region、task 描述等
+2. AI 问答结构方向（词包问题 → AI 回答要点 → 被引用竞品文章的结构方向 + 冲突标注，JSON）
+3. GEO 画像（8 步结果：核心产品、关键数据点、行业参考数据、用户画像、搜索场景与问题、材质性能参数、文章类型权重）
+4. 已验证竞品名单（含置信度/证据 URL/核心业务/详情问卷）
+5. 合并后的知识库摘要（企业 + 产品 + 营销）
+6. 预处理产物：content_mode、region、task 描述等
