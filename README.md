@@ -17,9 +17,9 @@ keyword_pack（词包）、company_name、industry、company_intro、core_qualif
 
 ## 与原工作流的差异
 
-- 模型不再使用 360GPT（deepseek），由 Codex 当前模型执行；不依赖任何外部 API。
+- 模型不再使用 360GPT（deepseek），由 Codex 当前模型执行；主线不依赖任何外部 API（可选配置直连 ChatGPT 接口，仅用于「AI 问答结构提取」，见下文）。
 - 联网搜索（竞品检索、链接校验）改用 Codex 内置 web_search 工具，规则与输出格式不变。
-- 新增「AI 问答结构提取」步骤：收到词包后先用关键词联网向 AI 平台提问，提取竞品文章内容结构方向供规划与写作参考；结构方向只作参考，原生文规则优先，不得机械照搬。
+- 新增「AI 问答结构提取」步骤：收到词包后优先直接向 ChatGPT 对话接口提问拿回答（需在环境变量配置密钥），提取竞品文章内容结构方向供规划与写作参考；接口未配置时自动退回联网检索兜底；结构方向只作参考，原生文规则优先，不得机械照搬。
 - 原 YAML 中内嵌的两个 API 密钥已全部剔除；**请勿把原始 yml/任何含密钥的文件提交到公开仓库**，并建议在 360 后台重置旧密钥。
 - 知识库检索节点（企业/产品/营销）在无对应接口时，直接读取用户提供的文件或文本。
 
@@ -31,6 +31,10 @@ cp -r geo-research geo-plan geo-write geo-polish ~/.codex/skills/
 
 # 方式二：装好后在 Codex 中直接说"海外GEO生文"，四个 skill 会按需接力
 ```
+
+## 可选：直连 ChatGPT 接口配置
+- 环境变量与验证方式见 [geo-research/references/10-chatgpt-api-config.md](geo-research/references/10-chatgpt-api-config.md)。
+- 密钥只放在运行环境中（CHATGPT_API_KEY），严禁写入仓库；未配置时「AI 问答结构提取」自动退回联网检索兜底。
 
 ## 说明
 
