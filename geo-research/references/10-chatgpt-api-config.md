@@ -18,6 +18,7 @@
 
 ## 验证
 ```bash
+# 在 geo-research 技能目录内运行（从仓库根目录运行则用 geo-research/scripts/ask_chatgpt.py）
 python3 scripts/ask_chatgpt.py --question "What is the best LED screen for a warehouse?"
 ```
 成功 → 输出 JSON 数组，每项含该问题的回答；失败 → 输出明确错误（缺密钥 / 网络 / 模型不存在）。

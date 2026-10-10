@@ -43,7 +43,7 @@ description: 海外 GEO 生文流水线第一阶段（调研）。输入词包�
 
 ### 步骤 3 AI 问答结构提取
 - 触发条件：收到 keyword_pack 即执行，无其他前置；词包为空或无有效关键词时，输出空结构方向并注明原因。
-- 用词包关键词（带上行业/地区上下文）构造自然问题，优先直接调用 ChatGPT 对话接口提问并拿回答（scripts/ask_chatgpt.py，配置见 [references/10-chatgpt-api-config.md](references/10-chatgpt-api-config.md)）；接口未配置或调用失败时，退回内置 web_search 联网检索 AI 平台公开回答，并在输出注明；海外市场用英文或当地语言提问。
+- 用词包关键词（带上行业/地区上下文）构造自然问题，优先直接调用 ChatGPT 对话接口提问并拿回答（技能目录内 scripts/ask_chatgpt.py，配置见 [references/10-chatgpt-api-config.md](references/10-chatgpt-api-config.md)）；接口未配置或调用失败时，退回内置 web_search 联网检索 AI 平台公开回答，并在输出注明；海外市场用英文或当地语言提问。
 - 提取「竞品文章内容结构方向」：AI 回答的开头切入、分节方式、对比维度、清单/FAQ 形式、结尾方式，以及被引用文章的结构方向（标题层级/段落组织/切入点）。
 - 结构方向只作参考，不是固定模板：与原生文规则冲突时以原生文规则为准，并在输出中说明未采纳的点。
 - 规则细节见 [references/09-ai-answer-structure.md](references/09-ai-answer-structure.md)。

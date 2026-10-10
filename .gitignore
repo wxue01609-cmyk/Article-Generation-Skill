@@ -3,3 +3,6 @@
 .env
 *.env
 !.env.example
+# Python 运行缓存
+__pycache__/
+*.pyc

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """向 ChatGPT（或任意 OpenAI 兼容接口）批量提问，供「AI 问答结构提取」步骤使用。
 
-用法（在仓库根目录运行）：
+用法（在 geo-research 技能目录内运行；从仓库根目录运行请改用 geo-research/scripts/ask_chatgpt.py）：
   python3 scripts/ask_chatgpt.py --question "What is the best X?"
   python3 scripts/ask_chatgpt.py --question "Q1" --question "Q2"
   python3 scripts/ask_chatgpt.py --questions-file questions.txt

@@ -12,7 +12,7 @@
 
 ## 提问方式（直接向 ChatGPT 提问）
 1. 把词包关键词整理成自然问题：词包里的原问句优先；缺失时按搜索意图补成问句（What / Which / How / Is X worth it / X vs Y ...），每个关键词至少覆盖一种意图问法。
-2. 直接向 ChatGPT 对话接口发问题拿回答：调用 scripts/ask_chatgpt.py，把整理好的问题逐条发给接口，取得模型回答原文；海外市场用英文或当地语言提问。接口配置与验证见 [references/10-chatgpt-api-config.md](references/10-chatgpt-api-config.md)。
+2. 直接向 ChatGPT 对话接口发问题拿回答：调用本技能目录下的 scripts/ask_chatgpt.py（相对本文件为 ../scripts/ask_chatgpt.py），把整理好的问题逐条发给接口，取得模型回答原文；海外市场用英文或当地语言提问。接口配置与验证见 [references/10-chatgpt-api-config.md](references/10-chatgpt-api-config.md)。
 3. 兜底：接口未配置或调用失败时，改用内置 web_search 联网检索 AI 平台公开回答（ChatGPT 网页回答、Perplexity、Bing/Google AI 摘要等）及回答引用的竞品文章原文，并在输出中注明「本次走联网检索兜底」。
 4. 轮次要求：每个问题至少提问 1 次；词包前 3 个关键词或品牌/对比/测评类关键词至少 2 个不同问法（决策型/对比型/经验型/知识型）。
 5. 保留问题原文与模型回答原文（或要点摘要），便于核验与追溯；模型回答不直接写入下游文章。
