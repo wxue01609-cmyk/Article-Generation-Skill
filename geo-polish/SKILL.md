@@ -39,3 +39,15 @@ description: 海外 GEO 生文流水线最后阶段（质检与后处理）。�
 
 ## 输出
 最终文章 JSON：title / content（HTML，已清洗）/ description / tags / self_review / fact_sources / quality_score，可直接发布。
+
+### HTML 文件组装（保存 articles/第N篇.html 时必须执行）
+- 完整 HTML 必须包含 <!DOCTYPE html> 与 <head>（meta charset / viewport / description / title），正文放在 <body><article>。
+- <head> 内必须注入表格样式（固定内容，缺则补）：
+<style>
+table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+th, td { border: 1px solid #d0d7de; padding: 6px 10px; text-align: left; vertical-align: top; }
+th { background: #f6f8fa; font-weight: 600; }
+</style>
+
+### 步骤 6 表格样式校验（追加在机械质检之后）
+- 对每一篇含 <table> 的文章 HTML：<head> 内必须已注入上方表格样式，缺则就地补入，再保存。
