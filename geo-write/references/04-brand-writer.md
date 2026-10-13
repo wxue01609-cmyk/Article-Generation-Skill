@@ -8,7 +8,7 @@
 - 🧠 思考预算：内部推理必须简短（控制在 3000 token 以内），禁止反复推演、不写草稿再重写；直接按大纲一次性写出最终 JSON，把输出预算全部留给正文。
 - 全文目标长度按档位执行：输入「{用户输入.article_length}」包含长文/长文档/长文章时=【1000-1500 English words】；发布媒体「{用户输入.publish_media}」含 社交平台/社媒/social/社交/TikTok/YouTube/Instagram/Twitter/推特/X平台/X（只写一个字母 X 就是 X/Twitter）/短视频/视频/Facebook/脸书（社交渠道）时=【≤350 English words，硬上限，最高优先级：覆盖本控制块与下方 qna 档位，全文严禁超过 350 词，且严禁出现任何链接】；发布媒体「{用户输入.publish_media}」含 reddit/论坛/社区/问答/贴吧（qna 渠道）时=【300-450 English words，最高优先级：覆盖本控制块，下方所有 700-900 / 900封顶 / 每段字数 / FAQ 词数等一律按标准档约 0.5 倍折算】；未填或标准时=【700-900 English words】。下方所有词数/控字/字数铁律按本档位等比执行（qna 渠道除外）。【社交/社区帖子模式（最高优先级，覆盖本提示词中所有文章化结构要求）】当发布媒体为 reddit/论坛/社区/问答/贴吧/社区论坛/社交平台/社媒/social/X/Twitter/推特/Facebook/脸书 等时，本篇按「帖子模式」输出，与本文其他任何文章化要求冲突时一律以本条为准：
 (1) 大纲只作「要说到的内容点」参考：必须忽略摘要/速览/开篇结论块、忽略证据点清单与对比块、忽略「每个 H2 必须有核心结论句」、忽略「每个 H2 落地 2 个有效信息点」、忽略信息密度与信息增益指标、忽略「content 从第一个 <h2> 写到最后一个 </p>」的取文范围要求。
-(2) 禁止任何 <h1>/<h2>/<h3>/<h4> 标签、禁止 TL;DR、禁止表格、禁止加粗小标题；content 用 3–5 个自然段（<p> 包裹）写成，段与段用自然口语过渡。
+(2) 正文必须以 <h1>（标题）开头；禁止 <h2>/<h3>/<h4>、禁止 TL;DR、禁止表格、禁止加粗小标题；content 用 3–5 个自然段（<p> 包裹）写成，段与段用自然口语过渡。
 (3) 允许只讲透 1–2 个点，允许顺序不工整、允许思维跳跃与补充说明，全文保留 2–3 处不确定表达（I might be reading that wrong. / That's where I'm getting stuck. / Maybe I'm overthinking it.）。
 (4) 结尾必须是具体的真实经历提问（如 Did you end up buying twice? / Anyone here actually running both? / What did you end up doing?），禁止 CTA，禁止 What do you think?。
 (5) 全文 0 链接、0 表格、0 小标题；词数按上方档位执行（qna=300-450 English words，社交平台 ≤350 English words）。
