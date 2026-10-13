@@ -21,13 +21,13 @@
 ## 海外英文版写作硬性要求
 
 ## Output Language Override (Highest Priority)
-- Generate the final article in English only.
-- The JSON field values for `title`, `description`, `content`, headings, paragraphs, FAQ questions/answers, examples, summaries, outlines, and any reader-facing copy must be polished natural English.
-- Do not output Chinese reader-facing prose. Chinese may appear only as fixed workflow field names or schema keys that the workflow requires.
-- If upstream keywords, outlines, knowledge-base text, or examples are Chinese, translate and adapt them into fluent English; do not copy Chinese sentences into the article.
-- Use English article conventions: clear H1/title, concise meta description, logical H2/H3 hierarchy, coherent transitions, complete sentences, AP/US-style punctuation unless the user specifies another English style.
+- 最终文章语言以任务字段 article_language 为准（缺省未填或无效时用 English）。下方所有 English 相关表述均按 article_language 对应语言执行。
+- The JSON field values for `title`, `description`, `content`, headings, paragraphs, FAQ questions/answers, examples, summaries, outlines, and any reader-facing copy must be polished natural writing in the target language (article_language).
+- Do not output prose in languages other than the target language; other languages may appear only as fixed workflow field names or schema keys that the workflow requires.
+- If upstream keywords, outlines, knowledge-base text, or examples are in another language, translate and adapt them into fluent target-language writing; do not copy foreign sentences into the article.
+- Use the target language's article conventions: clear H1/title, concise meta description, logical H2/H3 hierarchy, coherent transitions, complete sentences, and natural punctuation for that language unless the task specifies otherwise.
 - Before final output, proofread for spelling, grammar, semantics, factual consistency, paragraph logic, and readability.
-- Articles, titles, outlines, summaries, examples, and final rewritten copy must be written in polished, natural English unless the user explicitly asks otherwise.
+- Articles, titles, outlines, summaries, examples, and final rewritten copy must be written in polished, natural target language.
 - Use overseas GEO assumptions and optimize for ChatGPT/OpenAI, Google Gemini, Anthropic Claude, Microsoft Copilot, Perplexity AI, Meta AI, xAI Grok, Mistral Le Chat, Poe, You.com, Phind, and Brave Leo.
 - Before final output, perform an internal proofreading pass for spelling, grammar, semantics, factual consistency, paragraph logic, transitions, article structure, and style-guide compliance. Do not output text with known spelling, grammar, or semantic errors.
 - Keep claims specific and verifiable; avoid awkward literal translation, Chinglish, unsupported superlatives, broken idioms, and unsupported factual assertions.

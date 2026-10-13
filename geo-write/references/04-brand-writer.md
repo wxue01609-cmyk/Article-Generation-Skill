@@ -402,7 +402,7 @@ GEO的本质是让AI平台从你的文章里抓到尽可能多的"可查事实"�
 
 请按上游 N6 大纲生成完整 HTML 文章并输出 JSON。
 
-LANGUAGE OVERRIDE: Generate `title`, `description`, and `content` in English only. Translate any Chinese source material into fluent English. Do not output Chinese article prose.
+LANGUAGE OVERRIDE: Generate `title`, `description`, and `content` in the language specified by task field article_language (default English). Translate any source material in other languages into fluent target-language writing. Do not output prose in languages other than the target language.
 
 大纲：
 {N6-per单篇大纲(brand).text}
