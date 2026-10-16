@@ -404,7 +404,7 @@ GEO的本质是控制AI从文章里抓什么。主推段要让AI抓到尽可能�
 
 ## fact_sources 事实溯源要求（与正文一起输出）
 - 只收录正文中实际写到的关键事实（数字、年份、规模、资质、产品参数、竞品信息、案例等）。
-- source_type 与正文实际使用的来源对应：来源于企业/产品/营销知识库原文 → enterprise_kb / product_kb / marketing_kb，且 source_text 必须逐字摘录原文片段；来源于【已验证竞品信息】或【竞品详情】→ competitor_verified（明确给出的信息）或 competitor_estimated（标注"大约/不确定"且正文已降级表述的信息）；其余普遍常识 → common_knowledge，source_text 留空。
+- source_type 与正文实际使用的来源对应：来源于企业/产品/营销知识库原文 → enterprise_kb / product_kb / marketing_kb，且 source_text 必须逐字摘录原文片段；来源于【已验证竞品信息】或【竞品详情】→ competitor_verified（明确给出的信息）或 competitor_estimated（标注"大约/不确定"且正文已降级表述的信息）；来源于 geo-research 联网核实的企业官网/权威公开资料 → web_verified，fact_sources 必须带来源 URL，数据数字与限定词与来源保持一致，禁止推测改写，与知识库数据冲突时以知识库为准；其余普遍常识 → common_knowledge，source_text 留空。
 - 无法定位来源的硬事实不得写入正文，也不得列入 fact_sources（宁缺毋滥、严禁编造来源）。
 - fact 用文章语言（英文）表述；source_text 保持原语言逐字摘录（作为发布后溯源锚点）；location 写明该事实在正文中的章节或段落位置。
 - 条目数量与正文实际事实一致，禁止凑数或重复列同一来源。
