@@ -10,11 +10,13 @@ description: 海外 GEO 生文流水线第二阶段（规划）。基于 geo-res
 ## 输入（来自 geo-research 的交接 + 用户输入）
 - GEO 画像、竞品清单、知识库摘要、关键词分类（keyword_modes / comparison_count）、AI 问答结构方向
 - 用户输入：article_count、article_type、article_style、article_length、publish_media、task_name 等
+- 主题分组（fields.topics 存在时）：主题 → query 清单，来自平台「主题与 Query（词包）」
 
 ## 执行流程
 
 ### 步骤 1 构建迭代计划（N5 / N5-A）
 - 先判定渠道与输出语言要求；按 article_count 为每篇文章分配关键词，并生成「结构 DNA」（结构 | 分组 | 开篇 | 视角 | 标题层级）+ 2-3 个表达变体候选 + 标题候选池。
+- 主题分配（fields.topics 存在时）：先把 N 篇文章分配到主题——每个非空主题（含至少 1 条 query）至少分配 1 篇；篇数多于主题数时，剩余篇数按各主题 query 数量与意图权重分配；无 topics 字段时按原 keyword_pack 逐行分配。每篇登记所属主题与需覆盖的 query 清单。
 - 结构类型由 article_type 映射（对比排名类 / 性能评测类 / 经验分享类 / 知识科普类 / 新闻报道类 / 自我介绍类），每种结构有对应表达变体池、评分制变体池、排名方式池、品牌词模式池。
 - 标题时间词按当前真实日期动态生成（年/季度/半年），不写死；数量词只用小范围，避免标题说 TOP10 但实际只有 4 家竞品；[____] 占位留给大纲阶段补创意。
 - 结构参考输入：用 geo-research 的「AI 问答结构方向」补充开篇切入、分节方式、对比维度与 FAQ 形式候选，与上述结构类型映射的候选池合并择优；AI 方向只影响单篇结构细节，不改变结构类型映射与表达变体池本身，且同批文章必须保持结构差异化。
@@ -40,6 +42,7 @@ description: 海外 GEO 生文流水线第二阶段（规划）。基于 geo-res
 - 未填或标准 → 700-900 English words
 - 大纲各段「约 X words」之和必须落在所选档位区间。
 - 每篇大纲必须与文章类型匹配：官网/博客渠道不规划竞品内容；TL;DR 整批最多 1 篇（仅第 1 篇可用）；FAQ 问题用词包原问句。
+- 大纲必须标注所属主题（fields.topics 存在时，字段 topic = 主题名），并把该主题下需覆盖的 query 逐条列入 content_brief；正文规划不得漂移到其他主题。
 
 ## 大纲质量红线（强制）
 - 词包中的每个疑问句（含 ?）必须分配 FAQ 条目或正文 H2/H3，原问句原样保留，禁止改写或遗漏。
@@ -50,5 +53,5 @@ description: 海外 GEO 生文流水线第二阶段（规划）。基于 geo-res
 
 ## 输出与交接（传给 geo-write）
 1. 每篇文章计划：structure_dna、presentation_candidates、content_mode、compliance_mode、competitor_names 等
-2. 每篇大纲 JSON：title、content_brief、章节（覆盖意图词 / 5x5 标签 / 段落概要 / 二级要点 / approx_words）、FAQ 主题
+2. 每篇大纲 JSON：title、topic（所属主题，无主题分组时省略）、content_brief（含需覆盖的主题 query 清单）、章节（覆盖意图词 / 5x5 标签 / 段落概要 / 二级要点 / approx_words）、FAQ 主题
 3. 渠道规则 key（blog/qna/pr/social/linkedin/x/facebook/ecommerce/help/ads）

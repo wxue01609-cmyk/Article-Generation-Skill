@@ -39,6 +39,7 @@ description: 海外 GEO 生文流水线第一阶段（调研）。输入词包�
 
 ### 步骤 2 关键词分类
 - 逐个分析词包关键词的搜索意图类型：brand_focus（品牌词）/ comparison（对比词）/ ranking / review。
+- 主题维度（fields.topics 存在时）：词包 keyword_pack 已由主题下全部 query 合并；先按主题分组归类（每个主题的 queries 为一组），再逐条分析意图；分类与画像输出必须保留「主题 → query 清单」分组结构，交接给 geo-plan。
 - 统计 classification_count / brand_count / comparison_count；comparison_count=0 时后续跳过竞品流程。
 - 提示词原文见 [references/01-keyword-classification.md](references/01-keyword-classification.md)。
 
@@ -70,7 +71,7 @@ description: 海外 GEO 生文流水线第一阶段（调研）。输入词包�
 - AI 问答结构方向只作参考：AI 回答与被引用文章的内容、URL 必须真实来自本次接口调用或联网检索，严禁编造；结构方向严禁覆盖数据优先级铁律，与原生文规则冲突时以原生文规则为准。
 
 ## 输出与交接（传给 geo-plan）
-1. 关键词分类结果（keyword_modes + comparison_count，JSON）
+1. 关键词分类结果（keyword_modes + comparison_count，JSON；fields.topics 存在时含「主题 → query 清单」分组结构）
 2. AI 问答结构方向（词包问题 → AI 回答要点 → 被引用竞品文章的结构方向 + 冲突标注，JSON）
 3. GEO 画像（8 步结果：核心产品、关键数据点、行业参考数据、用户画像、搜索场景与问题、材质性能参数、文章类型权重）
 4. 已验证竞品名单（含置信度/证据 URL/核心业务/详情问卷）

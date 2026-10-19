@@ -15,6 +15,10 @@ description: 海外 GEO 生文流水线第三阶段（写作）。根据 geo-pla
 - 无营销知识库 → [references/03-standard-writer-no-kb.md](references/03-standard-writer-no-kb.md)（7-1 生文-无营销知识库ID）
 - 品牌文（brand_focus）→ [references/04-brand-writer.md](references/04-brand-writer.md)（N7-品牌版：标题可含品牌名，不写竞品）
 
+## 主题写作规则（fields.topics 存在时）
+- 严格按大纲标注的主题写作：输出 JSON 的 topic 字段 = 大纲所属主题名，无主题分组时省略该字段；
+- 该主题下的每个 query 在正文必须有至少 2-3 句实质回答（问句问法按词包问句保留规则），文章内容不得漂移到其他主题。
+
 ## 全局输出控制（最高优先级，覆盖下方所有字数要求）
 - 思考预算：内部推理 ≤3000 token，禁止反复推演、不写草稿再重写，直接按大纲一次性输出最终 JSON。
 - 输出必须是完整闭合的 JSON 对象，最外层 `}` 必须出现；接近输出上限立即收尾闭合——宁可少写也不能截断。
@@ -38,4 +42,4 @@ description: 海外 GEO 生文流水线第三阶段（写作）。根据 geo-pla
 - 事实溯源：输出 fact_sources 与 self_review（≤300 字逐项核对，涉及合规项必须摘录正文原话作证据）。
 
 ## 输出与交接（传给 geo-polish）
-每篇文章 JSON：title / content（HTML）/ description / tags / self_review / fact_sources；注意文章 JSON 必须完整闭合。
+每篇文章 JSON：title / content（HTML）/ description / tags / topic（所属主题，无主题分组时省略）/ self_review / fact_sources；注意文章 JSON 必须完整闭合。

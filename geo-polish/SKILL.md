@@ -34,6 +34,7 @@ description: 海外 GEO 生文流水线最后阶段（质检与后处理）。�
 - 标题：禁止 [____]/[待补充]/{keyword} 等占位符、禁止营销词、禁止冒号/半截词结尾
 - 正文：禁止 ** 残留、占位符泄漏、价格信息、内部骨架标注（approx_words/全文目标字数）、软广免责声明、内部标签、CTA 转化话术（立即购买/加微信等）、绝对化营销词（best/#1/revolutionary/ultimate 等）
 - 词包覆盖：正文问句 ≥2；奖项/资质表述与画像核证结果一致
+- 主题覆盖（文章 JSON 含 topic 时）：核对文章所属主题的每个 query 在正文有实质覆盖，缺漏的在自评中标记并补足；质检报告注明每篇文章的主题归属
 - 机械检查项与 LLM 自评合并为 quality_score
 - 完整检查清单见 [references/04-quality-check.md](references/04-quality-check.md)。
 
