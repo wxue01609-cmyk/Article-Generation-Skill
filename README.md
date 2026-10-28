@@ -1,6 +1,6 @@
 # Article-Generation-Skill（海外 GEO 生文）
 
-由 Dify 工作流「海外GEO生文-wx-360gpt-v18-13」迁移而来的 Codex skills 流水线，用于生成面向海外 AI 平台（ChatGPT/OpenAI、Gemini、Claude、Copilot、Perplexity、Meta AI、Grok、Mistral Le Chat、Poe、You.com、Phind、Brave Leo 等）被检索引用的 GEO（Generative Engine Optimization）英文内容。
+用于生成面向海外 AI 平台（ChatGPT/OpenAI、Gemini、Claude、Copilot、Perplexity、Meta AI、Grok、Mistral Le Chat、Poe、You.com、Phind、Brave Leo 等）被检索引用的 GEO（Generative Engine Optimization）英文内容。
 
 ## 组成（4 个 skill，按顺序接力）
 
