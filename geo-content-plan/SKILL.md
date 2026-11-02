@@ -1,0 +1,54 @@
+---
+name: geo-content-plan
+description: 海外内容建设第一阶段（策略规划）。读取 query 词包与知识库，按搜索意图逐条分类，判断每个关键词应发布在哪个渠道、生产哪类内容资产（官网博客/落地页/SKU/类目页/三方媒体/社区/FAQ/电商），输出可确认的内容矩阵 JSON 与逐项 Brief。当需要回答“这个关键词该发在哪、写什么内容”时使用。
+---
+
+# 海外内容建设规划（geo-content-plan）
+
+## 任务
+输入 query 列表 + 企业/产品知识库，输出每个 query 的意图判定、渠道落位、资产类型、优先级与内容 Brief。**只做方案，不写正文**。
+
+## 输入
+- `package.json` 的 `fields`：`topics` / `keyword_pack` / `company_name` / `industry` / `article_language` / `target_market` / `asset_types` / `asset_budget` / `content_goal` / `site_inventory` / `primary_cta` / `known_competitors`
+- `fields.source_urls`：用户提供的待改造页面 URL（换行或逗号分隔，最多 5 个）；`fields.source_text`：抓取失败时手动粘贴的页面正文
+- `source/index.json`：抓取页面索引（`page` 序号、`status`、`final_url`、`title`、`issues`、`product`）；每个页面目录含 `page.txt`（可读正文 + 诊断）与 `meta.json`（参数表 / JSON-LD / 问题清单）
+- `attachments/ent/` 企业知识库、`attachments/prod/` 产品知识库；`fields.ent_kb_text` / `prod_kb_text` 为补充文本
+
+## 输出（唯一交付物）
+`plan/content_matrix.json`，严格遵循 [references/matrix-schema.md](references/matrix-schema.md)。
+终端最多输出 10 行摘要，禁止把整份 JSON 打印到对话里。
+
+## 执行步骤
+1. **清洗 query**：`keyword_pack` 每行一条；`topics` 提供主题归属；按大小写/单复数/标点归一后去重，问句保留原始问法。
+2. **意图分类**：逐条按 [references/intent-map.md](references/intent-map.md) 判定，必须写 `intent_signals`（词面证据）与 `confidence`。
+3. **聚合 cluster**：同实体 + 同意图 + 同主题合并；一个 query 只能有一个 `primary_query` 归属。
+4. **渠道落位**：按 [references/channel-map.md](references/channel-map.md) 的决策树选择 `channel` / `asset_type`；只允许使用 `fields.asset_types` 里启用的类型；无法落位的进 `gaps`。
+5. **匹配待改造页面**：读取 `source/index.json`。当某条 query 被判为 `asset_type=sku`、且可用页面与 query 指向同一型号/品类时，按下面规则挂载改造信息：
+   - item 增加 `source_page`（可用页面的 `page` 序号）、`source_url`（页面 `final_url`）、`rewrite_mode: "existing_page"`；
+   - `target_url` 直接用页面 `final_url`，保留原路径，不要另造新 URL；
+   - `angle` 写成「改造现有商品页」，`outline` 中加入「修正页面对 AI 不可读的问题」；
+   - 把 `meta.json` 的 `issues` 摘要写入 `source_issues`（数组）；
+   - 多条 query 可复用同一 `source_page`；有多个商品页时按型号/品类匹配，不得张冠李戴；
+   - 无匹配页面（或未给 URL）时按**新建 SKU 页**规划，禁止虚构 `source_page`。
+6. **优先级**：按购买意图强度、品牌/型号相关度、流量价值给 `P0/P1/P2`。
+7. **生成 Brief**：按 [references/asset-specs.md](references/asset-specs.md) 对应类型的骨架，填 `title` / `angle` / `outline` / `key_points` / `proof_points` / `cta` / `internal_links` / `word_count` / `publish_order` / `dependencies`；带 `source_page` 的 sku Brief 以「改造清单」形式写，不写改后正文。
+8. **自检**（必须全部通过）：
+   - `summary.total_queries == len(items) + len(gaps)`
+   - 每个 `primary_query` 在 items 中唯一
+   - `asset_id` 唯一，格式 `<type>-NN`（如 `blog-01`、`sku-03`）
+   - 官网类资产（blog/landing/category/sku/faq）brief 中不出现竞品品牌名
+   - 无编造参数；不确定的事实写 `待核验`
+   - `title` 语言跟随 `article_language`（缺省英文）
+   - `source_page` 只能指向 `status` 为 `ok` / `manual` 的页面；抓取失败的页面一律不得分配
+   - 带 `source_page` 的 item 必须同时有 `source_url`、`rewrite_mode=existing_page`，且 `target_url` 等于 `source_url`
+   - 没有 `source_page` 的 sku item 不得出现 `rewrite_mode`
+9. **写文件**：用 apply_patch 写入 `plan/content_matrix.json`。
+
+## 硬性规则
+- 方案阶段禁止写正文、段落草稿、完整文案；`outline` 只写小标题与要点，`key_points` 用短句。
+- `asset_budget` 是资产总数上限；超预算按 P0→P2 截断，剩余 query 进 `gaps`，`reason` 写 `budget`。
+- 对比/替代/review 类只允许落三方媒体；官网只能写类别级判断标准，不点名竞品。
+- query 含问号或疑问词时，原问句必须进入对应 Brief 的 `query_text` 或 FAQ 问题列表。
+- 给了 URL 不等于必须改造：只有页面与 query 的产品/型号匹配时才挂 `source_page`；不匹配就在 `risk_notes` 说明并放弃使用该页面。
+- JSON 必须闭合、可被 `json.load` 解析；不要用 markdown 代码块包裹，不要写注释。
+- 不输出正文样例，不生成 HTML。

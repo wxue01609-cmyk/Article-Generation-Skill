@@ -2,7 +2,9 @@
 
 用于生成面向海外 AI 平台（ChatGPT/OpenAI、Gemini、Claude、Copilot、Perplexity、Meta AI、Grok、Mistral Le Chat、Poe、You.com、Phind、Brave Leo 等）被检索引用的 GEO（Generative Engine Optimization）英文内容。
 
-## 组成（4 个 skill，按顺序接力）
+## 组成（6 个 skill）
+
+### 海外 GEO 生文（4 个 skill，按顺序接力）
 
 | Skill | 阶段 | 输出 |
 | --- | --- | --- |
@@ -11,9 +13,20 @@
 | geo-write | 写作：标准版 / 无营销知识库版 / 品牌版，分渠道规则 | 文章 JSON（英文 HTML） |
 | geo-polish | 质检：合并容错、违禁词清洗、链接校验替换、帖子兜底、机械质检 | 最终可发布文章 |
 
+### 内容建设（2 个 skill，方案确认后接力）
+
+| Skill | 阶段 | 输出 |
+| --- | --- | --- |
+| geo-content-plan | 策略规划：按搜索意图逐条分类，判断每个关键词发在哪个渠道、生产哪类内容资产（官网博客/落地页/SKU/类目页/三方媒体/社区/FAQ/电商），支持「输入 URL → 改造现有商品页」 | 内容矩阵 JSON + 逐项 Brief |
+| geo-content-write | 成稿：按已确认矩阵生成英文可发布 HTML；带 `source_page` 的 SKU 走「改前/改后」改造流程 | 资产 HTML + 页面改造 JSON |
+
+内容建设的工作流是「先生成方案 → 确认 → 再生成成稿」，AI 生成量可控。输入 `source_urls`（待改造页面 URL）后，被判定发商品详情页的 query 会产出结构化改造方案，最终渲染出改后商品页与改前/改后对比页（以被 AI 商品卡引用为目的）。
+
 ## 输入变量
 
 keyword_pack（词包）、company_name、industry、company_intro、core_qualifications、awards、advantages、product_info、task_name、task_description、publish_media、article_type、article_count、article_style、article_length、known_competitors、engines、ent_dataset_id、prod_dataset_id、zhishi_custom_id（后三个为原 Dify 知识库 ID，本环境中可用文件/文本资料代替）。
+
+内容建设模式额外输入：source_urls（待改造页面 URL，最多 5 个）、source_text（URL 抓取失败时手动粘贴的页面正文）、query 词包、知识库资料。
 
 ## 与原工作流的差异
 
@@ -26,10 +39,10 @@ keyword_pack（词包）、company_name、industry、company_intro、core_qualif
 ## 安装
 
 ```bash
-# 方式一：本地使用，把 4 个文件夹放入 skills 目录
-cp -r geo-research geo-plan geo-write geo-polish ~/.codex/skills/
+# 方式一：本地使用，把 6 个文件夹放入 skills 目录
+cp -r geo-research geo-plan geo-write geo-polish geo-content-plan geo-content-write ~/.codex/skills/
 
-# 方式二：装好后在 Codex 中直接说"海外GEO生文"，四个 skill 会按需接力
+# 方式二：装好后在 Codex 中直接说"海外GEO生文"或"海外内容建设"，对应 skill 会按需接力
 ```
 
 ## 可选：直连 ChatGPT 接口配置
