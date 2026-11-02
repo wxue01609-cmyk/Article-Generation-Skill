@@ -26,6 +26,14 @@
 3. 事实只能来自抓取页面与知识库；价格/评分/库存抓不到就留空，正文写 `Confirm current price at checkout`；**禁止发明**。
 4. `changes` 至少 6 条：`before` 引用抓取到的原文（可节选，缺失写“（页面无此模块）”），`after` 写改后实际文案，`problem` 说明解决的问题。
 
+## 发布文案硬性规则（改后正文必须可直接上线）
+- 改后正文（核心答案段 / 卖点 / 适用与不适用 / FAQ 答案 / 购买信息 / Product schema description）**禁止出现审核语与内部备注**：`待核验`、`pending verification`、`not shown on the source page`、`on the product page`、`before publishing`、来源标注等一律不写进正文。
+- 查不到的信息**直接省略**（不写“待核验”、不写占位段落）；核验说明只放 `changes` 的 `problem` 或本文件的 `notes` 字段。
+- 价格有真实来源就正常写（`$99.99`），**禁止写成**「页面显示 $99.99 / displayed at $99.99 on the product page」这类审计口吻；抓不到价格就不给 `price`。
+- 语气是给买家看的商品文案：直接陈述（是什么、参数、适合谁），不要解释“为什么这么写”。
+- 正文语言必须纯 `article_language`，禁止在英文正文里混入中文（含“待核验”）。
+- 商品卡字段（图片 / SKU / GTIN / 库存 / 评分）只填抓取页面 JSON-LD、图片列表或商品系统回填的真实值；没有就省略该字段，禁止编造。
+
 ## 输出（唯一交付物）
 `plan/sku_changes/<asset_id>.json`（合法 JSON，不要 Markdown 代码块）。Schema：
 
@@ -41,6 +49,8 @@
     "price": {"amount": "99.99", "currency": "USD"},
     "availability": "In stock",
     "rating": {"value": 4.5, "count": 320, "source": "评分来源"},
+    "image_url": "https://example.com/images/botslab-r1-main.jpg",
+    "sku": "BL-R1-2K-W",
     "gtin": "可选，命中才写",
     "image_alt": "Botslab R1 security camera, 2K, 90-day battery, white"
   },
@@ -58,6 +68,7 @@
   "brand_identity": "Designed and sold by Botslab",
   "reviews_summary": "服务端可见的评分与高频优缺点；没有就留空字符串",
   "cta": "Buy now",
+  "notes": ["核验项只写在这里，例如：90 天续航为厂商标称，测试条件待确认"],
   "changes": [
     {"module": "标题", "before": "抓到的原标题原文", "after": "改后标题", "problem": "解决的问题"}
   ]
