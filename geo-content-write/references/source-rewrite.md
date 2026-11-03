@@ -1,8 +1,10 @@
 # SKU 页面改造（基于已有商品页）
 
 适用：矩阵 item 满足 `asset_type=sku` 且带 `source_page`（用户提供了待改造商品页 URL）的资产。
-此时**不直接写资产 HTML**，改为输出结构化的「改造 JSON」，由平台渲染成两类成品：
+此时**不直接写资产 HTML**，改为输出结构化的「改造 JSON」，由平台渲染成四类成品：
 - 可发布的改后商品详情页 `assets/sku/<id>.html`
+- 模块片段 `assets/sku/<id>-modules.html`：按 `<!-- module: ... -->` 分块，静态文案已写好，动态商品字段用 `{{...}}` 占位，可直接粘贴到现有商品页后台
+- 整页模板 `assets/sku/<id>-template.html`：站点壳（站点名/导航/页脚）+ 商品页模块，动态字段全部占位，接商品系统后即可发布
 - 改前/改后对比页 `assets/sku/<id>-before-after.html`（切换按钮 + 绿色改动标注 + 逐项依据表）
 
 ## 输入
@@ -77,4 +79,4 @@
 
 ## 完成后
 - 输出一行阶段标记：`::STAGE:sku_rewrite::`。
-- 不写 `assets/sku/<id>.html`（平台会渲染）；`assets/asset_index.json` 里该资产由平台补录。
+- 不写 `assets/sku/<id>.html`（平台会渲染成品页、模块片段、整页模板与对比页）；`assets/asset_index.json` 里该资产由平台补录。

@@ -31,7 +31,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
    - 样式全部内联在 `<style>` 中，禁止外链 CSS/JS/字体；响应式，移动端可读；正文用语义化 `h1/h2/p/ul/ol/table/blockquote`，CTA 用可见按钮样式。
    - 不要用 ```html 代码块包裹；不要只输出 Markdown。可另写同名 `.md` 作为内部底稿，但不得作为交付物。
    - `asset_index.json` 的 `file` 字段必须指向 `.html`；全部完成后写 `assets/asset_index.json`：`[{asset_id, asset_type, title, file, word_count, checks: []}]`。
-7. **SKU 改造资产**：每个写 `plan/sku_changes/<asset_id>.json`（合法 JSON，不要 Markdown 代码块），由平台渲染成改后商品页 `assets/sku/<id>.html` 与改前改后对比页 `assets/sku/<id>-before-after.html`；不要在 `assets/sku/` 下重复写这些 SKU 的 HTML，`asset_index.json` 由平台补录。改后正文必须可直接发布：不得出现「待核验 / pending verification / 来源备注」等审核语，查不到的信息直接省略，核验项只写 `notes` 或 `changes`。
+7. **SKU 改造资产**：每个写 `plan/sku_changes/<asset_id>.json`（合法 JSON，不要 Markdown 代码块），由平台渲染成四类成品：改后商品页 `assets/sku/<id>.html`、模块片段 `assets/sku/<id>-modules.html`（带 `{{...}}` 数据占位符，可直接粘贴进商品页后台）、整页模板 `assets/sku/<id>-template.html`（站点壳 + 占位符，接商品系统后发布）、改前改后对比页 `assets/sku/<id>-before-after.html`；不要在 `assets/sku/` 下重复写这些 SKU 的 HTML，`asset_index.json` 由平台补录。改后正文必须可直接发布：不得出现「待核验 / pending verification / 来源备注」等审核语，查不到的信息直接省略，核验项只写 `notes` 或 `changes`。
 8. 每个资产独立完整、禁止截断；写完后输出 `::STAGE:polish::` 与一行 `asset_index.json` 路径；有 SKU 改造资产时额外输出 `::STAGE:sku_rewrite::`。
 
 ## 质量标准（每篇自检）
