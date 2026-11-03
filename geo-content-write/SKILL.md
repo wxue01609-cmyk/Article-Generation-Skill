@@ -1,6 +1,6 @@
 ---
 name: geo-content-write
-description: 海外内容建设第二阶段（成稿）。读取 plan/content_matrix.json 的资产 Brief，按资产类型（官网博客/落地页/SKU/类目页/三方PR/三方评测/社区问答/社交/电商Listing/帮助中心FAQ）生成英文成稿，输出可直接发布的完整 HTML：assets/<type>/<id>.html。当需要把已确认的内容矩阵写成可发布内容资产时使用。
+description: 海外内容建设第二阶段（成稿）。读取 plan/content_matrix.json 的资产 Brief，按资产类型（官网博客/落地页/SKU/类目页/三方PR/三方评测/社区问答/社交/电商Listing/帮助中心FAQ）生成英文成稿：普通资产输出完整可发布 HTML（assets/<type>/<id>.html），SKU 改造资产输出改造 JSON，由平台渲染成品页、模块片段、整页模板与改前改后对比页。当需要把已确认的内容矩阵写成可发布内容资产时使用。
 ---
 
 # 海外内容建设成稿（geo-content-write）
@@ -21,7 +21,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 3. 每个资产按 [references/asset-specs.md](references/asset-specs.md) 的类型模板成稿，严格遵守 brief：
    - 标题、角度、H 结构、要点顺序、CTA、内链锚文本不得偏离 brief；确需调整时在 `asset_index.json` 的 `checks` 里说明。
    - `word_count` ±20% 内；FAQ 问题保留原问句。
-4. 事实铁律：只能来自知识库/brief；brief 中 `待核验` 内容照写并保留标注；禁止编造参数、价格、案例、客户。
+4. 事实铁律：只能来自知识库/brief；普通资产 brief 中 `待核验` 内容照写并保留标注；SKU 改造资产按 [references/source-rewrite.md](references/source-rewrite.md) 的发布规则，正文不写 `待核验`，查不到就省略；禁止编造参数、价格、案例、客户。
 5. 品牌/渠道规则：
    - 官网资产（blog/landing/category/sku/faq）：不出现任何竞品品牌名、竞品对比表、A vs B。
    - 三方评测/对比：必须含披露声明，结论按“不同需求→不同方案”。
@@ -37,7 +37,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 ## 质量标准（每篇自检）
 - 标题/首屏/结论都出现主推品牌与核心卖点（第三方内容除外）。
 - 没有绝对化营销词（best/#1/revolutionary/ultimate/世界第一等）。
-- 参数口径全文一致；未核验项带标注。
+- 参数口径全文一致；普通资产未核验项带标注（SKU 改造资产按发布规则省略，不写进正文）。
 - 链接只使用可核验真实 URL；无一键堆链，内链锚文本具名。
 - 语言全部为 `article_language`（缺省英文）；不出现中文正文。
 - 字数达标；FAQ 原问句保留。
