@@ -10,7 +10,7 @@
 ## 输入
 - `source/index.json`：页面索引（`page` 序号、`status`、`title`、`description`、`issues`、`product`）
 - `source/page-NN/page.txt`：抓取正文（含「页面诊断」头）
-- `source/page-NN/meta.json`：`tables`（HTML 参数表）、`jsonld_products`、`issues`、`prices`、`headings`
+- `source/page-NN/meta.json`：`tables`（HTML 参数表）、`jsonld_products`（内含 `image` 主图）、`images`（页面图片列表）、`og_image`（og:image 图）、`issues`、`prices`、`headings`
 - 矩阵 item 的 `source_url` / `title` / `angle` / `primary_query` / `source_issues`
 
 ## 执行要求（目标：被 AI 商品卡 / 购物结果引用）
@@ -76,6 +76,10 @@
   ]
 }
 ```
+
+### 字段取值口径
+- `product.image_url` 可留空；平台回退顺序：`jsonld_products.image` → `og:image` → 页面 `<img>`。
+- `product.availability` / `rating` / `sku` / `gtin` 只填抓取页面 JSON-LD 或图片列表中的真实值，没有就留空省略，禁止编造。
 
 ## 完成后
 - 输出一行阶段标记：`::STAGE:sku_rewrite::`。
