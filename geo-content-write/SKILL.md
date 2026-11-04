@@ -39,6 +39,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 - 没有绝对化营销词（best/#1/revolutionary/ultimate/世界第一等）。
 - 参数口径全文一致；普通资产未核验项带标注（SKU 改造资产按发布规则省略，不写进正文）。
 - 链接只使用可核验真实 URL；无一键堆链，内链锚文本具名。
+- 站外链接（CTA 按钮、商品页、政策页、来源）一律写成 `<a href="…" target="_blank" rel="noopener">`，避免成稿在预览 iframe 里被目标站点以 X-Frame-Options 拒绝嵌入；站内内链保持默认 target。
 - 语言全部为 `article_language`（缺省英文）；不出现中文正文。
 - 字数达标；FAQ 原问句保留。
 - HTML 完整闭合，浏览器直接打开即可发布；无外链依赖、无 Markdown 残留（`**`、`| 表格 |` 等）。
