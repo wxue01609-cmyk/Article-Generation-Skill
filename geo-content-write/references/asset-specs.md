@@ -67,4 +67,5 @@
 ## target_url 与内链
 - 官网资产：落地 URL 用 Brief 的 `target_url` 相对路径；`site_inventory` 已有时直接复用，不新增路径。
 - 三方资产：不生成站内 URL；`target_url` 为 `external:TBD` 时不写链接，只给发布平台说明。
+- 用户填写了「待改造商品页 URL」（fields.source_urls）且 Brief 的 `internal_links` 里有该商品页完整 URL 时：若本资产内容与该商品相关，把链接**自然写进正文**（产品介绍或购买建议段落的锚文本），不要做成文末孤立的“参考资源”列表；社区问答（community）保持 0 链接。
 - 所有链接只使用可核验真实来源；无法核验一律不插链接。
