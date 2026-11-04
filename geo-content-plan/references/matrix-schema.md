@@ -9,7 +9,8 @@
     "mapped": 10,
     "gaps": 2,
     "by_intent": {"informational": 4, "commercial": 3, "transactional": 2, "support": 1},
-    "by_asset_type": {"blog": 4, "sku": 2, "landing": 1, "faq": 1, "thirdparty_review": 2}
+    "by_asset_type": {"blog": 4, "sku": 2, "landing": 1, "faq": 1, "thirdparty_review": 2},
+    "by_stage": {"ai_exposure": 6, "pdp": 4, "conversion": 2}
   },
   "items": [
     {
@@ -23,6 +24,8 @@
       "intent_signals": ["starts with 'how to'", "no purchase modifier"],
       "needs_review": false,
       "cluster": "outdoor-led-selection",
+      "stage": "ai_exposure",
+      "secondary_stage": "pdp",
       "funnel": "TOFU",
       "priority": "P1",
       "channel": "官网博客",
@@ -59,6 +62,7 @@
 
 ## 字段约束
 - `intent` 只能取：informational / commercial / transactional / navigational / support / community / news / local
+- `stage` 只能取：ai_exposure / pdp / conversion（转化路径三层：AI曝光 / 商品详情页 / 购买转化）；`secondary_stage` 同三值之一或省略（null 时省略），不得等于 `stage`
 - `funnel` 只能取：TOFU / MOFU / BOFU / Retention
 - `priority` 只能取：P0 / P1 / P2
 - `asset_type` 只能取启用的类型：blog / landing / sku / category / thirdparty_pr / thirdparty_review / qna / social / ecommerce / faq
@@ -67,6 +71,13 @@
 - `word_count`：blog 700-1500；landing 300-700；sku 150-400；category 600-1000；faq 300-600；qna 150-350；pr 400-700；social ≤150；ecommerce 200-500
 - `confidence` 0-1；`<0.70` 时 `needs_review` 必须为 true
 - `summary` 必须与 items/gaps 实际统计一致
+- `summary.by_stage` 必须与 items 的 `stage` 统计一致；`secondary_stage` 不进 by_stage
+
+## stage 与资产类型的对应（软约束，供渠道落位参考）
+- `ai_exposure`：blog / thirdparty_review / thirdparty_pr / qna / social
+- `pdp`：sku（改/新建）/ landing / category
+- `conversion`：faq / sku（政策与信赖模块）/ ecommerce / landing
+- 允许跨层落位（如 `ai_exposure` 的 `how to choose` 也可以落 FAQ），但 `stage` 仍是"主发力层"，不随渠道改
 
 ## 待改造页面字段（可选，仅 sku）
 - `source_page`：整数，对应 `source/index.json` 的 `page`；只能取 `status` 为 `ok` / `manual` 的页面，抓取失败的页面禁止分配

@@ -10,13 +10,15 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 
 ## 输入
 - `plan/content_matrix.json`：资产 Brief（title/angle/outline/key_points/proof_points/cta/internal_links/word_count）
+- 矩阵 item 的 `stage` / `secondary_stage`：决定资产归到哪一层（`ai_exposure` / `pdp` / `conversion`）
+- `selected_stages`（可选）：只跑指定层，缺省三层全跑；用于「改一层只重跑一层」
 - `package.json` 的 `fields`：article_language / target_market / primary_cta / company_name / industry
 - `attachments/ent`、`attachments/prod` 知识库；`fields.ent_kb_text` / `prod_kb_text` 补充文本
 - 若存在 `site_inventory`：已知 URL 只能用于 internal_links，禁止伪造站点结构
 - `source/`：用户提供的待改造页面（`index.json` + `page-NN/page.html` / `page.txt` / `meta.json`），仅带 `source_page` 的 sku 资产使用
 
 ## 执行步骤
-1. 读取矩阵，筛选 `selected_asset_ids`；无该字段时生成全部 item。
+1. 读取矩阵，筛选 `selected_asset_ids`；无该字段时生成全部 item。**再按 `selected_stages` 过滤**：只保留 `stage` 命中的 item（其 `secondary_stage` 不另起资产，只在该资产正文里带一句 + 内链）。
 2. **先分流**：`asset_type=sku` 且 item 带 `source_page`（或 `rewrite_mode=existing_page`）的资产，**不写 HTML**，按 [references/source-rewrite.md](references/source-rewrite.md) 输出结构化改造 JSON；其余资产按下一条走普通成稿。
 3. 每个资产按 [references/asset-specs.md](references/asset-specs.md) 的类型模板成稿，严格遵守 brief：
    - 标题、角度、H 结构、要点顺序、CTA、内链锚文本不得偏离 brief；确需调整时在 `asset_index.json` 的 `checks` 里说明。
@@ -30,9 +32,13 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
    - 每个资产写 `assets/<asset_type>/<asset_id>.html`：完整可发布页面，必须包含 `<!doctype html>`、`<html>`、`<head><meta charset><meta name="viewport"><title><style>…</style></head>`、`<body>`。
    - 样式全部内联在 `<style>` 中，禁止外链 CSS/JS/字体；响应式，移动端可读；正文用语义化 `h1/h2/p/ul/ol/table/blockquote`，CTA 用可见按钮样式。
    - 不要用 ```html 代码块包裹；不要只输出 Markdown。可另写同名 `.md` 作为内部底稿，但不得作为交付物。
-   - `asset_index.json` 的 `file` 字段必须指向 `.html`；全部完成后写 `assets/asset_index.json`：`[{asset_id, asset_type, title, file, word_count, checks: []}]`。
+   - `asset_index.json` 的 `file` 字段必须指向 `.html`；全部完成后写 `assets/asset_index.json`：`[{asset_id, asset_type, stage, title, file, word_count, checks: []}]`。
+   - **合并写，不整份覆盖**：已有 `asset_index.json` 时，同 `asset_id` 覆盖、其它层条目原样保留，写前按 `stage` 排序；这样只重跑一层不会丢其它层。
+   - 另写 `assets/stage_index.json`（每次整份重写，只统计磁盘上真实存在的产物）：`{"ai_exposure": {"count": 3, "assets": ["blog-01", ...]}, "pdp": {...}, "conversion": {...}}`。
+   - 交付包按层分组出清单：`packs/<stage>/manifest.json`（`{stage, assets:[{asset_id, asset_type, file, title}]}`），文件仍留在 `assets/<asset_type>/`，不搬家（平台按 `asset_index.json` 的 `file` 取文件）。规则见 [references/stage-packaging.md](references/stage-packaging.md)。
 7. **SKU 改造资产**：每个写 `plan/sku_changes/<asset_id>.json`（合法 JSON，不要 Markdown 代码块），由平台渲染成四类成品：改后商品页 `assets/sku/<id>.html`、模块片段 `assets/sku/<id>-modules.html`（带 `{{...}}` 数据占位符，可直接粘贴进商品页后台）、整页模板 `assets/sku/<id>-template.html`（站点壳 + 占位符，接商品系统后发布）、改前改后对比页 `assets/sku/<id>-before-after.html`；不要在 `assets/sku/` 下重复写这些 SKU 的 HTML，`asset_index.json` 由平台补录。改后正文必须可直接发布：不得出现「待核验 / pending verification / 来源备注」等审核语，查不到的信息直接省略，核验项只写 `notes` 或 `changes`。
 8. 每个资产独立完整、禁止截断；写完后输出 `::STAGE:polish::` 与一行 `asset_index.json` 路径；有 SKU 改造资产时额外输出 `::STAGE:sku_rewrite::`。
+9. **质检与回流**：内容建设成稿必须走 geo-polish 的「全链路质检」模式（见 `geo-polish`），产出 `polish_report.json`；blocking 项清零后再交 `geo-diagnose` 做回流比对，规则见 [references/reflow.md](references/reflow.md)。
 
 ## 质量标准（每篇自检）
 - 标题/首屏/结论都出现主推品牌与核心卖点（第三方内容除外）。

@@ -2,7 +2,7 @@
 
 用于生成面向海外 AI 平台（ChatGPT/OpenAI、Gemini、Claude、Copilot、Perplexity、Meta AI、Grok、Mistral Le Chat、Poe、You.com、Phind、Brave Leo 等）被检索引用的 GEO（Generative Engine Optimization）英文内容。
 
-## 组成（6 个 skill）
+## 组成（7 个 skill）
 
 ### 海外 GEO 生文（4 个 skill，按顺序接力）
 
@@ -20,7 +20,15 @@
 | geo-content-plan | 策略规划：按搜索意图逐条分类，判断每个关键词发在哪个渠道、生产哪类内容资产（官网博客/落地页/SKU/类目页/三方媒体/社区/FAQ/电商），支持「输入 URL → 改造现有商品页」 | 内容矩阵 JSON + 逐项 Brief |
 | geo-content-write | 成稿：按已确认矩阵生成英文可发布 HTML；带 `source_page` 的 SKU 走「改前/改后」改造流程 | 资产 HTML + 页面改造 JSON |
 
-内容建设的工作流是「先生成方案 → 确认 → 再生成成稿」，AI 生成量可控。输入 `source_urls`（待改造页面 URL）后，被判定发商品详情页的 query 会产出结构化改造方案，最终渲染出改后商品页与改前/改后对比页（以被 AI 商品卡引用为目的）。
+### 转化路径编排（内容建设第零阶段，可选）
+
+| Skill | 阶段 | 输出 |
+| --- | --- | --- |
+| geo-path-plan | 节点编排：把词包按转化路径分成三层（AI 曝光 / 商品详情页 / 购买转化），每条 query 1 主节点 + 1 次节点 | plan/path_plan.json |
+
+`geo-path-plan` 存在时，`geo-content-plan` 直接采用其节点归属；缺失时按内置 stage-map 就地打标。三层并行/增量生产、按 stage 分组成稿包、全链路质检（geo-polish 模式三）与诊断回流（geo-diagnose）的规则分别见 `geo-content-write/references/stage-packaging.md`、`geo-content-write/references/reflow.md`、`geo-polish` 全链路模式。
+
+内容建设的工作流是「转化路径编排 → 先生成方案 → 确认 → 再按层生成成稿」，AI 生成量可控，层与层互不阻塞、可增量重跑。输入 `source_urls`（待改造页面 URL）后，被判定发商品详情页的 query 会产出结构化改造方案，最终渲染出改后商品页与改前/改后对比页（以被 AI 商品卡引用为目的）。
 
 ## 输入变量
 
@@ -39,8 +47,8 @@ keyword_pack（词包）、company_name、industry、company_intro、core_qualif
 ## 安装
 
 ```bash
-# 方式一：本地使用，把 6 个文件夹放入 skills 目录
-cp -r geo-research geo-plan geo-write geo-polish geo-content-plan geo-content-write ~/.codex/skills/
+# 方式一：本地使用，把 7 个文件夹放入 skills 目录
+cp -r geo-research geo-plan geo-write geo-polish geo-content-plan geo-content-write geo-path-plan ~/.codex/skills/
 
 # 方式二：装好后在 Codex 中直接说"海外GEO生文"或"海外内容建设"，对应 skill 会按需接力
 ```

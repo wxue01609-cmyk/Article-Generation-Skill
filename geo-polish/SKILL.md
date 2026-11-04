@@ -1,6 +1,6 @@
 ---
 name: geo-polish
-description: 海外 GEO 生文流水线最后阶段（质检与后处理）。对生成的文章做合并容错、违禁词清洗、链接可用性校验与失效替换、社交帖子形态兜底、机械质检，输出可直接发布的最终文章。当文章已生成、需要清洗/校验链接/质量检查时使用。
+description: 海外 GEO 质检与后处理。三种模式：①批量模式——对生文线文章做合并容错、违禁词清洗、链接校验替换、社交帖子兜底、机械质检；②改动卡模式——对 SKU 改造交付物跑事实/证据/可提取/渠道/分发五关；③全链路模式——对内容建设按 stage 分组的成稿包做五关质检并出 polish_report.json。当文章或内容资产已生成、需要质检时使用。
 ---
 
 # GEO 质检与后处理（geo-polish）
@@ -8,6 +8,8 @@ description: 海外 GEO 生文流水线最后阶段（质检与后处理）。�
 来源：Dify 工作流「海外GEO生文-wx-360gpt-v18-13」最后阶段（articles-merge 合并输出 → N8-pre 文章清洗 → L-extract/L-verify/L-parse/L-replace 链接校验 → S-post 社交帖子兜底 → N8 结果合并）。
 
 ## 执行流程（严格按序）
+
+> 模式选择：批量生成的文章 → 走下方步骤 1-6（批量模式）；SKU 改造交付物 → 走 `geo-polish/SKILL.md`（改动卡模式）；**内容建设成稿包（按 stage 分组）→ 走文末「全链路模式」**。
 
 ### 步骤 1 合并与截断容错
 - 聚合标准版 + 品牌版等全部文章为 all_articles；任一文章 JSON 截断未闭合时，用正则提取 title/content/description 兜底，并在 self_review 标记截断。
@@ -52,3 +54,33 @@ th { background: #f6f8fa; font-weight: 600; }
 
 ### 步骤 6 表格样式校验（追加在机械质检之后）
 - 对每一篇含 <table> 的文章 HTML：<head> 内必须已注入上方表格样式，缺则就地补入，再保存。
+
+## 全链路模式（内容建设成稿包）
+
+适用：`geo-content-write` 产出的 `assets/` + `assets/asset_index.json` + `assets/stage_index.json` + `packs/<stage>/manifest.json`。**按 stage 分单元跑**，每层独立出结论，不因某层不过而卡住其它层。
+
+### 五关（每关都要给 pass / warning / blocking）
+| 关 | 检查什么 | blocking 判定 | 修复动作 |
+| --- | --- | --- | --- |
+| 1 事实 | 正文数字/参数/政策是否能在 brief、知识库或证据账本找到来源 | 出现无来源的具体数字、价格、认证、评分 | 删改无来源内容或降级为定性表述；SKU 改造走 notes |
+| 2 证据 | 每个改后属性是否可追到证据条目（SKU）/ 每条 proof_point 是否有出处（普通资产） | 改后属性无证据条目 | 回退该属性或补证据 |
+| 3 可提取 | answer-first：首段是否给结论、H2 是否可被单独引用、是否有可摘取清单/表格 | 首段无结论且全文无结构化要点 | 补结论段/摘要段 |
+| 4 渠道 | 官网资产无竞品名与对比表；三方评测有披露；社区问答 0 链接 0 促销 | 官网资产出现竞品名 | 改写为类别级判断 |
+| 5 分发 | `asset_index.json` 与磁盘文件一一对应、`stage_index.json` 与 index 一致、字数 ±20%、站外链接 `target="_blank" rel="noopener"` | 索引与文件对不上 / 字数超范围 | 补索引或补内容 |
+
+### 输出 polish_report.json
+```json
+{
+  "version": "1.0",
+  "generated_at": "2026-11-04 20:30:00",
+  "by_stage": {
+    "ai_exposure": {"assets": ["blog-01"], "blocking": [], "warnings": [{"asset_id": "blog-01", "gate": "3", "detail": "首段无结论"}], "pass": false},
+    "pdp": {"assets": ["sku-01"], "blocking": [], "warnings": [], "pass": true},
+    "conversion": {"assets": ["faq-01"], "blocking": [], "warnings": [], "pass": true}
+  },
+  "summary": {"blocking": 0, "warnings": 1, "gate_pass_rate": 0.93}
+}
+```
+- 有 `blocking` 的层不得进入交付；`warning` 记入 `checks` 后放行。
+- 修复后只重跑该层的质检，已 pass 的层不重复跑。
+- 详细检查项与判定话术见 [references/06-content-build-check.md](references/06-content-build-check.md)。
