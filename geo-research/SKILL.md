@@ -43,10 +43,16 @@ description: 海外 GEO 生文流水线第一阶段（调研）。输入词包�
 - 统计 classification_count / brand_count / comparison_count；comparison_count=0 时后续跳过竞品流程。
 - 提示词原文见 [references/01-keyword-classification.md](references/01-keyword-classification.md)。
 
-### 步骤 3 AI 问答结构提取
-- 触发条件：收到 keyword_pack 即执行，无其他前置；词包为空或无有效关键词时，输出空结构方向并注明原因。
-- 用词包关键词（带上行业/地区上下文）构造自然问题，优先直接调用 ChatGPT 对话接口提问并拿回答（技能目录内 scripts/ask_chatgpt.py，配置见 [references/10-chatgpt-api-config.md](references/10-chatgpt-api-config.md)）；接口未配置或调用失败时，退回内置 web_search 联网检索 AI 平台公开回答，并在输出注明；海外市场用英文或当地语言提问。
-- 提取「竞品文章内容结构方向」：AI 回答的开头切入、分节方式、对比维度、清单/FAQ 形式、结尾方式，以及被引用文章的结构方向（标题层级/段落组织/切入点）。
+### 步骤 3 分层采样 + AI 问答结构提取
+- 触发条件：收到 keyword_pack 即执行，无其他前置；词包为空或无有效关键词时，输出空结果并注明原因。
+- **第一步·分层采样**：用 `scripts/sample_by_stage.py` 把词包 query 按转化路径分到三层（`ai_exposure` AI 曝光 / `pdp` 商品详情页 / `conversion` 购买转化），逐条向 ChatGPT 对话接口提问，统计每层的客户品牌提及率、引用域名 Top、竞品提及 Top，输出 `research/sampling.json`（分层的基线数据，供诊断回流使用）。接口未配置或调用失败时，退回内置 web_search 联网检索 AI 平台公开回答并在输出注明。
+  ```bash
+  python3 scripts/sample_by_stage.py --queries-file <词包文件> \
+      --brand <企业名> --model <主力型号> --competitors "<竞品1,竞品2>" \
+      --out research/sampling.json
+  ```
+- **第二步·结构提取**：读取采样回答原文（或 web_search 检索结果），提取「竞品文章内容结构方向」：AI 回答的开头切入、分节方式、对比维度、清单/FAQ 形式、结尾方式，以及被引用文章的结构方向（标题层级/段落组织/切入点）。结构方向仍输出到 `research/ai_answer_structure.json`，供 geo-plan 参考。
+- 分层规则、CLI 参数与输出字段说明见 [references/11-layered-sampling.md](references/11-layered-sampling.md)。
 - 结构方向只作参考，不是固定模板：与原生文规则冲突时以原生文规则为准，并在输出中说明未采纳的点。
 - 规则细节见 [references/09-ai-answer-structure.md](references/09-ai-answer-structure.md)。
 
