@@ -86,12 +86,36 @@ def classify_stage(query, brand='', model=''):
         scores['ai_exposure'] = max(0, scores['ai_exposure'] - 3)
     ranked = sorted(scores.items(), key=lambda kv: (-kv[1], TIE_PRIORITY.index(kv[0])))
     primary = ranked[0][0]
-    secondary = None
-    for stage, score in ranked[1:]:
-        if score >= 2 and stage != primary:
-            secondary = stage
-            break
+    secondary = _secondary_stage(q, brand, model, primary)
+    if secondary is None:
+        # 规则没给出次节点时，退回到分数兜底：另一个层有明显信号（≥2）就做内链位
+        for stage, score in ranked[1:]:
+            if score >= 2 and stage != primary:
+                secondary = stage
+                break
     return {'stage': primary, 'secondary_stage': secondary, 'scores': scores}
+
+
+def _secondary_stage(q, brand, model, primary):
+    """次节点规则（与 geo-path-plan 的 01-stage-map.md 对齐）：
+    一条 query 只认真写一篇（主节点），次节点只做「带一句 + 内链」，可为 None。
+    优先级高于分数兜底，避免「品牌名 + 意图词」时该带的内链位丢失。"""
+    has_brand = bool(brand and brand.lower() in q)
+    has_model = bool(model and model.lower() in q)
+    if primary == 'ai_exposure':
+        if has_brand or has_model:
+            return 'pdp'
+        if re.search(r'\b(buy|price|cost|where to buy|purchase|多少钱|价格)\b', q):
+            return 'conversion'
+    elif primary == 'pdp':
+        if re.search(r'\b(review|best|vs|versus|worth it|评测|对比)\b', q):
+            return 'ai_exposure'
+        if re.search(r'\b(return|refund|warranty|shipping|退货|退款|保修)\b', q):
+            return 'conversion'
+    elif primary == 'conversion':
+        if has_brand or has_model:
+            return 'pdp'
+    return None
 
 
 def build_question(query, brand='', model=''):
