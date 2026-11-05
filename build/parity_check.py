@@ -189,6 +189,9 @@ def main():
     for t in agent.get('tools', []):
         ref = t.get('code_content_ref', '')
         check('tool 文件 %s' % ref, (pkg / ref.lstrip('./')).exists())
+    sr, tr = agent.get('agent', {}).get('skill_refs'), agent.get('agent', {}).get('tool_refs')
+    check('agent.skill_refs 是字符串数组', isinstance(sr, list) and all(isinstance(x, str) for x in sr), repr(sr)[:80])
+    check('agent.tool_refs 是字符串数组', isinstance(tr, list) and all(isinstance(x, str) for x in tr), repr(tr)[:80])
 
     print('== 5. agent.md 覆盖全部技能 ==')
     md = (pkg / 'agent.md').read_text(encoding='utf-8')

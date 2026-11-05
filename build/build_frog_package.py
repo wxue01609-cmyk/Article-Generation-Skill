@@ -176,7 +176,7 @@ def build_agent_json(prompts_meta):
             'skill_prompt_ref': './prompts/%s.md' % skill,
         })
     data['skills'] = skills
-    data['agent']['skill_refs'] = "['%s']" % "', '".join(SKILLS)
+    data['agent']['skill_refs'] = list(SKILLS)  # 必须是字符串数组
     return data
 
 
