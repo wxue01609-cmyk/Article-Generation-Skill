@@ -37,6 +37,7 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
 8. **生成 Brief**：按 [references/asset-specs.md](references/asset-specs.md) 对应类型的骨架，填 `title` / `angle` / `outline` / `key_points` / `proof_points` / `cta` / `internal_links` / `word_count` / `publish_order` / `dependencies`；带 `source_page` 的 sku Brief 以「改造清单」形式写，不写改后正文。每个 item 必须带 `stage` / `secondary_stage`。
 8.5 **引用内容参考**：`research/citations.json`（或 `sampling.json.citations`）存在且有 `status=ok` 条目时，把与 item `stage` **同层**的引用条目写入该 item 的 `reference_citations`（`[{title, url, domain, headings, excerpt 前 200 字}]`），并把「AI 正在引用这类结构」的可借鉴点落进 `key_points`。使用规则严格按 [references/citation-usage.md](references/citation-usage.md)：只借鉴结构与证据点，禁止照抄原文句子；官网资产不因引用内容引入竞品品牌名。
 9. **自检**（必须全部通过）：
+   - 字段名必须与 schema 完全一致：`asset_id`（不是 id）、`primary_query`（不是 query）、`secondary_queries`、`intent`、`stage`、`secondary_stage`、`channel`、`asset_type`；字段名写错会导致平台勾选成稿失败，写完后逐项核对。
    - `summary.total_queries == len(items) + len(gaps)`
    - 每个 `primary_query` 在 items 中唯一
    - `asset_id` 唯一，格式 `<type>-NN`（如 `blog-01`、`sku-03`）

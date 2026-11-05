@@ -48,7 +48,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 - 链接只使用可核验真实 URL；无一键堆链，内链锚文本具名。
 - 站外链接（CTA 按钮、商品页、政策页、来源）一律写成 `<a href="…" target="_blank" rel="noopener">`，避免成稿在预览 iframe 里被目标站点以 X-Frame-Options 拒绝嵌入；站内内链保持默认 target。
 - 语言全部为 `article_language`（缺省英文）；不出现中文正文。
-- 字数达标；FAQ 原问句保留。
+- 字数达标；FAQ 原问句保留。新建 SKU 页（无 `source_page`）：正文（不含导航/页脚/规格表）按 brief 的 `word_count` ±20%，建议 ≤400 词；不要写成 700+ 词的落地页。字数超限视为未达标，写完后回读 brief 核对。
 - HTML 完整闭合，浏览器直接打开即可发布；无外链依赖、无 Markdown 残留（`**`、`| 表格 |` 等）。
 - 改造类 SKU：`changes` ≥6 条，`before` 必须引用抓取原文（缺失写“（页面无此模块）”），`after` 为实际改后文案，`problem` 说明解决的问题；参数表不得出现“待核验”行。
 - 带 `reference_citations` 的资产：正文可借鉴其标题层级组织与证据点类型（让文章更贴近 AI 正在引用的形态），但任何句子、列表、段落不得照搬引用页原文；与知识库冲突时以知识库为准。
