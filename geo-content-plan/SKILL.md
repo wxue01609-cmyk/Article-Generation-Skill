@@ -10,11 +10,12 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
 
 ## 输入
 - `package.json` 的 `fields`：`topics` / `keyword_pack` / `company_name` / `industry` / `article_language` / `target_market` / `asset_types` / `asset_budget` / `article_count` / `content_goal` / `site_inventory` / `primary_cta` / `known_competitors`
-- `plan/path_plan.json`（geo-path-plan 的转化路径编排，存在时直接采用；缺失时按 [references/stage-map.md](references/stage-map.md) 就地打标）
+- `plan/path_plan.json`（geo-path-plan 的转化路径编排，存在时直接采用；缺失且无采样时按 [references/stage-map.md](references/stage-map.md) 就地打标）
 - `fields.source_urls`：用户提供的待改造页面 URL（换行或逗号分隔，最多 5 个）；`fields.source_text`：抓取失败时手动粘贴的页面正文
 - `source/index.json`：抓取页面索引（`page` 序号、`status`、`final_url`、`title`、`issues`、`product`）；每个页面目录含 `page.txt`（可读正文 + 诊断）与 `meta.json`（参数表 / JSON-LD / 问题清单）
 - `attachments/ent/` 企业知识库、`attachments/prod/` 产品知识库；`fields.ent_kb_text` / `prod_kb_text` 为补充文本
 - `research/sampling.json` + `research/citations.json`：分层采样基线（平台已跑）与「AI 实际引用的第三方页面摘要」（标题层级 + 正文节选；可为空）
+   - 运行环境若提供 `geo_sample` 工具（青蛙平台通道），可直接调用它拿 `query_stage`；本地通道由平台预先生成 `research/sampling.json`，直接读取，不要自行发起采样请求
 
 ## 输出（唯一交付物）
 `plan/content_matrix.json`，严格遵循 [references/matrix-schema.md](references/matrix-schema.md)。
