@@ -195,6 +195,26 @@ def main():
     missing = [s for s in SKILLS if s not in md]
     check('agent.md 覆盖 13 技能', not missing, '缺失: %s' % missing if missing else '')
 
+    print('== 6. 本地平台编排锚点（与青蛙 agent.md 同构） ==')
+    local_platform = Path(os.environ.get('GEO_PLATFORM_DIR') or '/Users/wangxue10/生文工具2')
+    if local_platform.exists() and (local_platform / 'plan_builder.py').exists():
+        pb = (local_platform / 'plan_builder.py').read_text(encoding='utf-8')
+        plan_anchors = ['geo-layered-sampling', 'geo-path-plan', 'plan/path_plan.json',
+                        'asset_id', 'primary_query', 'article_count', 'source_page']
+        asset_anchors = ['geo-evidence', 'geo-polish', 'geo-translate', 'geo-sku-rewrite',
+                         'geo-pdp', 'polish_report.json', 'stage_index.json']
+        for label, anchors, text in (
+                ('方案提示词', plan_anchors, pb),
+                ('成稿提示词', asset_anchors, pb)):
+            missing_a = [a for a in anchors if a not in text]
+            check('本地 %s 锚点齐全' % label, not missing_a,
+                  ('缺失: %s' % ', '.join(missing_a)) if missing_a else '')
+        server = (local_platform / 'server.py').read_text(encoding='utf-8')
+        missing_s = [a for a in ('selected_stages', 'monitoring_json', 'frog_content_agent_params') if a not in server]
+        check('server.py 透传字段', not missing_s, '缺失: %s' % missing_s if missing_s else '')
+    else:
+        print('  [SKIP] 未找到本地平台目录，跳过（可用 GEO_PLATFORM_DIR 指定）')
+
     print()
     if failures:
         print('校验结果：FAIL（%d 项）' % len(failures))
