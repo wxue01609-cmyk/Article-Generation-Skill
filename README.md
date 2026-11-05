@@ -1,34 +1,62 @@
-# Article-Generation-Skill（海外 GEO 生文）
+# Article-Generation-Skill（海外 GEO 生文 / 内容建设）
 
-用于生成面向海外 AI 平台（ChatGPT/OpenAI、Gemini、Claude、Copilot、Perplexity、Meta AI、Grok、Mistral Le Chat、Poe、You.com、Phind、Brave Leo 等）被检索引用的 GEO（Generative Engine Optimization）英文内容。
+用于生成面向海外 AI 平台（ChatGPT/OpenAI、Gemini、Perplexity 等）被检索引用的 GEO 英文内容。
+本仓库是**唯一规则源**：本地平台与青蛙平台都从这里同步，不允许任何一端手写副本。
 
-## 组成（7 个 skill）
+## 三端同源机制（重要）
 
-### 海外 GEO 生文（4 个 skill，按顺序接力）
-
-| Skill | 阶段 | 输出 |
+| 端 | 规则来源 | 说明 |
 | --- | --- | --- |
-| geo-research | 调研：预处理、知识库合并、关键词分类、分层采样（AI 曝光 / 商品详情页 / 购买转化）、AI 问答结构提取、GEO 画像（8 步）、竞品研究 | 画像 + 竞品清单 + 分层采样基线（research/sampling.json）+ AI 问答结构方向 + 知识库摘要 |
-| geo-plan | 规划：文章计划（结构 DNA/标题候选）、合规分流、5×5 维度、逐篇大纲 | 计划 + 大纲 JSON |
-| geo-write | 写作：标准版 / 无营销知识库版 / 品牌版，分渠道规则 | 文章 JSON（英文 HTML） |
-| geo-polish | 质检：合并容错、违禁词清洗、链接校验替换、帖子兜底、机械质检 | 最终可发布文章 |
+| GitHub（本仓库） | 唯一源 | 所有 `geo-*/SKILL.md` + `references/` 改这里 |
+| 本地 `~/.codex/skills` | 本仓库同步副本 | 本地平台直接读取，必须与仓库逐字节一致 |
+| 青蛙上传包 | **自动构建产物** | `python3 build/build_frog_package.py` 从本仓库生成，提示词内联全部规则全文 |
 
-### 内容建设（2 个 skill，方案确认后接力）
+工作流（改规则只走这一条）：
 
-| Skill | 阶段 | 输出 |
-| --- | --- | --- |
-| geo-content-plan | 策略规划：按搜索意图逐条分类，判断每个关键词发在哪个渠道、生产哪类内容资产（官网博客/落地页/SKU/类目页/三方媒体/社区/FAQ/电商），支持「输入 URL → 改造现有商品页」 | 内容矩阵 JSON + 逐项 Brief |
-| geo-content-write | 成稿：按已确认矩阵生成英文可发布 HTML；带 `source_page` 的 SKU 走「改前/改后」改造流程 | 资产 HTML + 页面改造 JSON |
+```bash
+# 1. 改本仓库的 SKILL.md / references
+# 2. 同步到本地平台
+cp -R geo-* ~/.codex/skills/
+# 3. 重新生成青蛙包（自动内联规则，禁止手改包内文件）
+python3 build/build_frog_package.py
+# 4. 发布前必须校验三端一致（不一致直接 FAIL）
+python3 build/parity_check.py
+```
 
-### 转化路径编排（内容建设第零阶段，可选）
+`parity_check.py` 会校验：仓库与本地逐字节一致、青蛙提示词逐字包含每个规则文件、
+分层分类器（本地 `sample_by_stage.py` vs 青蛙 `geo-sample.py`）在固定词包上输出完全一致、
+agent.json 注册 13 技能且引用齐全。
 
-| Skill | 阶段 | 输出 |
-| --- | --- | --- |
-| geo-path-plan | 节点编排：把词包按转化路径分成三层（AI 曝光 / 商品详情页 / 购买转化），每条 query 1 主节点 + 1 次节点 | plan/path_plan.json |
+## 组成
 
-`geo-path-plan` 存在时，`geo-content-plan` 直接采用其节点归属；缺失时按内置 stage-map 就地打标。三层并行/增量生产、按 stage 分组成稿包、全链路质检（geo-polish 模式三）与诊断回流（geo-diagnose）的规则分别见 `geo-content-write/references/stage-packaging.md`、`geo-content-write/references/reflow.md`、`geo-polish` 全链路模式。
+### 内容建设链路（13 个 skill，按执行顺序）
 
-内容建设的工作流是「转化路径编排 → 先生成方案 → 确认 → 再按层生成成稿」，AI 生成量可控，层与层互不阻塞、可增量重跑。输入 `source_urls`（待改造页面 URL）后，被判定发商品详情页的 query 会产出结构化改造方案，最终渲染出改后商品页与改前/改后对比页（以被 AI 商品卡引用为目的）。
+| # | Skill | 阶段 | 核心作用 |
+| --- | --- | --- | --- |
+| 0 | geo-doc-parse | 运行前 | 解析上传文档，回填词包/企业/产品资料，不改写事实 |
+| 1 | geo-layered-sampling | 分层基线 | 按转化路径分层采样，产出 query→stage 与平台×层基线 |
+| 2 | geo-path-plan | 转化路径编排 | 每条 query 1 主节点 + 1 次节点，行业只作素材 |
+| 3 | geo-content-plan | 方案 | 意图分类、渠道落位、资产矩阵与逐项 Brief（只做方案） |
+| 4 | geo-evidence | 证据账本 | 逐条摘录建立 claim 账本，证据不足的改动阻断 |
+| 5 | geo-source-fetch | 页面抓取 | 商品页结构化快照（JSON-LD/参数表/价格/图片） |
+| 6 | geo-content-write | 成稿 | 按 Brief 写完整可发布 HTML；SKU 走改造 JSON |
+| 7 | geo-sku-rewrite | SKU 改造 | 1:1 复刻原页面只改文字，输出改造 JSON |
+| 8 | geo-pdp | 商品数据交付 | PDP + OpenAI/Google feed + Product JSON-LD 一致性 |
+| 9 | geo-asset-render | 渲染 | 整页 / 模块片段 / 改前改后对比页，全内联样式 |
+| 10 | geo-translate | 中英对照 | 保留结构翻译，供内部审阅 |
+| 11 | geo-polish | 全链路质检 | 按 stage 跑事实/证据/可提取/渠道/分发五关 |
+| 12 | geo-diagnose | 诊断回流 | 按问题族统计提及/排位/份额/商品卡，判定失败层 |
+
+### 单篇生文链路（4 个 skill，旧线保留）
+
+| Skill | 阶段 |
+| --- | --- |
+| geo-research | 调研 + 分层采样 |
+| geo-plan | 文章计划与大纲 |
+| geo-write | 按大纲写作 |
+| geo-polish（批量模式） | 清洗、链接校验、机械质检 |
+
+任务类型是「单篇生文」时走这 4 个；是「内容建设方案」时走上面 13 个。两条线互不影响。
 
 ## 输入变量
 
@@ -47,8 +75,8 @@ keyword_pack（词包）、company_name、industry、company_intro、core_qualif
 ## 安装
 
 ```bash
-# 方式一：本地使用，把 7 个文件夹放入 skills 目录
-cp -r geo-research geo-plan geo-write geo-polish geo-content-plan geo-content-write geo-path-plan ~/.codex/skills/
+# 方式一：本地使用，把全部 skill 文件夹放入 skills 目录
+cp -R geo-* ~/.codex/skills/
 
 # 方式二：装好后在 Codex 中直接说"海外GEO生文"或"海外内容建设"，对应 skill 会按需接力
 ```
@@ -59,4 +87,4 @@ cp -r geo-research geo-plan geo-write geo-polish geo-content-plan geo-content-wr
 
 ## 说明
 
-每个 skill 的 `SKILL.md` 是入口（何时使用、流程、交接格式），`references/` 里是各节点的完整提示词原文或规则摘要。受提示词篇幅影响，代码节点的确定性逻辑以规则摘要形式保留，未原样移植全部 Python。
+每个 skill 的 `SKILL.md` 是入口（何时使用、流程、交接格式），`references/` 是完整规则。青蛙包由 `build/build_frog_package.py` 自动把 `SKILL.md` 与 `references/` 全文内联成 `prompts/*.md`，因此三端规则一致；`build/parity_check.py` 是发布前的硬性校验。

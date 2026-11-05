@@ -1,0 +1,518 @@
+{
+  "project_id": 7,
+  "agent": {
+    "agent_key": "geo_content_agent_v1",
+    "agent_name": "GEO 海外内容建设（内容建设方案）",
+    "visibility": 0,
+    "agent_type": 0,
+    "agent_type_label": "内容建设",
+    "model_key": null,
+    "system_prompt_ref": "./agent.md",
+    "input_schema": [
+      {
+        "name": "topics",
+        "type": "string",
+        "required": true,
+        "description": "词包 JSON 字符串：[{\"name\":\"主题名\",\"queries\":[\"关键词1\"]}]"
+      },
+      {
+        "name": "content_mode",
+        "type": "string",
+        "required": true,
+        "description": "固定为：内容建设方案"
+      },
+      {
+        "name": "company_name",
+        "type": "string",
+        "required": true,
+        "description": "企业名称"
+      },
+      {
+        "name": "industry",
+        "type": "string",
+        "required": true,
+        "description": "行业"
+      },
+      {
+        "name": "task_name",
+        "type": "string",
+        "required": false,
+        "description": "任务名"
+      },
+      {
+        "name": "known_competitors",
+        "type": "string",
+        "required": false,
+        "description": "已知竞品，换行分隔"
+      },
+      {
+        "name": "target_market",
+        "type": "string",
+        "required": false,
+        "description": "目标市场，如 美国"
+      },
+      {
+        "name": "asset_types",
+        "type": "string",
+        "required": false,
+        "description": "可用资产类型，顿号分隔，如 官网博客、落地页、SKU 商品页、三方评测、社区问答"
+      },
+      {
+        "name": "asset_budget",
+        "type": "number",
+        "required": false,
+        "description": "资产总数上限，默认 10"
+      },
+      {
+        "name": "article_count",
+        "type": "number",
+        "required": false,
+        "description": "用户要求的可发布文章数量（下限），如 3；SKU 改造等非文章资产不计入。未提供或不填时按 asset_budget 规划。"
+      },
+      {
+        "name": "content_goal",
+        "type": "string",
+        "required": false,
+        "description": "内容目标，顿号分隔，如 被 AI 引用、获客转化"
+      },
+      {
+        "name": "publish_media",
+        "type": "string",
+        "required": false,
+        "description": "发布媒体/渠道，如 官网 Blog、Reddit、Medium"
+      },
+      {
+        "name": "site_inventory",
+        "type": "string",
+        "required": false,
+        "description": "现有页面 URL，换行分隔"
+      },
+      {
+        "name": "primary_cta",
+        "type": "string",
+        "required": false,
+        "description": "主转化动作，如 Buy now"
+      },
+      {
+        "name": "source_urls",
+        "type": "string",
+        "required": false,
+        "description": "待改造商品页 URL，换行分隔，最多 5 个"
+      },
+      {
+        "name": "source_text",
+        "type": "string",
+        "required": false,
+        "description": "商品页正文兜底（抓不到页面时用）"
+      },
+      {
+        "name": "article_language",
+        "type": "string",
+        "required": false,
+        "description": "内容语言，默认 英文"
+      },
+      {
+        "name": "article_length",
+        "type": "string",
+        "required": false,
+        "description": "篇幅档位，默认 标准"
+      },
+      {
+        "name": "engines",
+        "type": "string",
+        "required": false,
+        "description": "目标 AI 平台，分号分隔，如 ChatGPT;Google Gemini;Perplexity"
+      },
+      {
+        "name": "ent_kb_text",
+        "type": "string",
+        "required": false,
+        "description": "企业知识库文本"
+      },
+      {
+        "name": "prod_kb_text",
+        "type": "string",
+        "required": false,
+        "description": "产品知识库文本"
+      },
+      {
+        "name": "samples_json",
+        "type": "string",
+        "required": false,
+        "description": "可选：平台已算好的分层采样结果 JSON（含 stages/items）。传入后 geo_sample 直接解析，不再重复采样；为空则工具自行离线分层。"
+      },
+      {
+        "name": "citations_json",
+        "type": "string",
+        "required": false,
+        "description": "可选：平台抓取的「AI 实际引用的第三方页面」摘要 JSON 数组（含 title/url/domain/stage/headings/excerpt）。用于方案阶段做结构与证据参考，禁止照抄原文。"
+      },
+      {
+        "name": "selected_asset_ids",
+        "type": "string",
+        "required": false,
+        "description": "成稿阶段指定资产 id，逗号分隔，如 blog-01,sku-02；为空则执行方案阶段"
+      },
+      {
+        "name": "selected_stages",
+        "type": "string",
+        "required": false,
+        "description": "成稿只生成指定层（ai_exposure/pdp/conversion，逗号分隔），用于改一层只重跑一层；缺省三层全跑"
+      },
+      {
+        "name": "monitoring_json",
+        "type": "string",
+        "required": false,
+        "description": "监测平台导出的 AI 答案数据（JSON 字符串）；带它且未勾选资产时进入诊断阶段"
+      }
+    ],
+    "output_schema": [
+      {
+        "name": "stage",
+        "type": "string",
+        "required": true,
+        "description": "plan=方案 / write=成稿"
+      },
+      {
+        "name": "summary",
+        "type": "object",
+        "required": false,
+        "description": "汇总：total 总数 / by_channel 按渠道 / by_asset_type 按资产类型"
+      },
+      {
+        "name": "matrix",
+        "type": "array",
+        "required": false,
+        "description": "方案阶段的内容矩阵（资产 Brief 列表）"
+      },
+      {
+        "name": "assets",
+        "type": "array",
+        "required": false,
+        "description": "成稿阶段的可发布资产（id/asset_type/channel/title/html/word_count）"
+      },
+      {
+        "name": "sku_changes",
+        "type": "array",
+        "required": false,
+        "description": "SKU 改造明细（asset_id/source_page/target_url/product/changes 改前改后）"
+      },
+      {
+        "name": "notes",
+        "type": "array",
+        "required": false,
+        "description": "注意事项/待核验项"
+      },
+      {
+        "name": "stage_index",
+        "type": "object",
+        "required": false,
+        "description": "成稿阶段按 stage 的产出索引（ai_exposure/pdp/conversion → assets 列表）"
+      },
+      {
+        "name": "polish_report",
+        "type": "object",
+        "required": false,
+        "description": "geo-polish 全链路质检结果（by_stage / summary）"
+      },
+      {
+        "name": "diagnosis",
+        "type": "object",
+        "required": false,
+        "description": "诊断阶段（diagnose）输出：by_stage 指标、竞品、回流建议"
+      }
+    ],
+    "temperature": 0.4,
+    "max_retries": 3,
+    "timeout_seconds": 600,
+    "skill_refs": [
+      "geo-content-plan",
+      "geo-layered-sampling",
+      "geo-content-write",
+      "geo-sku-rewrite",
+      "geo-source-fetch",
+      "geo-doc-parse",
+      "geo-asset-render",
+      "geo-translate",
+      "geo-path-plan",
+      "geo-evidence",
+      "geo-polish",
+      "geo-diagnose",
+      "geo-pdp"
+    ],
+    "tool_refs": [
+      "geo_fetch_page",
+      "geo_parse_doc",
+      "geo_render_html",
+      "geo_sample"
+    ]
+  },
+  "skills": [
+    {
+      "skill_name": "海外内容建设规划",
+      "skill_name_en": "geo-content-plan",
+      "description": "海外内容建设第一阶段（策略规划）。读取 query 词包与知识库，按搜索意图逐条分类，判断每个关键词应发布在哪个渠道、生产哪类内容资产（官网博客/落地页/SKU/类目页/三方媒体/社区/FAQ/电商），输出可确认的内容矩阵 JSON 与逐项 Brief。当需要回答“这个关键词该发在哪、写什么内容”时使用。",
+      "skill_prompt_ref": "./prompts/geo-content-plan.md"
+    },
+    {
+      "skill_name": "分层采样基线",
+      "skill_name_en": "geo-layered-sampling",
+      "description": "按转化路径把词包 query 分成 AI 曝光 / 商品详情页 / 购买转化三层，调用 geo_sample 取平台×层基线（样本数、品牌提及率、来源引用率、商品卡率），并给每条 query 标注 stage 供内容矩阵使用。",
+      "skill_prompt_ref": "./prompts/geo-layered-sampling.md"
+    },
+    {
+      "skill_name": "海外内容建设成稿",
+      "skill_name_en": "geo-content-write",
+      "description": "海外内容建设第二阶段（成稿）。读取 plan/content_matrix.json 的资产 Brief，按资产类型（官网博客/落地页/SKU/类目页/三方PR/三方评测/社区问答/社交/电商Listing/帮助中心FAQ）生成英文成稿：普通资产输出完整可发布 HTML（assets/<type>/<id>.html），SKU 改造资产输出改造 JSON，由平台渲染成品页、模块片段、整页模板与改前改后对比页。当需要把已确认的内容矩阵写成可发布内容资产时使用。",
+      "skill_prompt_ref": "./prompts/geo-content-write.md"
+    },
+    {
+      "skill_name": "SKU 商品页改造",
+      "skill_name_en": "geo-sku-rewrite",
+      "description": "把已有商品页改造成 AI 可引用、可直接发布的商品详情页：输出改造 JSON（改前改后差异、商品卡字段、可发布正文），保证被 AI 商品卡引用。",
+      "skill_prompt_ref": "./prompts/geo-sku-rewrite.md"
+    },
+    {
+      "skill_name": "商品页抓取解析",
+      "skill_name_en": "geo-source-fetch",
+      "description": "抓取商品页 URL，提取正文、标题、参数表、JSON-LD（价格/评分/库存/SKU/GTIN/主图）、图片列表与页面诊断，供 SKU 改造使用；抓不到留空，禁止编造。",
+      "skill_prompt_ref": "./prompts/geo-source-fetch.md"
+    },
+    {
+      "skill_name": "文档解析回填",
+      "skill_name_en": "geo-doc-parse",
+      "description": "解析 Excel / Word / PDF / TXT / CSV 文档，提取文本并按模板字段自动匹配回填（词包、企业名称、行业、竞品等），不改写原文事实。",
+      "skill_prompt_ref": "./prompts/geo-doc-parse.md"
+    },
+    {
+      "skill_name": "资产 HTML 渲染",
+      "skill_name_en": "geo-asset-render",
+      "description": "把 Markdown 内容渲染成完整可发布 HTML（内联样式、响应式、语义标签），支持模块片段、整页模板与改前改后对比页骨架。",
+      "skill_prompt_ref": "./prompts/geo-asset-render.md"
+    },
+    {
+      "skill_name": "中英对照翻译",
+      "skill_name_en": "geo-translate",
+      "description": "把英文成稿翻译成中文对照版，保持标题层级、列表与表格结构，术语与品牌名保持统一。",
+      "skill_prompt_ref": "./prompts/geo-translate.md"
+    },
+    {
+      "skill_name": "转化路径编排",
+      "skill_name_en": "geo-path-plan",
+      "description": "把词包按 AI 曝光 / 商品详情页 / 购买转化三层编排：每条 query 1 主节点 + 1 次节点，输出 plan/path_plan.json 供方案落位；行业只作素材不决定调度。",
+      "skill_prompt_ref": "./prompts/geo-path-plan.md"
+    },
+    {
+      "skill_name": "事实证据账本",
+      "skill_name_en": "geo-evidence",
+      "description": "成稿/改造前核验事实来源：逐条摘录建立 evidence/ledger.json，只有 verified 且 approved_for_publication 的 claim 才能写进正文；阻断证据不足的改动并输出客户待确认清单。",
+      "skill_prompt_ref": "./prompts/geo-evidence.md"
+    },
+    {
+      "skill_name": "全链路质检",
+      "skill_name_en": "geo-polish",
+      "description": "对内容建设成稿包按 stage 跑五关质检（事实/证据/可提取/渠道/分发），输出 polish_report.json；有 blocking 的层不得交付，修复后只重跑该层。",
+      "skill_prompt_ref": "./prompts/geo-polish.md"
+    },
+    {
+      "skill_name": "答案与来源诊断",
+      "skill_name_en": "geo-diagnose",
+      "description": "读取监测平台导出的 AI 答案（monitoring_json 或采样结果），按问题族统计提及/排位/份额/引用来源/商品卡，判定每条 query 的失败层并输出回流建议。",
+      "skill_prompt_ref": "./prompts/geo-diagnose.md"
+    },
+    {
+      "skill_name": "商品数据交付",
+      "skill_name_en": "geo-pdp",
+      "description": "独立站电商 SKU 完整交付：PDP 改造 + OpenAI/Google 商品 feed + Product JSON-LD，三处价格/库存/GTIN/标题一致，只使用证据账本可发布事实。",
+      "skill_prompt_ref": "./prompts/geo-pdp.md"
+    }
+  ],
+  "tools": [
+    {
+      "tool_name": "网页抓取解析",
+      "tool_name_en": "geo_fetch_page",
+      "description": "抓取商品页 URL，提取标题/描述/正文/标题层级/参数表/JSON-LD 商品（价格、评分、库存、SKU、GTIN、主图）/图片/价格；抓不到的字段留空，不编造。",
+      "tool_type": 0,
+      "code_content_ref": "./tools/geo-fetch-page.py",
+      "input_params": [
+        {
+          "field": "url",
+          "type": "string",
+          "description": "要抓取的页面 URL",
+          "required": true
+        },
+        {
+          "field": "page",
+          "type": "number",
+          "description": "页面序号，从 1 开始（用于 source_page）",
+          "required": false
+        },
+        {
+          "field": "timeout",
+          "type": "number",
+          "description": "超时秒数，默认 20",
+          "required": false
+        }
+      ]
+    },
+    {
+      "tool_name": "文档解析",
+      "tool_name_en": "geo_parse_doc",
+      "description": "解析 xlsx/docx/pdf/txt/csv/md 文档，提取纯文本并按模板字段给出回填建议（词包/企业名称/行业/竞品等），不改写原文事实。",
+      "tool_type": 0,
+      "code_content_ref": "./tools/geo-parse-doc.py",
+      "input_params": [
+        {
+          "field": "filename",
+          "type": "string",
+          "description": "文件名（含扩展名，用于判断类型）",
+          "required": true
+        },
+        {
+          "field": "content_base64",
+          "type": "string",
+          "description": "文件内容的 base64 编码",
+          "required": false
+        },
+        {
+          "field": "file_path",
+          "type": "string",
+          "description": "平台文件路径（与 content_base64 二选一）",
+          "required": false
+        },
+        {
+          "field": "text",
+          "type": "string",
+          "description": "已提取好的文本（无文件时直接传）",
+          "required": false
+        }
+      ]
+    },
+    {
+      "tool_name": "HTML 渲染",
+      "tool_name_en": "geo_render_html",
+      "description": "把正文文本或 SKU 改造 JSON 渲染成可发布 HTML：asset=整页、modules=商品页模块片段、compare=改前改后对比页。样式全内联、响应式、无外链。",
+      "tool_type": 0,
+      "code_content_ref": "./tools/geo-render-html.py",
+      "input_params": [
+        {
+          "field": "mode",
+          "type": "string",
+          "description": "asset / modules / compare，默认 asset",
+          "required": true
+        },
+        {
+          "field": "title",
+          "type": "string",
+          "description": "页面标题",
+          "required": false
+        },
+        {
+          "field": "lang",
+          "type": "string",
+          "description": "页面语言，如 en / zh",
+          "required": false
+        },
+        {
+          "field": "body",
+          "type": "string",
+          "description": "markdown 或 html 正文（asset 模式）",
+          "required": false
+        },
+        {
+          "field": "sku",
+          "type": "object",
+          "description": "SKU 改造对象（modules 模式）",
+          "required": false
+        },
+        {
+          "field": "changes",
+          "type": "array",
+          "description": "改前改后差异列表（compare 模式）",
+          "required": false
+        },
+        {
+          "field": "cta",
+          "type": "string",
+          "description": "CTA 按钮文案",
+          "required": false
+        }
+      ]
+    },
+    {
+      "tool_name": "分层采样",
+      "tool_name_en": "geo_sample",
+      "description": "把词包按 AI 曝光 / 商品详情页 / 购买转化三层采样并聚合：支持传入已采集答案（answers_json）或现成结果（samples_json），也可用 api_base/api_key 调用兼容接口问答；都没有时做离线规则分层。返回 query→stage 映射与平台×层基线表。",
+      "tool_type": 0,
+      "code_content_ref": "./tools/geo-sample.py",
+      "input_params": [
+        {
+          "field": "topics",
+          "type": "string",
+          "description": "词包 JSON 字符串：[{\"name\":\"主题名\",\"queries\":[\"关键词1\"]}]",
+          "required": true
+        },
+        {
+          "field": "brand",
+          "type": "string",
+          "description": "企业/品牌名，用于统计提及与被引",
+          "required": false
+        },
+        {
+          "field": "model",
+          "type": "string",
+          "description": "主力型号（可选），用于识别型号相关 query",
+          "required": false
+        },
+        {
+          "field": "competitors",
+          "type": "string",
+          "description": "已知竞品，逗号或换行分隔",
+          "required": false
+        },
+        {
+          "field": "client_domains",
+          "type": "string",
+          "description": "客户官网域名，逗号分隔，如 botslab.com",
+          "required": false
+        },
+        {
+          "field": "answers_json",
+          "type": "string",
+          "description": "已采集的真实平台答案数组（query/platform/answer/cited_sources/product_cards），传入则直接聚合",
+          "required": false
+        },
+        {
+          "field": "samples_json",
+          "type": "string",
+          "description": "现成采样结果 JSON（含 stages/items），传入则直接解析，不再采样",
+          "required": false
+        },
+        {
+          "field": "api_base",
+          "type": "string",
+          "description": "可选：OpenAI 兼容接口地址，如 https://api.openai.com/v1",
+          "required": false
+        },
+        {
+          "field": "api_key",
+          "type": "string",
+          "description": "可选：接口密钥（与 api_base 同时提供才启用问答采样）",
+          "required": false
+        },
+        {
+          "field": "api_model",
+          "type": "string",
+          "description": "可选：问答采样模型，默认 gpt-4o-mini",
+          "required": false
+        },
+        {
+          "field": "max_queries",
+          "type": "number",
+          "description": "最多采样多少条 query，默认 20",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

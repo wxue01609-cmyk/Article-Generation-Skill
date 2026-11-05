@@ -6,3 +6,6 @@
 # Python 运行缓存
 __pycache__/
 *.pyc
+
+# 构建产物（每次由脚本重新生成）
+build/dist/
