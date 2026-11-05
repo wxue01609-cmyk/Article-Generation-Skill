@@ -45,6 +45,9 @@
       "proof_points": ["IP65 rating from product KB", "待核验：亮度实测数据"],
       "cta": "Download the specification checklist",
       "internal_links": [{"anchor": "outdoor LED series", "target": "/products/outdoor"}],
+      "reference_citations": [
+        {"title": "Best outdoor LED displays 2026 (review roundup)", "url": "https://example.com/reviews/led", "domain": "example.com", "headings": ["h2 brightness", "h2 pixel pitch"], "excerpt": "…"}
+      ],
       "word_count": 1100,
       "publish_order": 1,
       "dependencies": [],
@@ -72,6 +75,7 @@
 - `confidence` 0-1；`<0.70` 时 `needs_review` 必须为 true
 - `summary` 必须与 items/gaps 实际统计一致
 - `summary.by_stage` 必须与 items 的 `stage` 统计一致；`secondary_stage` 不进 by_stage
+- `reference_citations`：可选数组，只在 `research/citations.json` 有同层 `status=ok` 条目时写入；每项含 `title`/`url`/`domain`/`headings`/`excerpt`（≤200 字）；只作结构与证据参考，正文禁止照抄
 
 ## stage 与资产类型的对应（软约束，供渠道落位参考）
 - `ai_exposure`：blog / thirdparty_review / thirdparty_pr / qna / social

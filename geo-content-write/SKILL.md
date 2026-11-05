@@ -16,6 +16,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 - `attachments/ent`、`attachments/prod` 知识库；`fields.ent_kb_text` / `prod_kb_text` 补充文本
 - 若存在 `site_inventory`：已知 URL 只能用于 internal_links，禁止伪造站点结构
 - `source/`：用户提供的待改造页面（`index.json` + `page-NN/page.html` / `page.txt` / `meta.json`），仅带 `source_page` 的 sku 资产使用
+- 矩阵 item 的 `reference_citations`：AI 实际引用的同层页面摘要（结构/证据参考，禁止照抄原文句子；官网资产不由此引入竞品品牌名）
 
 ## 执行步骤
 1. 读取矩阵，筛选 `selected_asset_ids`；无该字段时生成全部 item。**再按 `selected_stages` 过滤**：只保留 `stage` 命中的 item（其 `secondary_stage` 不另起资产，只在该资产正文里带一句 + 内链）。
@@ -50,6 +51,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 - 字数达标；FAQ 原问句保留。
 - HTML 完整闭合，浏览器直接打开即可发布；无外链依赖、无 Markdown 残留（`**`、`| 表格 |` 等）。
 - 改造类 SKU：`changes` ≥6 条，`before` 必须引用抓取原文（缺失写“（页面无此模块）”），`after` 为实际改后文案，`problem` 说明解决的问题；参数表不得出现“待核验”行。
+- 带 `reference_citations` 的资产：正文可借鉴其标题层级组织与证据点类型（让文章更贴近 AI 正在引用的形态），但任何句子、列表、段落不得照搬引用页原文；与知识库冲突时以知识库为准。
 
 ## 输出控制
 - 内部推理 ≤6000 token，直接写作，不写草稿再改。

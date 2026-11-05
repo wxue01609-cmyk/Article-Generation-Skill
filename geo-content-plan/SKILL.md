@@ -14,6 +14,7 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
 - `fields.source_urls`：用户提供的待改造页面 URL（换行或逗号分隔，最多 5 个）；`fields.source_text`：抓取失败时手动粘贴的页面正文
 - `source/index.json`：抓取页面索引（`page` 序号、`status`、`final_url`、`title`、`issues`、`product`）；每个页面目录含 `page.txt`（可读正文 + 诊断）与 `meta.json`（参数表 / JSON-LD / 问题清单）
 - `attachments/ent/` 企业知识库、`attachments/prod/` 产品知识库；`fields.ent_kb_text` / `prod_kb_text` 为补充文本
+- `research/sampling.json` + `research/citations.json`：分层采样基线（平台已跑）与「AI 实际引用的第三方页面摘要」（标题层级 + 正文节选；可为空）
 
 ## 输出（唯一交付物）
 `plan/content_matrix.json`，严格遵循 [references/matrix-schema.md](references/matrix-schema.md)。
@@ -34,6 +35,7 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
    - 无匹配页面（或未给 URL）时按**新建 SKU 页**规划，禁止虚构 `source_page`。
 7. **优先级**：按购买意图强度、品牌/型号相关度、流量价值给 `P0/P1/P2`（`conversion` 层购买信号强，通常不低于 P1）。
 8. **生成 Brief**：按 [references/asset-specs.md](references/asset-specs.md) 对应类型的骨架，填 `title` / `angle` / `outline` / `key_points` / `proof_points` / `cta` / `internal_links` / `word_count` / `publish_order` / `dependencies`；带 `source_page` 的 sku Brief 以「改造清单」形式写，不写改后正文。每个 item 必须带 `stage` / `secondary_stage`。
+8.5 **引用内容参考**：`research/citations.json`（或 `sampling.json.citations`）存在且有 `status=ok` 条目时，把与 item `stage` **同层**的引用条目写入该 item 的 `reference_citations`（`[{title, url, domain, headings, excerpt 前 200 字}]`），并把「AI 正在引用这类结构」的可借鉴点落进 `key_points`。使用规则严格按 [references/citation-usage.md](references/citation-usage.md)：只借鉴结构与证据点，禁止照抄原文句子；官网资产不因引用内容引入竞品品牌名。
 9. **自检**（必须全部通过）：
    - `summary.total_queries == len(items) + len(gaps)`
    - 每个 `primary_query` 在 items 中唯一

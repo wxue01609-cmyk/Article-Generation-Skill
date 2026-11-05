@@ -84,4 +84,5 @@ python3 scripts/sample_by_stage.py \
 
 - 采样模型默认 `gpt-4o-mini`，只代表「当前采样模型的答案」，不代表真实用户在所有平台看到的结果；需要更接近真实基线时换 `CHATGPT_MODEL` 或用监测平台导出数据。
 - 回答原文只做核验与基线统计，**不直接写入下游文章**；`answer_summary` 用于追溯。
-- 引用链接只记录不抓取正文（本步骤不做内容精读）；需要精读时由后续 skill 对 `cited_urls` 单独抓取。
+- 引用链接默认只记录；平台侧采样可选择抓取被引用页面摘要，落到 `research/citations.json`（`items` 含 `title`/`url`/`domain`/`stage`/`headings`/`excerpt`/`status`），供 `geo-content-plan` 的 `reference_citations` 与 `geo-diagnose` 回流使用；无抓取能力时省略该文件，不阻塞主流程。
+- 引用内容只允许借鉴结构与证据点类型，禁止把原文句子写进下游成稿。
