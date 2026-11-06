@@ -34,6 +34,12 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
    - 把 `meta.json` 的 `issues` 摘要写入 `source_issues`（数组）；
 - 多条 query 可复用同一 `source_page`；有多个商品页时按型号/品类匹配，不得张冠李戴；挂在 `pdp` 层优先；
    - 无匹配页面（或未给 URL）时按**新建 SKU 页**规划，禁止虚构 `source_page`。
+6.9 **目标 URL（必填）**：每个官网类资产（blog / landing / category / faq / sku）都必须给 `target_url`：
+   - sku 有匹配的 `source/index.json` 页面时用该页 `final_url`（完整 https），不得另造；
+   - 其余站内资产写以 `/` 开头的相对路径（全小写、连字符分词，如 `/blog/how-to-choose-dash-cam`、`/faq/return-policy`），同一路径不得挂两个资产；
+   - 任何出现在其他资产 `internal_links` 里的目标，都必须能在本矩阵找到对应的 `target_url`（否则就是死链）；
+   - 三方资产写 `external:TBD`，不编造站内路径。
+
 7. **优先级**：按购买意图强度、品牌/型号相关度、流量价值给 `P0/P1/P2`（`conversion` 层购买信号强，通常不低于 P1）。
 8. **生成 Brief**：按 [references/asset-specs.md](references/asset-specs.md) 对应类型的骨架，填 `title` / `angle` / `outline` / `key_points` / `proof_points` / `cta` / `internal_links` / `word_count` / `publish_order` / `dependencies`；带 `source_page` 的 sku Brief 以「改造清单」形式写，不写改后正文。每个 item 必须带 `stage` / `secondary_stage`。
 8.5 **引用内容参考**：`research/citations.json`（或 `sampling.json.citations`）存在且有 `status=ok` 条目时，把与 item `stage` **同层**的引用条目写入该 item 的 `reference_citations`（`[{title, url, domain, headings, excerpt 前 200 字}]`），并把「AI 正在引用这类结构」的可借鉴点落进 `key_points`。使用规则严格按 [references/citation-usage.md](references/citation-usage.md)：只借鉴结构与证据点，禁止照抄原文句子；官网资产不因引用内容引入竞品品牌名。
