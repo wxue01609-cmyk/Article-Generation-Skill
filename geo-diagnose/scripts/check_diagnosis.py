@@ -31,10 +31,26 @@ def main():
     args = parser.parse_args()
 
     project = args.project
-    contract = load_json(os.path.join(project, "contract.json"))
-    bank = load_json(os.path.join(project, contract["inputs"]["question_bank"]["path"]))
-    metrics = {t["topic_id"]: t for t in load_json(os.path.join(project, "diagnosis", "topic_metrics.json"))["topics"]}
-    diagnosis = load_json(os.path.join(project, "diagnosis", "diagnosis.json"))
+
+    def load_required(path, label):
+        """文件缺失时输出友好 JSON 错误并退出 1，不抛 traceback。"""
+        if not os.path.exists(path):
+            print(json.dumps({"status": "error", "message": "%s 缺失：%s" % (label, path)},
+                             ensure_ascii=False, indent=2))
+            sys.exit(1)
+        try:
+            return load_json(path)
+        except Exception as exc:
+            print(json.dumps({"status": "error", "message": "%s 解析失败：%s" % (label, exc)},
+                             ensure_ascii=False, indent=2))
+            sys.exit(1)
+
+    contract = load_required(os.path.join(project, "contract.json"), "contract.json")
+    bank_path = os.path.join(project, contract["inputs"]["question_bank"]["path"])
+    bank = load_required(bank_path, "question_bank")
+    tm_path = os.path.join(project, "diagnosis", "topic_metrics.json")
+    metrics = {t["topic_id"]: t for t in load_required(tm_path, "topic_metrics.json")["topics"]}
+    diagnosis = load_required(os.path.join(project, "diagnosis", "diagnosis.json"), "diagnosis.json")
 
     issues = []
 

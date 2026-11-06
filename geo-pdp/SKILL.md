@@ -41,7 +41,13 @@ PDP、feed、schema 三处的价格、库存、GTIN、标题必须一致；不�
 
 ### 步骤 4 交付
 - 内容建设通道：产出交付文件后写 `manifest.json`（`core_answer` / `claims_used` / `target_url` / `final_url` / `internal_links`），与 `plan/sku_changes/<asset_id>.json` 一并交给 geo-polish（全链路第 2 关校验 `claims_used`）。
+  - 分工：`plan/sku_changes/<asset_id>.json` 由 `geo-content-write` 产出（改后正文的结构化 JSON，平台据此渲染四件套）；本 skill 只写交付目录，不改那个 JSON。
+  - 交付目录用 `plan/sku_deliverables/<asset_id>/`，不要写同名目录 `plan/sku_changes/<asset_id>/`，避免与上面的 JSON 文件冲突。
 - SKU 改造通道：写 `deliverables/<change_id>/manifest.json`，改动卡 `status` 置为 `in_production`，交给 geo-polish（改动卡模式）。
+
+## 仓库边界
+- 内容建设通道（矩阵资产 → feed/JSON-LD）在本仓库内闭环，脚本只用 `scripts/` 下的三个校验器与标准库。
+- SKU 改造通道依赖仓库外的 `geo-contract` / `geo-strategy` / `geo-measure` 三个 skill（改动卡、坐席与复盘）；本仓库只保证改动卡的交付物格式与质检口径，不包含那三个 skill 的实现。
 
 ## 硬性约束
 - 不编造参数、认证、评论、评分、库存与价格；无法核实的属性留空。
@@ -50,5 +56,5 @@ PDP、feed、schema 三处的价格、库存、GTIN、标题必须一致；不�
 - 价格与库存会变化：交付说明中写明数据日期，提醒客户在上传前以实时数据为准。
 
 ## 输出
-- 内容建设通道：`plan/sku_changes/<asset_id>/`（或平台约定目录）：`before_after.md`、`pdp.html`、`feed_*.csv|tsv`、`feed_changes.md`、`product.jsonld`、`manifest.json`（按资产需要取用）。
+- 内容建设通道：`plan/sku_deliverables/<asset_id>/`：`before_after.md`、`pdp.html`、`feed_*.csv|tsv`、`feed_changes.md`、`product.jsonld`、`manifest.json`（按资产需要取用）。改后正文 JSON 仍由 geo-content-write 写在 `plan/sku_changes/<asset_id>.json`，两者不要互相覆盖。
 - SKU 改造通道：`deliverables/<change_id>/`：同上文件集（按卡片类型取用）。

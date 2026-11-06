@@ -107,9 +107,27 @@ def domain_of(url):
     return re.sub(r'^https?://(www\.)?', '', str(url or '')).split('/')[0].lower()
 
 
+def normalize_sources(cited_sources):
+    """引用来兼容三种写法：对象数组（title/url/snippet）、URL 字符串数组、单个字符串"""
+    if not cited_sources:
+        return []
+    if isinstance(cited_sources, str):
+        return [{'url': u} for u in re.findall(r'https?://[^\s)\]，,]+', cited_sources)]
+    if isinstance(cited_sources, dict):
+        cited_sources = [cited_sources]
+    rows = []
+    for item in cited_sources:
+        if isinstance(item, dict):
+            rows.append(item)
+        elif isinstance(item, str) and item.strip():
+            text = item.strip()
+            rows.append({'url': text} if text.startswith('http') else {'title': text})
+    return rows
+
+
 def analyze_answer(answer, brand, model, competitors, cited_sources=None, client_domains=None):
     ans = answer or ''
-    src = cited_sources or []
+    src = normalize_sources(cited_sources)
     src_text = ' '.join('%s %s' % (c.get('title') or '', c.get('snippet') or '') for c in src)
     both = (ans + ' ' + src_text).lower()
     cited_urls = [c.get('url') for c in src if c.get('url')] or re.findall(r'https?://[^\s)\]]+', ans)
@@ -143,11 +161,15 @@ def analyze_answer(answer, brand, model, competitors, cited_sources=None, client
 
 def analyze_products(cards, brand, model):
     cards = cards or []
+    if isinstance(cards, dict):
+        cards = [cards]
     mentioned = False
     low_brand = str(brand or '').lower()
     low_model = str(model or '').lower()
     for c in cards:
-        blob = (' '.join(str(c.get('brand') or '') + ' ' + str(c.get('price_range') or '')).lower())
+        if isinstance(c, str):
+            c = {'name': c}
+        blob = (' '.join(str(c.get('brand') or '') + ' ' + str(c.get('price_range') or '') + ' ' + str(c.get('name') or '')).lower())
         if (low_brand and low_brand in blob) or (low_model and low_model in blob):
             mentioned = True
             break
@@ -362,13 +384,18 @@ def run(params):
         result['markdown'] = make_markdown(result)
         return result
     # 模式 3：给答案数组直接聚合（爬虫/平台已采集的真实答案）
-    answers_json = params.get('answers_json') or ''
-    if answers_json and answers_json.strip():
+    raw_answers = params.get('answers_json') or ''
+    if isinstance(raw_answers, (list, dict)):
+        rows = raw_answers
+    elif isinstance(raw_answers, str) and raw_answers.strip():
         try:
-            rows = json.loads(answers_json)
+            rows = json.loads(raw_answers)
         except Exception as exc:
             return {'status': 'error', 'message': 'answers_json 解析失败：%s' % exc,
                     'query_stage': {}, 'stages': {}, 'markdown': ''}
+    else:
+        rows = None
+    if rows is not None:
         if isinstance(rows, dict):
             rows = [rows]
         if isinstance(rows, list):

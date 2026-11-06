@@ -40,3 +40,4 @@ polish_report.json           # geo-polish 全链路质检结果
 - 输入 `selected_stages=["ai_exposure"]`：只生成该层资产，`asset_index.json` 合并写（其它层条目保留），`stage_index.json` 整份重写，`packs/` 只刷新该层 manifest。
 - 重跑某层前先读 `polish_report.json` 该层 blocking 项：已修复的不重复报。
 - SKU 改造资产先出 `plan/sku_changes/<id>.json`，平台渲染后才把成品登记进 `asset_index.json`；增量时平台负责合并该部分。
+- feed/JSON-LD 等商品数据交付由 geo-pdp 写 `plan/sku_deliverables/<id>/` 目录（不改 `<id>.json`），两者分工见 geo-pdp 的 SKILL.md。

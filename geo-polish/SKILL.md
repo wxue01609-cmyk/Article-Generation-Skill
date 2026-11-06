@@ -59,8 +59,11 @@ th { background: #f6f8fa; font-weight: 600; }
 
 整套流水线（SKU 改造通道）：geo-contract → geo-diagnose → geo-strategy → geo-evidence → 生产类 → **geo-polish** → geo-measure。
 
+> 仓库边界：`geo-contract` / `geo-strategy` / `geo-measure` 不在本仓库内。本仓库保证的是改动卡的交付物格式与质检口径；没有 `strategy/changes.json` 时，改动卡模式不适用，改走下方「全链路模式」（内容建设成稿包），不要因此判定整条链路失败。
+
 对每张 `status=in_production` 的改动卡：
 1. 运行 `python3 scripts/check_deliverable.py --project <项目目录> --change <change_id> --write`，按资产类型补跑对应脚本（博客跑 `scripts/check_article.py`；feed 与 schema 跑 geo-pdp 的 `scripts/check_feed.py` / `scripts/check_product_schema.py`；有外链时跑 `scripts/check_links.py`）。
+   - 内容建设成稿包里的普通资产（blog/landing/category/faq/qna/pr/social/ecommerce）用 `--channel content_build --asset-type <类型>` 跑机械质检：字数按资产档位、CTA 与价格不判违规（由 brief 与证据关把关）、词包原词所在句子豁免绝对化词。
 2. 按 [references/06-channel-gates.md](references/06-channel-gates.md) 完成人工检查项，补入 `qa/<change_id>.json`。
 3. 任一关卡 fail：改动卡置为 `qa_failed`，把问题清单退回对应生产 skill；修改后重跑。
 4. 全部通过：改动卡为 `qa_passed`，提交人工审批（对比页、合规叠加层、法务要求的交付物另需法务审核）。审批完成后填写 `human_approval` 并把卡置为 `approved`，交给 geo-measure。脚本不会自动审批。

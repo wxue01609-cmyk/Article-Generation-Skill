@@ -6,11 +6,14 @@
   python3 scripts/check_article.py --articles articles.json --channel blog
   python3 scripts/check_article.py --articles articles.json --channel social --keyword-pack keywords.txt
   python3 scripts/check_article.py --articles articles.json --length long
+  python3 scripts/check_article.py --articles articles.json --channel content_build --asset-type blog --keyword-pack keywords.txt
 
 articles.json：文章对象数组（或含 all_articles 的对象），每篇至少有 title / content（HTML）。
 --keyword-pack：词包文件，每行一个 query；与含 ? 的原问句完全相同的句子不判 best 违规。
 --channel：blog / qna / social / ecommerce 等，决定档位与社交形态检查（social 与 qna 互斥）。
 --length：standard（默认）/ long。
+--channel content_build：内容建设成稿包通道（必须配 --asset-type）。档位按资产类型的字数区间；
+  标题放宽为 >=3 词且 <=90 字符；CTA 与价格不判违规（由 brief 与证据关把关）；词包原词所在句子豁免绝对化词。
 
 输出：JSON 数组，每篇含 index / title / word_count / band / issues；有 error 级问题时退出码 1。
 """
@@ -26,6 +29,12 @@ BANDS = {
     "long": (1000, 1500),
     "qna": (300, 450),
     "social": (0, 350),
+}
+
+CONTENT_BUILD_BANDS = {
+    "blog": (700, 1500), "landing": (300, 700), "sku": (150, 400),
+    "category": (600, 1000), "faq": (300, 600), "qna": (150, 350),
+    "pr": (400, 700), "social": (0, 150), "ecommerce": (200, 500),
 }
 
 SOCIAL_CHANNELS = {"social", "x", "facebook", "linkedin"}
@@ -94,15 +103,22 @@ def load_articles(path):
     return data
 
 
-def load_questions(path):
-    """词包里含 ? 的行：既用于 best 例外，也用于原问句覆盖检查。"""
+def load_questions(path, all_lines=False):
+    """词包行：默认只取含 ? 的行；all_lines=True 取全部非空行（content_build 豁免来源）。"""
     if not path:
         return []
     with open(path, "r", encoding="utf-8") as handle:
-        return [normalize(line) for line in handle if "?" in line and normalize(line)]
+        lines = [normalize(line) for line in handle if line.strip()]
+        if all_lines:
+            return [ln for ln in lines if ln]
+        return [ln for ln in lines if "?" in ln]
 
 
-def pick_band(channel, length):
+def pick_band(channel, length, asset_type="", content_build=False):
+    if content_build:
+        if asset_type not in CONTENT_BUILD_BANDS:
+            raise SystemExit("content_build 通道必须提供 --asset-type：%s" % ", ".join(sorted(CONTENT_BUILD_BANDS)))
+        return asset_type
     if channel in SOCIAL_CHANNELS:
         return "social"
     if channel in QNA_CHANNELS:
@@ -121,7 +137,7 @@ def find_superlatives(plain, questions):
     return hits
 
 
-def check(article, channel, band, questions):
+def check(article, channel, band, questions, content_build=False):
     issues = []
 
     def add(level, code, detail):
@@ -131,14 +147,18 @@ def check(article, channel, band, questions):
     content = article.get("content") or ""
     plain = strip_html(content)
     words = word_count(plain)
-    low, high = BANDS[band]
+    low, high = CONTENT_BUILD_BANDS[band] if content_build else BANDS[band]
 
     if not (low <= words <= high):
         add("error", "word_count", "%d words, band %s is %d-%d" % (words, band, low, high))
 
     title_words = word_count(title)
-    if not (8 <= title_words <= 14) or len(title) > 90:
-        add("error", "title_length", "%d words / %d chars (need 8-14 words, <=90 chars)" % (title_words, len(title)))
+    if content_build:
+        if title_words < 3 or len(title) > 90:
+            add("error", "title_length", "%d words / %d chars (need >=3 words, <=90 chars)" % (title_words, len(title)))
+    else:
+        if not (8 <= title_words <= 14) or len(title) > 90:
+            add("error", "title_length", "%d words / %d chars (need 8-14 words, <=90 chars)" % (title_words, len(title)))
     if re.search(r"[:,，：]\s*$", title):
         add("error", "title_truncated", title)
 
@@ -156,16 +176,18 @@ def check(article, channel, band, questions):
         add("error", "superlative", ", ".join(sorted(set(s.lower() for s in superlatives))))
 
     for pattern, code in ((CTA_RE, "cta"), (DISCLAIMER_RE, "soft_ad_disclaimer"), (COMPETITOR_WEAKNESS_RE, "competitor_weakness")):
+        if content_build and code == "cta":
+            continue
         match = pattern.search(plain if code != "competitor_weakness" else content)
         if match:
             add("error", code, match.group(0))
 
     if channel != "ecommerce":
         match = PRICE_RE.search(plain)
-        if match:
+        if not content_build and match:
             add("error", "price", match.group(0))
 
-    if band in ("social", "qna"):
+    if band in ("social", "qna") and not content_build:
         if re.search(r"<a\s", content, re.I) or re.search(r"https?://", plain):
             add("error", "post_link", "links are not allowed in social/community posts")
         if re.search(r"<h[2-6][\s>]", content, re.I):
@@ -178,7 +200,7 @@ def check(article, channel, band, questions):
         if plain.count("?") < 2:
             add("warn", "few_questions", "fewer than 2 questions; keyword-pack questions may be missing")
 
-    if questions:
+    if questions and not content_build:
         plain_norm = normalize(plain)
         missing = [q for q in questions if q not in plain_norm]
         if missing and band not in ("social", "qna"):
@@ -192,16 +214,19 @@ def main():
     parser.add_argument("--articles", required=True)
     parser.add_argument("--channel", default="blog")
     parser.add_argument("--length", default="standard", choices=["standard", "long"])
+    parser.add_argument("--asset-type", default="",
+                        help="content_build 通道的资产类型：blog/landing/sku/category/faq/qna/pr/social/ecommerce")
     parser.add_argument("--keyword-pack")
     args = parser.parse_args()
 
     channel = args.channel.strip().lower()
-    band = pick_band(channel, args.length)
-    questions = load_questions(args.keyword_pack)
+    content_build = channel == "content_build"
+    band = pick_band(channel, args.length, args.asset_type.strip().lower(), content_build)
+    questions = load_questions(args.keyword_pack, all_lines=content_build)
 
     results = []
     for index, article in enumerate(load_articles(args.articles), 1):
-        result = check(article, channel, band, questions)
+        result = check(article, channel, band, questions, content_build=content_build)
         result["index"] = index
         results.append(result)
 
