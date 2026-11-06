@@ -28,8 +28,8 @@ description: 分层采样基线。把词包 query 按转化路径（AI 曝光 / 
 7. 次层级只做「主层资产里带一句 + 内链」的落点，不产第二篇文章。
 
 ## 采样来源优先级
-1. `samples_json`：直接采用已算好的采样结果，只解析与格式化。
-2. `answers_json`：真实平台答案数组（query/platform/answer/cited_sources/product_cards），按平台×层聚合基线。
+1. `answers_json`：真实平台答案数组（query/platform/answer/cited_sources/product_cards），有新粘贴的真实答案时直接按平台×层聚合基线，不需要再用缓存或已算好的结果。
+2. `samples_json`：没有 answers_json 时，直接采用已算好的采样结果，只解析与格式化。
 3. 以上都没有：按分层规则离线打标，输出注明「离线分层（未采样，仅规则打标）」。
 
 ## 输出

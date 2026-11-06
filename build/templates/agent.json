@@ -164,6 +164,12 @@
         "type": "string",
         "required": false,
         "description": "监测平台导出的 AI 答案数据（JSON 字符串）；带它且未勾选资产时进入诊断阶段"
+      },
+      {
+        "name": "answers_json",
+        "type": "string",
+        "required": false,
+        "description": "可选：用户粘贴的真实 AI 答案（JSON 数组或 JSONL，每项 query/platform/answer/cited_sources/product_cards）。有值时优先按它聚合分层基线（source=answers_json），不要调用爬虫，也不要离线打标覆盖。"
       }
     ],
     "output_schema": [
