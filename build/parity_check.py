@@ -278,7 +278,10 @@ def main():
             check('本地 %s 锚点齐全' % label, not missing_a,
                   ('缺失: %s' % ', '.join(missing_a)) if missing_a else '')
         server = (local_platform / 'server.py').read_text(encoding='utf-8')
-        missing_s = [a for a in ('selected_stages', 'monitoring_json', 'frog_content_agent_params') if a not in server]
+        # 成稿 Brief 下发 / 客户确认事实回填 / 5 类产出落盘：平台侧必须与青蛙 agent.md 同口径
+        missing_s = [a for a in ('selected_stages', 'monitoring_json', 'frog_content_agent_params',
+                                 'plan_matrix_json', 'confirmed_facts_json', 'frog_write_outputs')
+                     if a not in server]
         check('server.py 透传字段', not missing_s, '缺失: %s' % missing_s if missing_s else '')
     else:
         print('  [SKIP] 未找到本地平台目录，跳过（可用 GEO_PLATFORM_DIR 指定）')

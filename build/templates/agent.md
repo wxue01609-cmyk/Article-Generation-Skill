@@ -39,6 +39,15 @@
 5. **质检（成稿完成后必做）**：调用技能 `geo-polish`（全链路模式）对成稿包按 stage 跑五关（事实 / 证据 / 可提取 / 渠道 / 分发），输出 `polish_report.json`；有 blocking 的层先修复再交付，warning 记入 `checks` 后放行；修复后只重跑对应层。
 6. **收尾与外链**：所有正文必须可直接发布；核验事项只写进 `notes` 或对应字段，不得出现在正文里；正文/模块/模板里指向站外的链接一律加 `target="_blank" rel="noopener"`，避免在预览 iframe 里被目标站点拒绝嵌入。
 
+## 〇·1、青蛙端执行边界（哪些由平台接管、哪些靠模型自律）
+
+- `geo-doc-parse`：平台已把附件解析成 `ent_kb_text` / `prod_kb_text` 传入，通常不再调用；只有任务直接携带文档原文文本时才调用 `geo_parse_doc`。
+- `geo-layered-sampling`：由工具 `geo_sample` 执行（真实答案优先：粘贴 answers_json → 采样缓存 samples_json → 离线打标），方案阶段必跑。
+- `geo-path-plan`：`geo_sample` 有结果时直接采用其 stage / secondary_stage，本技能作为兜底编排（二次确认 1 主 1 次与内链位），不重复分层。
+- `geo-evidence` / `geo-polish`：青蛙环境无 Python 脚本与磁盘，按规则正文人工执行（证据账本、五关质检），结构照输出模板。
+- `geo-diagnose`：仅当任务参数带 `monitoring_json` 时进入诊断阶段；平台表单暂无入口时不要强行调用。
+- `geo-asset-render` / `geo-translate`：前者由平台渲染成品（模型不需要输出 HTML 壳的重复实现），后者仅在用户要求中文对照时输出。
+
 ## 一、工具使用时机（满足条件就必须调）
 
 | 工具 | 触发条件 |
@@ -66,6 +75,8 @@
 - `selected_asset_ids`（选填，逗号分隔，如 `blog-01,sku-02`）
 - `selected_stages`（选填，逗号分隔，如 `ai_exposure,pdp`）：成稿只生成指定层，用于「改一层只重跑一层」，缺省三层全跑
 - `monitoring_json`（选填）：监测平台导出的 AI 答案数据，带它且未勾选资产时进入诊断阶段
+- `plan_matrix_json`（选填，成稿阶段）：方案阶段用户确认后的资产 Brief 数组（JSON 字符串），成稿以它为准
+- `confirmed_facts_json`（选填）：客户已确认的事实（JSON 数组，每项 `key/claim_id/asset_id/question/answer`）。证据核验时命中项直接作为「客户确认」级来源采用，优先级高于未确认的抓取值推断；未命中时按正常证据规则执行
 
 ## 三、阶段判定
 
@@ -94,6 +105,15 @@
 
 只处理 `selected_asset_ids` 指定的资产；带 `selected_stages` 时只生成指定层（增量重跑）。
 
+0. **以确认方案为准（带 `plan_matrix_json` 时）**：逐条按 Brief 写，字段必须沿用且不得作废：
+   `asset_id` / `asset_type` / `stage` / `secondary_stage` / `channel` / `primary_query` / `priority` /
+   `title` / `angle` / `outline` / `key_points` / `proof_points` / `cta` / `word_count` / `target_url` / `internal_links` / `publish_order`。
+   - 标题不得改、角度不得换、H 结构按 `outline`、字数在 `word_count` ±20% 内、CTA 用 Brief 给的。
+   - `internal_links` 只允许使用 Brief 里给出的**已存在真实 URL**（客户现有页面或待改造商品页 URL），禁止自行编造「还没发布的页面」链接；需要提本组其它资产但 Brief 未给 URL 时不建链接，只在 `notes` 说明。
+   - 待改造商品页 URL（Brief 的 `target_url`/`source_url`）与本资产内容相关时：自然写进正文（产品介绍或购买建议段的锚文本），不要做成文末孤立参考列表；社区问答资产保持 0 链接 0 促销，不受此条影响。
+   - Brief 缺字段（如 outline 为空）才允许按规则自拟并在 `notes` 说明；Brief 里没有的资产不要写。
+   - 产出与 Brief 冲突时（如标题对不上、字数超范围），在 `notes` 写明差异原因，不要静默替换。
+
 先执行**证据核验**：对要写的具体事实（数字/参数/价格/政策/认证/评分）调用技能 `geo-evidence` 建 `evidence/ledger.json`（有 `source_urls` 或知识库时优先核；无任何资料时跳过并在 `notes` 说明），只有可发布 claim 能进正文。
 
 ### 4.1 普通资产（blog / landing / category / pr / review / community / social / listing / faq）
@@ -116,6 +136,13 @@
 - `shipping_returns_warranty`、`brand_identity`、`reviews_summary`、`cta`
 - `changes[]`（至少 6 条）：`{module, before, after, problem}`，`before` 必须是页面原文，缺失写「（页面无此模块）」
 - `notes[]`：核验项只写在这里
+- 命中「商品数据交付 / feed / JSON-LD」判据时（见 geo-pdp），同一对象再带交付字段（都是文本，平台落盘为文件）：
+  - `feed_openai`：OpenAI 商品 feed 的 CSV 文本（表头 `title,url,price,sku,gtin,availability,description`）
+  - `feed_google`：Google Merchant Center 的 TSV 文本（字段按 geo-pdp 的 feed-spec）
+  - `product_jsonld`：Product + Offer 的 JSON-LD 文本（合法 JSON，不要 Markdown 代码块）
+  - `feed_changes`：`[{field, before, after, reason, claim_id}]` 交付说明
+  - `manifest`：`{core_answer, claims_used[], target_url, final_url, internal_links[]}`
+  - 三处（PDP 正文 / feed / JSON-LD）的价格、库存、GTIN、标题必须一致；不一致以证据账本为准
 
 改后正文必须可直接上线：**不得出现**「待核验 / pending verification / on the product page / before publishing / 来源备注」等审核语；查不到的信息直接省略；**价格/评分/库存/图片只填真实抓取值，抓不到就留空，禁止编造**。
 
@@ -169,6 +196,9 @@
   ],
   "stage_index": {"ai_exposure": {"count": 1, "assets": ["blog-01"]}, "pdp": {}, "conversion": {}},
   "polish_report": {"summary": {"blocking": 0, "warnings": 0, "gate_pass_rate": 1.0}, "by_stage": {}},
+  "pending_confirmations": [
+    {"key": "sku-01-price", "claim_id": "claim-07", "asset_id": "sku-01", "question": "页面未显示价格，当前抓取值缺价格，请确认售价", "suggested_default": "", "why": "价格只能来自真实页面或客户确认"}
+  ],
   "notes": []
 }]
 ```

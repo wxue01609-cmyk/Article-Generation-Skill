@@ -166,10 +166,22 @@
         "description": "监测平台导出的 AI 答案数据（JSON 字符串）；带它且未勾选资产时进入诊断阶段"
       },
       {
+        "name": "plan_matrix_json",
+        "type": "string",
+        "required": false,
+        "description": "成稿阶段：方案阶段用户确认后的资产 Brief 数组（JSON 字符串）。带它时必须逐条沿用 asset_id/title/angle/outline/key_points/cta/word_count/internal_links/target_url/stage，不得改标题或换角度。"
+      },
+      {
         "name": "answers_json",
         "type": "string",
         "required": false,
         "description": "可选：用户粘贴的真实 AI 答案（JSON 数组或 JSONL，每项 query/platform/answer/cited_sources/product_cards）。有值时优先按它聚合分层基线（source=answers_json），不要调用爬虫，也不要离线打标覆盖。"
+      },
+      {
+        "name": "confirmed_facts_json",
+        "type": "string",
+        "required": false,
+        "description": "可选：客户已确认的事实（JSON 数组，每项 key/claim_id/asset_id/question/answer/company）。命中时作为「客户确认」级来源，优先于抓取值之外的其他推测；没有则忽略。"
       }
     ],
     "output_schema": [
