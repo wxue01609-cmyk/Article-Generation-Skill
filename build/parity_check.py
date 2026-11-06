@@ -198,6 +198,35 @@ def main():
             doc_bad.append('%r 代码=%s 文档期望=%s' % (q, got, expected))
     check('文档 stage-map 示例与代码一致', not doc_bad, '；'.join(doc_bad) if doc_bad else '')
 
+
+    print('== 3.3 stage-map 双文件一致性（path-plan 完整版 vs content-plan 镜像版） ==')
+    canonical = REPO / 'geo-path-plan' / 'references' / '01-stage-map.md'
+    mirror = REPO / 'geo-content-plan' / 'references' / 'stage-map.md'
+    if canonical.exists() and mirror.exists():
+        def table_rows(path):
+            rows = []
+            in_table = False
+            for line in path.read_text(encoding='utf-8').splitlines():
+                s = line.strip()
+                if s.startswith('|'):
+                    if in_table:
+                        rows.append(re.sub(r'[|\s]+', '|', s.strip('|')).strip('|'))
+                    else:
+                        in_table = True
+                else:
+                    in_table = False
+            return rows
+        canonical_rows = table_rows(canonical)
+        mirror_rows = table_rows(mirror)
+        same = canonical_rows == mirror_rows
+        # 镜像必须在开头声明源文件，防止变成独立规则
+        declares = '01-stage-map.md' in '\n'.join(mirror.read_text(encoding='utf-8').split('\n')[:6])
+        check('stage-map 镜像与完整版逐表一致', same,
+              '' if same else ('canonical=%d 行 mirror=%d 行' % (len(canonical_rows), len(mirror_rows))))
+        check('stage-map 镜像声明源文件', declares)
+    else:
+        check('stage-map 双文件存在', False, '缺少 canonical 或 mirror')
+
     print('== 4. agent.json 技能注册 ==')
     agent = json.loads((pkg / 'agent.json').read_text(encoding='utf-8'))
     names = [s['skill_name_en'] for s in agent.get('skills', [])]
@@ -215,6 +244,24 @@ def main():
     md = (pkg / 'agent.md').read_text(encoding='utf-8')
     missing = [s for s in SKILLS if s not in md]
     check('agent.md 覆盖 13 技能', not missing, '缺失: %s' % missing if missing else '')
+
+    print('== 5.1 agent.md 阶段路由表 ==')
+    routing = {
+        'plan 方案': ['geo-doc-parse', 'geo-layered-sampling', 'geo-path-plan', 'geo-content-plan'],
+        'write 成稿': ['geo-source-fetch', 'geo-evidence', 'geo-content-write', 'geo-sku-rewrite',
+                       'geo-pdp', 'geo-asset-render', 'geo-translate', 'geo-polish'],
+        'diagnose 诊断': ['geo-diagnose'],
+    }
+    rows = {}
+    for line in md.splitlines():
+        for stage_name in routing:
+            if line.strip().startswith('| %s' % stage_name):
+                rows[stage_name] = line
+    check('阶段路由表 3 行齐全', len(rows) == 3, '缺失: %s' % [k for k in routing if k not in rows] if len(rows) != 3 else '')
+    for stage_name, want in routing.items():
+        line = rows.get(stage_name, '')
+        miss = [w for w in want if w not in line]
+        check('%s 路由技能齐全' % stage_name, not miss, '缺失: %s' % miss if miss else '')
 
     print('== 6. 本地平台编排锚点（与青蛙 agent.md 同构） ==')
     local_platform = Path(os.environ.get('GEO_PLATFORM_DIR') or '/Users/wangxue10/生文工具2')

@@ -12,7 +12,10 @@ description: 海外 GEO 事实证据账本（双通道）。按内容建设矩�
 ## 前置条件（两条通道二选一）
 - 内容建设通道：`plan/content_matrix.json` 中已确认的资产（按 `asset_id` 核验），成稿前对本资产要用的硬事实（数字/参数/价格/政策/认证/评分）逐项建 claim；不依赖 `strategy/changes.json`。
 - SKU 改造通道：`strategy/changes.json` 中已有 `selected: true` 的改动卡（`tech_ticket` 除外），每张卡写明 `claims_required`。
-- 资料：`inputs/knowledge/`（或平台知识库文本）下的客户资料；有 `contract.constraints` 时按其禁用 claim 与合规叠加层执行，没有则跳过该检查。
+- 资料（按可信度从高到低，全部可选）：
+  1. `source/page-NN/`（`geo-source-fetch` 产物：`page.txt` 原文 + `meta.json` 的 URL/抓取日期/JSON-LD/参数表/价格）：**只要目录存在就必须先读**，它是「客户官网当前页面」的一手原文，优先级高于知识库旧文案；
+  2. `inputs/knowledge/`（或平台知识库文本）下的客户资料；
+  3. 有 `contract.constraints` 时按其禁用 claim 与合规叠加层执行，没有则跳过该检查。
 
 ## 必读
 - [references/evidence-rules.md](references/evidence-rules.md)：来源等级、状态、摘录与拆分、阻断规则、ledger.json 字段定义（文末附录）。
@@ -26,8 +29,8 @@ description: 海外 GEO 事实证据账本（双通道）。按内容建设矩�
 
 ### 步骤 2 逐条找来源
 按 evidence-rules.md 的来源等级从高到低查找：
-1. 客户知识库与第一方文件（`inputs/knowledge/`）：逐字摘录原文，记录文件、页码/段落、文件日期。
-2. 客户官网当前页面：记录 URL 与抓取日期。
+1. 客户官网当前页面快照（`source/page-NN/page.txt` + `meta.json`）：摘录原文并记录 `final_url` 与抓取日期；快照与知识库冲突时以快照为准，并把差异写进 claim 的 `scope_limits` 或 `notes`。
+2. 客户知识库与第一方文件（`inputs/knowledge/`）：逐字摘录原文，记录文件、页码/段落、文件日期。
 3. 监管与标准数据库（认证、注册信息）。
 4. 评论平台（评分、数量，注明日期）。
 5. 权威第三方（竞品事实、市场数据、专家观点），必须带 URL 与日期。
@@ -51,7 +54,7 @@ python3 scripts/check_ledger.py --project <项目目录> --channel changes --wri
 ```
 
 ### 步骤 5 客户确认清单
-把所有 `needs_client_confirmation` 与 `blocked` 的核心 claim 整理成一份清单交给使用者：缺什么、为什么需要、影响哪个资产/改动卡。客户补齐后更新账本，再重跑步骤 4（只核对仍在使用中的资产/卡）。
+把所有 `needs_client_confirmation` 与 `blocked` 的核心 claim 整理成一份清单交给使用者：缺什么、为什么需要、影响哪个资产/改动卡。**输出统一命名 `pending_confirmations`**（数组，每项 `{key, claim_id, asset_id 或 change_id, question, suggested_default, why}`），作为客户回填的唯一入口（SKU 改造 JSON 与平台回填共用同一份 schema）；不再使用其它命名。客户补齐后更新账本，再重跑步骤 4（只核对仍在使用中的资产/卡）。
 
 ### 步骤 6 交还下游
 - 内容建设通道：产出 `evidence/evidence_map.json`（`asset_id → [claim_id]`）交还成稿阶段；证据不足的资产在 Brief 标记，正文/改造页不得使用账本之外的具体事实。

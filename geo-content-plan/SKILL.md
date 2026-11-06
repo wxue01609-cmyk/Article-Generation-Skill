@@ -56,6 +56,11 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
    - 带 `source_page` 的 item 必须同时有 `source_url`、`rewrite_mode=existing_page`，且 `target_url` 等于 `source_url`
 - 没有 `source_page` 的 sku item 不得出现 `rewrite_mode`
 10. **写文件**：用 apply_patch 写入 `plan/content_matrix.json`。
+11. **机械自检（有 python 时必须跑）**：写完矩阵后执行
+    `python3 scripts/check_matrix.py --project <项目目录> --competitors "<已知竞品，逗号分隔>" --budget <asset_budget>`
+    - 退出码非 0 时，按报出的 blocking 逐条修矩阵并重跑，直到 PASS；warning 记进 `risk_notes` 后放行。
+    - 脚本覆盖：字段名（`asset_id`/`primary_query`）、`stage`/`secondary_stage` 合法性、`intent`/`priority`、`asset_type` 启用范围、官网类 `target_url` 必填、站内内链闭环（防死链）、`outline` 结构与条数、`word_count` 档位、`confidence<0.70` 需 `needs_review`、`source_page`/`source_url`/`rewrite_mode` 关联、`summary` 三项统计、`gaps.reason`、`asset_budget` 截断、官网资产不点名竞品。
+    - 平台（青蛙）环境无 python 时，按上面的清单人工逐条核对并在 `summary` 后注明「未跑 check_matrix.py」。
 
 ## 硬性规则
 - 方案阶段禁止写正文、段落草稿、完整文案；`outline` 只写小标题与要点，`key_points` 用短句。

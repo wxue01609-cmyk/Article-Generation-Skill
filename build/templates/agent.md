@@ -5,6 +5,18 @@
 
 ## 〇、执行流程与技能调用顺序（先读这一段）
 
+### 阶段 → 技能加载范围（先判阶段，只加载本阶段技能提示词，不要全量读 13 个）
+
+| 阶段 | 本阶段加载的技能 | 不要加载 |
+|---|---|---|
+| plan 方案 | `geo-doc-parse` → `geo-layered-sampling` → `geo-path-plan` → `geo-content-plan` | evidence / source-fetch / content-write / sku-rewrite / pdp / asset-render / translate / polish / diagnose |
+| write 成稿 | `geo-source-fetch` → `geo-evidence` → `geo-content-write` → `geo-sku-rewrite` 或 `geo-pdp` → `geo-asset-render` →（可选）`geo-translate` → `geo-polish` | doc-parse / layered-sampling / path-plan / content-plan / diagnose |
+| diagnose 诊断 | `geo-diagnose` →（可选）`geo-polish` | 其余全部 |
+
+- 判定阶段见「三、阶段判定」；一次运行只做一个阶段。
+- 只有本阶段表格里列出的技能才需要打开其提示词全文；其它技能的说明仅用于理解边界，不读正文。
+- 需要跨阶段回溯（如成稿要复核矩阵口径）时，只读 `plan/content_matrix.json` 的对应字段，不要重读方案阶段技能全文。
+
 0. **运行前准备**：如果本次提供了上传文档，先调工具 `geo_parse_doc` 解析，把结果回填到 `topics` / `ent_kb_text` / `prod_kb_text` 等字段，再开始。
 1. **分层与编排（方案阶段必做，成稿阶段只读结果）**：调用工具 `geo_sample`（技能 `geo-layered-sampling`）按 AI 曝光 / 商品详情页 / 购买转化给词包分层，拿到 `query→stage`（含 `query_secondary_stage` 次层级）与平台×层基线；`geo_sample` 不可用或返回离线分层时，若任务带有 `plan/path_plan.json`（技能 `geo-path-plan` 的编排结果）直接采用其 `stage` / `secondary_stage`；两者都没有时按 stage-map 就地打标。矩阵每个 item 必须带 `stage`，`secondary_stage` 有值就写（只做内链位，不另产文章）。
    - 若本次带有 `citations_json`（平台抓取的「AI 实际引用的第三方页面」摘要）：把与 item 同层的引用条目写进 Brief 的 `reference_citations`，只借鉴标题层级与证据点类型，**禁止照抄原文句子**；官网资产不得因此出现竞品品牌名。
@@ -16,7 +28,11 @@
    - 普通资产（blog / landing / category / pr / review / community / social / listing / faq）：调用技能 `geo-content-write` 生成英文正文；需要整页成品时调工具 `geo_render_html`（mode=asset）渲染成完整可发布 HTML。
    - SKU 资产（asset_type=sku 且挂 `source_page`）：
      1. 若该页面尚未抓取，先调工具 `geo_fetch_page` 按 `source_page` 抓页面，再按技能 `geo-source-fetch` 的字段规范整理快照；
-     2. 需要 feed / JSON-LD 等商品数据交付时调用技能 `geo-pdp`，否则调用技能 `geo-sku-rewrite` 输出改造 JSON（商品卡字段、改前改后差异）；
+     2. **切换判据（命中任一即走 `geo-pdp`，否则走 `geo-sku-rewrite`）**：
+        - ① 输入或勾选里带「商品数据交付 / feed / JSON-LD」意图，或目标渠道是 OpenAI / Google Merchant / Google Shopping；
+        - ② 商品有 GTIN / UPC / 多变体 SKU，需要结构化商品卡供 AI 引用；
+        - ③ 客户明确要求产出 feed 文件或 Product JSON-LD。
+        只做文案复刻、无 feed/schema 交付物时走 `geo-sku-rewrite` 输出改造 JSON（商品卡字段、改前改后差异）；
      3. 调工具 `geo_render_html`：mode=modules 出商品页模块片段，mode=compare 出改前改后对比页。
    - 需要中文审阅版：调用技能 `geo-translate`。
 4. **证据核验（成稿前，方案已确认时才做）**：对要写进正文的数字、参数、价格、政策、认证，先调用技能 `geo-evidence` 按**内容矩阵资产（asset_id）**建立 `evidence/ledger.json`（内容建设通道不依赖 strategy/changes.json；有 source_urls 或知识库时优先核，无任何资料时跳过并在 notes 说明）；只有 `verified` 且 `approved_for_publication=true` 的 claim 才能写；SKU 改造页把对应 claim 编号写入改造 JSON 的 `evidence_id`；查不到的一律省略，不写「待核验」占位；客户待确认项输出到 `pending_confirmations`。
@@ -35,7 +51,7 @@
 | `geo-evidence`（技能） | 成稿阶段写任何具体事实（数字/参数/价格/政策/认证/评分）前 |
 | `geo-polish`（技能） | 成稿包完成后：按 stage 跑五关质检，出 `polish_report.json` |
 | `geo-diagnose`（技能） | 任务带 `monitoring_json`：答案统计、失败层判定、回流建议 |
-| `geo-pdp`（技能） | SKU 需要 feed（OpenAI/Google）或 Product JSON-LD 交付时 |
+| `geo-pdp`（技能） | SKU 资产命中任一判据：① 目标渠道 OpenAI/Google Merchant/Shopping 或勾选商品数据交付；② 有 GTIN/UPC/多变体需结构化；③ 客户明确要 feed 或 Product JSON-LD。其余走 `geo-sku-rewrite` |
 
 ## 二、输入
 你会收到 `agent_params` 对象，字段如下（未提供的按空处理）：

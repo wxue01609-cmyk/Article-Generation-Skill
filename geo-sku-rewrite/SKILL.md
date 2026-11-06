@@ -42,6 +42,7 @@ description: SKU 商品页改造（geo-sku-rewrite）。把已有商品页改造
   "brand_identity": "Designed and sold by Botslab",
   "reviews_summary": "服务端可见的评分与优缺点；没有就留空字符串",
   "cta": "Buy now",
+  "pending_confirmations": [{"key": "price", "claim_id": "c-002", "asset_id": "sku-01", "question": "页面未显示价格，请确认售价", "suggested_default": "", "why": "写进商品卡与 FAQ 需要"}],
   "notes": ["核验项只写在这里"],
   "changes": [{"module": "标题", "before": "页面原文", "after": "改后文案", "problem": "解决的问题", "evidence_id": "c-001"}]
 }
@@ -51,6 +52,10 @@ description: SKU 商品页改造（geo-sku-rewrite）。把已有商品页改造
 - `evidence_id` 必须存在于 `evidence/ledger.json` 且该 claim `status=verified`、`approved_for_publication=true`（优先用 `evidence/evidence_map.json` 中本资产可用的 claim 列表）。
 - 改后内容引用的硬事实（价格/参数/政策/认证/评分/型号）与 `evidence_id` 一一对应；没有账本条目的一律省略该字段，**禁止编造编号**。
 - 无账本（客户未提供资料、geo-evidence 已注明跳过）时：只写抓取页面可见事实，全部 `evidence_id` 省略，并在 `notes` 说明「未建账本，仅用抓取值」。
+
+## 客户待确认（pending_confirmations，可选）
+- 抓取页缺失或账本里 `needs_client_confirmation` / `blocked` 的核心事实，统一写进顶层 `pending_confirmations`（每项 `{key, claim_id, asset_id, question, suggested_default, why}`），与 geo-evidence 步骤 5 的输出 schema 一致，供平台按 key 回填。
+- 页面能查到的事实不得进待确认清单；待确认项不得以「待核验 / pending」字样出现在改后正文里。
 
 ## 模块改造要求（每个模块对应一条 changes）
 - 标题：品牌 + 型号 + 品类 + 关键属性
