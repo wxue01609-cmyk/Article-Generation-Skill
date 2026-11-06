@@ -49,7 +49,17 @@ TEST_QUERIES = [
     'pawflow pet water fountain shipping time',
     'what is the difference between pawflow G980H and G980',
     'pawflow G980H customer service phone number',
+    'how to install dash cam hardware kit',
+    'what is a supercapacitor dash cam',
 ]
+
+# 文档（geo-path-plan/references/01-stage-map.md 示例）与代码必须一致的关键词：不满足则发布前 FAIL
+DOC_CONSISTENCY = {
+    'how to install dash cam hardware kit': 'conversion',
+    'what is a supercapacitor dash cam': 'ai_exposure',
+    'how to clean robot vacuum': 'conversion',
+    'how to choose a pet water fountain for cats': 'ai_exposure',
+}
 
 failures = []
 
@@ -179,6 +189,14 @@ def main():
           '不一致 %d 组' % mism if mism else '')
     for attr in ('STAGE_ORDER', 'TIE_PRIORITY', 'CONVERSION_HOWTO', 'STAGE_SIGNALS'):
         check('常量 %s 一致' % attr, getattr(local_mod, attr) == getattr(frog_mod, attr))
+
+    print('== 3.2 文档（01-stage-map.md 示例）与代码一致性 ==')
+    doc_bad = []
+    for q, expected in DOC_CONSISTENCY.items():
+        got = local_mod.classify_stage(q, '', '')['stage']
+        if got != expected:
+            doc_bad.append('%r 代码=%s 文档期望=%s' % (q, got, expected))
+    check('文档 stage-map 示例与代码一致', not doc_bad, '；'.join(doc_bad) if doc_bad else '')
 
     print('== 4. agent.json 技能注册 ==')
     agent = json.loads((pkg / 'agent.json').read_text(encoding='utf-8'))

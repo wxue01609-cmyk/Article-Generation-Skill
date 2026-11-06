@@ -61,7 +61,7 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
 - 方案阶段禁止写正文、段落草稿、完整文案；`outline` 只写小标题与要点，`key_points` 用短句。
 - `asset_budget` 是资产总数上限；超预算按 P0→P2 截断，剩余 query 进 `gaps`，`reason` 写 `budget`。
 - `article_count` 是可发布文章数量下限：只有文章类资产（blog / landing / category / pr / review / community / social / listing / faq）计入文章数，SKU 改造不计；规划时先保证文章类资产数 ≥ `article_count`（不足时把低价值非文章 query 改落为文章类；启用类型中没有文章类可用的，在 `risk_notes` 说明），再在预算内补其它资产。
-- 对比/替代/review 类只允许落三方媒体；官网只能写类别级判断标准，不点名竞品。
+- 对比/替代/review 类只允许落三方媒体；官网只能写类别级判断标准，不点名竞品。**官网不做任何形式的竞品对比页——包括有证据的客观对比（即使逐项参数有真实来源，也不允许在官网点名竞品）**；坚持该口径，避免官网对比内容被 AI 当作竞品对比来源。
 - query 含问号或疑问词时，原问句必须进入对应 Brief 的 `query_text` 或 FAQ 问题列表。
 - 给了 URL 不等于必须改造：只有页面与 query 的产品/型号匹配时才挂 `source_page`；不匹配就在 `risk_notes` 说明并放弃使用该页面。
 - JSON 必须闭合、可被 `json.load` 解析；不要用 markdown 代码块包裹，不要写注释。

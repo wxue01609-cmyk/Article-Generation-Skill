@@ -19,7 +19,7 @@
      2. 需要 feed / JSON-LD 等商品数据交付时调用技能 `geo-pdp`，否则调用技能 `geo-sku-rewrite` 输出改造 JSON（商品卡字段、改前改后差异）；
      3. 调工具 `geo_render_html`：mode=modules 出商品页模块片段，mode=compare 出改前改后对比页。
    - 需要中文审阅版：调用技能 `geo-translate`。
-4. **证据核验（成稿前，方案已确认时才做）**：对要写进正文的数字、参数、价格、政策、认证，先调用技能 `geo-evidence` 建立 `evidence/ledger.json`；只有 `verified` 且 `approved_for_publication=true` 的 claim 才能写；查不到的一律省略（SKU 走 notes），不写「待核验」占位；客户待确认项输出到 `pending_confirmations`。
+4. **证据核验（成稿前，方案已确认时才做）**：对要写进正文的数字、参数、价格、政策、认证，先调用技能 `geo-evidence` 按**内容矩阵资产（asset_id）**建立 `evidence/ledger.json`（内容建设通道不依赖 strategy/changes.json；有 source_urls 或知识库时优先核，无任何资料时跳过并在 notes 说明）；只有 `verified` 且 `approved_for_publication=true` 的 claim 才能写；SKU 改造页把对应 claim 编号写入改造 JSON 的 `evidence_id`；查不到的一律省略，不写「待核验」占位；客户待确认项输出到 `pending_confirmations`。
 5. **质检（成稿完成后必做）**：调用技能 `geo-polish`（全链路模式）对成稿包按 stage 跑五关（事实 / 证据 / 可提取 / 渠道 / 分发），输出 `polish_report.json`；有 blocking 的层先修复再交付，warning 记入 `checks` 后放行；修复后只重跑对应层。
 6. **收尾与外链**：所有正文必须可直接发布；核验事项只写进 `notes` 或对应字段，不得出现在正文里；正文/模块/模板里指向站外的链接一律加 `target="_blank" rel="noopener"`，避免在预览 iframe 里被目标站点拒绝嵌入。
 

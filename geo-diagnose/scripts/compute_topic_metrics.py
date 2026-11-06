@@ -6,7 +6,7 @@
   python3 scripts/compute_topic_metrics.py --project ./acme-us-2026c1 [--low 0.2] [--high 0.5] [--min-responses 6]
 
 输入：contract.json、问题文件、diagnosis/responses.jsonl、可选 diagnosis/site_audit.json。
-输出：diagnosis/topic_metrics.json（字段见 geo-contract/references/artifact-contracts.md 第三节）。
+输出：diagnosis/topic_metrics.json（字段见 ../references/artifact-contracts.md 第二节）。
 建议失败层只是启发式规则（见 references/failure-layers.md），最终判定由模型在 diagnosis.json 中给出并说明理由。
 """
 

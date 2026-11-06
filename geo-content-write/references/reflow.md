@@ -12,7 +12,7 @@
 - 输入数据：`research/sampling.json`（分层基线）+ 监测平台导出的答案结果（本流程用平台或脚本产出，diagnose 不自行采样）。
 
 ## 流程
-1. **采样/拉数据**：对 `plan/path_plan.json` 的 query 清单跑一次分层采样（复用 geo-research 的 `sample_by_stage.py` 或平台采样），得到新的 `research/sampling.json`（或 answers.jsonl）。
+1. **采样/拉数据**：对 `plan/path_plan.json` 的 query 清单跑一次分层采样，得到新的 `research/sampling.json`（或 answers.jsonl）。采样统一走 `geo-layered-sampling`：青蛙通道用 `geo_sample` 工具；本地通道由平台预生成 `research/sampling.json`。**不要依赖单篇生文旧线的 `geo-research/scripts/sample_by_stage.py`**（不属于内容建设 13 skill，青蛙包内不存在）。
 2. **诊断**：调 geo-diagnose，读取新基线，按问题族统计提及、排位、引用来源、商品卡；逐层判定「卡在哪个失败层」。
 3. **出回流补丁**：产出 `plan/reflow_patch.json`：
    ```json

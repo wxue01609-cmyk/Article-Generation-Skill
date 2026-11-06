@@ -1,6 +1,6 @@
 # 监测结果输入规范（geo-diagnose 只读不采）
 
-答案数据由 **geo-monitoring 或客户使用的监测平台** 导出，本流水线不自行采样、不调用 AI 接口。`normalize_monitoring.py` 把各种导出格式映射成统一的 `diagnosis/responses.jsonl`（字段见 `../../geo-contract/references/artifact-contracts.md` 第二节）。
+答案数据由 **geo-monitoring 或客户使用的监测平台** 导出，本流水线不自行采样、不调用 AI 接口。`normalize_monitoring.py` 把各种导出格式映射成统一的 `diagnosis/responses.jsonl`（字段见本目录 [`artifact-contracts.md`](artifact-contracts.md) 第一节）。
 
 ## 一、支持的文件格式
 - `.jsonl`：每行一条答案记录。

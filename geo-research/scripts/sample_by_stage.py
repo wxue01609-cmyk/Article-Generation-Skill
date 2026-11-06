@@ -38,12 +38,14 @@ STAGE_SIGNALS = {
         (r'\b(review|reviews|hands-on|评测|测评)\b', 3),
         (r'\b(vs|versus|compared|alternative|or better|对比)\b', 2),
         (r'\b(guide|how to choose|选购|教程)\b', 2),
-        (r'\bhow to\b', 3),
+        (r'\bhow to\b.*\b(choose|buy|select|pick|compare|evaluate)\b', 3),
+        (r'\b(what is|what are|what\'s|what does|definition|什么是)\b', 2),
+        (r'\bhow to\b', 1),
         (r'\bworth it\b', 1),
     ],
     'pdp': [
         (r'\b(price|cost|cheap|deal|buy|purchase|多少钱|价格)\b', 3),
-        (r'\b(specs?|specification|dimensions|included|what is|what\'s|参数|规格)\b', 2),
+        (r'\b(specs?|specification|dimensions|included|参数|规格)\b', 2),
         (r'\b(difference|differs)\b', 2),
     ],
     'conversion': [
@@ -57,7 +59,7 @@ STAGE_SIGNALS = {
     ],
 }
 
-CONVERSION_HOWTO = (r'\bhow to\b.*\b(return|cancel|exchange|claim|refund|warranty)\b', 'conversion')
+CONVERSION_HOWTO = (r'\bhow to\b.*\b(return|cancel|exchange|claim|refund|warranty|install|set up|setup|troubleshoot|fix|repair|clean|use|replace|not working|doesn\'?t work|won\'?t work|stop working|用法|安装|清洗|设置)\b', 'conversion')
 
 
 def classify_stage(query, brand='', model=''):
@@ -80,7 +82,7 @@ def classify_stage(query, brand='', model=''):
     if brand and brand.lower() in qq:
         scores['pdp'] += 1
         scores['ai_exposure'] += 1
-    # how to + 售后词 → 转化层
+    # how to + 售后/操作词（install/setup/clean/use/not working…，与 geo-path-plan 的 stage-map 一致）→ 转化层
     if re.search(CONVERSION_HOWTO[0], q):
         scores['conversion'] += 4
         scores['ai_exposure'] = max(0, scores['ai_exposure'] - 3)

@@ -9,9 +9,9 @@ description: 分层采样基线。把词包 query 按转化路径（AI 曝光 / 
 把词包 query 按转化路径（AI 曝光 / 商品详情页 / 购买转化）分层，得到「平台 × 层」基线，并给每条 query 标注 `stage`，让内容矩阵的资产分布与 AI 曝光 → 详情页 → 转化漏斗对齐。
 
 ## 转化层级定义
-- `ai_exposure` AI 曝光：榜单/推荐/评测/对比/选购指南（best、top、recommend、review、vs、guide、how to choose）
-- `pdp` 商品详情页：价格/参数/规格/购买（price、specs、buy、difference、what is）
-- `conversion` 购买转化：售后/物流/保修/政策/兼容（return、warranty、shipping、policy、compatible、is it good for）
+- `ai_exposure` AI 曝光：榜单/推荐/评测/对比/选购指南/科普（best、top、recommend、review、vs、guide、how to choose/buy、what is）
+- `pdp` 商品详情页：价格/参数/规格/购买/差异比较（price、specs、buy、difference、品牌+型号导航）
+- `conversion` 购买转化：售后/物流/保修/政策/兼容/操作安装（return、warranty、shipping、policy、compatible、is it good for、how to install/setup/clean/use）
 
 ## 输入
 - `topics`（主题 → query 清单）或 `keyword_pack`（每行一条）
@@ -22,9 +22,10 @@ description: 分层采样基线。把词包 query 按转化路径（AI 曝光 / 
 1. 逐条 query 按词面信号打分：`ai_exposure` / `pdp` / `conversion` 三套信号表；分数并列时优先级 曝光 > 转化 > 详情页。
 2. `best/top/recommend + buy` 判为榜单意图（曝光），抵消 pdp 的 buy 权重。
 3. 品牌/型号命中只加分证明「产品相关」，不决定层级。
-4. `how to + 售后词`（return/cancel/exchange/claim/refund/warranty）强制归转化层。
-5. 每条 query 只允许 1 个主层级（`stage`）；可再选 1 个次层级（`secondary_stage`，可为 null，不能等于主层级）。
-6. 次层级只做「主层资产里带一句 + 内链」的落点，不产第二篇文章。
+4. `how to + 售后/操作词`（return/cancel/exchange/claim/refund/warranty/install/set up/setup/troubleshoot/fix/clean/use/not working）强制归转化层；`how to + choose/buy/select/pick` 归曝光层（选购教育）。
+5. `what is / what are / what's` 科普问法归曝光层（教育内容），与详情页参数问法（specs/price/buy）区分。
+6. 每条 query 只允许 1 个主层级（`stage`）；可再选 1 个次层级（`secondary_stage`，可为 null，不能等于主层级）。
+7. 次层级只做「主层资产里带一句 + 内链」的落点，不产第二篇文章。
 
 ## 采样来源优先级
 1. `samples_json`：直接采用已算好的采样结果，只解析与格式化。

@@ -11,6 +11,7 @@ description: SKU 商品页改造（geo-sku-rewrite）。把已有商品页改造
 ## 输入
 - 方案矩阵中 `asset_type=sku` 且带 `source_page` 的资产
 - 抓取快照：`source/page-NN/page.txt`、`source/page-NN/meta.json`、`source/index.json`
+- 证据账本：`evidence/ledger.json` + `evidence/evidence_map.json`（geo-evidence 产出；无账本时在 `notes` 说明，只写抓取可见事实）
 - `product` 字段优先来自抓取 JSON-LD / 图片列表 / 参数表
 
 ## 输出（唯一交付物）
@@ -24,27 +25,32 @@ description: SKU 商品页改造（geo-sku-rewrite）。把已有商品页改造
   "product": {
     "brand": "Botslab", "model": "R1",
     "title": "Botslab R1 2K Security Camera – White",
-    "price": {"amount": "99.99", "currency": "USD"},
+    "price": {"amount": "99.99", "currency": "USD", "evidence_id": "c-002"},
     "availability": "In stock",
-    "rating": {"value": 4.5, "count": 320},
+    "rating": {"value": 4.5, "count": 320, "evidence_id": "c-004"},
     "image_url": "https://…/main.jpg", "sku": "BL-R1", "gtin": "可选",
     "image_alt": "Botslab R1 security camera, 2K, white"
   },
   "core_answer": "2-3 句：是什么产品、适合谁、关键参数、边界",
   "ref_links": [{"url": "https://…", "mode": "excerpt|text", "text": "客户自定义文字/内容"}],
   "trust_badges": ["Free US shipping", "30-day returns", "1-year warranty"],
-  "benefits": [{"feature": "2K resolution", "meaning": "人脸/车牌更清晰"}],
-  "specs": [{"name": "Resolution", "value": "2K"}],
+  "benefits": [{"feature": "2K resolution", "meaning": "人脸/车牌更清晰", "evidence_id": "c-001"}],
+  "specs": [{"name": "Resolution", "value": "2K", "evidence_id": "c-001"}],
   "fit": {"good": ["户外使用"], "not_good": ["室内仅需基础监控"]},
-  "faq": [{"question": "买家在 AI 里的原问句", "answer": "直接回答"}],
+  "faq": [{"question": "买家在 AI 里的原问句", "answer": "直接回答", "evidence_id": "可选"}],
   "shipping_returns_warranty": "运费/时效/退货/保修一段话",
   "brand_identity": "Designed and sold by Botslab",
   "reviews_summary": "服务端可见的评分与优缺点；没有就留空字符串",
   "cta": "Buy now",
   "notes": ["核验项只写在这里"],
-  "changes": [{"module": "标题", "before": "页面原文", "after": "改后文案", "problem": "解决的问题"}]
+  "changes": [{"module": "标题", "before": "页面原文", "after": "改后文案", "problem": "解决的问题", "evidence_id": "c-001"}]
 }
 ```
+
+## 证据编号（evidence_id）
+- `evidence_id` 必须存在于 `evidence/ledger.json` 且该 claim `status=verified`、`approved_for_publication=true`（优先用 `evidence/evidence_map.json` 中本资产可用的 claim 列表）。
+- 改后内容引用的硬事实（价格/参数/政策/认证/评分/型号）与 `evidence_id` 一一对应；没有账本条目的一律省略该字段，**禁止编造编号**。
+- 无账本（客户未提供资料、geo-evidence 已注明跳过）时：只写抓取页面可见事实，全部 `evidence_id` 省略，并在 `notes` 说明「未建账本，仅用抓取值」。
 
 ## 模块改造要求（每个模块对应一条 changes）
 - 标题：品牌 + 型号 + 品类 + 关键属性
@@ -56,7 +62,7 @@ description: SKU 商品页改造（geo-sku-rewrite）。把已有商品页改造
 - FAQ：4-8 条，用买家原问句，答案先给结论
 - 购买信息：运费/时效/退货/保修
 - Reviews：有真实数据才写
-- 表述中的数字必须可追到抓取页面/证据账本；无绝对化词（best / #1 / ultimate）
+- 表述中的数字必须可追到抓取页面/证据账本（账本存在时填 `evidence_id`）；无绝对化词（best / #1 / ultimate）
 - `changes` 至少 6 条；`before` 引用抓取原文（缺失写「（页面无此模块）」）
 
 ## 参考链接（精确事实 · 客户补充）

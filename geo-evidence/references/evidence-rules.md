@@ -44,3 +44,39 @@
 - 知识库检索与合并：沿用 [legacy/08-preprocess-and-kb.md](legacy/08-preprocess-and-kb.md) 的企业/产品/营销知识库检索与按标签去重合并。
 - 关键数据点、型号→规格对照、行业参考数据的提取方法：沿用 [legacy/02-geo-profile.md](legacy/02-geo-profile.md) 第二、三、七步，但输出改为本账本的 claim 条目，不再输出“画像”文本。
 - 知识库不足时的联网核实：只核实公开事实，记为 `official_site` / `regulator` / `third_party` 并附 URL；不得覆盖知识库已有数据。
+
+## 六、ledger.json 字段定义（附录）
+
+`evidence/ledger.json` 顶层结构：
+
+```json
+{
+  "version": "1.0",
+  "generated_at": "2026-11-06 12:00:00",
+  "claims": [
+    {
+      "claim_id": "c-001",
+      "claim_type": "product_spec|company_fact|certification|price|policy|performance|customer_proof|review_stat|competitor_fact|market_stat|expert_opinion",
+      "claim": "可发布的表述（交付物语言）",
+      "status": "verified|needs_client_confirmation|blocked",
+      "approved_for_publication": true,
+      "scope_limits": "适用型号/地区/条件",
+      "valid_until": "YYYY-MM-DD（price 必填，≤30 天）",
+      "evidence": [
+        {"source_type": "first_party_doc|official_site|kb|client_input|third_party|review_platform|regulator",
+         "quote": "原文逐字摘录", "source_ref": "文件/URL", "date": "YYYY-MM-DD"}
+      ]
+    }
+  ],
+  "asset_coverage": [
+    {"asset_id": "sku-01", "required": ["c-001"], "covered": ["c-001"], "missing": [], "status": "ok|blocked", "evidence_score": 1.0}
+  ],
+  "change_coverage": [
+    {"change_id": "C-002", "required": [], "covered": [], "missing": [], "status": "ok|blocked", "evidence_score": 1.0}
+  ]
+}
+```
+
+- 内容建设通道只用 `asset_coverage`（key 为 `asset_id`）；SKU 改造通道只用 `change_coverage`（key 为 `change_id`），两者不会同时出现。
+- `evidence_map.json`（内容建设通道专属）：`{"sku-01": ["c-001", ...]}`，由 `check_ledger.py --channel assets --write` 从 `asset_coverage.covered` 生成。
+- `used_by`：`verified` 且 `approved_for_publication` 的 claim，被哪个资产/卡使用时写入对应 id，用于追踪复用。

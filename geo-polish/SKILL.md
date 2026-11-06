@@ -9,7 +9,7 @@ description: 海外 GEO 质检与后处理。三种模式：①批量模式—�
 
 ## 执行流程（严格按序）
 
-> 模式选择：批量生成的文章 → 走下方步骤 1-6（批量模式）；SKU 改造交付物 → 走 `geo-polish/SKILL.md`（改动卡模式）；**内容建设成稿包（按 stage 分组）→ 走文末「全链路模式」**。
+> 模式选择：批量生成的文章 → 走下方步骤 1-6（批量模式）；SKU 改造交付物 → 走「改动卡模式」；**内容建设成稿包（按 stage 分组）→ 走文末「全链路模式」**。
 
 ### 步骤 1 合并与截断容错
 - 聚合标准版 + 品牌版等全部文章为 all_articles；任一文章 JSON 截断未闭合时，用正则提取 title/content/description 兜底，并在 self_review 标记截断。
@@ -55,6 +55,18 @@ th { background: #f6f8fa; font-weight: 600; }
 ### 步骤 6 表格样式校验（追加在机械质检之后）
 - 对每一篇含 <table> 的文章 HTML：<head> 内必须已注入上方表格样式，缺则就地补入，再保存。
 
+## 改动卡模式（SKU 改造 / 内容优化交付物）
+
+整套流水线（SKU 改造通道）：geo-contract → geo-diagnose → geo-strategy → geo-evidence → 生产类 → **geo-polish** → geo-measure。
+
+对每张 `status=in_production` 的改动卡：
+1. 运行 `python3 scripts/check_deliverable.py --project <项目目录> --change <change_id> --write`，按资产类型补跑对应脚本（博客跑 `scripts/check_article.py`；feed 与 schema 跑 geo-pdp 的 `scripts/check_feed.py` / `scripts/check_product_schema.py`；有外链时跑 `scripts/check_links.py`）。
+2. 按 [references/06-channel-gates.md](references/06-channel-gates.md) 完成人工检查项，补入 `qa/<change_id>.json`。
+3. 任一关卡 fail：改动卡置为 `qa_failed`，把问题清单退回对应生产 skill；修改后重跑。
+4. 全部通过：改动卡为 `qa_passed`，提交人工审批（对比页、合规叠加层、法务要求的交付物另需法务审核）。审批完成后填写 `human_approval` 并把卡置为 `approved`，交给 geo-measure。脚本不会自动审批。
+
+内容建设通道的全链路质检见下节；SKU 资产的证据编号（`evidence_id`）在「全链路第 2 关」按 evidence 账本校验。
+
 ## 全链路模式（内容建设成稿包）
 
 适用：`geo-content-write` 产出的 `assets/` + `assets/asset_index.json` + `assets/stage_index.json` + `packs/<stage>/manifest.json`。**按 stage 分单元跑**，每层独立出结论，不因某层不过而卡住其它层。
@@ -63,7 +75,7 @@ th { background: #f6f8fa; font-weight: 600; }
 | 关 | 检查什么 | blocking 判定 | 修复动作 |
 | --- | --- | --- | --- |
 | 1 事实 | 正文数字/参数/政策是否能在 brief、知识库或证据账本找到来源 | 出现无来源的具体数字、价格、认证、评分 | 删改无来源内容或降级为定性表述；SKU 改造走 notes |
-| 2 证据 | 每个改后属性是否可追到证据条目（SKU）/ 每条 proof_point 是否有出处（普通资产） | 改后属性无证据条目 | 回退该属性或补证据 |
+| 2 证据 | SKU：改后属性带 `evidence_id` 且能在 `evidence/ledger.json` 查到 `verified` + `approved_for_publication=true` 的 claim（有账本时）；普通资产：每条 proof_point 有出处 | 有账本但改后属性无 `evidence_id` / 编号在账本查不到或未通过核验 | 回退该属性或补证据；**无账本（geo-evidence 已注明跳过）时降为 warning**，在 checks 注明「未建账本，仅用抓取值」 |
 | 3 可提取 | answer-first：首段是否给结论、H2 是否可被单独引用、是否有可摘取清单/表格 | 首段无结论且全文无结构化要点 | 补结论段/摘要段 |
 | 4 渠道 | 官网资产无竞品名与对比表；三方评测有披露；社区问答 0 链接 0 促销 | 官网资产出现竞品名 | 改写为类别级判断 |
 | 5 分发 | `asset_index.json` 与磁盘文件一一对应、`stage_index.json` 与 index 一致、字数 ±20%、站外链接 `target="_blank" rel="noopener"` | 索引与文件对不上 / 字数超范围 | 补索引或补内容 |

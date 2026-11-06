@@ -5,21 +5,20 @@ description: 海外 GEO 内容优化流水线第二步（答案与来源诊断�
 
 # GEO 答案与来源诊断（geo-diagnose）
 
-整套流水线：geo-contract → **geo-diagnose** → geo-strategy → geo-evidence → 生产类 → geo-polish → geo-measure。
+两条通道：①内容建设（13 skill 链路）监测数据 → **geo-diagnose** → 回流补丁（reflow_patch.json）→ geo-content-plan；②SKU 改造（改动卡流水线）geo-contract → **geo-diagnose** → geo-strategy → geo-evidence → 生产类 → geo-polish。
 
 本 skill 回答一个问题：**每个高价值问题族，品牌现在卡在哪一层？** 不出方案、不写内容。
 
 ## 前置条件
-- `contract.json` 的 `status=ready`（由 geo-contract 校验）。
-- `inputs/question_bank.json`：geo-prompt-selection-builder 交付的问题文件。
-- `inputs/monitoring/`：geo-monitoring 或监测平台导出的结果文件。**本 skill 不自行采样、不调用 AI 接口**；没有结果文件就停止，请使用者先跑监测。
+- 监测结果文件：`inputs/monitoring/` 或平台导出的 `answers_json`。**本 skill 不自行采样、不调用 AI 接口**；没有结果文件就停止，请使用者先跑监测。
+- 问题文件（可选）：`inputs/question_bank.json` 或 `plan/content_matrix.json` 中的 query 清单。
+- 有 `contract.json` 时按其约束执行；内容建设通道没有该文件时跳过（不以它为阻塞条件）。
 
 ## 必读
 - [references/monitoring-input.md](references/monitoring-input.md)：结果文件格式与字段映射。
 - [references/failure-layers.md](references/failure-layers.md)：失败层判定规则与置信度。
 - [references/site-audit.md](references/site-audit.md)：站点与场景审计清单。
-- [../geo-contract/references/artifact-contracts.md](../geo-contract/references/artifact-contracts.md)：responses / topic_metrics / diagnosis 字段定义。
-- [../geo-contract/references/scenario-packs.md](../geo-contract/references/scenario-packs.md)：各场景的诊断审计项。
+- [references/artifact-contracts.md](references/artifact-contracts.md)：responses / topic_metrics / diagnosis 字段定义与场景审计项说明。
 
 ## 执行流程
 
