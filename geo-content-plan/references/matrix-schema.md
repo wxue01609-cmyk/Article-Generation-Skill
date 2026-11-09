@@ -66,7 +66,7 @@
 
 ## 字段约束
 - `intent` 只能取：informational / commercial / transactional / navigational / support / community / news / local
-- `stage` 只能取：ai_exposure / pdp / conversion（转化路径三层：AI曝光 / 转化层 / 对比决策）；`secondary_stage` 同三值之一或省略（null 时省略），不得等于 `stage`
+- `stage` 只能取：ai_exposure / pdp / conversion（转化路径三层：AI曝光 / 对比决策 / 转化层）；`secondary_stage` 同三值之一或省略（null 时省略），不得等于 `stage`
 - `funnel` 只能取：TOFU / MOFU / BOFU / Retention
 - `priority` 只能取：P0 / P1 / P2
 - `cta_url`：CTA 按钮的真实落地地址。**不得等于本资产的 `target_url`**（自链必 404），也不得指向矩阵内尚未发布的规划路径；无真实地址时写 `待填真实链接`

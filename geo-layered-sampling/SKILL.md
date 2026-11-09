@@ -1,17 +1,17 @@
 ---
 name: geo-layered-sampling
-description: 分层采样基线。把词包 query 按转化路径（AI 曝光 / 转化层 / 对比决策）分层，得到「平台 × 层」基线（样本数、品牌提及率、来源引用率、商品卡率），并给每条 query 标注 stage 与 secondary_stage 供内容矩阵使用。当需要"这套词包在 AI 里现在怎么被回答、每层有多少样本"时使用。
+description: 分层采样基线。把词包 query 按转化路径（AI 曝光 / 对比决策 / 转化层）分层，得到「平台 × 层」基线（样本数、品牌提及率、来源引用率、商品卡率），并给每条 query 标注 stage 与 secondary_stage 供内容矩阵使用。当需要"这套词包在 AI 里现在怎么被回答、每层有多少样本"时使用。
 ---
 
 # 分层采样基线（geo-layered-sampling）
 
 ## 任务
-把词包 query 按转化路径（AI 曝光 / 转化层 / 对比决策）分层，得到「平台 × 层」基线，并给每条 query 标注 `stage`，让内容矩阵的资产分布与 AI 曝光 → 转化层 → 对比决策漏斗对齐。
+把词包 query 按转化路径（AI 曝光 / 对比决策 / 转化层）分层，得到「平台 × 层」基线，并给每条 query 标注 `stage`，让内容矩阵的资产分布与 AI 曝光 → 对比决策 → 转化层漏斗对齐。
 
 ## 转化路径层级定义
 - `ai_exposure` AI 曝光：榜单/推荐/评测/对比/选购指南/科普（best、top、recommend、review、vs、guide、how to choose/buy、what is）
-- `pdp` 转化层（落在商品详情页）：价格/参数/规格/购买/差异比较（price、specs、buy、difference、品牌+型号导航）
 - `conversion` 对比决策：售后/物流/保修/政策/兼容/操作安装（return、warranty、shipping、policy、compatible、is it good for、how to install/setup/clean/use）
+- `pdp` 转化层（落在商品详情页）：价格/参数/规格/购买/差异比较（price、specs、buy、difference、品牌+型号导航）
 
 ## 输入
 - `topics`（主题 → query 清单）或 `keyword_pack`（每行一条）

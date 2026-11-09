@@ -275,7 +275,7 @@
     {
       "skill_name": "分层采样基线",
       "skill_name_en": "geo-layered-sampling",
-      "description": "按转化路径把词包 query 分成 AI 曝光 / 转化层 / 对比决策三层，调用 geo_sample 取平台×层基线（样本数、品牌提及率、来源引用率、商品卡率），并给每条 query 标注 stage 供内容矩阵使用。",
+      "description": "按转化路径把词包 query 分成 AI 曝光 / 对比决策 / 转化层三层，调用 geo_sample 取平台×层基线（样本数、品牌提及率、来源引用率、商品卡率），并给每条 query 标注 stage 供内容矩阵使用。",
       "skill_prompt_ref": "./prompts/geo-layered-sampling.md"
     },
     {
@@ -317,7 +317,7 @@
     {
       "skill_name": "转化路径编排",
       "skill_name_en": "geo-path-plan",
-      "description": "把词包按 AI 曝光 / 转化层 / 对比决策三层编排：每条 query 1 主节点 + 1 次节点，输出 plan/path_plan.json 供方案落位；行业只作素材不决定调度。",
+      "description": "把词包按 AI 曝光 / 对比决策 / 转化层三层编排：每条 query 1 主节点 + 1 次节点，输出 plan/path_plan.json 供方案落位；行业只作素材不决定调度。",
       "skill_prompt_ref": "./prompts/geo-path-plan.md"
     },
     {
@@ -460,7 +460,7 @@
     {
       "tool_name": "分层采样",
       "tool_name_en": "geo_sample",
-      "description": "把词包按 AI 曝光 / 转化层 / 对比决策三层采样并聚合：支持传入已采集答案（answers_json）或现成结果（samples_json），也可用 api_base/api_key 调用兼容接口问答；都没有时做离线规则分层。返回 query→stage 映射与平台×层基线表。",
+      "description": "把词包按 AI 曝光 / 对比决策 / 转化层三层采样并聚合：支持传入已采集答案（answers_json）或现成结果（samples_json），也可用 api_base/api_key 调用兼容接口问答；都没有时做离线规则分层。返回 query→stage 映射与平台×层基线表。",
       "tool_type": 0,
       "code_content_ref": "./tools/geo-sample.py",
       "input_params": [

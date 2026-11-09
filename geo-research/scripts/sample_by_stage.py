@@ -28,7 +28,7 @@ try:
 except ImportError:
     normalize_dir = None
 
-# ---------- 分层打标（转化路径：AI 曝光 / 转化层 / 对比决策） ----------
+# ---------- 分层打标（转化路径：AI 曝光 / 对比决策 / 转化层） ----------
 STAGE_ORDER = ('ai_exposure', 'pdp', 'conversion')
 TIE_PRIORITY = ('ai_exposure', 'conversion', 'pdp')  # 并列时 AI 曝光 > 对比决策 > 转化层
 
