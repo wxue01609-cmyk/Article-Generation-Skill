@@ -44,6 +44,7 @@
       "key_points": ["...", "..."],
       "proof_points": ["IP65 rating from product KB", "待核验：亮度实测数据"],
       "cta": "Download the specification checklist",
+      "cta_url": "https://example.com/contact",
       "internal_links": [{"anchor": "outdoor LED series", "target": "/products/outdoor"}],
       "reference_citations": [
         {"title": "Best outdoor LED displays 2026 (review roundup)", "url": "https://example.com/reviews/led", "domain": "example.com", "headings": ["h2 brightness", "h2 pixel pitch"], "excerpt": "…"}
@@ -68,6 +69,7 @@
 - `stage` 只能取：ai_exposure / pdp / conversion（转化路径三层：AI曝光 / 商品详情页 / 购买转化）；`secondary_stage` 同三值之一或省略（null 时省略），不得等于 `stage`
 - `funnel` 只能取：TOFU / MOFU / BOFU / Retention
 - `priority` 只能取：P0 / P1 / P2
+- `cta_url`：CTA 按钮的真实落地地址。**不得等于本资产的 `target_url`**（自链必 404），也不得指向矩阵内尚未发布的规划路径；无真实地址时写 `待填真实链接`
 - `asset_type` 只能取启用的类型：blog / landing / sku / category / thirdparty_pr / thirdparty_review / qna / social / ecommerce / faq
 - `asset_id` 正则：`^(blog|landing|sku|category|pr|review|qna|social|ecom|faq)-\d{2}$`
 - `outline` 至少 3 项（sku/faq 可 2 项）；每项必须有 `h2` 与 `points`（≥1）

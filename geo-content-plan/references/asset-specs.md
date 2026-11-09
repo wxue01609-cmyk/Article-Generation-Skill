@@ -1,8 +1,10 @@
 # 各资产 Brief 骨架（方案阶段只写结构与要点）
 
+> 所有官网资产的 `cta_url` 只能用真实存在的 URL（`site_inventory` 优先）。**禁止**等于本资产自己的 `target_url`（自链必 404），也禁止指向矩阵里尚未发布的规划路径；找不到真实地址时写 `待填真实链接`。
+
 ## blog 官网博客
 `outline`：H1 → 直接结论段（≤120 词）→ 4-7 个 H2（问题/判断标准/参数/场景/边界）→ FAQ（原问句 3-5 条）→ 结论。
-`key_points`：每 H2 一句核心结论；`proof_points`：可核验参数/认证/来源；`cta`：单一软 CTA。
+`key_points`：每 H2 一句核心结论；`proof_points`：可核验参数/认证/来源；`cta`：单一软 CTA；`cta_url`：真实 URL（site_inventory 优先，禁止自链到本资产 target_url，无则 `待填真实链接`）。
 禁止：竞品名、TL;DR（整批最多 1 篇）、作者简介。
 
 ## category 官网类目页
@@ -11,7 +13,7 @@
 
 ## landing 官网落地页
 `outline`：Hero（H1/副标题/证据条/主 CTA）→ 痛点 → 解决方案 → 3 个收益模块 → 工作方式 → 规格/证据 → 使用场景 → 异议处理 → 真实背书（无则不写）→ FAQ → 结尾 CTA。
-`key_points`：每屏一句转化主张；`cta`：只保留一个主 CTA；`word_count` 300-700。
+`key_points`：每屏一句转化主张；`cta`：只保留一个主 CTA；`cta_url`：真实落地 URL（禁止自链，无则 `待填真实链接`）；`word_count` 300-700。
 
 ## sku 官网产品/SKU 页
 `outline`：标题公式 → 5 条卖点（利益+证据）→ 描述（3 段）→ 参数表 → 包装/兼容 → 适用/不适用 → FAQ → schema Product。

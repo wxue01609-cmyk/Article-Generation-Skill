@@ -40,8 +40,15 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
    - 任何出现在其他资产 `internal_links` 里的目标，都必须能在本矩阵找到对应的 `target_url`（否则就是死链）；
    - 三方资产写 `external:TBD`，不编造站内路径。
 
+6.95 **CTA 与导航链接（强制，禁止自链）**：每个 item 额外给 `cta_url`（CTA 按钮要跳转的真实地址）：
+   - 优先级：`site_inventory` 里的真实页面 URL → `source_urls` 中抓取成功的真实页面 URL → 知识库/客户明确提供的 URL；
+   - **禁止** `cta_url` 等于本资产自己的 `target_url`（自链点击必然 404），也禁止指向矩阵里尚未发布的规划路径；
+   - 找不到真实地址时写 `待填真实链接`，并在 `risk_notes` 注明「CTA 需客户补真实落地页」；
+   - 顶部导航与页脚链接同理：只能使用 `site_inventory` 中的真实 URL；矩阵内未发布的规划路径不得进入导航/页脚，最多作为正文内链锚文本；
+   - `cta` 只写按钮文案（沿用 `primary_cta`，缺省 `Check it out`），URL 一律放 `cta_url`。
+
 7. **优先级**：按购买意图强度、品牌/型号相关度、流量价值给 `P0/P1/P2`（`conversion` 层购买信号强，通常不低于 P1）。
-8. **生成 Brief**：按 [references/asset-specs.md](references/asset-specs.md) 对应类型的骨架，填 `title` / `angle` / `outline` / `key_points` / `proof_points` / `cta` / `internal_links` / `word_count` / `publish_order` / `dependencies`；带 `source_page` 的 sku Brief 以「改造清单」形式写，不写改后正文。每个 item 必须带 `stage` / `secondary_stage`。
+8. **生成 Brief**：按 [references/asset-specs.md](references/asset-specs.md) 对应类型的骨架，填 `title` / `angle` / `outline` / `key_points` / `proof_points` / `cta` / `cta_url` / `internal_links` / `word_count` / `publish_order` / `dependencies`；带 `source_page` 的 sku Brief 以「改造清单」形式写，不写改后正文。每个 item 必须带 `stage` / `secondary_stage`。
 8.5 **引用内容参考**：`research/citations.json`（或 `sampling.json.citations`）存在且有 `status=ok` 条目时，把与 item `stage` **同层**的引用条目写入该 item 的 `reference_citations`（`[{title, url, domain, headings, excerpt 前 200 字}]`），并把「AI 正在引用这类结构」的可借鉴点落进 `key_points`。使用规则严格按 [references/citation-usage.md](references/citation-usage.md)：只借鉴结构与证据点，禁止照抄原文句子；官网资产不因引用内容引入竞品品牌名。
 9. **自检**（必须全部通过）：
    - 字段名必须与 schema 完全一致：`asset_id`（不是 id）、`primary_query`（不是 query）、`secondary_queries`、`intent`、`stage`、`secondary_stage`、`channel`、`asset_type`；字段名写错会导致平台勾选成稿失败，写完后逐项核对。
