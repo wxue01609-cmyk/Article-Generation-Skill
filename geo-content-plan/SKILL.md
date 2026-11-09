@@ -24,7 +24,7 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
 ## 执行步骤
 1. **清洗 query**：`keyword_pack` 每行一条；`topics` 提供主题归属；按大小写/单复数/标点归一后去重，问句保留原始问法。
 2. **意图分类**：逐条按 [references/intent-map.md](references/intent-map.md) 判定，必须写 `intent_signals`（词面证据）与 `confidence`。
-3. **节点归属（stage）**：逐条把 query 归到三层（`ai_exposure` AI曝光 / `pdp` 商品详情页 / `conversion` 购买转化）。存在 `plan/path_plan.json` 时直接用其 `stage` / `secondary_stage`；缺失时按 [references/stage-map.md](references/stage-map.md) 就地打标（1 主节点 + 1 次节点，次节点可 null）。stage 只决定「在哪层发力」，不替代渠道落位。
+3. **节点归属（stage）**：逐条把 query 归到三层（`ai_exposure` AI曝光 / `pdp` 转化层 / `conversion` 对比决策）。存在 `plan/path_plan.json` 时直接用其 `stage` / `secondary_stage`；缺失时按 [references/stage-map.md](references/stage-map.md) 就地打标（1 主节点 + 1 次节点，次节点可 null）。stage 只决定「在哪层发力」，不替代渠道落位。
 4. **聚合 cluster**：同实体 + 同意图 + 同主题合并；一个 query 只能有一个 `primary_query` 归属。
 5. **渠道落位**：按 [references/channel-map.md](references/channel-map.md) 的决策树选择 `channel` / `asset_type`；只允许使用 `fields.asset_types` 里启用的类型；无法落位的进 `gaps`。
 6. **匹配待改造页面**：读取 `source/index.json`。当某条 query 被判为 `asset_type=sku`、且可用页面与 query 指向同一型号/品类时，按下面规则挂载改造信息：

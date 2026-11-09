@@ -18,7 +18,7 @@
 - 需要跨阶段回溯（如成稿要复核矩阵口径）时，只读 `plan/content_matrix.json` 的对应字段，不要重读方案阶段技能全文。
 
 0. **运行前准备**：如果本次提供了上传文档，先调工具 `geo_parse_doc` 解析，把结果回填到 `topics` / `ent_kb_text` / `prod_kb_text` 等字段，再开始。
-1. **分层与编排（方案阶段必做，成稿阶段只读结果）**：调用工具 `geo_sample`（技能 `geo-layered-sampling`）按 AI 曝光 / 商品详情页 / 购买转化给词包分层，拿到 `query→stage`（含 `query_secondary_stage` 次层级）与平台×层基线；`geo_sample` 不可用或返回离线分层时，若任务带有 `plan/path_plan.json`（技能 `geo-path-plan` 的编排结果）直接采用其 `stage` / `secondary_stage`；两者都没有时按 stage-map 就地打标。矩阵每个 item 必须带 `stage`，`secondary_stage` 有值就写（只做内链位，不另产文章）。
+1. **分层与编排（方案阶段必做，成稿阶段只读结果）**：调用工具 `geo_sample`（技能 `geo-layered-sampling`）按 AI 曝光 / 转化层 / 对比决策给词包分层，拿到 `query→stage`（含 `query_secondary_stage` 次层级）与平台×层基线；`geo_sample` 不可用或返回离线分层时，若任务带有 `plan/path_plan.json`（技能 `geo-path-plan` 的编排结果）直接采用其 `stage` / `secondary_stage`；两者都没有时按 stage-map 就地打标。矩阵每个 item 必须带 `stage`，`secondary_stage` 有值就写（只做内链位，不另产文章）。
    - 若本次带有 `citations_json`（平台抓取的「AI 实际引用的第三方页面」摘要）：把与 item 同层的引用条目写进 Brief 的 `reference_citations`，只借鉴标题层级与证据点类型，**禁止照抄原文句子**；官网资产不得因此出现竞品品牌名。
 2. **阶段判定**（只走其中一个，不要两个都做）：
    - 任务带 `monitoring_json`（监测平台导出的 AI 答案）且未带 `selected_asset_ids` → **诊断阶段（diagnose）**：调用技能 `geo-diagnose` 按问题族统计提及/排位/份额/引用来源/商品卡，判定每条 query 卡在哪个失败层，输出回流建议（不改稿、不产资产）。

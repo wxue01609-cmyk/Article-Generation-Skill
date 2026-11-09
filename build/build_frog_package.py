@@ -157,7 +157,7 @@ def build_sample_tool():
     prefix = text[:start]
     suffix = text[end:]
     labels = (
-        "STAGE_LABELS = {'ai_exposure': 'AI 曝光', 'pdp': '商品详情页', 'conversion': '购买转化'}\n"
+        "STAGE_LABELS = {'ai_exposure': 'AI 曝光', 'pdp': '转化层', 'conversion': '对比决策'}\n"
         "PLATFORM_LABELS = {'chatgpt': 'ChatGPT', 'gemini': 'Gemini', 'perplexity': 'Perplexity', 'api': 'API 问答'}\n\n"
     )
     return prefix + labels + build_classifier_block() + '\n\n' + suffix

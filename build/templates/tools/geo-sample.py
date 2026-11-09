@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""分层采样工具：把词包 query 按转化路径（AI 曝光 / 商品详情页 / 购买转化）分层，
+"""分层采样工具：把词包 query 按转化路径（AI 曝光 / 转化层 / 对比决策）分层，
 统计每层的样本数、品牌提及率、来源引用率、商品卡率，输出平台×层基线表与 query→stage 映射。
 
 三种模式（按优先级）：
@@ -20,7 +20,7 @@ from collections import Counter, defaultdict
 
 STAGE_ORDER = ('ai_exposure', 'pdp', 'conversion')
 TIE_PRIORITY = ('ai_exposure', 'conversion', 'pdp')
-STAGE_LABELS = {'ai_exposure': 'AI 曝光', 'pdp': '商品详情页', 'conversion': '购买转化'}
+STAGE_LABELS = {'ai_exposure': 'AI 曝光', 'pdp': '转化层', 'conversion': '对比决策'}
 PLATFORM_LABELS = {'chatgpt': 'ChatGPT', 'gemini': 'Gemini', 'perplexity': 'Perplexity', 'api': 'API 问答'}
 
 STAGE_SIGNALS = {
@@ -230,7 +230,7 @@ def make_markdown(result):
             ('%.1f%%' % ((info.get('mention_rate') or 0) * 100)),
             ('%.1f%%' % ((info.get('cite_rate') or 0) * 100)),
             ('%.1f%%' % ((info.get('product_card_rate') or 0) * 100)) if 'product_card_rate' in info else '-'))
-    head = '| 转化层 | 平台 | 样本数 | 品牌提及率 | 来源引用率 | 商品卡率 |\n|---|---|---|---|---|---|\n'
+    head = '| 阶段 | 平台 | 样本数 | 品牌提及率 | 来源引用率 | 商品卡率 |\n|---|---|---|---|---|---|\n'
     text = ('分层采样基线（%s，共 %s 条样本）\n\n' % (result.get('source_label') or result.get('source') or '',
                                                  result.get('sample_count') or 0)) + head + '\n'.join(lines)
     cites = result.get('citations') or []

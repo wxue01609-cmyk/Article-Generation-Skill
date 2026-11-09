@@ -1,12 +1,12 @@
 ---
 name: geo-path-plan
-description: 海外内容建设第零阶段（转化路径编排）。读取 query 词包与企业/产品资料，按转化路径把每条 query 编排到三层节点（ai_exposure AI曝光 / pdp 商品详情页 / conversion 购买转化），每条只允许 1 主节点 + 1 次节点，输出 plan/path_plan.json 供 geo-content-plan 落位资产。当需要"这条 query 该在哪一层发力、文章写在哪"时使用。
+description: 海外内容建设第零阶段（转化路径编排）。读取 query 词包与企业/产品资料，按转化路径把每条 query 编排到三层节点（ai_exposure AI曝光 / pdp 转化层 / conversion 对比决策），每条只允许 1 主节点 + 1 次节点，输出 plan/path_plan.json 供 geo-content-plan 落位资产。当需要"这条 query 该在哪一层发力、文章写在哪"时使用。
 ---
 
 # GEO 转化路径编排（geo-path-plan）
 
 ## 任务
-把「一堆 query」按转化路径重新编排：**AI 曝光 → 商品详情页 → 购买转化** 三层，逐条 query 打标。行业只作为素材参数，不决定调度。输出 `plan/path_plan.json`，作为 geo-content-plan 渠道落位的前置输入。
+把「一堆 query」按转化路径重新编排：**AI 曝光 → 转化层 → 对比决策** 三层，逐条 query 打标。行业只作为素材参数，不决定调度。输出 `plan/path_plan.json`，作为 geo-content-plan 渠道落位的前置输入。
 
 ## 输入
 - `fields.topics`（主题 → query 清单）或 `fields.keyword_pack`（词包，每行一条）

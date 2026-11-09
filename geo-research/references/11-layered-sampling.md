@@ -7,12 +7,12 @@
 | stage | 客户状态 | 典型 query |
 | --- | --- | --- |
 | `ai_exposure` AI 曝光 | 还没听说过你 | best / top / review / vs / how to / guide |
-| `pdp` 商品详情页 | 已经在看你的产品 | 品牌+型号 + price / specs / what's included |
-| `conversion` 购买转化 | 想买但犹豫 | return / refund / warranty / shipping / policy / is it good for |
+| `pdp` 转化层（商品详情页） | 已经在看你的产品 | 品牌+型号 + price / specs / what's included |
+| `conversion` 对比决策 | 想买但犹豫 | return / refund / warranty / shipping / policy / is it good for |
 
 ## 打标规则（打分制，可解释、可人工覆盖）
 
-- 每层一组信号词，命中加分：曝光（best/review/vs/how to/guide +3~2），详情页（price/specs/buy +3~2），转化（return/warranty/shipping/policy/support +3，适用性疑虑 +2）。
+- 每层一组信号词，命中加分：AI 曝光（best/review/vs/how to/guide +3~2），转化层（price/specs/buy +3~2），对比决策（return/warranty/shipping/policy/support +3，适用性疑虑 +2）。
 - 品牌+型号精确命中只是**加成**（+2~+3 pdp、+2 exposure），不决定层级：它只回答「是不是产品相关」，不回答「写在哪」。
 - 特殊消解：`best/top ... to buy` → 榜单意图归曝光，抵消 pdp 的 buy 权重；`how to + return/cancel/claim` → 归转化，`how to + install/setup` → 归曝光。
 - 主层级 = 最高分；次层级 = 第二高分且 ≥2 分、与主层级不同（次层级只做「引用位/原问句嵌入」，不单独造文）。
@@ -71,7 +71,7 @@ python3 scripts/sample_by_stage.py \
 字段说明：
 - `stages.*.mention_rate`：该层 query 的 AI 回答里提及客户品牌/型号的比例（0~1）
 - `stages.*.cited_domains` / `brands_mentioned`：引用域名 Top8 / 竞品提及 Top8，供诊断判断「引用来源集」和「竞品席位」
-- `items[].signals`：价格/评分/库存/政策是否被 AI 提及，详情页层看价格与评分、转化层看政策
+- `items[].signals`：价格/评分/库存/政策是否被 AI 提及，转化层看价格与评分、对比决策层看政策
 - `items[].secondary_stage`：次层级，只做引用位/原问句嵌入
 
 ## 谁消费这份数据

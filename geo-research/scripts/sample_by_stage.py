@@ -28,9 +28,9 @@ try:
 except ImportError:
     normalize_dir = None
 
-# ---------- 分层打标（转化路径：AI 曝光 / 商品详情页 / 购买转化） ----------
+# ---------- 分层打标（转化路径：AI 曝光 / 转化层 / 对比决策） ----------
 STAGE_ORDER = ('ai_exposure', 'pdp', 'conversion')
-TIE_PRIORITY = ('ai_exposure', 'conversion', 'pdp')  # 并列时曝光 > 转化 > 详情页
+TIE_PRIORITY = ('ai_exposure', 'conversion', 'pdp')  # 并列时 AI 曝光 > 对比决策 > 转化层
 
 STAGE_SIGNALS = {
     'ai_exposure': [
@@ -82,7 +82,7 @@ def classify_stage(query, brand='', model=''):
     if brand and brand.lower() in qq:
         scores['pdp'] += 1
         scores['ai_exposure'] += 1
-    # how to + 售后/操作词（install/setup/clean/use/not working…，与 geo-path-plan 的 stage-map 一致）→ 转化层
+    # how to + 售后/操作词（install/setup/clean/use/not working…，与 geo-path-plan 的 stage-map 一致）→ 对比决策层
     if re.search(CONVERSION_HOWTO[0], q):
         scores['conversion'] += 4
         scores['ai_exposure'] = max(0, scores['ai_exposure'] - 3)

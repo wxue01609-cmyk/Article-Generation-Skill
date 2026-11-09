@@ -45,7 +45,7 @@ description: 海外 GEO 生文流水线第一阶段（调研）。输入词包�
 
 ### 步骤 3 分层采样 + AI 问答结构提取
 - 触发条件：收到 keyword_pack 即执行，无其他前置；词包为空或无有效关键词时，输出空结果并注明原因。
-- **第一步·分层采样**：用 `scripts/sample_by_stage.py` 把词包 query 按转化路径分到三层（`ai_exposure` AI 曝光 / `pdp` 商品详情页 / `conversion` 购买转化），逐条向 ChatGPT 对话接口提问，统计每层的客户品牌提及率、引用域名 Top、竞品提及 Top，输出 `research/sampling.json`（分层的基线数据，供诊断回流使用）。接口未配置或调用失败时，退回内置 web_search 联网检索 AI 平台公开回答并在输出注明。
+- **第一步·分层采样**：用 `scripts/sample_by_stage.py` 把词包 query 按转化路径分到三层（`ai_exposure` AI 曝光 / `pdp` 转化层 / `conversion` 对比决策），逐条向 ChatGPT 对话接口提问，统计每层的客户品牌提及率、引用域名 Top、竞品提及 Top，输出 `research/sampling.json`（分层的基线数据，供诊断回流使用）。接口未配置或调用失败时，退回内置 web_search 联网检索 AI 平台公开回答并在输出注明。
   ```bash
   python3 scripts/sample_by_stage.py --queries-file <词包文件> \
       --brand <企业名> --model <主力型号> --competitors "<竞品1,竞品2>" \
