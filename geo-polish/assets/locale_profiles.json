@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updated_at": "2026-11-11 16:57:30",
+  "updated_at": "2026-11-11 17:13:02",
   "description": "海外内容本地化词库 v1（内置种子）：美/英/新加坡/澳/加 5 市场。level=hard 出现即阻断，soft 仅提示；zh_terms 用于中文输出。",
   "market_aliases": {
     "美国": "US",
@@ -799,7 +799,432 @@
         }
       ],
       "learned": {
-        "terms": [],
+        "terms": [
+          {
+            "wrong": [
+              "apartment"
+            ],
+            "right": "condo / flat / unit",
+            "whitelist": [],
+            "level": "soft",
+            "note": "新加坡本地写 condo（167/24）、flat、unit，apartment 多为海外提问",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [
+              "realtor"
+            ],
+            "right": "property agent",
+            "whitelist": [],
+            "level": "soft",
+            "note": "realtor 是美式用法",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [
+              "real estate agent"
+            ],
+            "right": "property agent",
+            "whitelist": [],
+            "level": "soft",
+            "note": "本地统一说 property agent（53/3/1）",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [
+              "city center"
+            ],
+            "right": "city centre",
+            "whitelist": [],
+            "level": "soft",
+            "note": "新加坡用英式拼写",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [
+              "center"
+            ],
+            "right": "centre",
+            "whitelist": [],
+            "level": "soft",
+            "note": "同上",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [
+              "public housing"
+            ],
+            "right": "HDB flats",
+            "whitelist": [],
+            "level": "soft",
+            "note": "本地直接说 HDB / HDB flat",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [
+              "condominium"
+            ],
+            "right": "condo",
+            "whitelist": [],
+            "level": "soft",
+            "note": "condominium 不算错，但本地简称 condo 更常用（167/24）",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [
+              "executive condominium"
+            ],
+            "right": "EC / executive condo",
+            "whitelist": [],
+            "level": "soft",
+            "note": "本地缩写 EC（12/6）",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [
+              "per square foot"
+            ],
+            "right": "PSF",
+            "whitelist": [],
+            "level": "soft",
+            "note": "本地报价口径写 PSF（1/1/1）",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [
+              "good class bungalow"
+            ],
+            "right": "GCB",
+            "whitelist": [],
+            "level": "soft",
+            "note": "本地缩写 GCB（0/0/2）",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [
+              "vacation"
+            ],
+            "right": "holiday",
+            "whitelist": [],
+            "level": "soft",
+            "note": "新加坡用 holiday,假期",
+            "lang": "en",
+            "source": "manual",
+            "added_at": "2026-11-11 17:11:41"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "HDB",
+              "HDB flat"
+            ],
+            "level": "soft",
+            "note": "组屋",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "BTO"
+            ],
+            "level": "soft",
+            "note": "预购组屋",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "resale"
+            ],
+            "level": "soft",
+            "note": "转售",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "CPF"
+            ],
+            "level": "soft",
+            "note": "公积金",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "EC"
+            ],
+            "level": "soft",
+            "note": "执行共管公寓",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "condo"
+            ],
+            "level": "soft",
+            "note": "共管公寓",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "flat"
+            ],
+            "level": "soft",
+            "note": "单位/组屋",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "unit"
+            ],
+            "level": "soft",
+            "note": "单位",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "landed"
+            ],
+            "level": "soft",
+            "note": "有地住宅",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "GCB"
+            ],
+            "level": "soft",
+            "note": "优质洋房",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "shophouse"
+            ],
+            "level": "soft",
+            "note": "店屋",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "URA"
+            ],
+            "level": "soft",
+            "note": "市区重建局",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "MCST"
+            ],
+            "level": "soft",
+            "note": "分层地契管理委员会",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "showflat"
+            ],
+            "level": "soft",
+            "note": "样板房",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "PSF"
+            ],
+            "level": "soft",
+            "note": "每平方英尺价",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "leasehold",
+              "freehold"
+            ],
+            "level": "soft",
+            "note": "租赁地契 / 永久地契",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "99-year",
+              "999-year"
+            ],
+            "level": "soft",
+            "note": "99年 / 999年地契",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "en bloc"
+            ],
+            "level": "soft",
+            "note": "集体出售",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "strata"
+            ],
+            "level": "soft",
+            "note": "分层地契",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "MRT",
+              "LRT"
+            ],
+            "level": "soft",
+            "note": "地铁 / 轻轨",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "property agent"
+            ],
+            "level": "soft",
+            "note": "房产经纪",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "ABSD"
+            ],
+            "level": "soft",
+            "note": "额外买方印花税",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "LTV"
+            ],
+            "level": "soft",
+            "note": "贷款与估值比",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          },
+          {
+            "wrong": [],
+            "right": "",
+            "whitelist": [
+              "subsale"
+            ],
+            "level": "soft",
+            "note": "转售（未满 TOP）",
+            "lang": "en",
+            "source": "excel:本地词库上传词.xlsx",
+            "added_at": "2026-11-11 17:13:02"
+          }
+        ],
         "exceptions": []
       }
     },
