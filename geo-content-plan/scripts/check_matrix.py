@@ -26,6 +26,8 @@ FUNNEL_VALUES = {'TOFU', 'MOFU', 'BOFU', 'Retention'}
 ASSET_TYPE_ALL = {'blog', 'landing', 'sku', 'category', 'thirdparty_pr',
                   'thirdparty_review', 'qna', 'social', 'ecommerce', 'faq'}
 OFFICIAL_ASSETS = {'blog', 'landing', 'category', 'faq', 'sku'}
+# 占位 URL：文章尚未发布时允许留空或用占位符，发布后回填真实地址（不视为死链）
+PLACEHOLDER_URLS = {'', 'placeholder', 'pending', 'tbd', 'todo', 'external:tbd'}
 ASSET_ID_RE = re.compile(r'^(blog|landing|sku|category|pr|review|qna|social|ecom|faq)-\d{2}$')
 WORD_COUNT_RANGE = {
     'blog': (700, 1500), 'landing': (300, 700), 'sku': (150, 400),
@@ -107,23 +109,26 @@ def main():
         check(results, 'blocking', '资产数超预算',
               'items=%d > asset_budget=%d，应对剩余 query 做 budget 截断进 gaps' % (len(items), budget))
 
-    # target_url / 内链闭环
+    # target_url / 内链闭环（未发布资产允许占位 URL，发布后回填）
     official_missing_url = [it.get('asset_id') for it in items
                             if isinstance(it, dict) and it.get('asset_type') in OFFICIAL_ASSETS
-                            and not it.get('target_url')]
-    check(results, 'blocking', '官网类资产 target_url 必填',
-          '缺失: %s' % official_missing_url if official_missing_url else '')
+                            and str(it.get('target_url') or '').strip().lower() in PLACEHOLDER_URLS]
+    check(results, 'warning', '官网类资产 target_url 为未发布占位',
+          '未发布占位（发布后回填）: %s' % official_missing_url if official_missing_url else '')
     urls = {it.get('target_url') for it in items
             if isinstance(it, dict) and it.get('target_url')}
+    has_unpublished = bool(official_missing_url)
     dead = []
+    pending = []
     for it in items:
         if not isinstance(it, dict):
             continue
         for link in it.get('internal_links') or []:
             target = link.get('target') if isinstance(link, dict) else None
             if isinstance(target, str) and target.startswith('/') and target not in urls:
-                dead.append('%s → %s' % (it.get('asset_id'), target))
-    check(results, 'blocking', '站内内链 target_url 闭环', '死链: %s' % dead if dead else '')
+                (pending if has_unpublished else dead).append('%s → %s' % (it.get('asset_id'), target))
+    check(results, 'warning' if pending else 'blocking', '站内内链 target_url 闭环',
+          ('待发布回填: %s' % pending) if pending else (('死链: %s' % dead) if dead else ''))
 
     seen_secondary = {}
     for idx, it in enumerate(items):

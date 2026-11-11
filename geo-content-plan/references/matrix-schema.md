@@ -45,6 +45,8 @@
       "proof_points": ["IP65 rating from product KB", "待核验：亮度实测数据"],
       "cta": "Download the specification checklist",
       "cta_url": "https://example.com/contact",
+      "factors": ["F-G-001", "F-G-002", "F-A-003"],
+      "authority_actions": ["引用 1 条独立评测结论并标来源", "补 1 段选购判断标准"],
       "internal_links": [{"anchor": "outdoor LED series", "target": "/products/outdoor"}],
       "reference_citations": [
         {"title": "Best outdoor LED displays 2026 (review roundup)", "url": "https://example.com/reviews/led", "domain": "example.com", "headings": ["h2 brightness", "h2 pixel pitch"], "excerpt": "…"}
@@ -77,6 +79,9 @@
 - `confidence` 0-1；`<0.70` 时 `needs_review` 必须为 true
 - `summary` 必须与 items/gaps 实际统计一致
 - `summary.by_stage` 必须与 items 的 `stage` 统计一致；`secondary_stage` 不进 by_stage
+- `factors`：因子 id 数组（2-4 个），取自 `factor_library.json`；全局因子 + 本层因子各至少 1 个；只影响 Brief 的重点与排序，不改判事实
+  - `authority_actions`：字符串数组，按所选因子的 `action` 写权威建设动作（如“引用独立评测结论并标来源”“补对比表”），供成稿执行
+  - `plan/factor_updates.json`：可选回流文件；发现新因子或需调整既有因子时写入 `{"factors":[{"action":"add|update","name":"…","category":"global|stage","stage":"…","weight":0.05,"definition":"…","check":"…","action":"…","reason":"…"}]}`；平台收尾自动入库并标“新增”，被引用后自动取消标注
 - `reference_citations`：可选数组，只在 `research/citations.json` 有同层 `status=ok` 条目时写入；每项含 `title`/`url`/`domain`/`headings`/`excerpt`（≤200 字）；只作结构与证据参考，正文禁止照抄
 
 ## stage 与资产类型的对应（软约束，供渠道落位参考）

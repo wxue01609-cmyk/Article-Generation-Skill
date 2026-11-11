@@ -17,6 +17,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 - 若存在 `site_inventory`：已知 URL 只能用于 internal_links，禁止伪造站点结构
 - `source/`：用户提供的待改造页面（`index.json` + `page-NN/page.html` / `page.txt` / `meta.json`），仅带 `source_page` 的 sku 资产使用
 - 矩阵 item 的 `reference_citations`：AI 实际引用的同层页面摘要（结构/证据参考，禁止照抄原文句子；官网资产不由此引入竞品品牌名）
+- 矩阵 item 的 `factors` / `authority_actions`：本层重点因子与权威建设动作（取自 `factor_library.json`）；成稿必须逐条落实，不得只写进 brief 不执行
 
 ## 执行步骤
 1. 读取矩阵，筛选 `selected_asset_ids`；无该字段时生成全部 item。**再按 `selected_stages` 过滤**：只保留 `stage` 命中的 item（其 `secondary_stage` 不另起资产，只在该资产正文里带一句 + 内链）。
@@ -24,6 +25,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 3. 每个资产按 [references/asset-specs.md](references/asset-specs.md) 的类型模板成稿，严格遵守 brief：
    - 标题、角度、H 结构、要点顺序、CTA、内链锚文本不得偏离 brief；确需调整时在 `asset_index.json` 的 `checks` 里说明。
    - `word_count` ±20% 内；FAQ 问题保留原问句。
+   - **因子落实**：Brief 的每个 `factors` 都要在正文找到对应落点（如 F-G-001 首段直接答案 → 首段 60 词内给结论；F-C-005 售后政策模块 → 独立政策小节）；`authority_actions` 逐条执行，无法执行时在 `checks` 写明原因。
    - 内链只允许指向本次生成（`selected_asset_ids` 内且产出 `assets/<type>/<id>.html`）的站内资产与真实 https 外部页；Brief 中指向未勾选/未生成资产的站内链接一律不写（平台会在成稿后统一清洗，避免死链）。
 4. 事实铁律：只能来自知识库/brief；普通资产 brief 中 `待核验` 内容照写并保留标注；SKU 改造资产按 [references/source-rewrite.md](references/source-rewrite.md) 的发布规则，正文不写 `待核验`，查不到就省略；禁止编造参数、价格、案例、客户。
 5. 品牌/渠道规则：
@@ -34,7 +36,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
    - 每个资产写 `assets/<asset_type>/<asset_id>.html`：完整可发布页面，必须包含 `<!doctype html>`、`<html>`、`<head><meta charset><meta name="viewport"><title><style>…</style></head>`、`<body>`。
    - 样式全部内联在 `<style>` 中，禁止外链 CSS/JS/字体；响应式，移动端可读；正文用语义化 `h1/h2/p/ul/ol/table/blockquote`，CTA 用可见按钮样式。
    - 不要用 ```html 代码块包裹；不要只输出 Markdown。可另写同名 `.md` 作为内部底稿，但不得作为交付物。
-   - `asset_index.json` 的 `file` 字段必须指向 `.html`；全部完成后写 `assets/asset_index.json`：`[{asset_id, asset_type, stage, title, file, word_count, checks: []}]`。
+   - `asset_index.json` 的 `file` 字段必须指向 `.html`；全部完成后写 `assets/asset_index.json`：`[{asset_id, asset_type, stage, title, file, word_count, used_factors: [], checks: []}]`；`used_factors` 写本资产实际执行到的因子 id（供平台取消“新增”标注）。
    - **合并写，不整份覆盖**：已有 `asset_index.json` 时，同 `asset_id` 覆盖、其它层条目原样保留，写前按 `stage` 排序；这样只重跑一层不会丢其它层。
    - 另写 `assets/stage_index.json`（每次整份重写，只统计磁盘上真实存在的产物）：`{"ai_exposure": {"count": 3, "assets": ["blog-01", ...]}, "pdp": {...}, "conversion": {...}}`。
    - **发布提示（强制）**：若本资产的 `target_url` 是站内相对路径（以 `/` 开头），必须在 `<body>` 内第一行插入一段中文高亮提示，说明「本文档需发布到官网路径 `<target_url>`，否则引用本文的其他文章内链会失效，发布前请删除本提示」。这段提示属于运营标注、不属于正文，用 `<!-- GEO-PUBLISH-NOTE -->` 标记包裹，样式内联（浅黄底 + 橙色边框），并注明发布前删除；`target_url` 为空时改为红色提示「尚未指定发布路径，若被内链引用需先补路径」；`target_url` 为 `http(s)://` 或 `external:TBD` 时不加提示。
@@ -58,6 +60,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 - HTML 完整闭合，浏览器直接打开即可发布；无外链依赖、无 Markdown 残留（`**`、`| 表格 |` 等）。
 - 改造类 SKU：`changes` ≥6 条，`before` 必须引用抓取原文（缺失写“（页面无此模块）”），`after` 为实际改后文案，`problem` 说明解决的问题；参数表不得出现“待核验”行。
 - 带 `reference_citations` 的资产：正文可借鉴其标题层级组织与证据点类型（让文章更贴近 AI 正在引用的形态），但任何句子、列表、段落不得照搬引用页原文；与知识库冲突时以知识库为准。
+- 因子覆盖：`used_factors` 至少覆盖 Brief `factors` 的 2/3；未覆盖的因子在 `checks` 说明（例如本资产类型不适用），不得静默跳过。
 
 ## 输出控制
 - 内部推理 ≤6000 token，直接写作，不写草稿再改。

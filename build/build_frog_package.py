@@ -94,6 +94,22 @@ def collect_references(skill_dir):
     return items
 
 
+def collect_assets(skill_dir):
+    """收集 assets 下的 JSON 数据文件（如 factor_library.json），内联进提示词。
+
+    青蛙包没有仓库目录结构，必须把默认数据一并内联，运行时才能读到 v1 草案因子库。
+    """
+    adir = skill_dir / 'assets'
+    if not adir.is_dir():
+        return []
+    items = []
+    for path in sorted(adir.rglob('*.json')):
+        if not path.is_file():
+            continue
+        items.append((path.relative_to(adir).as_posix(), path.read_text(encoding='utf-8').strip()))
+    return items
+
+
 def build_prompt(skill):
     """生成青蛙提示词：平台适配 + 本地规则正文 + references 全文"""
     skill_dir = REPO / skill
@@ -101,6 +117,7 @@ def build_prompt(skill):
     meta, body = read_frontmatter(raw)
     body = body.strip()
     refs = collect_references(skill_dir)
+    assets = collect_assets(skill_dir)
     common = (PLATFORM / '_common.md').read_text(encoding='utf-8').strip()
     specific_path = PLATFORM / (skill + '.md')
     specific = specific_path.read_text(encoding='utf-8').strip() if specific_path.exists() else ''
@@ -125,6 +142,10 @@ def build_prompt(skill):
     ]
     for rel, content in refs:
         chunks += ['', '## references/%s' % rel, '', content]
+    if assets:
+        chunks += ['', '---', '', '# 默认数据文件（与本地 assets/ 一致，已内联）']
+        for rel, content in assets:
+            chunks += ['', '## assets/%s' % rel, '', '```json', content, '```']
     chunks += [
         '',
         '---',

@@ -27,6 +27,12 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
 3. **节点归属（stage）**：逐条把 query 归到三层（`ai_exposure` AI曝光 / `pdp` 转化层 / `conversion` 对比决策）。存在 `plan/path_plan.json` 时直接用其 `stage` / `secondary_stage`；缺失时按 [references/stage-map.md](references/stage-map.md) 就地打标（1 主节点 + 1 次节点，次节点可 null）。stage 只决定「在哪层发力」，不替代渠道落位。
 4. **聚合 cluster**：同实体 + 同意图 + 同主题合并；一个 query 只能有一个 `primary_query` 归属。
 5. **渠道落位**：按 [references/channel-map.md](references/channel-map.md) 的决策树选择 `channel` / `asset_type`；只允许使用 `fields.asset_types` 里启用的类型；无法落位的进 `gaps`。
+5.5 **因子库（决定 Brief 的重点与排序）**：读取 `factor_library.json`（优先平台根目录实时库；skill 内 `assets/factor_library.json` 为 v1 草案兜底）。
+   - 每个资产按 `stage` 选 2-4 个重点因子：全局因子（`category=global`）+ 本层因子（`category=stage` 且 `stage` 匹配），写入 item 的 `factors`（因子 id 数组）。
+   - 按所选因子的 `action` 写 `authority_actions`（权威建设动作，字符串数组），并让 `key_points` 能逐条对应到所选因子。
+   - 因子只决定“重点写什么、按什么顺序写”，不改写事实与证据规则；自定义因子权重只影响排序，不改变判定逻辑。
+   - 若运行中发现新规律或需调整既有因子（权重/检查口径/适用资产），追加写 `plan/factor_updates.json`；平台在任务收尾时自动合并入库并标“新增”，方案或成稿引用后自动取消标注。没有新规律不要生成该文件。
+
 6. **匹配待改造页面**：读取 `source/index.json`。当某条 query 被判为 `asset_type=sku`、且可用页面与 query 指向同一型号/品类时，按下面规则挂载改造信息：
    - item 增加 `source_page`（可用页面的 `page` 序号）、`source_url`（页面 `final_url`）、`rewrite_mode: "existing_page"`；
    - `target_url` 直接用页面 `final_url`，保留原路径，不要另造新 URL；
