@@ -74,6 +74,14 @@ th { background: #f6f8fa; font-weight: 600; }
 
 适用：`geo-content-write` 产出的 `assets/` + `assets/asset_index.json` + `assets/stage_index.json` + `packs/<stage>/manifest.json`。**按 stage 分单元跑**，每层独立出结论，不因某层不过而卡住其它层。
 
+### 第 0 关 · 本地化（先跑，按目标市场）
+读取 `locale_profiles.json`，按 `package.json.fields.target_market` 解析市场代码；解析不到就跳过并注明「未识别目标市场」。逐篇扫描：
+- `level=hard` 的 wrong 词出现 → **blocking**（如新加坡文章出现 railway / parking lot；英式文章出现 color/center/elevator；中文新加坡文章出现「的士/出租车」）；
+- `level=soft` 的 wrong 词出现 → warning，并给出 right 建议词；
+- 同一篇混用 en-US / en-GB 拼写（color+colour、center+centre、-ize+-ise）→ blocking（整篇必须统一）；
+- `learned.exceptions` 里的词不再报（误诊已登记）。
+报告写入 `qa/localization_report.json`，同时并入 `polish_report.json` 的 `localization` 区块（`{market, hard, soft, files}`）。本地化关的 blocking 修复后才能交付；只改词与表述，不改产品事实。
+
 ### 五关（每关都要给 pass / warning / blocking）
 | 关 | 检查什么 | blocking 判定 | 修复动作 |
 | --- | --- | --- | --- |

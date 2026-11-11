@@ -27,6 +27,13 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
    - `word_count` ±20% 内；FAQ 问题保留原问句。
    - **因子落实**：Brief 的每个 `factors` 都要在正文找到对应落点（如 F-G-001 首段直接答案 → 首段 60 词内给结论；F-C-005 售后政策模块 → 独立政策小节）；`authority_actions` 逐条执行，无法执行时在 `checks` 写明原因。
    - 内链只允许指向本次生成（`selected_asset_ids` 内且产出 `assets/<type>/<id>.html`）的站内资产与真实 https 外部页；Brief 中指向未勾选/未生成资产的站内链接一律不写（平台会在成稿后统一清洗，避免死链）。
+3.5 **本地化执行（按目标市场，只改说法不改事实）**：读取 `locale_profiles.json`（优先平台根目录实时库；skill 内 `assets/locale_profiles.json` 兜底），按 `fields.target_market` 解析市场代码：
+   - 该市场 `level=hard` 的 wrong 词禁止出现，一律用 right 词（新加坡：MRT 不用 railway、car park 不用 parking lot；英式：colour/centre/lift）；`soft` 词条尽量采用；
+   - 拼写变体整篇统一（en-US 或 en-GB），不混用 color/colour、center/centre、-ize/-ise；
+   - 单位/货币/支付方式/物流与售后表述/本地权威源按词库落到正文（如新加坡 SGD、PayNow/GrabPay、petrol kiosk）；
+   - 中文输出用 `zh_terms`（新加坡写「德士」不写「的士/出租车」）；
+   - 本地化只改说法、单位、案例与本地引用，产品事实、参数、价格、证据规则不变。
+
 4. 事实铁律：只能来自知识库/brief；普通资产 brief 中 `待核验` 内容照写并保留标注；SKU 改造资产按 [references/source-rewrite.md](references/source-rewrite.md) 的发布规则，正文不写 `待核验`，查不到就省略；禁止编造参数、价格、案例、客户。
 5. 品牌/渠道规则：
    - 官网资产（blog/landing/category/sku/faq）：不出现任何竞品品牌名、竞品对比表、A vs B。

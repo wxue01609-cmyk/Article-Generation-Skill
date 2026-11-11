@@ -1,0 +1,1061 @@
+{
+  "version": "v1",
+  "updated_at": "2026-11-11 16:36:00",
+  "description": "海外内容本地化词库 v1（内置种子）：美/英/新加坡/澳/加 5 市场。level=hard 出现即阻断，soft 仅提示；zh_terms 用于中文输出。",
+  "market_aliases": {
+    "美国": "US",
+    "美": "US",
+    "usa": "US",
+    "us": "US",
+    "united states": "US",
+    "英国": "UK",
+    "uk": "UK",
+    "england": "UK",
+    "united kingdom": "UK",
+    "gb": "UK",
+    "新加坡": "SG",
+    "新": "SG",
+    "sg": "SG",
+    "singapore": "SG",
+    "澳大利亚": "AU",
+    "澳洲": "AU",
+    "au": "AU",
+    "australia": "AU",
+    "加拿大": "CA",
+    "ca": "CA",
+    "canada": "CA"
+  },
+  "markets": {
+    "US": {
+      "label": "美国",
+      "locale": "en-US",
+      "spelling": "en-US",
+      "currency": "USD",
+      "units": {
+        "distance": "imperial",
+        "temperature": "fahrenheit",
+        "speed": "mph"
+      },
+      "payment": [
+        "Visa",
+        "Mastercard",
+        "American Express",
+        "PayPal",
+        "Apple Pay",
+        "Shop Pay",
+        "Klarna"
+      ],
+      "logistics": {
+        "shipping": "3-7 business days",
+        "returns": "30-day return window",
+        "warranty": "1-2 years standard"
+      },
+      "regulatory": [
+        "FTC",
+        "FCC",
+        "CPSC",
+        "DOT"
+      ],
+      "authority_sources": [
+        "Consumer Reports",
+        "Wirecutter",
+        "PCMag",
+        "CNET",
+        "Tom's Guide",
+        "BBB",
+        "Reddit r/dashcams"
+      ],
+      "calendar": [
+        "Black Friday",
+        "Cyber Monday",
+        "Prime Day",
+        "Thanksgiving",
+        "Christmas"
+      ],
+      "terms": [
+        {
+          "wrong": [
+            "car park"
+          ],
+          "right": "parking lot",
+          "level": "hard",
+          "note": "美式表达"
+        },
+        {
+          "wrong": [
+            "lift"
+          ],
+          "right": "elevator",
+          "level": "hard",
+          "note": "美式表达"
+        },
+        {
+          "wrong": [
+            "flat"
+          ],
+          "right": "apartment",
+          "level": "hard",
+          "note": "美式表达"
+        },
+        {
+          "wrong": [
+            "mobile phone"
+          ],
+          "right": "cell phone",
+          "level": "soft",
+          "note": "美国更常说 cell phone"
+        },
+        {
+          "wrong": [
+            "petrol"
+          ],
+          "right": "gasoline/gas",
+          "level": "hard",
+          "note": "美式表达"
+        },
+        {
+          "wrong": [
+            "boot"
+          ],
+          "right": "trunk",
+          "level": "hard",
+          "note": "汽车后备箱"
+        },
+        {
+          "wrong": [
+            "bonnet"
+          ],
+          "right": "hood",
+          "level": "hard",
+          "note": "汽车引擎盖"
+        },
+        {
+          "wrong": [
+            "torch"
+          ],
+          "right": "flashlight",
+          "level": "hard",
+          "note": "美式表达"
+        },
+        {
+          "wrong": [
+            "ground floor"
+          ],
+          "right": "first floor",
+          "level": "soft",
+          "note": "美式楼层习惯"
+        },
+        {
+          "wrong": [
+            "aubergine",
+            "courgette"
+          ],
+          "right": "eggplant / zucchini",
+          "level": "soft",
+          "note": "一般不用于数码品类"
+        },
+        {
+          "wrong": [
+            "whilst",
+            "amongst"
+          ],
+          "right": "while / among",
+          "level": "hard",
+          "note": "美式不用 whilst/amongst"
+        },
+        {
+          "wrong": [
+            "colour"
+          ],
+          "right": "color",
+          "level": "hard",
+          "note": "美式拼写"
+        },
+        {
+          "wrong": [
+            "centre"
+          ],
+          "right": "center",
+          "level": "hard",
+          "note": "美式拼写"
+        },
+        {
+          "wrong": [
+            "organise",
+            "realise",
+            "recognise"
+          ],
+          "right": "organize / realize / recognize",
+          "level": "hard",
+          "note": "美式 -ize"
+        },
+        {
+          "wrong": [
+            "defence"
+          ],
+          "right": "defense",
+          "level": "hard",
+          "note": "美式拼写"
+        },
+        {
+          "wrong": [
+            "licence"
+          ],
+          "right": "license",
+          "level": "hard",
+          "note": "美式名词也用 license"
+        },
+        {
+          "wrong": [
+            "aluminium"
+          ],
+          "right": "aluminum",
+          "level": "soft",
+          "note": "美式拼写"
+        },
+        {
+          "wrong": [
+            "kilometre",
+            "metre"
+          ],
+          "right": "kilometer / meter",
+          "level": "hard",
+          "note": "美式拼写"
+        },
+        {
+          "wrong": [
+            "tyre"
+          ],
+          "right": "tire",
+          "level": "hard",
+          "note": "美式拼写"
+        },
+        {
+          "wrong": [
+            "railway"
+          ],
+          "right": "railroad",
+          "level": "soft",
+          "note": "美国铁路系统更常用 railroad"
+        },
+        {
+          "wrong": [
+            "maths"
+          ],
+          "right": "math",
+          "level": "soft",
+          "note": "美式表达"
+        }
+      ],
+      "zh_terms": [],
+      "learned": {
+        "terms": [],
+        "exceptions": []
+      }
+    },
+    "UK": {
+      "label": "英国",
+      "locale": "en-GB",
+      "spelling": "en-GB",
+      "currency": "GBP",
+      "units": {
+        "distance": "metric",
+        "temperature": "celsius",
+        "speed": "mph"
+      },
+      "payment": [
+        "Visa",
+        "Mastercard",
+        "American Express",
+        "PayPal",
+        "Apple Pay",
+        "Klarna",
+        "ClearPay"
+      ],
+      "logistics": {
+        "shipping": "2-5 working days",
+        "returns": "14-day change-of-mind (Distance Selling Regs)",
+        "warranty": "1-2 years standard"
+      },
+      "regulatory": [
+        "UKCA",
+        "ASA",
+        "ICO",
+        "Ofcom"
+      ],
+      "authority_sources": [
+        "Which?",
+        "Trustpilot",
+        "Auto Express",
+        "Carbuyer",
+        "What Car?",
+        "Reddit r/dashcams"
+      ],
+      "calendar": [
+        "Black Friday",
+        "Boxing Day",
+        "Easter",
+        "Christmas"
+      ],
+      "terms": [
+        {
+          "wrong": [
+            "parking lot"
+          ],
+          "right": "car park",
+          "level": "hard",
+          "note": "英式表达"
+        },
+        {
+          "wrong": [
+            "elevator"
+          ],
+          "right": "lift",
+          "level": "hard",
+          "note": "英式表达"
+        },
+        {
+          "wrong": [
+            "apartment"
+          ],
+          "right": "flat",
+          "level": "hard",
+          "note": "英式表达"
+        },
+        {
+          "wrong": [
+            "cell phone"
+          ],
+          "right": "mobile phone",
+          "level": "hard",
+          "note": "英式表达"
+        },
+        {
+          "wrong": [
+            "gasoline",
+            "gas"
+          ],
+          "right": "petrol",
+          "level": "hard",
+          "note": "英式表达"
+        },
+        {
+          "wrong": [
+            "trunk"
+          ],
+          "right": "boot",
+          "level": "hard",
+          "note": "汽车后备箱"
+        },
+        {
+          "wrong": [
+            "hood"
+          ],
+          "right": "bonnet",
+          "level": "hard",
+          "note": "汽车引擎盖"
+        },
+        {
+          "wrong": [
+            "flashlight"
+          ],
+          "right": "torch",
+          "level": "hard",
+          "note": "英式表达"
+        },
+        {
+          "wrong": [
+            "sidewalk"
+          ],
+          "right": "pavement",
+          "level": "hard",
+          "note": "英式表达"
+        },
+        {
+          "wrong": [
+            "garbage",
+            "trash"
+          ],
+          "right": "rubbish",
+          "level": "soft",
+          "note": "英式表达"
+        },
+        {
+          "wrong": [
+            "faucet"
+          ],
+          "right": "tap",
+          "level": "hard",
+          "note": "英式表达"
+        },
+        {
+          "wrong": [
+            "diaper"
+          ],
+          "right": "nappy",
+          "level": "soft",
+          "note": "英式表达"
+        },
+        {
+          "wrong": [
+            "vacation"
+          ],
+          "right": "holiday",
+          "level": "hard",
+          "note": "英式表达"
+        },
+        {
+          "wrong": [
+            "cookie"
+          ],
+          "right": "biscuit",
+          "level": "soft",
+          "note": "非数码品类场景"
+        },
+        {
+          "wrong": [
+            "soccer"
+          ],
+          "right": "football",
+          "level": "soft",
+          "note": "英国语境"
+        },
+        {
+          "wrong": [
+            "color"
+          ],
+          "right": "colour",
+          "level": "hard",
+          "note": "英式拼写"
+        },
+        {
+          "wrong": [
+            "center"
+          ],
+          "right": "centre",
+          "level": "hard",
+          "note": "英式拼写"
+        },
+        {
+          "wrong": [
+            "organize",
+            "realize",
+            "recognize"
+          ],
+          "right": "organise / realise / recognise",
+          "level": "hard",
+          "note": "英式 -ise"
+        },
+        {
+          "wrong": [
+            "defense"
+          ],
+          "right": "defence",
+          "level": "hard",
+          "note": "英式拼写"
+        },
+        {
+          "wrong": [
+            "license"
+          ],
+          "right": "licence",
+          "level": "hard",
+          "note": "英式名词用 licence"
+        },
+        {
+          "wrong": [
+            "aluminum"
+          ],
+          "right": "aluminium",
+          "level": "soft",
+          "note": "英式拼写"
+        },
+        {
+          "wrong": [
+            "kilometer",
+            "meter"
+          ],
+          "right": "kilometre / metre",
+          "level": "hard",
+          "note": "英式拼写"
+        },
+        {
+          "wrong": [
+            "tire"
+          ],
+          "right": "tyre",
+          "level": "hard",
+          "note": "英式拼写"
+        },
+        {
+          "wrong": [
+            "math"
+          ],
+          "right": "maths",
+          "level": "soft",
+          "note": "英式表达"
+        }
+      ],
+      "zh_terms": [],
+      "learned": {
+        "terms": [],
+        "exceptions": []
+      }
+    },
+    "SG": {
+      "label": "新加坡",
+      "locale": "en-SG",
+      "spelling": "en-GB",
+      "currency": "SGD",
+      "units": {
+        "distance": "metric",
+        "temperature": "celsius",
+        "speed": "km/h"
+      },
+      "payment": [
+        "PayNow",
+        "GrabPay",
+        "PayLah!",
+        "Visa",
+        "Mastercard",
+        "Shopee Pay",
+        "Lazada"
+      ],
+      "logistics": {
+        "shipping": "2-5 working days local",
+        "returns": "varies by retailer; change-of-mind usually 7 days",
+        "warranty": "local distributor warranty 1 year"
+      },
+      "regulatory": [
+        "IMDA",
+        "PDPA",
+        "CASE",
+        "LTA"
+      ],
+      "authority_sources": [
+        "HardwareZone",
+        "Seedly",
+        "MoneySmart",
+        "LTA",
+        "CASE",
+        "Reddit r/singapore"
+      ],
+      "calendar": [
+        "Chinese New Year",
+        "Hari Raya Puasa",
+        "Deepavali",
+        "11.11",
+        "Great Singapore Sale"
+      ],
+      "terms": [
+        {
+          "wrong": [
+            "railway"
+          ],
+          "right": "MRT",
+          "level": "hard",
+          "note": "新加坡城轨统称 MRT/LRT，不叫 railway"
+        },
+        {
+          "wrong": [
+            "subway",
+            "metro",
+            "underground train"
+          ],
+          "right": "MRT",
+          "level": "hard",
+          "note": "新加坡城轨称 MRT"
+        },
+        {
+          "wrong": [
+            "train system"
+          ],
+          "right": "MRT network",
+          "level": "soft",
+          "note": "新加坡语境用 MRT 网络"
+        },
+        {
+          "wrong": [
+            "parking lot"
+          ],
+          "right": "car park",
+          "level": "hard",
+          "note": "新加坡用 car park"
+        },
+        {
+          "wrong": [
+            "elevator"
+          ],
+          "right": "lift",
+          "level": "soft",
+          "note": "新加坡更常说 lift"
+        },
+        {
+          "wrong": [
+            "apartment"
+          ],
+          "right": "flat / HDB flat",
+          "level": "soft",
+          "note": "新加坡住宅习惯叫 flat"
+        },
+        {
+          "wrong": [
+            "sidewalk"
+          ],
+          "right": "footpath / pavement",
+          "level": "soft",
+          "note": "新加坡习惯表达"
+        },
+        {
+          "wrong": [
+            "gas station"
+          ],
+          "right": "petrol kiosk",
+          "level": "hard",
+          "note": "新加坡用 petrol kiosk"
+        },
+        {
+          "wrong": [
+            "trash",
+            "garbage"
+          ],
+          "right": "rubbish",
+          "level": "soft",
+          "note": "新加坡用 rubbish"
+        },
+        {
+          "wrong": [
+            "faucet"
+          ],
+          "right": "tap",
+          "level": "soft",
+          "note": "新加坡习惯表达"
+        },
+        {
+          "wrong": [
+            "vacation"
+          ],
+          "right": "holiday",
+          "level": "soft",
+          "note": "新加坡用 holiday"
+        },
+        {
+          "wrong": [
+            "color"
+          ],
+          "right": "colour",
+          "level": "hard",
+          "note": "新加坡沿用英式拼写"
+        },
+        {
+          "wrong": [
+            "center"
+          ],
+          "right": "centre",
+          "level": "hard",
+          "note": "新加坡沿用英式拼写"
+        },
+        {
+          "wrong": [
+            "organize",
+            "realize"
+          ],
+          "right": "organise / realise",
+          "level": "soft",
+          "note": "英式 -ise 更常见"
+        },
+        {
+          "wrong": [
+            "kilometer",
+            "meter"
+          ],
+          "right": "kilometre / metre",
+          "level": "soft",
+          "note": "英式拼写"
+        },
+        {
+          "wrong": [
+            "downtown area"
+          ],
+          "right": "city area / CBD",
+          "level": "soft",
+          "note": "新加坡常直接说 CBD"
+        },
+        {
+          "wrong": [
+            "expressway",
+            "highway"
+          ],
+          "right": "expressway (PIE/CTE) 或简称 highway",
+          "level": "soft",
+          "note": "新加坡高速有自己的简称"
+        },
+        {
+          "wrong": [
+            "coin"
+          ],
+          "right": "coins (local notes/coins)",
+          "level": "soft",
+          "note": "货币语境：提示使用 SGD"
+        },
+        {
+          "wrong": [
+            "neighbourhood centre"
+          ],
+          "right": "heartland",
+          "level": "soft",
+          "note": "新加坡组屋区说 heartland"
+        }
+      ],
+      "zh_terms": [
+        {
+          "wrong": [
+            "的士",
+            "出租车"
+          ],
+          "right": "德士",
+          "level": "hard",
+          "note": "新加坡中文叫德士"
+        },
+        {
+          "wrong": [
+            "地铁"
+          ],
+          "right": "地铁（MRT）",
+          "level": "soft",
+          "note": "新加坡中文也说地铁，可加注 MRT"
+        },
+        {
+          "wrong": [
+            "组屋区"
+          ],
+          "right": "组屋/邻里",
+          "level": "soft",
+          "note": "新加坡习惯用词"
+        }
+      ],
+      "learned": {
+        "terms": [],
+        "exceptions": []
+      }
+    },
+    "AU": {
+      "label": "澳大利亚",
+      "locale": "en-AU",
+      "spelling": "en-GB",
+      "currency": "AUD",
+      "units": {
+        "distance": "metric",
+        "temperature": "celsius",
+        "speed": "km/h"
+      },
+      "payment": [
+        "Visa",
+        "Mastercard",
+        "American Express",
+        "PayPal",
+        "Afterpay",
+        "Apple Pay"
+      ],
+      "logistics": {
+        "shipping": "2-7 business days",
+        "returns": "30 days + ACL consumer guarantees",
+        "warranty": "1-2 years standard"
+      },
+      "regulatory": [
+        "ACCC",
+        "ACMA",
+        "RSC"
+      ],
+      "authority_sources": [
+        "Choice",
+        "ProductReview.com.au",
+        "Whirlpool Forums",
+        "Reddit r/australia"
+      ],
+      "calendar": [
+        "Black Friday",
+        "Boxing Day",
+        "Easter",
+        "Christmas",
+        "Click Frenzy"
+      ],
+      "terms": [
+        {
+          "wrong": [
+            "parking lot"
+          ],
+          "right": "car park",
+          "level": "hard",
+          "note": "澳式表达"
+        },
+        {
+          "wrong": [
+            "sidewalk"
+          ],
+          "right": "footpath",
+          "level": "hard",
+          "note": "澳式表达"
+        },
+        {
+          "wrong": [
+            "apartment"
+          ],
+          "right": "unit / flat",
+          "level": "soft",
+          "note": "澳洲更常说 unit"
+        },
+        {
+          "wrong": [
+            "elevator"
+          ],
+          "right": "lift",
+          "level": "soft",
+          "note": "澳洲更常说 lift"
+        },
+        {
+          "wrong": [
+            "cell phone"
+          ],
+          "right": "mobile",
+          "level": "hard",
+          "note": "澳洲说 mobile"
+        },
+        {
+          "wrong": [
+            "gasoline",
+            "gas"
+          ],
+          "right": "petrol",
+          "level": "hard",
+          "note": "澳洲说 petrol"
+        },
+        {
+          "wrong": [
+            "trunk"
+          ],
+          "right": "boot",
+          "level": "hard",
+          "note": "汽车后备箱"
+        },
+        {
+          "wrong": [
+            "hood"
+          ],
+          "right": "bonnet",
+          "level": "hard",
+          "note": "汽车引擎盖"
+        },
+        {
+          "wrong": [
+            "faucet"
+          ],
+          "right": "tap",
+          "level": "hard",
+          "note": "澳式表达"
+        },
+        {
+          "wrong": [
+            "diaper"
+          ],
+          "right": "nappy",
+          "level": "soft",
+          "note": "澳式表达"
+        },
+        {
+          "wrong": [
+            "garbage",
+            "trash"
+          ],
+          "right": "rubbish",
+          "level": "soft",
+          "note": "澳式表达"
+        },
+        {
+          "wrong": [
+            "vacation"
+          ],
+          "right": "holiday",
+          "level": "soft",
+          "note": "澳式表达"
+        },
+        {
+          "wrong": [
+            "sweater"
+          ],
+          "right": "jumper",
+          "level": "soft",
+          "note": "澳式表达"
+        },
+        {
+          "wrong": [
+            "color"
+          ],
+          "right": "colour",
+          "level": "hard",
+          "note": "澳洲沿用英式拼写"
+        },
+        {
+          "wrong": [
+            "center"
+          ],
+          "right": "centre",
+          "level": "hard",
+          "note": "澳洲沿用英式拼写"
+        },
+        {
+          "wrong": [
+            "organize",
+            "realize"
+          ],
+          "right": "organise / realise",
+          "level": "hard",
+          "note": "澳式 -ise"
+        },
+        {
+          "wrong": [
+            "defense"
+          ],
+          "right": "defence",
+          "level": "soft",
+          "note": "英式拼写"
+        },
+        {
+          "wrong": [
+            "kilometer",
+            "meter"
+          ],
+          "right": "kilometre / metre",
+          "level": "soft",
+          "note": "英式拼写"
+        },
+        {
+          "wrong": [
+            "soccer"
+          ],
+          "right": "football",
+          "level": "soft",
+          "note": "澳洲语境 footy/football"
+        }
+      ],
+      "zh_terms": [],
+      "learned": {
+        "terms": [],
+        "exceptions": []
+      }
+    },
+    "CA": {
+      "label": "加拿大",
+      "locale": "en-CA",
+      "spelling": "en-CA",
+      "currency": "CAD",
+      "units": {
+        "distance": "metric",
+        "temperature": "celsius",
+        "speed": "km/h"
+      },
+      "payment": [
+        "Visa",
+        "Mastercard",
+        "Interac e-Transfer",
+        "PayPal",
+        "Apple Pay"
+      ],
+      "logistics": {
+        "shipping": "3-7 business days",
+        "returns": "varies by retailer, usually 15-30 days",
+        "warranty": "1-2 years standard"
+      },
+      "regulatory": [
+        "ISED",
+        "CRTC",
+        "Competition Bureau",
+        "CCC"
+      ],
+      "authority_sources": [
+        "CBC Marketplace",
+        "Consumer Reports",
+        "Reddit r/canada",
+        "RCMP (safety)"
+      ],
+      "calendar": [
+        "Black Friday",
+        "Boxing Day",
+        "Canada Day",
+        "Christmas"
+      ],
+      "terms": [
+        {
+          "wrong": [
+            "color"
+          ],
+          "right": "colour",
+          "level": "soft",
+          "note": "加拿大拼写 colour"
+        },
+        {
+          "wrong": [
+            "center"
+          ],
+          "right": "centre",
+          "level": "soft",
+          "note": "加拿大拼写 centre"
+        },
+        {
+          "wrong": [
+            "defense"
+          ],
+          "right": "defence",
+          "level": "soft",
+          "note": "加拿大拼写 defence"
+        },
+        {
+          "wrong": [
+            "aluminum"
+          ],
+          "right": "aluminium",
+          "level": "soft",
+          "note": "加拿大更常用 aluminium"
+        },
+        {
+          "wrong": [
+            "parking lot"
+          ],
+          "right": "parking lot",
+          "level": "soft",
+          "note": "北美通用，保留即可"
+        },
+        {
+          "wrong": [
+            "gas station"
+          ],
+          "right": "gas station",
+          "level": "soft",
+          "note": "北美通用"
+        },
+        {
+          "wrong": [
+            "kilometer",
+            "meter"
+          ],
+          "right": "kilometre / metre",
+          "level": "soft",
+          "note": "加式拼写"
+        },
+        {
+          "wrong": [
+            "-ize"
+          ],
+          "right": "-ize 或 -ise 均可",
+          "level": "soft",
+          "note": "加拿大两种拼法都接受，保持一致即可"
+        }
+      ],
+      "zh_terms": [],
+      "learned": {
+        "terms": [],
+        "exceptions": []
+      }
+    }
+  }
+}
