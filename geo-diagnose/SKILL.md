@@ -64,7 +64,7 @@ python3 scripts/check_diagnosis.py --project <项目目录>
 承接 geo-polish 的 `factor_audit`（score/grade）与本期 `topic_metrics.json`，把因子表现回写给平台：
 1. 读 `factor_library.json`（优先平台根目录实时库；青蛙端读系统提示词 agent.md 末尾内置的「因子库数据」块（与本地实时库同源，全阶段可读）；本地无独立文件时直接读平台根目录实时库，禁止自造因子定义），按层（ai_exposure / conversion / pdp）把因子与本层指标对应；矩阵带 `factor_details` 时直接用它，不必再找文件。
 2. 逐层对比：该层资产 `factor_audit.score` 高低的资产 vs 提及率 / 引用率 / 商品卡率 / 平均排位；有上期诊断时做前后对比，没有就只做本期横比。
-   **缺 `factor_audit` 的兜底（常见于独立诊断任务，无随附质检报告）**：跳过 score 对比，改用「本层本期指标 + 矩阵 item 的 `factors` 清单 + 因子库权重」判断——某层指标低于阈值且该层因子实际被方案选用时，按「低于阈值的层」给出对应因子建议；绝不能因为缺 `factor_audit` 而跳过整节或输出空建议。
+   **缺 `factor_audit` 的兜底（常见于独立诊断任务，无随附质检报告）**：跳过 score 对比，改用「本层本期指标 + 矩阵 item 的 `factors` 清单 + 因子库权重」判断——某层指标低于阈值且该层因子实际被方案选用时，按「低于阈值的层」给出对应因子建议；**任务连内容矩阵都没有时，退到「本层本期指标 + 因子库该层因子清单」**，选出与本期指标最相关的 1-2 条给建议；绝不能因为缺 `factor_audit` 或缺矩阵而跳过整节或输出空建议。
 3. 只写「建议」，输出 `diagnosis/factor_updates.json`：
 ```json
 {"factors": [{"action": "update", "factor_id": "F-C-002", "reason": "价格区间条款的资产评分高但商品卡率仍低，疑似权重不足", "samples": 42, "metric": "product_card_rate", "before": 0.12, "after": 0.21, "suggested_weight_delta": 0.02, "evidence": "diagnosis/topic_metrics.json#topic-03"}]}
