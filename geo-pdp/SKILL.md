@@ -14,6 +14,12 @@ description: 海外 GEO 商品数据交付 skill（独立站电商专用，双�
 - SKU 改造通道：改动卡 `status=planned`、`selected=true`，且证据账本中该卡 `change_coverage.status=ok`。
 - 现状资料：线上页面（`source/index.json` 对应页面或 `contract.inputs.ecommerce.pdp_export`）、feed 导出（如有）。
 
+## 因子落实（转化层 F-P-*，只决定重点，不改事实）
+- 读取 `factor_library.json`（优先平台根目录实时库；skill 内 `assets/factor_library.json` 兜底）取 `stage=pdp` 因子，按资产 Brief `factors` 优先落实：
+  F-P-001 商品卡字段 → `product.*`；F-P-002 JSON-LD → `product.jsonld` 的 `name`/`description`/`offers`；F-P-003 首屏参数 → `pdp.html` 首屏核心答案与参数；F-P-004 变体 SKU → 每个变体一行 feed 记录；F-P-005 购买路径无死链 → `final_url`/`target_url` 与 CTA 可跳转；F-P-006 政策运费 → PDP 政策模块与 feed 的 shipping/return 字段；F-P-007 feed 一致性 → 步骤 3 校验通过。
+- `manifest.json` 增加 `used_factors`（实际落实的因子 id 数组）与 `factor_notes`（未落实原因，如「该 SKU 无变体」）；不适用写明原因，不得为凑因子编造字段。
+- 因子只决定重点与顺序：事实仍只来自证据账本与页面快照，`claims_used`、禁止编造等规则优先。
+
 ## 必读
 - [references/pdp-content.md](references/pdp-content.md)：PDP 模块、写法与交付物。
 - [references/feed-spec.md](references/feed-spec.md)：OpenAI 商品 feed 与 Google Merchant Center 字段。

@@ -13,6 +13,7 @@ description: SKU 商品页改造（geo-sku-rewrite）。把已有商品页改造
 - 抓取快照：`source/page-NN/page.txt`、`source/page-NN/meta.json`、`source/index.json`
 - 证据账本：`evidence/ledger.json` + `evidence/evidence_map.json`（geo-evidence 产出；无账本时在 `notes` 说明，只写抓取可见事实）
 - `product` 字段优先来自抓取 JSON-LD / 图片列表 / 参数表
+- 因子库：`factor_library.json`（优先平台根目录实时库；skill 内 `assets/factor_library.json` 兜底），取 `stage=pdp` 的转化层因子（F-P-*）与本资产 Brief `factors`
 
 ## 输出（唯一交付物）
 `plan/sku_changes/<asset_id>.json`，合法 JSON，Schema：
@@ -43,10 +44,17 @@ description: SKU 商品页改造（geo-sku-rewrite）。把已有商品页改造
   "reviews_summary": "服务端可见的评分与优缺点；没有就留空字符串",
   "cta": "Buy now",
   "pending_confirmations": [{"key": "price", "claim_id": "c-002", "asset_id": "sku-01", "question": "页面未显示价格，请确认售价", "suggested_default": "", "why": "写进商品卡与 FAQ 需要"}],
+  "used_factors": ["F-P-001", "F-P-003", "F-P-006"],
+  "factor_notes": ["本页无变体，F-P-004 不适用"],
   "notes": ["核验项只写在这里"],
   "changes": [{"module": "标题", "before": "页面原文", "after": "改后文案", "problem": "解决的问题", "evidence_id": "c-001"}]
 }
 ```
+
+## 因子落实（转化层 F-P-*，只决定重点，不改事实）
+- 按资产 Brief `factors` 优先；Brief 没给时按模块勾选适用的 F-P-*：F-P-001 商品卡字段 → `product.*` 完整真实；F-P-002 Product JSON-LD → `schema` 的 `name`/`description` 同步；F-P-003 首屏参数 → `core_answer` + `specs` 前几条；F-P-004 变体 SKU → 页面有变体才写；F-P-005 购买路径无死链 → `cta`/`target_url` 真实可达；F-P-006 政策运费 → `shipping_returns_warranty`/`trust_badges`；F-P-007 feed 一致性 → 与 geo-pdp 交付的价格/库存/GTIN/标题一致。
+- 输出顶层写 `used_factors`（实际落实的 id）与 `factor_notes`（未落实原因，如「本页无变体」「抓不到评分」）；不适用直接写明，不得为凑因子编造参数。
+- 因子只决定重点写什么、按什么顺序写，不改写事实与证据规则：`evidence_id`、禁止编造、1:1 复刻等规则优先。
 
 ## 证据编号（evidence_id）
 - `evidence_id` 必须存在于 `evidence/ledger.json` 且该 claim `status=verified`、`approved_for_publication=true`（优先用 `evidence/evidence_map.json` 中本资产可用的 claim 列表）。

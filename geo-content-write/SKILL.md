@@ -18,6 +18,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 - `source/`：用户提供的待改造页面（`index.json` + `page-NN/page.html` / `page.txt` / `meta.json`），仅带 `source_page` 的 sku 资产使用
 - 矩阵 item 的 `reference_citations`：AI 实际引用的同层页面摘要（结构/证据参考，禁止照抄原文句子；官网资产不由此引入竞品品牌名）
 - 矩阵 item 的 `factors` / `authority_actions`：本层重点因子与权威建设动作（取自 `factor_library.json`）；成稿必须逐条落实，不得只写进 brief 不执行
+- `factor_library.json`（优先平台根目录实时库；skill 内 `assets/factor_library.json` 兜底）：按 Brief `factors` 的 id 取该因子的 `definition` / `check` / `action`，成稿按 `check` 自检落点，禁止只看 id 猜要求
 
 ## 执行步骤
 1. 读取矩阵，筛选 `selected_asset_ids`；无该字段时生成全部 item。**再按 `selected_stages` 过滤**：只保留 `stage` 命中的 item（其 `secondary_stage` 不另起资产，只在该资产正文里带一句 + 内链）。
@@ -25,7 +26,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 3. 每个资产按 [references/asset-specs.md](references/asset-specs.md) 的类型模板成稿，严格遵守 brief：
    - 标题、角度、H 结构、要点顺序、CTA、内链锚文本不得偏离 brief；确需调整时在 `asset_index.json` 的 `checks` 里说明。
    - `word_count` ±20% 内；FAQ 问题保留原问句。
-   - **因子落实**：Brief 的每个 `factors` 都要在正文找到对应落点（如 F-G-001 首段直接答案 → 首段 60 词内给结论；F-C-005 售后政策模块 → 独立政策小节）；`authority_actions` 逐条执行，无法执行时在 `checks` 写明原因。若同批 ≥3 篇因子组合完全相同，自查是否同诉求；不同诉求同一组合的，按 brief 的 `factor_reason` 调整各篇重点段落。`authority_actions` 里的具体动作数据查不到就标「待核验」并写进 `checks`，不得编造。
+   - **因子落实**：先按 id 查 `factor_library.json` 的 `definition` / `check` / `action`，再逐条落进正文（如 F-G-001 首段直接答案 → 首段 60 词内给结论；F-C-005 售后政策模块 → 独立政策小节），并用该因子的 `check` 自检是否真的做到；`authority_actions` 逐条执行，无法执行时在 `checks` 写明原因。`used_factors` 写实际落实的因子 id，未落实的必须写进 `checks` 说明，不得静默跳过。若同批 ≥3 篇因子组合完全相同，自查是否同诉求；不同诉求同一组合的，按 brief 的 `factor_reason` 调整各篇重点段落。`authority_actions` 里的具体动作数据查不到就标「待核验」并写进 `checks`，不得编造。
    - 内链只允许指向本次生成（`selected_asset_ids` 内且产出 `assets/<type>/<id>.html`）的站内资产与真实 https 外部页；Brief 中指向未勾选/未生成资产的站内链接一律不写（平台会在成稿后统一清洗，避免死链）。
 3.5 **本地化执行（按目标市场，只改说法不改事实）**：读取 `locale_profiles.json`（优先平台根目录实时库；skill 内 `assets/locale_profiles.json` 兜底），按 `fields.target_market` 解析市场代码：
    - 该市场 `level=hard` 的 wrong 词禁止出现，一律用 right 词（新加坡：MRT 不用 railway、car park 不用 parking lot；英式：colour/centre/lift）；`soft` 词条同样必须采用（soft 与 hard 同权必改）；
@@ -53,7 +54,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
      - `cta_url` 为空或为 `待填真实链接`：渲染成占位按钮 `<a class="cta cta-pending" href="#" data-pending-link="1">…</a>`（样式用虚边框 + 灰色底），并在按钮上方插入一行中文高亮提示「⚠️ 待填真实链接：请把 CTA 换成官网真实落地页后删除本提示」，用 `<!-- GEO-CTA-NOTE -->` 标记包裹，发布前删除；
      - 顶部导航、页脚链接同理：只能写 `site_inventory` 中的真实 URL；矩阵里尚未发布的规划路径不得进入导航/页脚。
    - 交付包按层分组出清单：`packs/<stage>/manifest.json`（`{stage, assets:[{asset_id, asset_type, file, title}]}`），文件仍留在 `assets/<asset_type>/`，不搬家（平台按 `asset_index.json` 的 `file` 取文件）。规则见 [references/stage-packaging.md](references/stage-packaging.md)。
-7. **SKU 改造资产**：每个写 `plan/sku_changes/<asset_id>.json`（合法 JSON，不要 Markdown 代码块），由平台渲染成四类成品：改后商品页 `assets/sku/<id>.html`、模块片段 `assets/sku/<id>-modules.html`（带 `{{...}}` 数据占位符，可直接粘贴进商品页后台）、整页模板 `assets/sku/<id>-template.html`（站点壳 + 占位符，接商品系统后发布）、改前改后对比页 `assets/sku/<id>-before-after.html`；不要在 `assets/sku/` 下重复写这些 SKU 的 HTML，`asset_index.json` 由平台补录。改后正文必须可直接发布：不得出现「待核验 / pending verification / 来源备注」等审核语，查不到的信息直接省略，核验项只写 `notes` 或 `changes`。feed/JSON-LD 等商品数据交付属于 `geo-pdp`：它只写 `plan/sku_deliverables/<asset_id>/` 目录，不碰这里的 `<asset_id>.json`。
+7. **SKU 改造资产**：每个写 `plan/sku_changes/<asset_id>.json`（合法 JSON，不要 Markdown 代码块），由平台渲染成四类成品：改后商品页 `assets/sku/<id>.html`、模块片段 `assets/sku/<id>-modules.html`（带 `{{...}}` 数据占位符，可直接粘贴进商品页后台）、整页模板 `assets/sku/<id>-template.html`（站点壳 + 占位符，接商品系统后发布）、改前改后对比页 `assets/sku/<id>-before-after.html`；不要在 `assets/sku/` 下重复写这些 SKU 的 HTML，`asset_index.json` 由平台补录。改后正文必须可直接发布：不得出现「待核验 / pending verification / 来源备注」等审核语，查不到的信息直接省略，核验项只写 `notes` 或 `changes`。**改造 JSON 顶层必须写 `used_factors`（实际落实的 F-P-* 因子 id 数组）与 `factor_notes`（未落实因子的原因，如「本页无变体」），平台据此记录因子使用。** feed/JSON-LD 等商品数据交付属于 `geo-pdp`：它只写 `plan/sku_deliverables/<asset_id>/` 目录，不碰这里的 `<asset_id>.json`。
 8. 每个资产独立完整、禁止截断；写完后输出 `::STAGE:polish::` 与一行 `asset_index.json` 路径；有 SKU 改造资产时额外输出 `::STAGE:sku_rewrite::`。
 9. **质检与回流**：内容建设成稿必须走 geo-polish 的「全链路质检」模式（见 `geo-polish`），产出 `polish_report.json`；blocking 项清零后再交 `geo-diagnose` 做回流比对，规则见 [references/reflow.md](references/reflow.md)。
 

@@ -60,6 +60,17 @@ python3 scripts/check_diagnosis.py --project <项目目录>
 ### 步骤 6 诊断报告
 写 `diagnosis/diagnosis.md`（给人看）：数据范围与可信度 → 失败层分布（按商业价值加权）→ 高价值问题族逐个说明 → 站点问题 → 竞品与来源格局 → 待确认问题。
 
+### 步骤 7 因子效果回流（只提建议，不改权重）
+承接 geo-polish 的 `factor_audit`（score/grade）与本期 `topic_metrics.json`，把因子表现回写给平台：
+1. 读 `factor_library.json`（优先平台根目录实时库；skill 内 `assets/factor_library.json` 兜底），按层（ai_exposure / conversion / pdp）把因子与本层指标对应。
+2. 逐层对比：该层资产 `factor_audit.score` 高低的资产 vs 提及率 / 引用率 / 商品卡率 / 平均排位；有上期诊断时做前后对比，没有就只做本期横比。
+3. 只写「建议」，输出 `diagnosis/factor_updates.json`：
+```json
+{"factors": [{"action": "update", "factor_id": "F-C-002", "reason": "价格区间条款的资产评分高但商品卡率仍低，疑似权重不足", "samples": 42, "metric": "product_card_rate", "before": 0.12, "after": 0.21, "suggested_weight_delta": 0.02, "evidence": "diagnosis/topic_metrics.json#topic-03"}]}
+```
+4. 约束：`samples < calibration_rules.min_samples`（缺省 30）时只记录不调权重（平台自动归入 `pending_data`）；单次 `|suggested_weight_delta| ≤ calibration_rules.adjust_step_max`（缺省 2 个百分点）；不承诺因果、不写「必涨」类断言；**不直接改 `factor_library.json`**，权重调整由平台人工确认后生效。
+5. `diagnosis.md` 增加「因子效果」小节：按层列出 score 区间、提及/引用/商品卡表现与上述建议清单。
+
 ## 硬性约束
 - 只读不采：答案数据全部来自结果文件；不补采、不臆测 AI 会怎么回答。
 - 数据不足就标 `insufficient_data` 或 `evidence_level=hypothesis`，不下确定结论。
@@ -70,4 +81,5 @@ python3 scripts/check_diagnosis.py --project <项目目录>
 1. `diagnosis/responses.jsonl`、`topic_metrics.json`、`site_audit.json`
 2. `diagnosis/diagnosis.json`（通过 check_diagnosis.py）
 3. `diagnosis/diagnosis.md`
-4. 更新后的 `contract.competitors`（如有核验）
+4. `diagnosis/factor_updates.json`（因子权重调整建议，供平台记录，不自动生效）
+5. 更新后的 `contract.competitors`（如有核验）

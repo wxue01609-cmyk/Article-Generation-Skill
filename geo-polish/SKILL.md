@@ -84,10 +84,14 @@ th { background: #f6f8fa; font-weight: 600; }
 - `learned.exceptions` 里的词不再报（误诊已登记）。
 报告写入 `qa/localization_report.json`，同时并入 `polish_report.json` 的 `localization` 区块（`{market, hard, soft, files}`）。本地化关的 blocking 修复后才能交付；只改词与表述，不改产品事实。
 
-### 因子落实检查（附加项，只出 warning 不阻断）
-- 同一 `stage` 内 ≥3 个资产、且 ≥80% 的因子组合完全相同 → warning「因子组合疑似套模板」，附复用理由（item.factor_reason）时放行；
-- 同一批 `authority_actions` 命中通用套话 ≥2 条（如「首段直答 / 拆 H2 / 列表/表格承载 / 只写可核验事实 / 单一主 CTA」）→ warning「权威动作过于通用，需按 query 具体化」；
-- 两项只进 `warnings`，不阻断交付；确属同诉求批量资产的，在 `checks` 注明复用理由即可。
+### 3.5 因子核验与打分卡（先于五关跑，按因子库逐条核验）
+读取 `factor_library.json`（优先平台根目录实时库；skill 内 `assets/factor_library.json` 兜底），只对「本层因子 + 全局因子」逐条核验：
+1. **准入因子（`admission_factors`，一票否决）**：a-01 核心 claim 全部 verified 且可发布（查证据账本）；a-02 官网类资产零竞品点名；a-03 正文零照抄（引用 excerpt 比对）；a-04 无禁用 claim / 合规限制；a-05 页面可抓取（site_audit 200 且无 noindex/robots 拦截）；a-06 电商参数/价格可追溯到账本。任一失败 → `blocking`，写进 `factor_audit.admission`，该资产不得交付。
+2. **增益因子逐条核验**：对每个资产 Brief `factors` 的因子，按库中 `check` 检查正文/JSON 是否做到，逐条记 `pass` / `warning` / `blocking`；`used_factors` 未覆盖 Brief 因子时记「未落实」warning，覆盖 <2/3 升 blocking。
+3. **打分**：`score = 100 × 命中因子的 weight 之和 ÷ Brief factors 的 weight 之和`；grade：≥85 excellent、≥70 pass、<70 fail。
+4. **fail 处理**：只重写命中失败因子的段落，最多 2 轮；2 轮后仍 <70 标 `needs_human`，不得整篇重写掩盖问题。
+5. **组合重复与套话（保留为 warning）**：同一 `stage` 内 ≥3 个资产、且 ≥80% 的因子组合完全相同 → warning「因子组合疑似套模板」，附复用理由（item.factor_reason）时放行；同一批 `authority_actions` 命中通用套话 ≥2 条（如「首段直答 / 拆 H2 / 列表/表格承载 / 只写可核验事实 / 单一主 CTA」）→ warning「权威动作过于通用，需按 query 具体化」。
+结果写入 `polish_report.json` 的 `factor_audit`（按 stage/asset：`{asset_id, stage, score, grade, factors:[{factor_id, name, check, result, evidence}], admission, needs_human}`），进入 summary 汇总。
 
 ### 五关（每关都要给 pass / warning / blocking）
 | 关 | 检查什么 | blocking 判定 | 修复动作 |
@@ -112,5 +116,6 @@ th { background: #f6f8fa; font-weight: 600; }
 }
 ```
 - 有 `blocking` 的层不得进入交付；`warning` 记入 `checks` 后放行。
+- `factor_audit` 的 score/grade 同步写进每层 `assets` 的条目（如 `"factor_score": 82, "factor_grade": "pass"`），供 geo-diagnose 做因子效果回流。
 - 修复后只重跑该层的质检，已 pass 的层不重复跑。
 - 详细检查项与判定话术见 [references/06-content-build-check.md](references/06-content-build-check.md)。
