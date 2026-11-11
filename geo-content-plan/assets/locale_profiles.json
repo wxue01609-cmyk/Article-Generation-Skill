@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updated_at": "2026-11-11 17:13:02",
+  "updated_at": "2026-11-11 17:18:01",
   "description": "海外内容本地化词库 v1（内置种子）：美/英/新加坡/澳/加 5 市场。level=hard 出现即阻断，soft 仅提示；zh_terms 用于中文输出。",
   "market_aliases": {
     "美国": "US",
@@ -79,7 +79,8 @@
           ],
           "right": "parking lot",
           "level": "hard",
-          "note": "美式表达"
+          "note": "美式表达",
+          "zh": "停车场（英式说法）"
         },
         {
           "wrong": [
@@ -87,7 +88,8 @@
           ],
           "right": "elevator",
           "level": "hard",
-          "note": "美式表达"
+          "note": "美式表达",
+          "zh": "电梯"
         },
         {
           "wrong": [
@@ -95,7 +97,8 @@
           ],
           "right": "apartment",
           "level": "hard",
-          "note": "美式表达"
+          "note": "美式表达",
+          "zh": "公寓"
         },
         {
           "wrong": [
@@ -103,7 +106,8 @@
           ],
           "right": "cell phone",
           "level": "soft",
-          "note": "美国更常说 cell phone"
+          "note": "美国更常说 cell phone",
+          "zh": "手机"
         },
         {
           "wrong": [
@@ -111,7 +115,8 @@
           ],
           "right": "gasoline/gas",
           "level": "hard",
-          "note": "美式表达"
+          "note": "美式表达",
+          "zh": "汽油"
         },
         {
           "wrong": [
@@ -119,7 +124,8 @@
           ],
           "right": "trunk",
           "level": "hard",
-          "note": "汽车后备箱"
+          "note": "汽车后备箱",
+          "zh": "汽车后备箱"
         },
         {
           "wrong": [
@@ -127,7 +133,8 @@
           ],
           "right": "hood",
           "level": "hard",
-          "note": "汽车引擎盖"
+          "note": "汽车引擎盖",
+          "zh": "汽车引擎盖"
         },
         {
           "wrong": [
@@ -135,7 +142,8 @@
           ],
           "right": "flashlight",
           "level": "hard",
-          "note": "美式表达"
+          "note": "美式表达",
+          "zh": "手电筒"
         },
         {
           "wrong": [
@@ -143,7 +151,8 @@
           ],
           "right": "first floor",
           "level": "soft",
-          "note": "美式楼层习惯"
+          "note": "美式楼层习惯",
+          "zh": "一楼（英式说法）"
         },
         {
           "wrong": [
@@ -152,7 +161,8 @@
           ],
           "right": "eggplant / zucchini",
           "level": "soft",
-          "note": "一般不用于数码品类"
+          "note": "一般不用于数码品类",
+          "zh": "茄子"
         },
         {
           "wrong": [
@@ -161,7 +171,8 @@
           ],
           "right": "while / among",
           "level": "hard",
-          "note": "美式不用 whilst/amongst"
+          "note": "美式不用 whilst/amongst",
+          "zh": "当……时"
         },
         {
           "wrong": [
@@ -169,7 +180,8 @@
           ],
           "right": "color",
           "level": "hard",
-          "note": "美式拼写"
+          "note": "美式拼写",
+          "zh": "颜色"
         },
         {
           "wrong": [
@@ -177,7 +189,8 @@
           ],
           "right": "center",
           "level": "hard",
-          "note": "美式拼写"
+          "note": "美式拼写",
+          "zh": "中心"
         },
         {
           "wrong": [
@@ -187,7 +200,8 @@
           ],
           "right": "organize / realize / recognize",
           "level": "hard",
-          "note": "美式 -ize"
+          "note": "美式 -ize",
+          "zh": "组织"
         },
         {
           "wrong": [
@@ -195,7 +209,8 @@
           ],
           "right": "defense",
           "level": "hard",
-          "note": "美式拼写"
+          "note": "美式拼写",
+          "zh": "防御"
         },
         {
           "wrong": [
@@ -203,7 +218,8 @@
           ],
           "right": "license",
           "level": "hard",
-          "note": "美式名词也用 license"
+          "note": "美式名词也用 license",
+          "zh": "执照"
         },
         {
           "wrong": [
@@ -211,7 +227,8 @@
           ],
           "right": "aluminum",
           "level": "soft",
-          "note": "美式拼写"
+          "note": "美式拼写",
+          "zh": "铝"
         },
         {
           "wrong": [
@@ -220,7 +237,8 @@
           ],
           "right": "kilometer / meter",
           "level": "hard",
-          "note": "美式拼写"
+          "note": "美式拼写",
+          "zh": "公里"
         },
         {
           "wrong": [
@@ -228,7 +246,8 @@
           ],
           "right": "tire",
           "level": "hard",
-          "note": "美式拼写"
+          "note": "美式拼写",
+          "zh": "轮胎"
         },
         {
           "wrong": [
@@ -236,7 +255,8 @@
           ],
           "right": "railroad",
           "level": "soft",
-          "note": "美国铁路系统更常用 railroad"
+          "note": "美国铁路系统更常用 railroad",
+          "zh": "铁路"
         },
         {
           "wrong": [
@@ -244,7 +264,8 @@
           ],
           "right": "math",
           "level": "soft",
-          "note": "美式表达"
+          "note": "美式表达",
+          "zh": "数学"
         }
       ],
       "zh_terms": [],
@@ -304,7 +325,8 @@
           ],
           "right": "car park",
           "level": "hard",
-          "note": "英式表达"
+          "note": "英式表达",
+          "zh": "停车场（美式说法）"
         },
         {
           "wrong": [
@@ -312,7 +334,8 @@
           ],
           "right": "lift",
           "level": "hard",
-          "note": "英式表达"
+          "note": "英式表达",
+          "zh": "电梯"
         },
         {
           "wrong": [
@@ -320,7 +343,8 @@
           ],
           "right": "flat",
           "level": "hard",
-          "note": "英式表达"
+          "note": "英式表达",
+          "zh": "公寓"
         },
         {
           "wrong": [
@@ -328,7 +352,8 @@
           ],
           "right": "mobile phone",
           "level": "hard",
-          "note": "英式表达"
+          "note": "英式表达",
+          "zh": "手机"
         },
         {
           "wrong": [
@@ -337,7 +362,8 @@
           ],
           "right": "petrol",
           "level": "hard",
-          "note": "英式表达"
+          "note": "英式表达",
+          "zh": "汽油"
         },
         {
           "wrong": [
@@ -345,7 +371,8 @@
           ],
           "right": "boot",
           "level": "hard",
-          "note": "汽车后备箱"
+          "note": "汽车后备箱",
+          "zh": "汽车后备箱"
         },
         {
           "wrong": [
@@ -353,7 +380,8 @@
           ],
           "right": "bonnet",
           "level": "hard",
-          "note": "汽车引擎盖"
+          "note": "汽车引擎盖",
+          "zh": "汽车引擎盖"
         },
         {
           "wrong": [
@@ -361,7 +389,8 @@
           ],
           "right": "torch",
           "level": "hard",
-          "note": "英式表达"
+          "note": "英式表达",
+          "zh": "手电筒"
         },
         {
           "wrong": [
@@ -369,7 +398,8 @@
           ],
           "right": "pavement",
           "level": "hard",
-          "note": "英式表达"
+          "note": "英式表达",
+          "zh": "人行道"
         },
         {
           "wrong": [
@@ -378,7 +408,8 @@
           ],
           "right": "rubbish",
           "level": "soft",
-          "note": "英式表达"
+          "note": "英式表达",
+          "zh": "垃圾"
         },
         {
           "wrong": [
@@ -386,7 +417,8 @@
           ],
           "right": "tap",
           "level": "hard",
-          "note": "英式表达"
+          "note": "英式表达",
+          "zh": "水龙头"
         },
         {
           "wrong": [
@@ -394,7 +426,8 @@
           ],
           "right": "nappy",
           "level": "soft",
-          "note": "英式表达"
+          "note": "英式表达",
+          "zh": "尿布"
         },
         {
           "wrong": [
@@ -402,7 +435,8 @@
           ],
           "right": "holiday",
           "level": "hard",
-          "note": "英式表达"
+          "note": "英式表达",
+          "zh": "假期"
         },
         {
           "wrong": [
@@ -410,7 +444,8 @@
           ],
           "right": "biscuit",
           "level": "soft",
-          "note": "非数码品类场景"
+          "note": "非数码品类场景",
+          "zh": "饼干"
         },
         {
           "wrong": [
@@ -418,7 +453,8 @@
           ],
           "right": "football",
           "level": "soft",
-          "note": "英国语境"
+          "note": "英国语境",
+          "zh": "足球"
         },
         {
           "wrong": [
@@ -426,7 +462,8 @@
           ],
           "right": "colour",
           "level": "hard",
-          "note": "英式拼写"
+          "note": "英式拼写",
+          "zh": "颜色"
         },
         {
           "wrong": [
@@ -434,7 +471,8 @@
           ],
           "right": "centre",
           "level": "hard",
-          "note": "英式拼写"
+          "note": "英式拼写",
+          "zh": "中心"
         },
         {
           "wrong": [
@@ -444,7 +482,8 @@
           ],
           "right": "organise / realise / recognise",
           "level": "hard",
-          "note": "英式 -ise"
+          "note": "英式 -ise",
+          "zh": "组织"
         },
         {
           "wrong": [
@@ -452,7 +491,8 @@
           ],
           "right": "defence",
           "level": "hard",
-          "note": "英式拼写"
+          "note": "英式拼写",
+          "zh": "防御"
         },
         {
           "wrong": [
@@ -460,7 +500,8 @@
           ],
           "right": "licence",
           "level": "hard",
-          "note": "英式名词用 licence"
+          "note": "英式名词用 licence",
+          "zh": "执照"
         },
         {
           "wrong": [
@@ -468,7 +509,8 @@
           ],
           "right": "aluminium",
           "level": "soft",
-          "note": "英式拼写"
+          "note": "英式拼写",
+          "zh": "铝"
         },
         {
           "wrong": [
@@ -477,7 +519,8 @@
           ],
           "right": "kilometre / metre",
           "level": "hard",
-          "note": "英式拼写"
+          "note": "英式拼写",
+          "zh": "公里"
         },
         {
           "wrong": [
@@ -485,7 +528,8 @@
           ],
           "right": "tyre",
           "level": "hard",
-          "note": "英式拼写"
+          "note": "英式拼写",
+          "zh": "轮胎"
         },
         {
           "wrong": [
@@ -493,7 +537,8 @@
           ],
           "right": "maths",
           "level": "soft",
-          "note": "英式表达"
+          "note": "英式表达",
+          "zh": "数学"
         }
       ],
       "zh_terms": [],
@@ -554,7 +599,8 @@
           ],
           "right": "MRT",
           "level": "hard",
-          "note": "新加坡城轨统称 MRT/LRT，不叫 railway"
+          "note": "新加坡城轨统称 MRT/LRT，不叫 railway",
+          "zh": "铁路（新加坡称 MRT）"
         },
         {
           "wrong": [
@@ -564,7 +610,8 @@
           ],
           "right": "MRT",
           "level": "hard",
-          "note": "新加坡城轨称 MRT"
+          "note": "新加坡城轨称 MRT",
+          "zh": "地铁"
         },
         {
           "wrong": [
@@ -572,7 +619,8 @@
           ],
           "right": "MRT network",
           "level": "soft",
-          "note": "新加坡语境用 MRT 网络"
+          "note": "新加坡语境用 MRT 网络",
+          "zh": "轨道交通系统"
         },
         {
           "wrong": [
@@ -580,7 +628,8 @@
           ],
           "right": "car park",
           "level": "hard",
-          "note": "新加坡用 car park"
+          "note": "新加坡用 car park",
+          "zh": "停车场"
         },
         {
           "wrong": [
@@ -588,7 +637,8 @@
           ],
           "right": "lift",
           "level": "soft",
-          "note": "新加坡更常说 lift"
+          "note": "新加坡更常说 lift",
+          "zh": "电梯"
         },
         {
           "wrong": [
@@ -596,7 +646,8 @@
           ],
           "right": "flat / HDB flat",
           "level": "soft",
-          "note": "新加坡住宅习惯叫 flat"
+          "note": "新加坡住宅习惯叫 flat",
+          "zh": "公寓"
         },
         {
           "wrong": [
@@ -604,7 +655,8 @@
           ],
           "right": "footpath / pavement",
           "level": "soft",
-          "note": "新加坡习惯表达"
+          "note": "新加坡习惯表达",
+          "zh": "人行道"
         },
         {
           "wrong": [
@@ -612,7 +664,8 @@
           ],
           "right": "petrol kiosk",
           "level": "hard",
-          "note": "新加坡用 petrol kiosk"
+          "note": "新加坡用 petrol kiosk",
+          "zh": "加油站"
         },
         {
           "wrong": [
@@ -621,7 +674,8 @@
           ],
           "right": "rubbish",
           "level": "soft",
-          "note": "新加坡用 rubbish"
+          "note": "新加坡用 rubbish",
+          "zh": "垃圾"
         },
         {
           "wrong": [
@@ -629,7 +683,8 @@
           ],
           "right": "tap",
           "level": "soft",
-          "note": "新加坡习惯表达"
+          "note": "新加坡习惯表达",
+          "zh": "水龙头"
         },
         {
           "wrong": [
@@ -637,7 +692,8 @@
           ],
           "right": "holiday",
           "level": "soft",
-          "note": "新加坡用 holiday"
+          "note": "新加坡用 holiday",
+          "zh": "假期"
         },
         {
           "wrong": [
@@ -645,7 +701,8 @@
           ],
           "right": "colour",
           "level": "hard",
-          "note": "新加坡沿用英式拼写"
+          "note": "新加坡沿用英式拼写",
+          "zh": "颜色"
         },
         {
           "wrong": [
@@ -653,7 +710,8 @@
           ],
           "right": "centre",
           "level": "hard",
-          "note": "新加坡沿用英式拼写"
+          "note": "新加坡沿用英式拼写",
+          "zh": "中心"
         },
         {
           "wrong": [
@@ -662,7 +720,8 @@
           ],
           "right": "organise / realise",
           "level": "soft",
-          "note": "英式 -ise 更常见"
+          "note": "英式 -ise 更常见",
+          "zh": "组织"
         },
         {
           "wrong": [
@@ -671,7 +730,8 @@
           ],
           "right": "kilometre / metre",
           "level": "soft",
-          "note": "英式拼写"
+          "note": "英式拼写",
+          "zh": "公里"
         },
         {
           "wrong": [
@@ -679,7 +739,8 @@
           ],
           "right": "city area / CBD",
           "level": "soft",
-          "note": "新加坡常直接说 CBD"
+          "note": "新加坡常直接说 CBD",
+          "zh": "市中心"
         },
         {
           "wrong": [
@@ -688,7 +749,8 @@
           ],
           "right": "expressway (PIE/CTE) 或简称 highway",
           "level": "soft",
-          "note": "新加坡高速有自己的简称"
+          "note": "新加坡高速有自己的简称",
+          "zh": "高速公路"
         },
         {
           "wrong": [
@@ -696,7 +758,8 @@
           ],
           "right": "coins (local notes/coins)",
           "level": "soft",
-          "note": "货币语境：提示使用 SGD"
+          "note": "货币语境：提示使用 SGD",
+          "zh": "硬币（货币）"
         },
         {
           "wrong": [
@@ -704,7 +767,8 @@
           ],
           "right": "heartland",
           "level": "soft",
-          "note": "新加坡组屋区说 heartland"
+          "note": "新加坡组屋区说 heartland",
+          "zh": "邻里中心"
         },
         {
           "wrong": [
@@ -714,7 +778,8 @@
           "right": "property agent",
           "level": "hard",
           "note": "realtor/real estate agent 是美式说法，新加坡统一用 property agent（来自 AI 文件证据）",
-          "source": "import_xlsx"
+          "source": "import_xlsx",
+          "zh": "房地产经纪"
         },
         {
           "wrong": [
@@ -723,7 +788,8 @@
           "right": "city centre",
           "level": "hard",
           "note": "新加坡英式拼写 center→centre（AI 文件出现 5 次）",
-          "source": "import_xlsx"
+          "source": "import_xlsx",
+          "zh": "市中心"
         },
         {
           "wrong": [
@@ -732,7 +798,8 @@
           "right": "HDB flats",
           "level": "soft",
           "note": "新加坡语境直接说 HDB / HDB flat（AI 回答出现 23 次 public housing）",
-          "source": "import_xlsx"
+          "source": "import_xlsx",
+          "zh": "公共住房（组屋）"
         },
         {
           "wrong": [
@@ -741,7 +808,8 @@
           "right": "condo",
           "level": "soft",
           "note": "新加坡日常与标题用简称 condo（AI 回答 60 vs 24）",
-          "source": "import_xlsx"
+          "source": "import_xlsx",
+          "zh": "共管公寓"
         },
         {
           "wrong": [
@@ -750,7 +818,8 @@
           "right": "EC / executive condo",
           "level": "soft",
           "note": "新加坡地产缩写 EC",
-          "source": "import_xlsx"
+          "source": "import_xlsx",
+          "zh": "执行共管公寓"
         },
         {
           "wrong": [
@@ -759,7 +828,8 @@
           "right": "PSF",
           "level": "soft",
           "note": "新加坡报价口径用 PSF",
-          "source": "import_xlsx"
+          "source": "import_xlsx",
+          "zh": "每平方英尺"
         },
         {
           "wrong": [
@@ -768,36 +838,11 @@
           "right": "GCB",
           "level": "soft",
           "note": "新加坡缩写 GCB",
-          "source": "import_xlsx"
+          "source": "import_xlsx",
+          "zh": "优质洋房"
         }
       ],
-      "zh_terms": [
-        {
-          "wrong": [
-            "的士",
-            "出租车"
-          ],
-          "right": "德士",
-          "level": "hard",
-          "note": "新加坡中文叫德士"
-        },
-        {
-          "wrong": [
-            "地铁"
-          ],
-          "right": "地铁（MRT）",
-          "level": "soft",
-          "note": "新加坡中文也说地铁，可加注 MRT"
-        },
-        {
-          "wrong": [
-            "组屋区"
-          ],
-          "right": "组屋/邻里",
-          "level": "soft",
-          "note": "新加坡习惯用词"
-        }
-      ],
+      "zh_terms": [],
       "learned": {
         "terms": [
           {
@@ -810,7 +855,8 @@
             "note": "新加坡本地写 condo（167/24）、flat、unit，apartment 多为海外提问",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "公寓"
           },
           {
             "wrong": [
@@ -822,7 +868,8 @@
             "note": "realtor 是美式用法",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "房地产经纪"
           },
           {
             "wrong": [
@@ -846,7 +893,8 @@
             "note": "新加坡用英式拼写",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "市中心"
           },
           {
             "wrong": [
@@ -858,7 +906,8 @@
             "note": "同上",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "中心"
           },
           {
             "wrong": [
@@ -870,7 +919,8 @@
             "note": "本地直接说 HDB / HDB flat",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "公共住房（组屋）"
           },
           {
             "wrong": [
@@ -882,7 +932,8 @@
             "note": "condominium 不算错，但本地简称 condo 更常用（167/24）",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "共管公寓"
           },
           {
             "wrong": [
@@ -894,7 +945,8 @@
             "note": "本地缩写 EC（12/6）",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "执行共管公寓"
           },
           {
             "wrong": [
@@ -906,7 +958,8 @@
             "note": "本地报价口径写 PSF（1/1/1）",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "每平方英尺"
           },
           {
             "wrong": [
@@ -918,7 +971,8 @@
             "note": "本地缩写 GCB（0/0/2）",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "优质洋房"
           },
           {
             "wrong": [
@@ -930,7 +984,8 @@
             "note": "新加坡用 holiday,假期",
             "lang": "en",
             "source": "manual",
-            "added_at": "2026-11-11 17:11:41"
+            "added_at": "2026-11-11 17:11:41",
+            "zh": "假期"
           },
           {
             "wrong": [],
@@ -943,7 +998,8 @@
             "note": "组屋",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "组屋"
           },
           {
             "wrong": [],
@@ -955,7 +1011,8 @@
             "note": "预购组屋",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "预购组屋"
           },
           {
             "wrong": [],
@@ -967,7 +1024,8 @@
             "note": "转售",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "转售"
           },
           {
             "wrong": [],
@@ -979,7 +1037,8 @@
             "note": "公积金",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "公积金"
           },
           {
             "wrong": [],
@@ -991,7 +1050,8 @@
             "note": "执行共管公寓",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "执行共管公寓"
           },
           {
             "wrong": [],
@@ -1003,7 +1063,8 @@
             "note": "共管公寓",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "共管公寓"
           },
           {
             "wrong": [],
@@ -1015,7 +1076,8 @@
             "note": "单位/组屋",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "组屋/单位"
           },
           {
             "wrong": [],
@@ -1027,7 +1089,8 @@
             "note": "单位",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "单位"
           },
           {
             "wrong": [],
@@ -1039,7 +1102,8 @@
             "note": "有地住宅",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "有地住宅"
           },
           {
             "wrong": [],
@@ -1051,7 +1115,8 @@
             "note": "优质洋房",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "优质洋房"
           },
           {
             "wrong": [],
@@ -1063,7 +1128,8 @@
             "note": "店屋",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "店屋"
           },
           {
             "wrong": [],
@@ -1075,7 +1141,8 @@
             "note": "市区重建局",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "市区重建局"
           },
           {
             "wrong": [],
@@ -1087,7 +1154,8 @@
             "note": "分层地契管理委员会",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "分层地契管理委员会"
           },
           {
             "wrong": [],
@@ -1099,7 +1167,8 @@
             "note": "样板房",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "样板房"
           },
           {
             "wrong": [],
@@ -1111,7 +1180,8 @@
             "note": "每平方英尺价",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "每平方英尺价"
           },
           {
             "wrong": [],
@@ -1124,7 +1194,8 @@
             "note": "租赁地契 / 永久地契",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "租赁地契/永久地契"
           },
           {
             "wrong": [],
@@ -1137,7 +1208,8 @@
             "note": "99年 / 999年地契",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "99年/999年地契"
           },
           {
             "wrong": [],
@@ -1149,7 +1221,8 @@
             "note": "集体出售",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "集体出售"
           },
           {
             "wrong": [],
@@ -1161,7 +1234,8 @@
             "note": "分层地契",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "分层地契"
           },
           {
             "wrong": [],
@@ -1174,7 +1248,8 @@
             "note": "地铁 / 轻轨",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "地铁/轻轨"
           },
           {
             "wrong": [],
@@ -1186,7 +1261,8 @@
             "note": "房产经纪",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "房产经纪"
           },
           {
             "wrong": [],
@@ -1198,7 +1274,8 @@
             "note": "额外买方印花税",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "额外买方印花税"
           },
           {
             "wrong": [],
@@ -1210,7 +1287,8 @@
             "note": "贷款与估值比",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "贷款与估值比"
           },
           {
             "wrong": [],
@@ -1222,7 +1300,8 @@
             "note": "转售（未满 TOP）",
             "lang": "en",
             "source": "excel:本地词库上传词.xlsx",
-            "added_at": "2026-11-11 17:13:02"
+            "added_at": "2026-11-11 17:13:02",
+            "zh": "转售（未满 TOP）"
           }
         ],
         "exceptions": []
@@ -1276,7 +1355,8 @@
           ],
           "right": "car park",
           "level": "hard",
-          "note": "澳式表达"
+          "note": "澳式表达",
+          "zh": "停车场"
         },
         {
           "wrong": [
@@ -1284,7 +1364,8 @@
           ],
           "right": "footpath",
           "level": "hard",
-          "note": "澳式表达"
+          "note": "澳式表达",
+          "zh": "人行道"
         },
         {
           "wrong": [
@@ -1292,7 +1373,8 @@
           ],
           "right": "unit / flat",
           "level": "soft",
-          "note": "澳洲更常说 unit"
+          "note": "澳洲更常说 unit",
+          "zh": "公寓"
         },
         {
           "wrong": [
@@ -1300,7 +1382,8 @@
           ],
           "right": "lift",
           "level": "soft",
-          "note": "澳洲更常说 lift"
+          "note": "澳洲更常说 lift",
+          "zh": "电梯"
         },
         {
           "wrong": [
@@ -1308,7 +1391,8 @@
           ],
           "right": "mobile",
           "level": "hard",
-          "note": "澳洲说 mobile"
+          "note": "澳洲说 mobile",
+          "zh": "手机"
         },
         {
           "wrong": [
@@ -1317,7 +1401,8 @@
           ],
           "right": "petrol",
           "level": "hard",
-          "note": "澳洲说 petrol"
+          "note": "澳洲说 petrol",
+          "zh": "汽油"
         },
         {
           "wrong": [
@@ -1325,7 +1410,8 @@
           ],
           "right": "boot",
           "level": "hard",
-          "note": "汽车后备箱"
+          "note": "汽车后备箱",
+          "zh": "汽车后备箱"
         },
         {
           "wrong": [
@@ -1333,7 +1419,8 @@
           ],
           "right": "bonnet",
           "level": "hard",
-          "note": "汽车引擎盖"
+          "note": "汽车引擎盖",
+          "zh": "汽车引擎盖"
         },
         {
           "wrong": [
@@ -1341,7 +1428,8 @@
           ],
           "right": "tap",
           "level": "hard",
-          "note": "澳式表达"
+          "note": "澳式表达",
+          "zh": "水龙头"
         },
         {
           "wrong": [
@@ -1349,7 +1437,8 @@
           ],
           "right": "nappy",
           "level": "soft",
-          "note": "澳式表达"
+          "note": "澳式表达",
+          "zh": "尿布"
         },
         {
           "wrong": [
@@ -1358,7 +1447,8 @@
           ],
           "right": "rubbish",
           "level": "soft",
-          "note": "澳式表达"
+          "note": "澳式表达",
+          "zh": "垃圾"
         },
         {
           "wrong": [
@@ -1366,7 +1456,8 @@
           ],
           "right": "holiday",
           "level": "soft",
-          "note": "澳式表达"
+          "note": "澳式表达",
+          "zh": "假期"
         },
         {
           "wrong": [
@@ -1374,7 +1465,8 @@
           ],
           "right": "jumper",
           "level": "soft",
-          "note": "澳式表达"
+          "note": "澳式表达",
+          "zh": "毛衣"
         },
         {
           "wrong": [
@@ -1382,7 +1474,8 @@
           ],
           "right": "colour",
           "level": "hard",
-          "note": "澳洲沿用英式拼写"
+          "note": "澳洲沿用英式拼写",
+          "zh": "颜色"
         },
         {
           "wrong": [
@@ -1390,7 +1483,8 @@
           ],
           "right": "centre",
           "level": "hard",
-          "note": "澳洲沿用英式拼写"
+          "note": "澳洲沿用英式拼写",
+          "zh": "中心"
         },
         {
           "wrong": [
@@ -1399,7 +1493,8 @@
           ],
           "right": "organise / realise",
           "level": "hard",
-          "note": "澳式 -ise"
+          "note": "澳式 -ise",
+          "zh": "组织"
         },
         {
           "wrong": [
@@ -1407,7 +1502,8 @@
           ],
           "right": "defence",
           "level": "soft",
-          "note": "英式拼写"
+          "note": "英式拼写",
+          "zh": "防御"
         },
         {
           "wrong": [
@@ -1416,7 +1512,8 @@
           ],
           "right": "kilometre / metre",
           "level": "soft",
-          "note": "英式拼写"
+          "note": "英式拼写",
+          "zh": "公里"
         },
         {
           "wrong": [
@@ -1424,7 +1521,8 @@
           ],
           "right": "football",
           "level": "soft",
-          "note": "澳洲语境 footy/football"
+          "note": "澳洲语境 footy/football",
+          "zh": "足球"
         }
       ],
       "zh_terms": [],
@@ -1480,7 +1578,8 @@
           ],
           "right": "colour",
           "level": "soft",
-          "note": "加拿大拼写 colour"
+          "note": "加拿大拼写 colour",
+          "zh": "颜色"
         },
         {
           "wrong": [
@@ -1488,7 +1587,8 @@
           ],
           "right": "centre",
           "level": "soft",
-          "note": "加拿大拼写 centre"
+          "note": "加拿大拼写 centre",
+          "zh": "中心"
         },
         {
           "wrong": [
@@ -1496,7 +1596,8 @@
           ],
           "right": "defence",
           "level": "soft",
-          "note": "加拿大拼写 defence"
+          "note": "加拿大拼写 defence",
+          "zh": "防御"
         },
         {
           "wrong": [
@@ -1504,7 +1605,8 @@
           ],
           "right": "aluminium",
           "level": "soft",
-          "note": "加拿大更常用 aluminium"
+          "note": "加拿大更常用 aluminium",
+          "zh": "铝"
         },
         {
           "wrong": [
@@ -1512,7 +1614,8 @@
           ],
           "right": "parking lot",
           "level": "soft",
-          "note": "北美通用，保留即可"
+          "note": "北美通用，保留即可",
+          "zh": "停车场"
         },
         {
           "wrong": [
@@ -1520,7 +1623,8 @@
           ],
           "right": "gas station",
           "level": "soft",
-          "note": "北美通用"
+          "note": "北美通用",
+          "zh": "加油站"
         },
         {
           "wrong": [
@@ -1529,7 +1633,8 @@
           ],
           "right": "kilometre / metre",
           "level": "soft",
-          "note": "加式拼写"
+          "note": "加式拼写",
+          "zh": "公里"
         },
         {
           "wrong": [
@@ -1537,7 +1642,8 @@
           ],
           "right": "-ize 或 -ise 均可",
           "level": "soft",
-          "note": "加拿大两种拼法都接受，保持一致即可"
+          "note": "加拿大两种拼法都接受，保持一致即可",
+          "zh": "动词后缀 -ize"
         }
       ],
       "zh_terms": [],
