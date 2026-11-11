@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updated_at": "2026-11-11 16:36:00",
+  "updated_at": "2026-11-11 17:10:00",
   "description": "海外内容本地化词库 v1（内置种子）：美/英/新加坡/澳/加 5 市场。level=hard 出现即阻断，soft 仅提示；zh_terms 用于中文输出。",
   "market_aliases": {
     "美国": "US",
@@ -705,6 +705,70 @@
           "right": "heartland",
           "level": "soft",
           "note": "新加坡组屋区说 heartland"
+        },
+        {
+          "wrong": [
+            "realtor",
+            "real estate agent"
+          ],
+          "right": "property agent",
+          "level": "hard",
+          "note": "realtor/real estate agent 是美式说法，新加坡统一用 property agent（来自 AI 文件证据）",
+          "source": "import_xlsx"
+        },
+        {
+          "wrong": [
+            "city center"
+          ],
+          "right": "city centre",
+          "level": "hard",
+          "note": "新加坡英式拼写 center→centre（AI 文件出现 5 次）",
+          "source": "import_xlsx"
+        },
+        {
+          "wrong": [
+            "public housing"
+          ],
+          "right": "HDB flats",
+          "level": "soft",
+          "note": "新加坡语境直接说 HDB / HDB flat（AI 回答出现 23 次 public housing）",
+          "source": "import_xlsx"
+        },
+        {
+          "wrong": [
+            "condominium"
+          ],
+          "right": "condo",
+          "level": "soft",
+          "note": "新加坡日常与标题用简称 condo（AI 回答 60 vs 24）",
+          "source": "import_xlsx"
+        },
+        {
+          "wrong": [
+            "executive condominium"
+          ],
+          "right": "EC / executive condo",
+          "level": "soft",
+          "note": "新加坡地产缩写 EC",
+          "source": "import_xlsx"
+        },
+        {
+          "wrong": [
+            "per square foot"
+          ],
+          "right": "PSF",
+          "level": "soft",
+          "note": "新加坡报价口径用 PSF",
+          "source": "import_xlsx"
+        },
+        {
+          "wrong": [
+            "good class bungalow"
+          ],
+          "right": "GCB",
+          "level": "soft",
+          "note": "新加坡缩写 GCB",
+          "source": "import_xlsx"
         }
       ],
       "zh_terms": [
