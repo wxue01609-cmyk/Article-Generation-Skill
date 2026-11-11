@@ -99,6 +99,8 @@
    - **抓取失败不等于不匹配**：只要能从 query 或 `source_urls` 第 N 条的 URL slug / 已抓信息确认是同一商品，就必须挂 `source_page` / `source_url` / `target_url`；抓取失败只影响成稿阶段的证据与正文，不得因此把 SKU 降级为「新建页」。
    - 确实无法确认同一商品时才按新建页规划，并必须在 `risk_notes` 说明原因与对应 URL 序号。
 8. **Brief 字段**：每个资产给出标题、角度、大纲要点、建议字数、CTA；`title` 语言跟随 `article_language`；每个资产必须带 `stage`（取自 geo_sample 的 query→stage 映射）。
+   - **因子库（factor_library）**：按 stage 为每个资产选 2-4 个重点因子（全局因子 + 本层因子），写入 item 的 `factors`（因子 id 数组）与 `authority_actions`（按因子 action 写落地动作）；因子只决定「重点写什么、按什么顺序写」，不改判事实。
+   - **因子回流**：发现新的有效规律或需调整既有因子时，在输出对象顶层加 `factor_updates` 数组（字段：`action/name/category/stage/asset_types/weight/definition/check/action/reason`）；若 item 的 `factors` 引用了库中不存在的因子名，必须把该名称写进 `factor_updates`（`action=add`，`name` 用该名称），平台会自动建条目并标「新增」。没有新规律就不要输出该字段。
 9. **自检**：`id` 唯一且格式 `<type>-NN`（如 `blog-01`）；无编造参数；官网资产不含竞品品牌名；输入提供了商品页 URL 时，`asset_type=sku` 的资产必须挂 `source_page`（不能确认是同一商品才允许不挂，且要在 `risk_notes` 说明）。
 
 ## 五、成稿阶段（write）
@@ -172,6 +174,11 @@
      "outline": ["要点1", "要点2"], "key_points": ["短句要点"], "cta": "Buy now",
      "target_url": "", "source_page": null, "source_url": "", "reference_citations": [],
      "word_count": 1500, "language": "en", "reason": "判定依据"}
+  ],
+  "factor_updates": [
+    {"action": "add", "name": "新因子名称", "category": "stage", "stage": "ai_exposure",
+     "asset_types": ["blog"], "weight": 0.05, "definition": "衡量什么", "check": "怎么判断达标",
+     "action": "Brief/成稿要执行的动作", "reason": "依据哪条 query/引用/诊断"}
   ],
   "assets": [],
   "sku_changes": [],

@@ -79,7 +79,7 @@
 - `confidence` 0-1；`<0.70` 时 `needs_review` 必须为 true
 - `summary` 必须与 items/gaps 实际统计一致
 - `summary.by_stage` 必须与 items 的 `stage` 统计一致；`secondary_stage` 不进 by_stage
-- `factors`：因子 id 数组（2-4 个），取自 `factor_library.json`；全局因子 + 本层因子各至少 1 个；只影响 Brief 的重点与排序，不改判事实
+- `factors`：因子 id 数组（2-4 个），取自 `factor_library.json`；全局因子 + 本层因子各至少 1 个；只影响 Brief 的重点与排序，不改判事实；若引用了库中不存在的因子名，必须同步把该名称写进 `plan/factor_updates.json`（`action=add`，`name` 用该名称，`category`/`stage` 按资产层级填），平台会自动建条目并标“新增”，并把矩阵里的引用改写为正式 id
   - `authority_actions`：字符串数组，按所选因子的 `action` 写权威建设动作（如“引用独立评测结论并标来源”“补对比表”），供成稿执行
   - `plan/factor_updates.json`：可选回流文件；发现新因子或需调整既有因子时写入 `{"factors":[{"action":"add|update","name":"…","category":"global|stage","stage":"…","weight":0.05,"definition":"…","check":"…","action":"…","reason":"…"}]}`；平台收尾自动入库并标“新增”，被引用后自动取消标注
 - `reference_citations`：可选数组，只在 `research/citations.json` 有同层 `status=ok` 条目时写入；每项含 `title`/`url`/`domain`/`headings`/`excerpt`（≤200 字）；只作结构与证据参考，正文禁止照抄

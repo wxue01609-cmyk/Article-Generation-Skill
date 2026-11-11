@@ -32,6 +32,7 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
    - 按所选因子的 `action` 写 `authority_actions`（权威建设动作，字符串数组），并让 `key_points` 能逐条对应到所选因子。
    - 因子只决定“重点写什么、按什么顺序写”，不改写事实与证据规则；自定义因子权重只影响排序，不改变判定逻辑。
    - 若运行中发现新规律或需调整既有因子（权重/检查口径/适用资产），追加写 `plan/factor_updates.json`；平台在任务收尾时自动合并入库并标“新增”，方案或成稿引用后自动取消标注。没有新规律不要生成该文件。
+- 若 `item.factors` 引用了库中不存在的因子名，必须把该名称也写进 `plan/factor_updates.json`（`action=add`，`name` 用该名称，`category`/`stage` 按资产层级填），平台会自动建条目并标“新增”；`item.factors` 只允许写库中已存在的 id 或本次 `factor_updates` 里的 name。
 
 6. **匹配待改造页面**：读取 `source/index.json`。当某条 query 被判为 `asset_type=sku`、且可用页面与 query 指向同一型号/品类时，按下面规则挂载改造信息：
    - item 增加 `source_page`（可用页面的 `page` 序号）、`source_url`（页面 `final_url`）、`rewrite_mode: "existing_page"`；
