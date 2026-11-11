@@ -77,7 +77,7 @@ th { background: #f6f8fa; font-weight: 600; }
 ### 第 0 关 · 本地化（先跑，按目标市场）
 读取 `locale_profiles.json`，按 `package.json.fields.target_market` 解析市场代码；解析不到就跳过并注明「未识别目标市场」。逐篇扫描：
 - `level=hard` 的 wrong 词出现 → **blocking**（如新加坡文章出现 railway / parking lot；英式文章出现 color/center/elevator；中文新加坡文章出现「的士/出租车」）；
-- `level=soft` 的 wrong 词出现 → warning，并给出 right 建议词；
+- `level=soft` 的 wrong 词出现 → **blocking**（与 hard 同权必改），并给出 right 建议词；
 - 同一篇混用 en-US / en-GB 拼写（color+colour、center+centre、-ize+-ise）→ blocking（整篇必须统一）；
 - `whitelist` 里的短语整体命中时，不再按其中的 wrong 词报（如 `executive condominium` 不报 `condominium`）；
 - 备注方括号里的中文含义（如【共管公寓】）出现、但 `whitelist` 词未出现 → warning，建议改用白名单词；

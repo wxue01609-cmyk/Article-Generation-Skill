@@ -35,7 +35,7 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
 - 若 `item.factors` 引用了库中不存在的因子名，必须把该名称也写进 `plan/factor_updates.json`（`action=add`，`name` 用该名称，`category`/`stage` 按资产层级填），平台会自动建条目并标“新增”；`item.factors` 只允许写库中已存在的 id 或本次 `factor_updates` 里的 name。
 
 5.6 **本地化词库（按目标市场落地，只改说法不改事实）**：读取 `locale_profiles.json`（优先平台根目录实时库；skill 内 `assets/locale_profiles.json` 为同版本兜底）。按 `fields.target_market` 解析市场代码（美国/US、新加坡/SG、英国/UK、澳大利亚/AU、加拿大/CA，映射见 `market_aliases`）；解析不到就跳过本节。命中市场时：
-   - 该市场 `terms` 里 `level=hard` 的 wrong 词禁止出现在 Brief 与后续正文，一律用 right 词（如新加坡用 MRT 不用 railway、car park 不用 parking lot；英式拼写 colour/centre）；`soft` 词条尽量采用 right 词；
+   - 该市场 `terms` 里 `level=hard` 的 wrong 词禁止出现在 Brief 与后续正文，一律用 right 词（如新加坡用 MRT 不用 railway、car park 不用 parking lot；英式拼写 colour/centre）；`soft` 词条同样必须采用 right 词（soft 与 hard 同权必改）；
    - 拼写变体：整篇统一用该市场 `spelling`（en-US 或 en-GB），不许混用 color/colour、center/centre、-ize/-ise；
    - 本地习惯落到 Brief：`units` 单位、`currency` 货币、`payment` 支付方式、`logistics` 物流与售后表述、`regulatory` 监管机构、`authority_sources` 权威引用源、`calendar` 本地节点；
    - 输出语言为中文时用 `zh_terms`（新加坡中文写「德士」不写「的士/出租车」）；
