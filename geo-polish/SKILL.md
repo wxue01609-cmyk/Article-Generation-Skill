@@ -85,7 +85,7 @@ th { background: #f6f8fa; font-weight: 600; }
 报告写入 `qa/localization_report.json`，同时并入 `polish_report.json` 的 `localization` 区块（`{market, hard, soft, files}`）。本地化关的 blocking 修复后才能交付；只改词与表述，不改产品事实。
 
 ### 3.5 因子核验与打分卡（先于五关跑，按因子库逐条核验）
-读取 `factor_library.json`（优先平台根目录实时库；青蛙端使用 geo-content-plan 提示词内联的默认因子库数据块（`assets/factor_library.json`）；本地无独立文件时直接读平台根目录实时库，禁止自造因子定义），只对「本层因子 + 全局因子」逐条核验（矩阵 item 带 `factor_details` 时以其 `check` 为准，不必再找文件）：
+读取 `factor_library.json`（优先平台根目录实时库；青蛙端读系统提示词 agent.md 末尾内置的「因子库数据」块（与本地实时库同源，全阶段可读）；本地无独立文件时直接读平台根目录实时库，禁止自造因子定义），只对「本层因子 + 全局因子」逐条核验（矩阵 item 带 `factor_details` 时以其 `check` 为准，不必再找文件）：
 1. **准入因子（`admission_factors`，一票否决）**：a-01 核心 claim 全部 verified 且可发布（查证据账本）；a-02 官网类资产零竞品点名；a-03 正文零照抄（引用 excerpt 比对）；a-04 无禁用 claim / 合规限制；a-05 页面可抓取（site_audit 200 且无 noindex/robots 拦截）；a-06 电商参数/价格可追溯到账本。任一失败 → `blocking`，写进 `factor_audit.admission`，该资产不得交付。
 2. **增益因子逐条核验**：对每个资产 Brief `factors` 的因子，按库中 `check` 检查正文/JSON 是否做到，逐条记 `pass` / `warning` / `blocking`；`used_factors` 未覆盖 Brief 因子时记「未落实」warning，覆盖 <2/3 升 blocking。
 3. **打分**：`score = 100 × 命中因子的 weight 之和 ÷ Brief factors 的 weight 之和`；grade：≥85 excellent、≥70 pass、<70 fail。

@@ -28,7 +28,7 @@ TEMPLATES = BUILD_DIR / 'templates'
 PLATFORM = BUILD_DIR / 'platform'
 DIST = BUILD_DIR / 'dist'
 DESKTOP = Path.home() / 'Desktop'
-ZIP_NAME = '青蛙-内容建设agent-上传包v33.zip'
+ZIP_NAME = '青蛙-内容建设agent-上传包v34.zip'
 
 # 内容建设链路的 13 个技能，按实际执行顺序排列
 SKILLS = [
@@ -204,6 +204,9 @@ def build_agent_json(prompts_meta):
 def build_agent_md(prompts_meta):
     """生成 agent.md：保留平台编排模板，追加自动生成的技能清单"""
     text = (TEMPLATES / 'agent.md').read_text(encoding='utf-8')
+    factor_block = build_factor_block()
+    if factor_block:
+        text = text.rstrip() + '\n\n' + factor_block
     lines = ['', '', '## 附：技能清单与规则源（自动生成，禁止手改）', '']
     lines.append('| 顺序 | 技能 | 作用 | 提示词 |')
     lines.append('|---|---|---|---|')
@@ -218,6 +221,42 @@ def build_agent_md(prompts_meta):
         '',
     ]
     return text.rstrip() + '\n' + '\n'.join(lines)
+
+
+def build_factor_block():
+    """把因子库压缩成系统提示词数据块：所有阶段都能读，避免 write/polish/diagnose 读不到方案提示词。"""
+    path = REPO / 'geo-content-plan' / 'assets' / 'factor_library.json'
+    if not path.exists():
+        return ''
+    try:
+        lib = json.loads(path.read_text(encoding='utf-8'))
+    except Exception:
+        return ''
+    compact = {
+        'version': lib.get('version'),
+        'updated_at': lib.get('updated_at'),
+        'calibration_rules': lib.get('calibration_rules') or {},
+        'admission_factors': [
+            {k: f.get(k) for k in ('factor_id', 'name', 'check', 'status') if f.get(k) is not None}
+            for f in (lib.get('admission_factors') or [])
+        ],
+        'factors': [
+            {k: f.get(k) for k in ('factor_id', 'name', 'category', 'stage', 'weight',
+                                   'definition', 'check', 'action') if f.get(k) is not None}
+            for f in (lib.get('factors') or [])
+        ],
+    }
+    return '\n'.join([
+        '## 附：因子库数据（自动生成，禁止手改；与本地 `factor_library.json` 同源）',
+        '',
+        '所有阶段（方案 / 成稿 / 诊断）都读这一份，不需要再找其它文件；'
+        '矩阵 item 若带 `factor_details`，以 Brief 内联的定义为准（与这里同源）。'
+        '准入因子一票否决、不参与权重；增益因子按层归一化（层内权重加和为 1）。',
+        '',
+        '```json',
+        json.dumps(compact, ensure_ascii=False, indent=1),
+        '```',
+    ])
 
 
 def write_zip(pkg_dir, zip_path):

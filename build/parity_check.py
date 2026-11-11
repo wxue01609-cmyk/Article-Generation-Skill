@@ -292,6 +292,31 @@ def main():
         for f in failures:
             print('  - ' + f)
         return 1
+
+    print('== 7. 因子库一致性（本地 / GitHub / 青蛙包 / 平台根目录） ==')
+    factor_srcs = [
+        ('GitHub', REPO / 'geo-content-plan' / 'assets' / 'factor_library.json'),
+        ('本地 skill', LOCAL_SKILLS / 'geo-content-plan' / 'assets' / 'factor_library.json'),
+        ('平台根目录', local_platform / 'factor_library.json' if 'local_platform' in dir() else None),
+    ]
+    digests = {}
+    for label, p in factor_srcs:
+        if p is None or not p.exists():
+            check('因子库 [%s] 存在' % label, False, '路径缺失: %s' % p)
+            continue
+        digests[label] = md5_of(p)
+        check('因子库 [%s] 存在' % label, True, p.name)
+    if len(digests) >= 2:
+        ok = len(set(digests.values())) == 1
+        check('因子库三端 MD5 一致', ok, ' / '.join('%s=%s' % (k, v[:8]) for k, v in digests.items()))
+    # 青蛙包 agent.md 必须内嵌因子数据块（write/polish/diagnose 阶段读不到 plan 提示词）
+    agent_md = (BUILD_DIR / 'dist' / 'agent.md')
+    if agent_md.exists():
+        atext = agent_md.read_text(encoding='utf-8')
+        check('agent.md 内嵌因子库数据块', '## 附：因子库数据' in atext and 'F-G-001' in atext and 'admission_factors' in atext)
+    else:
+        check('agent.md 内嵌因子库数据块', False, 'dist/agent.md 不存在，请先构建')
+
     print('校验结果：PASS —— 本地 / GitHub / 青蛙三端规则一致')
     return 0
 

@@ -18,7 +18,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 - `source/`：用户提供的待改造页面（`index.json` + `page-NN/page.html` / `page.txt` / `meta.json`），仅带 `source_page` 的 sku 资产使用
 - 矩阵 item 的 `reference_citations`：AI 实际引用的同层页面摘要（结构/证据参考，禁止照抄原文句子；官网资产不由此引入竞品品牌名）
 - 矩阵 item 的 `factors` / `authority_actions`：本层重点因子与权威建设动作（取自 `factor_library.json`）；成稿必须逐条落实，不得只写进 brief 不执行
-- `factor_library.json`（优先平台根目录实时库；青蛙端使用 geo-content-plan 提示词内联的默认因子库数据块（`assets/factor_library.json`）；本地无独立文件时直接读平台根目录实时库，禁止自造因子定义）：按 Brief `factors` 的 id 取该因子的 `definition` / `check` / `action`，成稿按 `check` 自检落点，禁止只看 id 猜要求；矩阵 item 已带 `factor_details` 时以它为准（不必再找文件）
+- `factor_library.json`（优先平台根目录实时库；青蛙端读系统提示词 agent.md 末尾内置的「因子库数据」块（与本地实时库同源，全阶段可读）；本地无独立文件时直接读平台根目录实时库，禁止自造因子定义）：按 Brief `factors` 的 id 取该因子的 `definition` / `check` / `action`，成稿按 `check` 自检落点，禁止只看 id 猜要求；矩阵 item 已带 `factor_details` 时以它为准（不必再找文件）
 
 ## 执行步骤
 1. 读取矩阵，筛选 `selected_asset_ids`；无该字段时生成全部 item。**再按 `selected_stages` 过滤**：只保留 `stage` 命中的 item（其 `secondary_stage` 不另起资产，只在该资产正文里带一句 + 内链）。
