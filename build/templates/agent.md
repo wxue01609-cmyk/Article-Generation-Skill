@@ -195,6 +195,8 @@
 
 成稿阶段把内容放进 `assets` 与 `sku_changes`，同样用数组包裹：
 
+> `used_factors` 必填：写本资产实际落实的因子 id（取自 Brief 的 `factors`）；未落实的写进 `checks` 说明原因，不得静默跳过；SKU 改造用 `factor_notes` 记未落实原因。平台据此记录因子使用与取消「新增」标注。
+
 ```json
 [{
   "stage": "write",
@@ -202,11 +204,13 @@
   "matrix": [],
   "assets": [
     {"asset_id": "blog-01", "asset_type": "blog", "stage": "ai_exposure", "channel": "官网博客", "title": "标题",
-     "html": "<!doctype html><html lang=\"en\">…</html>", "word_count": 1480}
+     "html": "<!doctype html><html lang=\"en\">…</html>", "word_count": 1480,
+     "used_factors": ["F-G-001", "F-A-002"], "checks": []}
   ],
   "sku_changes": [
     {"asset_id": "sku-01", "source_page": 1, "target_url": "https://…", "product": {},
-     "core_answer": "…", "changes": [{"module": "标题", "before": "原文", "after": "改后", "problem": "解决的问题"}], "notes": []}
+     "core_answer": "…", "changes": [{"module": "标题", "before": "原文", "after": "改后", "problem": "解决的问题"}],
+     "used_factors": ["F-P-001"], "factor_notes": "本页无变体，F-P-004 不适用", "notes": []}
   ],
   "stage_index": {"ai_exposure": {"count": 1, "assets": ["blog-01"]}, "pdp": {}, "conversion": {}},
   "polish_report": {"summary": {"blocking": 0, "warnings": 0, "gate_pass_rate": 1.0}, "by_stage": {}},
