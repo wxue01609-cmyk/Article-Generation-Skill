@@ -161,6 +161,8 @@
 
 调用技能 `geo-diagnose`：归一化答案 → 按问题族统计（提及/排位/份额/引用来源/商品卡）→ 判定每条 query 的失败层 → 输出 `diagnosis/report.json` 回流建议（下一轮方案直接采用），不改稿、不产资产。
 
+**因子回流（只出建议，不改权重）**：诊断阶段同样在输出对象顶层写 `factor_updates`（字段 `action/factor_id/reason/samples/metric/before/after/suggested_weight_delta`）。按 `geo-diagnose` 步骤 7 只产出建议，权重变更由平台在人工确认后生效；样本数不足 30 条的写 `samples` 真实值即可，平台会自动转为「待数据」不弹确认。没有需要调整的因子就不要输出该字段。
+
 
 ## 六、输出格式（唯一交付物，严格 JSON 数组）
 
@@ -226,6 +228,10 @@
     "competitors": [{"name": "PETKIT", "evidence": "答案原文/URL"}],
     "recommendations": [{"query": "…", "stage": "pdp", "action": "补参数表与 Product JSON-LD", "evidence": "商品卡缺失"}]
   },
+  "factor_updates": [
+    {"action": "update", "factor_id": "F-C-002", "reason": "本层商品卡率 0.12→0.21，该因子应上调",
+     "samples": 42, "metric": "product_card_rate", "before": 0.12, "after": 0.21, "suggested_weight_delta": 0.02}
+  ],
   "matrix": [], "assets": [], "sku_changes": [], "notes": []
 }]
 ```
