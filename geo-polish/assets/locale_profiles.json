@@ -714,7 +714,7 @@
           "right": "property agent",
           "level": "hard",
           "note": "realtor/real estate agent 是美式说法，新加坡统一用 property agent（来自 AI 文件证据）",
-          "source": "import_xlsx"
+          "source": "platform_upload"
         },
         {
           "wrong": [
@@ -723,7 +723,7 @@
           "right": "city centre",
           "level": "hard",
           "note": "新加坡英式拼写 center→centre（AI 文件出现 5 次）",
-          "source": "import_xlsx"
+          "source": "platform_upload"
         },
         {
           "wrong": [
@@ -732,7 +732,7 @@
           "right": "HDB flats",
           "level": "soft",
           "note": "新加坡语境直接说 HDB / HDB flat（AI 回答出现 23 次 public housing）",
-          "source": "import_xlsx"
+          "source": "platform_upload"
         },
         {
           "wrong": [
@@ -741,7 +741,7 @@
           "right": "condo",
           "level": "soft",
           "note": "新加坡日常与标题用简称 condo（AI 回答 60 vs 24）",
-          "source": "import_xlsx"
+          "source": "platform_upload"
         },
         {
           "wrong": [
@@ -750,7 +750,7 @@
           "right": "EC / executive condo",
           "level": "soft",
           "note": "新加坡地产缩写 EC",
-          "source": "import_xlsx"
+          "source": "platform_upload"
         },
         {
           "wrong": [
@@ -759,7 +759,7 @@
           "right": "PSF",
           "level": "soft",
           "note": "新加坡报价口径用 PSF",
-          "source": "import_xlsx"
+          "source": "platform_upload"
         },
         {
           "wrong": [
@@ -768,7 +768,7 @@
           "right": "GCB",
           "level": "soft",
           "note": "新加坡缩写 GCB",
-          "source": "import_xlsx"
+          "source": "platform_upload"
         }
       ],
       "zh_terms": [
