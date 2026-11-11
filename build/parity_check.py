@@ -309,16 +309,60 @@ def main():
     if len(digests) >= 2:
         ok = len(set(digests.values())) == 1
         check('因子库三端 MD5 一致', ok, ' / '.join('%s=%s' % (k, v[:8]) for k, v in digests.items()))
-    # 青蛙包 agent.md 必须内嵌因子数据块（write/polish/diagnose 阶段读不到 plan 提示词）
+    # 青蛙包 agent.md 必须内嵌因子库数据块（write/polish/diagnose 阶段读不到 plan 提示词）
     agent_md = (BUILD_DIR / 'dist' / 'agent.md')
+    block_ok = False
     if agent_md.exists():
         atext = agent_md.read_text(encoding='utf-8')
-        check('agent.md 内嵌因子库数据块', '## 附：因子库数据' in atext and 'F-G-001' in atext and 'admission_factors' in atext)
+        block_ok = '## 附：因子库数据' in atext and 'F-G-001' in atext and 'admission_factors' in atext
+        check('agent.md 内嵌因子库数据块', block_ok)
+        # 块内容必须与当前因子库一致：库变了但没重建包时 FAIL，防止青蛙端用旧权重
+        embed = _extract_factor_block(atext)
+        cur = _current_factor_compact()
+        check('agent.md 因子块与当前库一致', bool(embed) and bool(cur) and embed == cur,
+              '' if (embed and cur and embed == cur) else '因子库已变更，请重新构建青蛙包（python3 build/build_frog_package.py）')
     else:
         check('agent.md 内嵌因子库数据块', False, 'dist/agent.md 不存在，请先构建')
 
+
     print('校验结果：PASS —— 本地 / GitHub / 青蛙三端规则一致')
     return 0
+
+
+def _extract_factor_block(text):
+    """从 agent.md 提取「附：因子库数据」代码块的 JSON，返回 compact 结构或 None。"""
+    import re as _re
+    m = _re.search(r'## 附：因子库数据.*?```json\n(.*?)\n```', text, _re.S)
+    if not m:
+        return None
+    try:
+        return json.loads(m.group(1))
+    except Exception:
+        return None
+
+
+def _current_factor_compact():
+    """按 build_factor_block 的规则，用当前 GitHub 因子库生成 compact 结构用于比对。"""
+    path = REPO / 'geo-content-plan' / 'assets' / 'factor_library.json'
+    try:
+        lib = json.loads(path.read_text(encoding='utf-8'))
+    except Exception:
+        return None
+    compact = {
+        'version': lib.get('version'),
+        'updated_at': lib.get('updated_at'),
+        'calibration_rules': lib.get('calibration_rules') or {},
+        'admission_factors': [
+            {k: f.get(k) for k in ('factor_id', 'name', 'check', 'status') if f.get(k) is not None}
+            for f in (lib.get('admission_factors') or [])
+        ],
+        'factors': [
+            {k: f.get(k) for k in ('factor_id', 'name', 'category', 'stage', 'weight',
+                                   'definition', 'check', 'action') if f.get(k) is not None}
+            for f in (lib.get('factors') or [])
+        ],
+    }
+    return compact
 
 
 if __name__ == '__main__':
