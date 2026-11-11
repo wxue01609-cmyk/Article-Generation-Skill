@@ -101,7 +101,12 @@
 8. **Brief 字段**：每个资产给出标题、角度、大纲要点、建议字数、CTA；`title` 语言跟随 `article_language`；每个资产必须带 `stage`（取自 geo_sample 的 query→stage 映射）。
    - **因子库（factor_library）**：按 stage 为每个资产选 2-4 个重点因子（全局因子 + 本层因子），写入 item 的 `factors`（因子 id 数组）与 `authority_actions`（按因子 action 写落地动作）；因子只决定「重点写什么、按什么顺序写」，不改判事实。
    - **因子回流**：发现新的有效规律或需调整既有因子时，在输出对象顶层加 `factor_updates` 数组（字段：`action/name/category/stage/asset_types/weight/definition/check/action/reason`）；若 item 的 `factors` 引用了库中不存在的因子名，必须把该名称写进 `factor_updates`（`action=add`，`name` 用该名称），平台会自动建条目并标「新增」。没有新规律就不要输出该字段。
-9. **自检**：`id` 唯一且格式 `<type>-NN`（如 `blog-01`）；无编造参数；官网资产不含竞品品牌名；输入提供了商品页 URL 时，`asset_type=sku` 的资产必须挂 `source_page`（不能确认是同一商品才允许不挂，且要在 `risk_notes` 说明）。
+9. **本地化（按 target_market）**：读取内联的 `locale_profiles.json`，按 `target_market` 解析市场代码；命中市场时：
+   - 该市场 `level=hard` 的 wrong 词禁止出现在标题/Brief/正文，一律用 right 词（如新加坡 MRT 不用 railway、car park 不用 parking lot；英式 colour/centre/lift）；`soft` 词尽量采用；
+   - 拼写变体整篇统一（en-US 或 en-GB）；单位、货币、支付方式、物流售后表述、监管与权威引用源按词库落到 Brief；
+   - 中文输出用 `zh_terms`（新加坡写「德士」不写「的士/出租车」）；
+   - 本地化只改说法、单位与本地案例，产品事实、参数、价格与证据规则不变。
+10. **自检**：`id` 唯一且格式 `<type>-NN`（如 `blog-01`）；无编造参数；官网资产不含竞品品牌名；输入提供了商品页 URL 时，`asset_type=sku` 的资产必须挂 `source_page`（不能确认是同一商品才允许不挂，且要在 `risk_notes` 说明）；本地化 hard 词零命中。
 
 ## 五、成稿阶段（write）
 
@@ -116,7 +121,7 @@
    - Brief 缺字段（如 outline 为空）才允许按规则自拟并在 `notes` 说明；Brief 里没有的资产不要写。
    - 产出与 Brief 冲突时（如标题对不上、字数超范围），在 `notes` 写明差异原因，不要静默替换。
 
-先执行**证据核验**：对要写的具体事实（数字/参数/价格/政策/认证/评分）调用技能 `geo-evidence` 建 `evidence/ledger.json`（有 `source_urls` 或知识库时优先核；无任何资料时跳过并在 `notes` 说明），只有可发布 claim 能进正文。
+先按 `locale_profiles.json` 做本地化约束（同方案阶段第 9 条：hard 词禁用、拼写统一、单位/货币/支付/物流按市场），再执行**证据核验**：对要写的具体事实（数字/参数/价格/政策/认证/评分）调用技能 `geo-evidence` 建 `evidence/ledger.json`（有 `source_urls` 或知识库时优先核；无任何资料时跳过并在 `notes` 说明），只有可发布 claim 能进正文。
 
 ### 4.1 普通资产（blog / landing / category / pr / review / community / social / listing / faq）
 
