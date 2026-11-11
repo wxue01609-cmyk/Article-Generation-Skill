@@ -13,7 +13,7 @@ description: SKU 商品页改造（geo-sku-rewrite）。把已有商品页改造
 - 抓取快照：`source/page-NN/page.txt`、`source/page-NN/meta.json`、`source/index.json`
 - 证据账本：`evidence/ledger.json` + `evidence/evidence_map.json`（geo-evidence 产出；无账本时在 `notes` 说明，只写抓取可见事实）
 - `product` 字段优先来自抓取 JSON-LD / 图片列表 / 参数表
-- 因子库：`factor_library.json`（优先平台根目录实时库；skill 内 `assets/factor_library.json` 兜底），取 `stage=pdp` 的转化层因子（F-P-*）与本资产 Brief `factors`
+- 因子库：`factor_library.json`（优先平台根目录实时库；青蛙端使用 geo-content-plan 提示词内联的默认因子库数据块（`assets/factor_library.json`）；本地无独立文件时直接读平台根目录实时库，禁止自造因子定义），取 `stage=pdp` 的转化层因子（F-P-*）与本资产 Brief `factors`；Brief/矩阵带 `factor_details` 时直接用它，不必再找文件
 
 ## 输出（唯一交付物）
 `plan/sku_changes/<asset_id>.json`，合法 JSON，Schema：

@@ -18,7 +18,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 - `source/`：用户提供的待改造页面（`index.json` + `page-NN/page.html` / `page.txt` / `meta.json`），仅带 `source_page` 的 sku 资产使用
 - 矩阵 item 的 `reference_citations`：AI 实际引用的同层页面摘要（结构/证据参考，禁止照抄原文句子；官网资产不由此引入竞品品牌名）
 - 矩阵 item 的 `factors` / `authority_actions`：本层重点因子与权威建设动作（取自 `factor_library.json`）；成稿必须逐条落实，不得只写进 brief 不执行
-- `factor_library.json`（优先平台根目录实时库；skill 内 `assets/factor_library.json` 兜底）：按 Brief `factors` 的 id 取该因子的 `definition` / `check` / `action`，成稿按 `check` 自检落点，禁止只看 id 猜要求
+- `factor_library.json`（优先平台根目录实时库；青蛙端使用 geo-content-plan 提示词内联的默认因子库数据块（`assets/factor_library.json`）；本地无独立文件时直接读平台根目录实时库，禁止自造因子定义）：按 Brief `factors` 的 id 取该因子的 `definition` / `check` / `action`，成稿按 `check` 自检落点，禁止只看 id 猜要求；矩阵 item 已带 `factor_details` 时以它为准（不必再找文件）
 
 ## 执行步骤
 1. 读取矩阵，筛选 `selected_asset_ids`；无该字段时生成全部 item。**再按 `selected_stages` 过滤**：只保留 `stage` 命中的 item（其 `secondary_stage` 不另起资产，只在该资产正文里带一句 + 内链）。
@@ -26,7 +26,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 3. 每个资产按 [references/asset-specs.md](references/asset-specs.md) 的类型模板成稿，严格遵守 brief：
    - 标题、角度、H 结构、要点顺序、CTA、内链锚文本不得偏离 brief；确需调整时在 `asset_index.json` 的 `checks` 里说明。
    - `word_count` ±20% 内；FAQ 问题保留原问句。
-   - **因子落实**：先按 id 查 `factor_library.json` 的 `definition` / `check` / `action`，再逐条落进正文（如 F-G-001 首段直接答案 → 首段 60 词内给结论；F-C-005 售后政策模块 → 独立政策小节），并用该因子的 `check` 自检是否真的做到；`authority_actions` 逐条执行，无法执行时在 `checks` 写明原因。`used_factors` 写实际落实的因子 id，未落实的必须写进 `checks` 说明，不得静默跳过。若同批 ≥3 篇因子组合完全相同，自查是否同诉求；不同诉求同一组合的，按 brief 的 `factor_reason` 调整各篇重点段落。`authority_actions` 里的具体动作数据查不到就标「待核验」并写进 `checks`，不得编造。
+   - **因子落实**：先按 id 查 `factor_library.json` 的 `definition` / `check` / `action`，再逐条落进正文（如 F-G-001 首段直接答案 → 首段 60 词内给结论；F-C-005 售后政策模块 → 独立政策小节），并用该因子的 `check`（优先取 item.factor_details 里的 `check`）自检是否真的做到；`authority_actions` 逐条执行，无法执行时在 `checks` 写明原因。`used_factors` 写实际落实的因子 id，未落实的必须写进 `checks` 说明，不得静默跳过。若同批 ≥3 篇因子组合完全相同，自查是否同诉求；不同诉求同一组合的，按 brief 的 `factor_reason` 调整各篇重点段落。`authority_actions` 里的具体动作数据查不到就标「待核验」并写进 `checks`，不得编造。
    - 内链只允许指向本次生成（`selected_asset_ids` 内且产出 `assets/<type>/<id>.html`）的站内资产与真实 https 外部页；Brief 中指向未勾选/未生成资产的站内链接一律不写（平台会在成稿后统一清洗，避免死链）。
 3.5 **本地化执行（按目标市场，只改说法不改事实）**：读取 `locale_profiles.json`（优先平台根目录实时库；skill 内 `assets/locale_profiles.json` 兜底），按 `fields.target_market` 解析市场代码：
    - 该市场 `level=hard` 的 wrong 词禁止出现，一律用 right 词（新加坡：MRT 不用 railway、car park 不用 parking lot；英式：colour/centre/lift）；`soft` 词条同样必须采用（soft 与 hard 同权必改）；

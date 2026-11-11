@@ -62,7 +62,7 @@ python3 scripts/check_diagnosis.py --project <项目目录>
 
 ### 步骤 7 因子效果回流（只提建议，不改权重）
 承接 geo-polish 的 `factor_audit`（score/grade）与本期 `topic_metrics.json`，把因子表现回写给平台：
-1. 读 `factor_library.json`（优先平台根目录实时库；skill 内 `assets/factor_library.json` 兜底），按层（ai_exposure / conversion / pdp）把因子与本层指标对应。
+1. 读 `factor_library.json`（优先平台根目录实时库；青蛙端使用 geo-content-plan 提示词内联的默认因子库数据块（`assets/factor_library.json`）；本地无独立文件时直接读平台根目录实时库，禁止自造因子定义），按层（ai_exposure / conversion / pdp）把因子与本层指标对应；矩阵带 `factor_details` 时直接用它，不必再找文件。
 2. 逐层对比：该层资产 `factor_audit.score` 高低的资产 vs 提及率 / 引用率 / 商品卡率 / 平均排位；有上期诊断时做前后对比，没有就只做本期横比。
 3. 只写「建议」，输出 `diagnosis/factor_updates.json`：
 ```json
