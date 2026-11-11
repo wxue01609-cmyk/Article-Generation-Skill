@@ -1,7 +1,115 @@
 {
   "version": "v1",
   "updated_at": "2026-11-11",
-  "description": "内容建设因子库 v1 草案：按转化路径分层（AI 曝光 / 对比决策 / 转化层）+ 全局因子。每个因子含定义、检查口径、落地动作；weight 为生成/质检时的相对权重（0-1）。新增因子自动落入并标 is_new=true，方案引用后取消标注。",
+  "generated_at": "2026-11-11",
+  "status": "draft_cold_start",
+  "scenario": "dtc_ecommerce",
+  "description": "内容建设因子库 v1 草案（默认库）：准入因子一票否决 + 按转化路径（AI 曝光/对比决策/转化层）分层增益因子。新增因子自动落入并标 is_new=true，方案/成稿引用后取消标注。",
+  "scoring": {
+    "formula": "准入因子全过 + 增益因子加权和（命中即加该因子 weight）",
+    "grade": {
+      "excellent": 85,
+      "pass": 70,
+      "fail_below": 70
+    },
+    "fail_action": "只重写命中因子的段落，最多 2 轮；仍不过标 needs_human"
+  },
+  "calibration_rules": {
+    "min_samples": 30,
+    "adjust_step_max": 2,
+    "require_stable_periods": 2,
+    "require_changelog": true,
+    "hard_rules": [
+      "只调权重，不改判定逻辑",
+      "准入因子不参与权重，只做一票否决",
+      "samples < 30 只记录，不调权重",
+      "冷启动 lift 无数据时置 pending，数据到位后再校准"
+    ]
+  },
+  "changelog": [
+    {
+      "at": "2026-11-11",
+      "action": "seed",
+      "note": "初始化 v1 草案：准入因子 6 条 + 分层增益因子 28 条（AI 曝光 4 / 对比决策 7 / 转化层 7 / 全局 10）",
+      "factors": 28
+    }
+  ],
+  "admission_factors": [
+    {
+      "factor_id": "a-01",
+      "name": "核心 claim 全部 verified 且 approved_for_publication",
+      "basis": "geo-evidence：核心 claim 有 blocked 禁止出终稿",
+      "check": "evidence/evidence_map.json 覆盖检查通过",
+      "status": "active"
+    },
+    {
+      "factor_id": "a-02",
+      "name": "官网类资产零竞品点名",
+      "basis": "官网不做竞品对比，对比/评测只落三方媒体",
+      "check": "全文检索无竞品品牌名（对比/评测类资产除外）",
+      "status": "active"
+    },
+    {
+      "factor_id": "a-03",
+      "name": "正文零照抄（引用原文/引用页 excerpt 未进正文）",
+      "basis": "引用使用三条铁律：只转述、不照抄、不贴外链背书",
+      "check": "引用原文片段比对通过",
+      "status": "active"
+    },
+    {
+      "factor_id": "a-04",
+      "name": "无禁用 claim / 合规限制",
+      "basis": "contract.constraints.forbidden_claims 与合规叠加层",
+      "check": "禁用词与合规清单检查通过",
+      "status": "active"
+    },
+    {
+      "factor_id": "a-05",
+      "name": "页面可抓取（200 + 无 noindex / robots 拦截）",
+      "basis": "失败层 crawl_blocked：页面抓不到，改内容无意义",
+      "check": "site_audit 抓取状态 ok",
+      "status": "active"
+    },
+    {
+      "factor_id": "a-06",
+      "name": "电商参数/价格有来源可追溯",
+      "basis": "失败层 mentioned_inaccurate：参数价格说错直接劝退",
+      "check": "proof_points 可追溯到账本条目",
+      "status": "active"
+    }
+  ],
+  "layers": {
+    "ai_exposure": {
+      "factors": [
+        "F-A-001",
+        "F-A-002",
+        "F-A-003",
+        "F-A-004"
+      ]
+    },
+    "conversion": {
+      "factors": [
+        "F-C-001",
+        "F-C-002",
+        "F-C-003",
+        "F-C-004",
+        "F-C-005",
+        "F-C-006",
+        "F-C-007"
+      ]
+    },
+    "pdp": {
+      "factors": [
+        "F-P-001",
+        "F-P-002",
+        "F-P-003",
+        "F-P-004",
+        "F-P-005",
+        "F-P-006",
+        "F-P-007"
+      ]
+    }
+  },
   "factors": [
     {
       "factor_id": "F-G-001",
@@ -178,7 +286,12 @@
       "name": "榜单/对比结构",
       "category": "stage",
       "stage": "ai_exposure",
-      "asset_types": ["blog", "thirdparty_review", "guide", "landing"],
+      "asset_types": [
+        "blog",
+        "thirdparty_review",
+        "guide",
+        "landing"
+      ],
       "weight": 0.09,
       "definition": "榜单/推荐类内容用显式排序（第1/第2…/最佳…），每项给理由与适用人群。",
       "check": "best/top 类标题；条目含排名+1条理由+1条适用场景。",
@@ -195,7 +308,10 @@
       "name": "第三方评测背书",
       "category": "stage",
       "stage": "ai_exposure",
-      "asset_types": ["blog", "thirdparty_review"],
+      "asset_types": [
+        "blog",
+        "thirdparty_review"
+      ],
       "weight": 0.09,
       "definition": "曝光层内容引用独立第三方评测/媒体结论，增强 AI 引用概率。",
       "check": "至少 1 处转述第三方评测结论并标来源媒体+日期；不做外链背书。",
@@ -212,7 +328,10 @@
       "name": "选购指南框架",
       "category": "stage",
       "stage": "ai_exposure",
-      "asset_types": ["blog", "guide"],
+      "asset_types": [
+        "blog",
+        "guide"
+      ],
       "weight": 0.07,
       "definition": "how to choose/guide 类内容按步骤化解题，每步给判断标准。",
       "check": "含『第1步/第2步』或决策分支；每步含判断标准而非空建议。",
@@ -229,7 +348,11 @@
       "name": "场景/人群切分",
       "category": "stage",
       "stage": "ai_exposure",
-      "asset_types": ["blog", "guide", "thirdparty_review"],
+      "asset_types": [
+        "blog",
+        "guide",
+        "thirdparty_review"
+      ],
       "weight": 0.06,
       "definition": "按使用场景/人群切分答案（通勤/长途/车主车型等），匹配 query 的细分意图。",
       "check": "正文含 ≥2 个场景小节，每节给适用型号/配置建议。",
@@ -246,7 +369,12 @@
       "name": "横向对比表",
       "category": "stage",
       "stage": "conversion",
-      "asset_types": ["landing", "blog", "category", "sku"],
+      "asset_types": [
+        "landing",
+        "blog",
+        "category",
+        "sku"
+      ],
       "weight": 0.09,
       "definition": "对比决策层内容用参数对比表逐行呈现差异（功能/价格/适用性）。",
       "check": "对比表 ≥3 行差异维度；每格为可核验参数，不写营销词。",
@@ -263,7 +391,12 @@
       "name": "适用/不适用人群明确",
       "category": "stage",
       "stage": "conversion",
-      "asset_types": ["landing", "blog", "category", "sku"],
+      "asset_types": [
+        "landing",
+        "blog",
+        "category",
+        "sku"
+      ],
       "weight": 0.07,
       "definition": "明确写出『适合谁/不适合谁』，消除『is it good for』类疑虑。",
       "check": "含适用人群小结与不适用场景；两者都写。",
@@ -280,7 +413,12 @@
       "name": "价格与性价比说明",
       "category": "stage",
       "stage": "conversion",
-      "asset_types": ["landing", "category", "sku", "blog"],
+      "asset_types": [
+        "landing",
+        "category",
+        "sku",
+        "blog"
+      ],
       "weight": 0.08,
       "definition": "针对 price/cost/cheap 类 query，给出价格区间与性价比判断依据。",
       "check": "价格区间来自抓取/账本；有『值不值』判断的一句话结论。",
@@ -297,7 +435,12 @@
       "name": "真实评价/口碑摘录",
       "category": "stage",
       "stage": "conversion",
-      "asset_types": ["landing", "blog", "category", "sku"],
+      "asset_types": [
+        "landing",
+        "blog",
+        "category",
+        "sku"
+      ],
       "weight": 0.06,
       "definition": "引用真实用户评价/口碑（评论平台、社区）佐证决策点，标明来源。",
       "check": "评价摘录带来源与日期；不编造评价内容。",
@@ -314,7 +457,11 @@
       "name": "售后政策模块",
       "category": "stage",
       "stage": "conversion",
-      "asset_types": ["sku", "landing", "faq"],
+      "asset_types": [
+        "sku",
+        "landing",
+        "faq"
+      ],
       "weight": 0.08,
       "definition": "退换货/保修/物流/客服政策独立成模块，AI 可直接引用政策事实。",
       "check": "policy 字段与抓取/账本一致；含保修期、退换窗口、物流时效。",
@@ -331,7 +478,11 @@
       "name": "兼容性与安装说明",
       "category": "stage",
       "stage": "conversion",
-      "asset_types": ["sku", "faq", "landing"],
+      "asset_types": [
+        "sku",
+        "faq",
+        "landing"
+      ],
       "weight": 0.07,
       "definition": "回答 does it work with / compatible / install 类疑虑，给出兼容范围与安装要点。",
       "check": "兼容清单（车型/系统/配件）与安装步骤均来自抓取/账本。",
@@ -348,7 +499,11 @@
       "name": "决策清单",
       "category": "stage",
       "stage": "conversion",
-      "asset_types": ["landing", "blog", "category"],
+      "asset_types": [
+        "landing",
+        "blog",
+        "category"
+      ],
       "weight": 0.05,
       "definition": "结尾给出可勾选的决策清单（checklist），把对比结论收敛成行动项。",
       "check": "含 ≥3 项『如果你要…就选…』式结论清单。",
@@ -365,7 +520,9 @@
       "name": "商品卡字段完整",
       "category": "stage",
       "stage": "pdp",
-      "asset_types": ["sku"],
+      "asset_types": [
+        "sku"
+      ],
       "weight": 0.09,
       "definition": "商品卡核心字段齐全：标题/价格/库存/评分/主图，AI 可以原样引用。",
       "check": "title/price/availability/rating 全部有值且来自抓取。",
@@ -382,7 +539,9 @@
       "name": "Product JSON-LD 一致",
       "category": "stage",
       "stage": "pdp",
-      "asset_types": ["sku"],
+      "asset_types": [
+        "sku"
+      ],
       "weight": 0.09,
       "definition": "Product 结构化数据与页面正文一致（名称/价格/图片/评分/政策），供 AI 商品卡读取。",
       "check": "JSON-LD 字段与页面/feed 三方一致；代码校验通过。",
@@ -399,7 +558,9 @@
       "name": "首屏核心参数可见",
       "category": "stage",
       "stage": "pdp",
-      "asset_types": ["sku"],
+      "asset_types": [
+        "sku"
+      ],
       "weight": 0.07,
       "definition": "首屏展示核心参数（分辨率/续航/尺寸/接口），不点开就知道卖点。",
       "check": "首屏含 ≥4 个核心参数；参数值来自抓取/账本。",
@@ -416,7 +577,9 @@
       "name": "变体/SKU 清晰",
       "category": "stage",
       "stage": "pdp",
-      "asset_types": ["sku"],
+      "asset_types": [
+        "sku"
+      ],
       "weight": 0.05,
       "definition": "多规格/多型号时变体关系清晰，避免 AI 混淆型号。",
       "check": "变体在标题/正文/JSON-LD 中明确标注型号后缀。",
@@ -433,7 +596,9 @@
       "name": "购买路径无死链",
       "category": "stage",
       "stage": "pdp",
-      "asset_types": ["sku"],
+      "asset_types": [
+        "sku"
+      ],
       "weight": 0.08,
       "definition": "Buy Now/加购/政策链接全部可点击可达，转化路径不中断。",
       "check": "URL 可访问；无『拒绝连接』；外链跳转配置正确。",
@@ -450,7 +615,9 @@
       "name": "政策运费可见",
       "category": "stage",
       "stage": "pdp",
-      "asset_types": ["sku"],
+      "asset_types": [
+        "sku"
+      ],
       "weight": 0.06,
       "definition": "详情页可见保修/退换/运费政策入口，reviews 与 shipping 模块完整。",
       "check": "页面含 Shipping/Returns/Warranty/Reviews 模块标题与内容。",
@@ -467,7 +634,9 @@
       "name": "feed 一致性",
       "category": "stage",
       "stage": "pdp",
-      "asset_types": ["sku"],
+      "asset_types": [
+        "sku"
+      ],
       "weight": 0.08,
       "definition": "OpenAI / Google Merchant feed 与页面字段一致，商品可被搜索收录。",
       "check": "双 feed 字段与 JSON-LD/页面校验一致；feed 校验脚本通过。",
