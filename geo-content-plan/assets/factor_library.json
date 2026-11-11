@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updated_at": "2026-11-11",
+  "updated_at": "2026-11-11 14:30:49",
   "generated_at": "2026-11-11",
   "status": "draft_cold_start",
   "scenario": "dtc_ecommerce",
@@ -117,7 +117,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.09,
+      "weight": 0.129,
       "definition": "正文首段在 60 词内直接回答主 query 的核心问题，不铺垫、不绕弯。",
       "check": "首段前 60 词包含答案关键词；无『在本文中/首先让我们』类空话开头。",
       "action": "首段按『结论先行』写，答案实体词放在前 2 句。",
@@ -134,7 +134,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.08,
+      "weight": 0.114,
       "definition": "H2/H3 层级清晰，关键信息用列表、表格、步骤块承载，便于 AI 逐段提取。",
       "check": "每篇含 ≥2 个 H2；参数/对比/FAQ 类信息以列表或表格呈现。",
       "action": "把要点拆成 H2 小节，列表与表格内不塞营销话术。",
@@ -151,7 +151,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.09,
+      "weight": 0.129,
       "definition": "正文含可核验的数字、型号、规格、日期、来源，而非模糊形容词。",
       "check": "硬事实（价格/参数/认证/政策）与证据账本一致并带 evidence_id；无『顶级/优秀/更好』类无证据断言。",
       "action": "每个关键数字落证据账本；无证据的断言删掉或改中性描述。",
@@ -168,7 +168,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.08,
+      "weight": 0.114,
       "definition": "内容含认证、检测报告、媒体评测、专家观点等权威信号，并注明来源口径。",
       "check": "引用第三方结论时给出机构/媒体名与日期，正文只转述不照抄。",
       "action": "用 geo-evidence 把可公开的认证/报告/评测转成 C 级 claim 后写入。",
@@ -185,7 +185,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.08,
+      "weight": 0.114,
       "definition": "正文标题、首段、摘要中品牌与型号以完整实体出现，AI 能准确关联。",
       "check": "首段出现『品牌 + 型号』全称；全文实体写法统一。",
       "action": "标题与首段写全『品牌 + 型号 + 品类』，避免代词指代模糊。",
@@ -202,7 +202,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.06,
+      "weight": 0.086,
       "definition": "覆盖主 query 的同义词、场景词、长尾问法与相关常问，提高命中面。",
       "check": "每个资产覆盖 ≥3 种同义/场景表达；FAQ 覆盖 PAA 里同主题问题。",
       "action": "按 query 词族与 PAA 扩展语义，写进小标题与 FAQ。",
@@ -219,7 +219,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.05,
+      "weight": 0.071,
       "definition": "页面标注更新日期；年度/榜单类内容带年份，AI 判断信息新鲜度。",
       "check": "页面含『更新于 2026-xx』；best/top 类标题带年份。",
       "action": "渲染时显示更新时间；榜单标题写『2026』。",
@@ -236,7 +236,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.06,
+      "weight": 0.086,
       "definition": "避免 AI 会过滤的营销词与自夸表述，保持客观可引用的表达。",
       "check": "不含『最好的/革命性/遥遥领先』等无证据营销词；违禁词清单命中即打回。",
       "action": "质检五关的违禁词关覆盖；命中词替换为中性事实表述。",
@@ -253,7 +253,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.05,
+      "weight": 0.071,
       "definition": "正文内链锚文本描述性且目标真实可达（发布后无死链），跨层互链。",
       "check": "内链 target 在矩阵中存在；发布后 404 即打回；锚文本含关键词而非『点击这里』。",
       "action": "内链只在矩阵目标回填后写入；成稿时高亮待发布路径。",
@@ -270,7 +270,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.06,
+      "weight": 0.086,
       "definition": "内容结尾给出明确的下一步（CTA/内链到商品页或政策页），承接购买决策。",
       "check": "每篇内容有 1 个主 CTA 指向站内真实页面；CTA 与正文结论一致。",
       "action": "按 asset_type 落 CTA（博客→商品页；FAQ→政策页；SKU→立即购买）。",
@@ -292,7 +292,7 @@
         "guide",
         "landing"
       ],
-      "weight": 0.09,
+      "weight": 0.29,
       "definition": "榜单/推荐类内容用显式排序（第1/第2…/最佳…），每项给理由与适用人群。",
       "check": "best/top 类标题；条目含排名+1条理由+1条适用场景。",
       "action": "榜单条目按『排名-理由-适用人群』模板写，避免并列模糊。",
@@ -312,7 +312,7 @@
         "blog",
         "thirdparty_review"
       ],
-      "weight": 0.09,
+      "weight": 0.29,
       "definition": "曝光层内容引用独立第三方评测/媒体结论，增强 AI 引用概率。",
       "check": "至少 1 处转述第三方评测结论并标来源媒体+日期；不做外链背书。",
       "action": "从引用采样里挑权威媒体结论转 claim 后写入；官网资产不点名竞品。",
@@ -332,7 +332,7 @@
         "blog",
         "guide"
       ],
-      "weight": 0.07,
+      "weight": 0.226,
       "definition": "how to choose/guide 类内容按步骤化解题，每步给判断标准。",
       "check": "含『第1步/第2步』或决策分支；每步含判断标准而非空建议。",
       "action": "步骤块+标准清单，结尾给自家型号的对照位置。",
@@ -353,7 +353,7 @@
         "guide",
         "thirdparty_review"
       ],
-      "weight": 0.06,
+      "weight": 0.194,
       "definition": "按使用场景/人群切分答案（通勤/长途/车主车型等），匹配 query 的细分意图。",
       "check": "正文含 ≥2 个场景小节，每节给适用型号/配置建议。",
       "action": "把 query 里的场景词拆成小节标题，逐节给建议。",
@@ -375,7 +375,7 @@
         "category",
         "sku"
       ],
-      "weight": 0.09,
+      "weight": 0.18,
       "definition": "对比决策层内容用参数对比表逐行呈现差异（功能/价格/适用性）。",
       "check": "对比表 ≥3 行差异维度；每格为可核验参数，不写营销词。",
       "action": "表格第一列维度，后续列品牌/型号；差异点显式标出。",
@@ -397,7 +397,7 @@
         "category",
         "sku"
       ],
-      "weight": 0.07,
+      "weight": 0.14,
       "definition": "明确写出『适合谁/不适合谁』，消除『is it good for』类疑虑。",
       "check": "含适用人群小结与不适用场景；两者都写。",
       "action": "写『适合：…；不适合：…』两段，配 1 句理由。",
@@ -419,7 +419,7 @@
         "sku",
         "blog"
       ],
-      "weight": 0.08,
+      "weight": 0.16,
       "definition": "针对 price/cost/cheap 类 query，给出价格区间与性价比判断依据。",
       "check": "价格区间来自抓取/账本；有『值不值』判断的一句话结论。",
       "action": "价格写区间+依据（配置/功能），避免写死单一价格。",
@@ -441,7 +441,7 @@
         "category",
         "sku"
       ],
-      "weight": 0.06,
+      "weight": 0.12,
       "definition": "引用真实用户评价/口碑（评论平台、社区）佐证决策点，标明来源。",
       "check": "评价摘录带来源与日期；不编造评价内容。",
       "action": "从评论平台抓真实评价做 C 级 claim，转述高频好评点与差评点。",
@@ -462,7 +462,7 @@
         "landing",
         "faq"
       ],
-      "weight": 0.08,
+      "weight": 0.16,
       "definition": "退换货/保修/物流/客服政策独立成模块，AI 可直接引用政策事实。",
       "check": "policy 字段与抓取/账本一致；含保修期、退换窗口、物流时效。",
       "action": "SKU 页政策模块逐项填写，指标与证据账本一致。",
@@ -483,7 +483,7 @@
         "faq",
         "landing"
       ],
-      "weight": 0.07,
+      "weight": 0.14,
       "definition": "回答 does it work with / compatible / install 类疑虑，给出兼容范围与安装要点。",
       "check": "兼容清单（车型/系统/配件）与安装步骤均来自抓取/账本。",
       "action": "写兼容清单+『装箱清单/安装 3 步』，不写未验证的兼容声明。",
@@ -504,7 +504,7 @@
         "blog",
         "category"
       ],
-      "weight": 0.05,
+      "weight": 0.1,
       "definition": "结尾给出可勾选的决策清单（checklist），把对比结论收敛成行动项。",
       "check": "含 ≥3 项『如果你要…就选…』式结论清单。",
       "action": "按预算/场景/核心需求 3 列写决策清单。",
@@ -523,7 +523,7 @@
       "asset_types": [
         "sku"
       ],
-      "weight": 0.09,
+      "weight": 0.173,
       "definition": "商品卡核心字段齐全：标题/价格/库存/评分/主图，AI 可以原样引用。",
       "check": "title/price/availability/rating 全部有值且来自抓取。",
       "action": "抓取字段缺失时留空标『待确认』，禁止编造。",
@@ -542,7 +542,7 @@
       "asset_types": [
         "sku"
       ],
-      "weight": 0.09,
+      "weight": 0.173,
       "definition": "Product 结构化数据与页面正文一致（名称/价格/图片/评分/政策），供 AI 商品卡读取。",
       "check": "JSON-LD 字段与页面/feed 三方一致；代码校验通过。",
       "action": "geo-pdp 产出 JSON-LD 并与 feed、页面做一致性校验。",
@@ -561,7 +561,7 @@
       "asset_types": [
         "sku"
       ],
-      "weight": 0.07,
+      "weight": 0.135,
       "definition": "首屏展示核心参数（分辨率/续航/尺寸/接口），不点开就知道卖点。",
       "check": "首屏含 ≥4 个核心参数；参数值来自抓取/账本。",
       "action": "首屏参数卡置于标题/价格下，与 specs 表一致。",
@@ -580,7 +580,7 @@
       "asset_types": [
         "sku"
       ],
-      "weight": 0.05,
+      "weight": 0.096,
       "definition": "多规格/多型号时变体关系清晰，避免 AI 混淆型号。",
       "check": "变体在标题/正文/JSON-LD 中明确标注型号后缀。",
       "action": "规格差异用表格列出，型号写全。",
@@ -599,7 +599,7 @@
       "asset_types": [
         "sku"
       ],
-      "weight": 0.08,
+      "weight": 0.154,
       "definition": "Buy Now/加购/政策链接全部可点击可达，转化路径不中断。",
       "check": "URL 可访问；无『拒绝连接』；外链跳转配置正确。",
       "action": "发布前跑链接校验（check_links），死链替换真实地址。",
@@ -618,7 +618,7 @@
       "asset_types": [
         "sku"
       ],
-      "weight": 0.06,
+      "weight": 0.115,
       "definition": "详情页可见保修/退换/运费政策入口，reviews 与 shipping 模块完整。",
       "check": "页面含 Shipping/Returns/Warranty/Reviews 模块标题与内容。",
       "action": "按模板补齐模块，内容与账本一致。",
@@ -637,7 +637,7 @@
       "asset_types": [
         "sku"
       ],
-      "weight": 0.08,
+      "weight": 0.154,
       "definition": "OpenAI / Google Merchant feed 与页面字段一致，商品可被搜索收录。",
       "check": "双 feed 字段与 JSON-LD/页面校验一致；feed 校验脚本通过。",
       "action": "geo-pdp 产出双 feed，run check_feed / check_product_schema。",
