@@ -32,6 +32,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
    - 拼写变体整篇统一（en-US 或 en-GB），不混用 color/colour、center/centre、-ize/-ise；
    - 单位/货币/支付方式/物流与售后表述/本地权威源按词库落到正文（如新加坡 SGD、PayNow/GrabPay、petrol kiosk）；
    - 中文输出用 `zh_terms`（新加坡写「德士」不写「的士/出租车」）；
+   - `whitelist`（白名单词）命中时不算 wrong 词误报；备注方括号里的中文含义（如【共管公寓】）出现却没用白名单词时，改用 `whitelist` 里的说法；
    - 本地化只改说法、单位、案例与本地引用，产品事实、参数、价格、证据规则不变。
 
 4. 事实铁律：只能来自知识库/brief；普通资产 brief 中 `待核验` 内容照写并保留标注；SKU 改造资产按 [references/source-rewrite.md](references/source-rewrite.md) 的发布规则，正文不写 `待核验`，查不到就省略；禁止编造参数、价格、案例、客户。

@@ -79,6 +79,8 @@ th { background: #f6f8fa; font-weight: 600; }
 - `level=hard` 的 wrong 词出现 → **blocking**（如新加坡文章出现 railway / parking lot；英式文章出现 color/center/elevator；中文新加坡文章出现「的士/出租车」）；
 - `level=soft` 的 wrong 词出现 → warning，并给出 right 建议词；
 - 同一篇混用 en-US / en-GB 拼写（color+colour、center+centre、-ize+-ise）→ blocking（整篇必须统一）；
+- `whitelist` 里的短语整体命中时，不再按其中的 wrong 词报（如 `executive condominium` 不报 `condominium`）；
+- 备注方括号里的中文含义（如【共管公寓】）出现、但 `whitelist` 词未出现 → warning，建议改用白名单词；
 - `learned.exceptions` 里的词不再报（误诊已登记）。
 报告写入 `qa/localization_report.json`，同时并入 `polish_report.json` 的 `localization` 区块（`{market, hard, soft, files}`）。本地化关的 blocking 修复后才能交付；只改词与表述，不改产品事实。
 

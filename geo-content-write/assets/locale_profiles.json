@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updated_at": "2026-11-11 17:40:00",
+  "updated_at": "2026-11-11 16:57:30",
   "description": "海外内容本地化词库 v1（内置种子）：美/英/新加坡/澳/加 5 市场。level=hard 出现即阻断，soft 仅提示；zh_terms 用于中文输出。",
   "market_aliases": {
     "美国": "US",

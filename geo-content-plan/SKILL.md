@@ -39,6 +39,7 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
    - 拼写变体：整篇统一用该市场 `spelling`（en-US 或 en-GB），不许混用 color/colour、center/centre、-ize/-ise；
    - 本地习惯落到 Brief：`units` 单位、`currency` 货币、`payment` 支付方式、`logistics` 物流与售后表述、`regulatory` 监管机构、`authority_sources` 权威引用源、`calendar` 本地节点；
    - 输出语言为中文时用 `zh_terms`（新加坡中文写「德士」不写「的士/出租车」）；
+   - `whitelist`（白名单词）是该市场允许出现的固定搭配或专有说法（如 `executive condominium`）：白名单短语命中时不按 wrong 词报错；备注方括号里的中文含义（如【共管公寓】）出现在成稿里、但白名单词没出现时，必须改用 `whitelist` 里的词；
    - 本地化只改说法、单位、案例与本地引用源；产品事实、参数、价格与证据规则一律保持不变。
 
 6. **匹配待改造页面**：读取 `source/index.json`。当某条 query 被判为 `asset_type=sku`、且可用页面与 query 指向同一型号/品类时，按下面规则挂载改造信息：

@@ -28,7 +28,7 @@ TEMPLATES = BUILD_DIR / 'templates'
 PLATFORM = BUILD_DIR / 'platform'
 DIST = BUILD_DIR / 'dist'
 DESKTOP = Path.home() / 'Desktop'
-ZIP_NAME = '青蛙-内容建设agent-上传包v28.zip'
+ZIP_NAME = '青蛙-内容建设agent-上传包v29.zip'
 
 # 内容建设链路的 13 个技能，按实际执行顺序排列
 SKILLS = [
