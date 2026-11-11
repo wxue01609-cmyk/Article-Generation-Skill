@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updated_at": "2026-11-11 14:30:49",
+  "updated_at": "2026-11-11 18:12:34",
   "generated_at": "2026-11-11",
   "status": "draft_cold_start",
   "scenario": "dtc_ecommerce",
@@ -125,8 +125,13 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 2,
+      "last_used_at": "2026-11-11 18:12:34",
+      "used_tasks": [
+        "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
+        "frog-0e197a9540b240e993590dcc4d24969a"
+      ],
+      "last_used_task": "frog-0e197a9540b240e993590dcc4d24969a"
     },
     {
       "factor_id": "F-G-002",
@@ -142,8 +147,13 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 2,
+      "last_used_at": "2026-11-11 18:12:34",
+      "used_tasks": [
+        "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
+        "frog-0e197a9540b240e993590dcc4d24969a"
+      ],
+      "last_used_task": "frog-0e197a9540b240e993590dcc4d24969a"
     },
     {
       "factor_id": "F-G-003",
@@ -159,8 +169,13 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 2,
+      "last_used_at": "2026-11-11 18:12:34",
+      "used_tasks": [
+        "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
+        "frog-0e197a9540b240e993590dcc4d24969a"
+      ],
+      "last_used_task": "frog-0e197a9540b240e993590dcc4d24969a"
     },
     {
       "factor_id": "F-G-004",
@@ -210,8 +225,12 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 1,
+      "last_used_at": "2026-11-11 18:12:34",
+      "used_tasks": [
+        "frog-0e197a9540b240e993590dcc4d24969a"
+      ],
+      "last_used_task": "frog-0e197a9540b240e993590dcc4d24969a"
     },
     {
       "factor_id": "F-G-007",
@@ -278,8 +297,12 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 1,
+      "last_used_at": "2026-11-11 18:12:34",
+      "used_tasks": [
+        "frog-0e197a9540b240e993590dcc4d24969a"
+      ],
+      "last_used_task": "frog-0e197a9540b240e993590dcc4d24969a"
     },
     {
       "factor_id": "F-A-001",
@@ -340,8 +363,13 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 2,
+      "last_used_at": "2026-11-11 18:12:34",
+      "used_tasks": [
+        "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
+        "frog-0e197a9540b240e993590dcc4d24969a"
+      ],
+      "last_used_task": "frog-0e197a9540b240e993590dcc4d24969a"
     },
     {
       "factor_id": "F-A-004",
@@ -361,8 +389,13 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 2,
+      "last_used_at": "2026-11-11 18:12:34",
+      "used_tasks": [
+        "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
+        "frog-0e197a9540b240e993590dcc4d24969a"
+      ],
+      "last_used_task": "frog-0e197a9540b240e993590dcc4d24969a"
     },
     {
       "factor_id": "F-C-001",

@@ -25,7 +25,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 3. 每个资产按 [references/asset-specs.md](references/asset-specs.md) 的类型模板成稿，严格遵守 brief：
    - 标题、角度、H 结构、要点顺序、CTA、内链锚文本不得偏离 brief；确需调整时在 `asset_index.json` 的 `checks` 里说明。
    - `word_count` ±20% 内；FAQ 问题保留原问句。
-   - **因子落实**：Brief 的每个 `factors` 都要在正文找到对应落点（如 F-G-001 首段直接答案 → 首段 60 词内给结论；F-C-005 售后政策模块 → 独立政策小节）；`authority_actions` 逐条执行，无法执行时在 `checks` 写明原因。
+   - **因子落实**：Brief 的每个 `factors` 都要在正文找到对应落点（如 F-G-001 首段直接答案 → 首段 60 词内给结论；F-C-005 售后政策模块 → 独立政策小节）；`authority_actions` 逐条执行，无法执行时在 `checks` 写明原因。若同批 ≥3 篇因子组合完全相同，自查是否同诉求；不同诉求同一组合的，按 brief 的 `factor_reason` 调整各篇重点段落。`authority_actions` 里的具体动作数据查不到就标「待核验」并写进 `checks`，不得编造。
    - 内链只允许指向本次生成（`selected_asset_ids` 内且产出 `assets/<type>/<id>.html`）的站内资产与真实 https 外部页；Brief 中指向未勾选/未生成资产的站内链接一律不写（平台会在成稿后统一清洗，避免死链）。
 3.5 **本地化执行（按目标市场，只改说法不改事实）**：读取 `locale_profiles.json`（优先平台根目录实时库；skill 内 `assets/locale_profiles.json` 兜底），按 `fields.target_market` 解析市场代码：
    - 该市场 `level=hard` 的 wrong 词禁止出现，一律用 right 词（新加坡：MRT 不用 railway、car park 不用 parking lot；英式：colour/centre/lift）；`soft` 词条同样必须采用（soft 与 hard 同权必改）；

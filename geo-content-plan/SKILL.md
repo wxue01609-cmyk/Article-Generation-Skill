@@ -30,7 +30,11 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
 5.5 **因子库（决定 Brief 的重点与排序）**：读取 `factor_library.json`（优先平台根目录实时库；skill 内 `assets/factor_library.json` 为 v1 草案兜底）。
    - 每个资产按 `stage` 选 2-4 个重点因子：全局因子（`category=global`）+ 本层因子（`category=stage` 且 `stage` 匹配），写入 item 的 `factors`（因子 id 数组）。
    - 按所选因子的 `action` 写 `authority_actions`（权威建设动作，字符串数组），并让 `key_points` 能逐条对应到所选因子。
+   - **同层差异化（必做）**：同一 `stage` 内先把 query 按诉求分组（导览盘点 / 预算筛选 / 规则步骤 / 规格差异 / 验证核验 / 对比决策），不同诉求必须用不同因子组合；同一 cluster 或确实同诉求的批量资产允许复用组合，但要在 item 里写 `factor_reason`（为什么复用）。禁止为凑差异硬拆同构资产，也禁止不同诉求套同一组合。
+   - **因子对着瓶颈**：每个 item 的 `factors` 要能答出「这条 query 的瓶颈对应哪条因子」，说不清瓶颈就只挂真正需要的因子。
+   - **authority_actions 必须具体（只写套话等于没写）**：写成针对本条 topic 的可核验动作，如「引用 MOE 1km 报名规则原文并标注日期」「给出 S$1.5m 预算带可选项目数与价格区间口径」「做 5-room vs executive flat 的面积/溢价规格表」；禁止只写「首段直答 / 拆 H2 / 列表承载 / 只写可核验事实 / 单一主 CTA」这类放哪都能用的套话。
    - 因子只决定“重点写什么、按什么顺序写”，不改写事实与证据规则；自定义因子权重只影响排序，不改变判定逻辑。
+   - **动作数据可核验**：authority_actions 所需数据（数字/规则/来源）必须来自采样、知识库、抓取或证据账本；查不到就写「待核验」或省略该动作，禁止编造来源与数字。
    - 若运行中发现新规律或需调整既有因子（权重/检查口径/适用资产），追加写 `plan/factor_updates.json`；平台在任务收尾时自动合并入库并标“新增”，方案或成稿引用后自动取消标注。没有新规律不要生成该文件。
 - 若 `item.factors` 引用了库中不存在的因子名，必须把该名称也写进 `plan/factor_updates.json`（`action=add`，`name` 用该名称，`category`/`stage` 按资产层级填），平台会自动建条目并标“新增”；`item.factors` 只允许写库中已存在的 id 或本次 `factor_updates` 里的 name。
 

@@ -84,6 +84,11 @@ th { background: #f6f8fa; font-weight: 600; }
 - `learned.exceptions` 里的词不再报（误诊已登记）。
 报告写入 `qa/localization_report.json`，同时并入 `polish_report.json` 的 `localization` 区块（`{market, hard, soft, files}`）。本地化关的 blocking 修复后才能交付；只改词与表述，不改产品事实。
 
+### 因子落实检查（附加项，只出 warning 不阻断）
+- 同一 `stage` 内 ≥3 个资产、且 ≥80% 的因子组合完全相同 → warning「因子组合疑似套模板」，附复用理由（item.factor_reason）时放行；
+- 同一批 `authority_actions` 命中通用套话 ≥2 条（如「首段直答 / 拆 H2 / 列表/表格承载 / 只写可核验事实 / 单一主 CTA」）→ warning「权威动作过于通用，需按 query 具体化」；
+- 两项只进 `warnings`，不阻断交付；确属同诉求批量资产的，在 `checks` 注明复用理由即可。
+
 ### 五关（每关都要给 pass / warning / blocking）
 | 关 | 检查什么 | blocking 判定 | 修复动作 |
 | --- | --- | --- | --- |
