@@ -34,6 +34,12 @@
         "description": "行业"
       },
       {
+        "name": "business_type",
+        "type": "string",
+        "required": false,
+        "description": "企业类型：B2B 制造商 / B2C 品牌 / DTC 独立站 / SaaS 软件 / 服务型企业 / 不确定（按通用）。决定内容资产倾斜方向，留空按通用处理。"
+      },
+      {
         "name": "task_name",
         "type": "string",
         "required": false,

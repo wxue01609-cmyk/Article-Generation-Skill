@@ -9,7 +9,7 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
 输入 query 列表 + 企业/产品知识库，输出每个 query 的意图判定、渠道落位、资产类型、优先级与内容 Brief。**只做方案，不写正文**。
 
 ## 输入
-- `package.json` 的 `fields`：`topics` / `keyword_pack` / `company_name` / `industry` / `article_language` / `target_market` / `asset_types` / `asset_budget` / `article_count` / `content_goal` / `site_inventory` / `primary_cta` / `known_competitors`
+- `package.json` 的 `fields`：`topics` / `keyword_pack` / `company_name` / `business_type` / `industry` / `article_language` / `target_market` / `asset_types` / `asset_budget` / `article_count` / `content_goal` / `site_inventory` / `primary_cta` / `known_competitors`
 - `plan/path_plan.json`（geo-path-plan 的转化路径编排，存在时直接采用；缺失且无采样时按 [references/stage-map.md](references/stage-map.md) 就地打标）
 - `fields.source_urls`：用户提供的待改造页面 URL（换行或逗号分隔，最多 5 个）；`fields.source_text`：抓取失败时手动粘贴的页面正文
 - `source/index.json`：抓取页面索引（`page` 序号、`status`、`final_url`、`title`、`issues`、`product`）；每个页面目录含 `page.txt`（可读正文 + 诊断）与 `meta.json`（参数表 / JSON-LD / 问题清单）
@@ -45,6 +45,13 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
    - 输出语言为中文时用 `zh_terms`（新加坡中文写「德士」不写「的士/出租车」）；
    - `whitelist`（白名单词）是该市场允许出现的固定搭配或专有说法（如 `executive condominium`）：白名单短语命中时不按 wrong 词报错；备注方括号里的中文含义（如【共管公寓】）出现在成稿里、但白名单词没出现时，必须改用 `whitelist` 里的词；
    - 本地化只改说法、单位、案例与本地引用源；产品事实、参数、价格与证据规则一律保持不变。
+
+5.7 **企业类型资产倾斜（fields.business_type 命中时生效）**：读取 `business_profiles.json`。优先使用任务提示词中已内联/展开的档案数据（平台会在命中时直接展开本任务的渠道优先级与角度提示）；否则读取 skill 内 `assets/business_profiles.json`；两者都读不到时跳过本节。按 `aliases` 把 `fields.business_type` 映射到 profile key（B2B 制造商→b2b_manufacturer、B2C 品牌→b2c_brand、DTC 独立站→dtc_ecommerce、SaaS 软件→saas、服务型企业→service_provider）；未填、填「不确定（按通用）」或映射不到时**跳过本节**，完全走第 5 步既有决策树。命中档案时必须遵守：
+   - **渠道落位校准**：第 5 步决策树给出多个合法候选、或同一条 query 可落多个 `asset_type` 时，按档案 `channel_priority` 的顺序优先（如 B2B 制造商：category > sku > landing（行业方案）> blog（案例/技术）；服务型企业：landing（地区页）> blog（案例/评价）> faq > category）；仍只允许 `fields.asset_types` 中启用的类型，硬约束不变（官网禁竞品、对比只落三方等）。
+   - **资产配比**：`asset_budget` 有限、按 P0→P2 截断时，同优先级下按 `channel_priority` 保前类资产；`focus_assets` 是档案预期的核心资产形态，如 B2B 的「产品分类/产品详情/行业方案/案例」、SaaS 的「功能页/行业解决方案/对比页/教程」。
+   - **Brief 角度与权威动作**：按档案 `angle_hints` 落到 item 的 `angle` 与 `authority_actions`（如 B2B 偏规格/认证/OEM/案例证据，SaaS 偏功能价值/行业方案/对比边界/上手教程，服务型偏本地可达/案例评价/资质流程）；动作所需数据仍只能来自采样/知识库/抓取/证据账本，查不到写「待核验」或省略。
+   - **内链组织**：按档案 `link_pattern` 组织站内互链（如 B2B：类目页→产品详情→行业方案→案例；服务型：地区页→服务页→案例/评价），内链目标仍必须在矩阵里有对应 `target_url`，禁止死链。
+   - 企业类型只影响「形态/配比/角度/内链」，不改变意图判定、分层（stage）、证据与事实规则；与第 0 步采样基线、第 5.5 因子库并行生效，互不覆盖。
 
 6. **匹配待改造页面**：读取 `source/index.json`。当某条 query 被判为 `asset_type=sku`、且可用页面与 query 指向同一型号/品类时，按下面规则挂载改造信息：
    - item 增加 `source_page`（可用页面的 `page` 序号）、`source_url`（页面 `final_url`）、`rewrite_mode: "existing_page"`；

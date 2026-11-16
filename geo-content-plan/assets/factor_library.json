@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updated_at": "2026-11-11 18:12:34",
+  "updated_at": "2026-11-13 16:58:00",
   "generated_at": "2026-11-11",
   "status": "draft_cold_start",
   "scenario": "dtc_ecommerce",
@@ -125,13 +125,19 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 2,
-      "last_used_at": "2026-11-11 18:12:34",
+      "used_count": 8,
+      "last_used_at": "2026-11-13 16:58:00",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
-        "frog-0e197a9540b240e993590dcc4d24969a"
+        "frog-0e197a9540b240e993590dcc4d24969a",
+        "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
+        "frog-16eb3e5ed7644ecfac9b7e14d11afab6",
+        "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
+        "frog-42a3f828d9604c62a7a0f44bb20dc20b",
+        "frog-8448e2c9338b44b0a8502ee5464b777a"
       ],
-      "last_used_task": "frog-0e197a9540b240e993590dcc4d24969a"
+      "last_used_task": "frog-8448e2c9338b44b0a8502ee5464b777a"
     },
     {
       "factor_id": "F-G-002",
@@ -147,13 +153,19 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 2,
-      "last_used_at": "2026-11-11 18:12:34",
+      "used_count": 8,
+      "last_used_at": "2026-11-13 16:58:00",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
-        "frog-0e197a9540b240e993590dcc4d24969a"
+        "frog-0e197a9540b240e993590dcc4d24969a",
+        "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
+        "frog-16eb3e5ed7644ecfac9b7e14d11afab6",
+        "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
+        "frog-42a3f828d9604c62a7a0f44bb20dc20b",
+        "frog-8448e2c9338b44b0a8502ee5464b777a"
       ],
-      "last_used_task": "frog-0e197a9540b240e993590dcc4d24969a"
+      "last_used_task": "frog-8448e2c9338b44b0a8502ee5464b777a"
     },
     {
       "factor_id": "F-G-003",
@@ -169,13 +181,19 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 2,
-      "last_used_at": "2026-11-11 18:12:34",
+      "used_count": 8,
+      "last_used_at": "2026-11-13 16:58:00",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
-        "frog-0e197a9540b240e993590dcc4d24969a"
+        "frog-0e197a9540b240e993590dcc4d24969a",
+        "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
+        "frog-16eb3e5ed7644ecfac9b7e14d11afab6",
+        "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
+        "frog-42a3f828d9604c62a7a0f44bb20dc20b",
+        "frog-8448e2c9338b44b0a8502ee5464b777a"
       ],
-      "last_used_task": "frog-0e197a9540b240e993590dcc4d24969a"
+      "last_used_task": "frog-8448e2c9338b44b0a8502ee5464b777a"
     },
     {
       "factor_id": "F-G-004",
@@ -191,8 +209,15 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 4,
+      "last_used_at": "2026-11-13 15:25:56",
+      "used_tasks": [
+        "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
+        "frog-16eb3e5ed7644ecfac9b7e14d11afab6",
+        "frog-d7004b8a27cd4a96a1d8e208afff3b1f"
+      ],
+      "last_used_task": "frog-d7004b8a27cd4a96a1d8e208afff3b1f"
     },
     {
       "factor_id": "F-G-005",
@@ -208,8 +233,15 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 4,
+      "last_used_at": "2026-11-13 16:58:00",
+      "used_tasks": [
+        "frog-16eb3e5ed7644ecfac9b7e14d11afab6",
+        "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
+        "frog-42a3f828d9604c62a7a0f44bb20dc20b",
+        "frog-8448e2c9338b44b0a8502ee5464b777a"
+      ],
+      "last_used_task": "frog-8448e2c9338b44b0a8502ee5464b777a"
     },
     {
       "factor_id": "F-G-006",
@@ -225,12 +257,18 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 1,
-      "last_used_at": "2026-11-11 18:12:34",
+      "used_count": 7,
+      "last_used_at": "2026-11-13 16:58:00",
       "used_tasks": [
-        "frog-0e197a9540b240e993590dcc4d24969a"
+        "frog-0e197a9540b240e993590dcc4d24969a",
+        "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
+        "frog-16eb3e5ed7644ecfac9b7e14d11afab6",
+        "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
+        "frog-42a3f828d9604c62a7a0f44bb20dc20b",
+        "frog-8448e2c9338b44b0a8502ee5464b777a"
       ],
-      "last_used_task": "frog-0e197a9540b240e993590dcc4d24969a"
+      "last_used_task": "frog-8448e2c9338b44b0a8502ee5464b777a"
     },
     {
       "factor_id": "F-G-007",
@@ -280,8 +318,12 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 1,
+      "last_used_at": "2026-11-12 19:52:55",
+      "used_tasks": [
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
+      ],
+      "last_used_task": "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
     },
     {
       "factor_id": "F-G-010",
@@ -297,12 +339,16 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 1,
-      "last_used_at": "2026-11-11 18:12:34",
+      "used_count": 5,
+      "last_used_at": "2026-11-13 16:58:00",
       "used_tasks": [
-        "frog-0e197a9540b240e993590dcc4d24969a"
+        "frog-0e197a9540b240e993590dcc4d24969a",
+        "frog-16eb3e5ed7644ecfac9b7e14d11afab6",
+        "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
+        "frog-42a3f828d9604c62a7a0f44bb20dc20b",
+        "frog-8448e2c9338b44b0a8502ee5464b777a"
       ],
-      "last_used_task": "frog-0e197a9540b240e993590dcc4d24969a"
+      "last_used_task": "frog-8448e2c9338b44b0a8502ee5464b777a"
     },
     {
       "factor_id": "F-A-001",
@@ -315,7 +361,7 @@
         "guide",
         "landing"
       ],
-      "weight": 0.29,
+      "weight": 0.244,
       "definition": "榜单/推荐类内容用显式排序（第1/第2…/最佳…），每项给理由与适用人群。",
       "check": "best/top 类标题；条目含排名+1条理由+1条适用场景。",
       "action": "榜单条目按『排名-理由-适用人群』模板写，避免并列模糊。",
@@ -323,8 +369,15 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 4,
+      "last_used_at": "2026-11-13 16:58:00",
+      "used_tasks": [
+        "frog-16eb3e5ed7644ecfac9b7e14d11afab6",
+        "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
+        "frog-42a3f828d9604c62a7a0f44bb20dc20b",
+        "frog-8448e2c9338b44b0a8502ee5464b777a"
+      ],
+      "last_used_task": "frog-8448e2c9338b44b0a8502ee5464b777a"
     },
     {
       "factor_id": "F-A-002",
@@ -335,7 +388,7 @@
         "blog",
         "thirdparty_review"
       ],
-      "weight": 0.29,
+      "weight": 0.244,
       "definition": "曝光层内容引用独立第三方评测/媒体结论，增强 AI 引用概率。",
       "check": "至少 1 处转述第三方评测结论并标来源媒体+日期；不做外链背书。",
       "action": "从引用采样里挑权威媒体结论转 claim 后写入；官网资产不点名竞品。",
@@ -343,8 +396,15 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 4,
+      "last_used_at": "2026-11-13 16:58:00",
+      "used_tasks": [
+        "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
+        "frog-42a3f828d9604c62a7a0f44bb20dc20b",
+        "frog-8448e2c9338b44b0a8502ee5464b777a"
+      ],
+      "last_used_task": "frog-8448e2c9338b44b0a8502ee5464b777a"
     },
     {
       "factor_id": "F-A-003",
@@ -355,7 +415,7 @@
         "blog",
         "guide"
       ],
-      "weight": 0.226,
+      "weight": 0.189,
       "definition": "how to choose/guide 类内容按步骤化解题，每步给判断标准。",
       "check": "含『第1步/第2步』或决策分支；每步含判断标准而非空建议。",
       "action": "步骤块+标准清单，结尾给自家型号的对照位置。",
@@ -363,13 +423,19 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 2,
-      "last_used_at": "2026-11-11 18:12:34",
+      "used_count": 8,
+      "last_used_at": "2026-11-13 16:58:00",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
-        "frog-0e197a9540b240e993590dcc4d24969a"
+        "frog-0e197a9540b240e993590dcc4d24969a",
+        "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
+        "frog-16eb3e5ed7644ecfac9b7e14d11afab6",
+        "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
+        "frog-42a3f828d9604c62a7a0f44bb20dc20b",
+        "frog-8448e2c9338b44b0a8502ee5464b777a"
       ],
-      "last_used_task": "frog-0e197a9540b240e993590dcc4d24969a"
+      "last_used_task": "frog-8448e2c9338b44b0a8502ee5464b777a"
     },
     {
       "factor_id": "F-A-004",
@@ -381,7 +447,7 @@
         "guide",
         "thirdparty_review"
       ],
-      "weight": 0.194,
+      "weight": 0.162,
       "definition": "按使用场景/人群切分答案（通勤/长途/车主车型等），匹配 query 的细分意图。",
       "check": "正文含 ≥2 个场景小节，每节给适用型号/配置建议。",
       "action": "把 query 里的场景词拆成小节标题，逐节给建议。",
@@ -389,13 +455,19 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 2,
-      "last_used_at": "2026-11-11 18:12:34",
+      "used_count": 8,
+      "last_used_at": "2026-11-13 16:58:00",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
-        "frog-0e197a9540b240e993590dcc4d24969a"
+        "frog-0e197a9540b240e993590dcc4d24969a",
+        "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
+        "frog-16eb3e5ed7644ecfac9b7e14d11afab6",
+        "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
+        "frog-42a3f828d9604c62a7a0f44bb20dc20b",
+        "frog-8448e2c9338b44b0a8502ee5464b777a"
       ],
-      "last_used_task": "frog-0e197a9540b240e993590dcc4d24969a"
+      "last_used_task": "frog-8448e2c9338b44b0a8502ee5464b777a"
     },
     {
       "factor_id": "F-C-001",
@@ -416,8 +488,13 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 2,
+      "last_used_at": "2026-11-12 19:52:55",
+      "used_tasks": [
+        "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
+      ],
+      "last_used_task": "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
     },
     {
       "factor_id": "F-C-002",
@@ -503,8 +580,13 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 2,
+      "last_used_at": "2026-11-12 19:52:55",
+      "used_tasks": [
+        "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
+      ],
+      "last_used_task": "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
     },
     {
       "factor_id": "F-C-006",
@@ -524,8 +606,13 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 2,
+      "last_used_at": "2026-11-12 19:52:55",
+      "used_tasks": [
+        "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
+      ],
+      "last_used_task": "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
     },
     {
       "factor_id": "F-C-007",
@@ -545,8 +632,13 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 2,
+      "last_used_at": "2026-11-12 19:52:55",
+      "used_tasks": [
+        "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
+      ],
+      "last_used_task": "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
     },
     {
       "factor_id": "F-P-001",
@@ -564,8 +656,15 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 4,
+      "last_used_at": "2026-11-12 19:52:55",
+      "used_tasks": [
+        "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+        "SKU内容升级-20261112-194353",
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
+        "青蛙联动-botslab1112-01-20261112-195255"
+      ],
+      "last_used_task": "青蛙联动-botslab1112-01-20261112-195255"
     },
     {
       "factor_id": "F-P-002",
@@ -583,8 +682,13 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 2,
+      "last_used_at": "2026-11-12 19:52:55",
+      "used_tasks": [
+        "SKU内容升级-20261112-194353",
+        "青蛙联动-botslab1112-01-20261112-195255"
+      ],
+      "last_used_task": "青蛙联动-botslab1112-01-20261112-195255"
     },
     {
       "factor_id": "F-P-003",
@@ -602,8 +706,15 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 4,
+      "last_used_at": "2026-11-12 19:52:55",
+      "used_tasks": [
+        "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+        "SKU内容升级-20261112-194353",
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
+        "青蛙联动-botslab1112-01-20261112-195255"
+      ],
+      "last_used_task": "青蛙联动-botslab1112-01-20261112-195255"
     },
     {
       "factor_id": "F-P-004",
@@ -640,8 +751,13 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 2,
+      "last_used_at": "2026-11-12 19:52:55",
+      "used_tasks": [
+        "SKU内容升级-20261112-194353",
+        "青蛙联动-botslab1112-01-20261112-195255"
+      ],
+      "last_used_task": "青蛙联动-botslab1112-01-20261112-195255"
     },
     {
       "factor_id": "F-P-006",
@@ -659,8 +775,13 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 2,
+      "last_used_at": "2026-11-12 19:52:55",
+      "used_tasks": [
+        "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
+      ],
+      "last_used_task": "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
     },
     {
       "factor_id": "F-P-007",
@@ -678,6 +799,84 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
+      "used_count": 2,
+      "last_used_at": "2026-11-12 19:52:55",
+      "used_tasks": [
+        "SKU内容升级-20261112-194353",
+        "青蛙联动-botslab1112-01-20261112-195255"
+      ],
+      "last_used_task": "青蛙联动-botslab1112-01-20261112-195255"
+    },
+    {
+      "factor_id": "F-A-005",
+      "name": "覆盖形态判别（车外侧 vs 车内）",
+      "category": "stage",
+      "stage": "ai_exposure",
+      "asset_types": [
+        "blog",
+        "category",
+        "landing"
+      ],
+      "weight": 0.045,
+      "definition": "内容在首屏或首个 H2 明确区分「四路车外侧（前/后/左/右）覆盖」与「前+后+车内双摄」两类多通道方案，避免用户与 AI 把车内覆盖误当车身侧面覆盖。",
+      "check": "正文含两类形态的对照说明，并给出判断口径（镜头朝向 + 安装位置 + 典型事故类型）。",
+      "action": "首屏或第一个 H2 先给形态二分支，再进入型号与参数。",
+      "status": "active",
+      "is_new": false,
+      "source": "task:frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+      "created_at": "2026-11-12 19:43:39",
+      "used_count": 2,
+      "last_used_at": "2026-11-12 19:52:55",
+      "auto_added_from": "task:frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+      "used_tasks": [
+        "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
+      ],
+      "last_used_task": "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
+    },
+    {
+      "factor_id": "F-A-006",
+      "name": "平台形态区分（自行车/摩托车）",
+      "category": "stage",
+      "stage": "ai_exposure",
+      "asset_types": [
+        "blog"
+      ],
+      "weight": 0.08,
+      "definition": "按骑行平台（自行车/砾石 bike 与摩托车/ADV）分别给出导航设备建议，避免 AI 混用两类产品的参数与供电前提。",
+      "check": "资产正文含自行车与摩托车两个平台小节，各自给适用形态与边界。",
+      "action": "在选购框架类内容中显式分平台写建议，先定平台再选形态。",
+      "status": "active",
+      "is_new": false,
+      "source": "task:frog-42a3f828d9604c62a7a0f44bb20dc20b",
+      "created_at": "2026-11-13 16:20:37",
+      "used_count": 2,
+      "last_used_at": "2026-11-13 16:58:00",
+      "auto_added_from": "task:frog-42a3f828d9604c62a7a0f44bb20dc20b",
+      "used_tasks": [
+        "frog-42a3f828d9604c62a7a0f44bb20dc20b",
+        "frog-8448e2c9338b44b0a8502ee5464b777a"
+      ],
+      "last_used_task": "frog-8448e2c9338b44b0a8502ee5464b777a"
+    },
+    {
+      "factor_id": "F-A-007",
+      "name": "离线地图与无信号场景覆盖",
+      "category": "stage",
+      "stage": "ai_exposure",
+      "asset_types": [
+        "blog",
+        "category",
+        "faq"
+      ],
+      "weight": 0.036,
+      "definition": "面向 remote trail / no cell coverage / offline map 类 query，正文必须覆盖离线地图下载、GPX 轨迹、内置 GPS 与手机投影的边界。",
+      "check": "含『离线地图/offline maps』、『GPX』与『内置 GPS vs 手机投影』三要素之一以上，且给出可操作步骤或判断标准。",
+      "action": "按『选 APP→下载离线图→导入 GPX→核对内置 GPS→出发前测试』步骤成稿，并说明镜像模式与独立导航的差异。",
+      "status": "active",
+      "is_new": true,
+      "source": "task:frog-42a3f828d9604c62a7a0f44bb20dc20b",
+      "created_at": "2026-11-13 16:20:37",
       "used_count": 0,
       "last_used_at": null
     }

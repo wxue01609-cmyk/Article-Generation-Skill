@@ -1,0 +1,112 @@
+{
+  "version": "v1",
+  "updated_at": "2026-11-16",
+  "generated_at": "2026-11-16",
+  "status": "active",
+  "description": "企业类型内容资产倾斜配置 v1：字段 business_type 命中对应档案时，决定渠道落位的形态优先级、资产配比、Brief 角度与内链组织；未命中或「不确定（按通用）」时完全走既有规则。只影响形态/配比/角度，不推翻渠道硬约束与证据规则。",
+  "aliases": {
+    "B2B 制造商": "b2b_manufacturer",
+    "B2C 品牌": "b2c_brand",
+    "DTC 独立站": "dtc_ecommerce",
+    "SaaS 软件": "saas",
+    "服务型企业": "service_provider"
+  },
+  "profiles": {
+    "b2b_manufacturer": {
+      "name": "B2B 制造商",
+      "scenario": "海外采购商寻找供应商",
+      "focus_assets": ["产品分类", "产品详情", "行业方案", "案例"],
+      "channel_priority": [
+        {"asset_type": "category", "note": "产品分类：品类导航，采购商按品类找供应商"},
+        {"asset_type": "sku", "note": "产品详情：规格/认证/OEM 能力为主线"},
+        {"asset_type": "landing", "note": "行业方案：按应用行业组织（车队/工程/OEM）"},
+        {"asset_type": "blog", "note": "案例与技术文章：客户案例、工艺、认证解读"}
+      ],
+      "angle_hints": [
+        "规格与参数优先：把可核验的规格、公差、认证（CE/FCC/UL 等）放在显眼位置",
+        "认证与检测证据：有官方检测报告/认证就整理成证据点，支撑采购决策",
+        "OEM/ODM 能力：说明可定制、批量、交期、样品等采购商关心点",
+        "行业案例：用可公开的案例客户/应用场景证明可靠"
+      ],
+      "link_pattern": "类目页 → 产品详情 → 行业方案 → 案例（采购商按 品类→规格→方案→信任 顺序走）",
+      "notes": "渠道落位决策树出多候选时，优先类目/详情/行业方案型资产；证据偏规格、认证与案例，不堆营销空话。"
+    },
+    "b2c_brand": {
+      "name": "B2C 品牌",
+      "scenario": "消费者搜索商品",
+      "focus_assets": ["商品详情", "分类页", "测评", "对比"],
+      "channel_priority": [
+        {"asset_type": "sku", "note": "商品详情：卖点/参数/适用场景/FAQ 主线"},
+        {"asset_type": "category", "note": "分类页：品类选购标准 + 自家产品定位"},
+        {"asset_type": "landing", "note": "产品落地页：单品转化"},
+        {"asset_type": "thirdparty_review", "note": "三方测评/对比：口碑与对比，允许点名竞品"}
+      ],
+      "angle_hints": [
+        "卖点场景化：把参数翻译成使用场景收益（通勤/居家/送礼）",
+        "口碑与评价：引用可核验的第三方评测/用户评价做背书（转 geo-evidence）",
+        "对比口径：决策树允许时做差异对比，讲清“不同需求→不同选择”",
+        "信任建设：质保/退换/客服时长等购买顾虑前置应答"
+      ],
+      "link_pattern": "商品详情 ↔ 分类页 ↔ 测评（消费者从认知→比对→下单）",
+      "notes": "对比类内容只能落三方；官网品类/详情页不点名竞品。"
+    },
+    "dtc_ecommerce": {
+      "name": "DTC 独立站",
+      "scenario": "消费者直接购买",
+      "focus_assets": ["商品SEO", "Blog", "集合页", "转化优化"],
+      "channel_priority": [
+        {"asset_type": "sku", "note": "商品 SEO：结构化参数 + 直答，提升商品卡命中"},
+        {"asset_type": "category", "note": "集合页：品类聚合/系列页，承接品类词"},
+        {"asset_type": "landing", "note": "产品落地页：单一 CTA 转化"},
+        {"asset_type": "blog", "note": "Blog：买前决策内容，互链到商品页"}
+      ],
+      "angle_hints": [
+        "转化优先：每个页面一个主 CTA，购买顾虑前置应答",
+        "商品 SEO：标题/参数表/JSON-LD 完整，便于 AI 商品卡引用",
+        "集合导航：系列间互链，减少跳出",
+        "信任与售后：运费/退换/质保明确，降低下单门槛"
+      ],
+      "link_pattern": "Blog → 集合页/商品详情（内容引路，商详收口转化）",
+      "notes": "独立站没有平台流量，所有内容最终收敛到站内购买动作。"
+    },
+    "saas": {
+      "name": "SaaS 软件",
+      "scenario": "企业搜索软件和解决方案",
+      "focus_assets": ["功能页", "行业解决方案", "对比页", "教程"],
+      "channel_priority": [
+        {"asset_type": "landing", "note": "功能页/行业方案落地页：单一价值主张 + 证据"},
+        {"asset_type": "category", "note": "解决方案：按行业/场景组织的方案导航"},
+        {"asset_type": "blog", "note": "教程与对比：使用教程、最佳实践、能力对比"},
+        {"asset_type": "faq", "note": "FAQ：集成/部署/定价/安全类短问"}
+      ],
+      "angle_hints": [
+        "功能与价值：功能点对应业务问题，不堆名词",
+        "行业方案：按客户行业给落地场景（金融/零售/制造…）",
+        "对比口径：能力矩阵/边界说明，讲“适合谁”",
+        "教程与上手：部署、集成、常见坑，降低试用门槛"
+      ],
+      "link_pattern": "方案页 → 功能页 → 教程/对比（客户按 了解→验证→上手 走）",
+      "notes": "SaaS 采购周期长，内容要覆盖 认知→评估→试用 三段。"
+    },
+    "service_provider": {
+      "name": "服务型企业",
+      "scenario": "客户寻找服务商",
+      "focus_assets": ["服务页", "地区页", "案例", "客户评价"],
+      "channel_priority": [
+        {"asset_type": "landing", "note": "服务页/地区页：near me/城市词，本地落地"},
+        {"asset_type": "blog", "note": "案例与客户评价：可公开案例、评价背书"},
+        {"asset_type": "faq", "note": "FAQ：服务范围/流程/收费/资质"},
+        {"asset_type": "category", "note": "分类页：服务品类导航"}
+      ],
+      "angle_hints": [
+        "本地可达：地区页覆盖服务城市，突出响应速度与上门范围",
+        "案例与评价：真实案例 + 可核验评价做信任背书",
+        "资质与流程：执照/资质/服务流程透明，降低选择风险",
+        "价格口径：报价结构/免费咨询等动作清晰"
+      ],
+      "link_pattern": "地区页 → 服务页 → 案例/评价（客户按 找得到→信得过→敢联系 走）",
+      "notes": "服务型关键词大量带城市/near me，落位与本地化词库联动。"
+    }
+  },
+  "usage": "读取 fields.business_type，按 aliases 映射到 profile key；命中时按 profile 的 channel_priority 校准渠道落位与资产配比，angle_hints 进 Brief 角度与权威动作，link_pattern 指导内链组织；未命中或「不确定（按通用）」跳过本节。只影响形态/配比/角度，不推翻渠道硬约束与证据规则。"
+}
