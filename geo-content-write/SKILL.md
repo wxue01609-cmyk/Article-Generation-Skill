@@ -1,6 +1,6 @@
 ---
 name: geo-content-write
-description: 海外内容建设第二阶段（成稿）。读取 plan/content_matrix.json 的资产 Brief，按资产类型（官网博客/落地页/SKU/类目页/三方PR/三方评测/社区问答/社交/电商Listing/帮助中心FAQ）生成英文成稿：普通资产输出完整可发布 HTML（assets/<type>/<id>.html），SKU 改造资产输出改造 JSON，由平台渲染成品页、模块片段、整页模板与改前改后对比页。当需要把已确认的内容矩阵写成可发布内容资产时使用。
+description: 海外内容建设第二阶段（成稿）。读取 plan/content_matrix.json 的资产 Brief，按资产类型（官网博客/落地页/SKU/类目页/三方PR/三方评测/社区问答/社交/电商Listing/帮助中心FAQ）按 article_language 生成目标语言成稿（缺省英文，支持中文简体/繁体）：普通资产输出完整可发布 HTML（assets/<type>/<id>.html），SKU 改造资产输出改造 JSON，由平台渲染成品页、模块片段、整页模板与改前改后对比页。当需要把已确认的内容矩阵写成可发布内容资产时使用。
 ---
 
 # 海外内容建设成稿（geo-content-write）
@@ -64,7 +64,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 - 参数口径全文一致；普通资产未核验项带标注（SKU 改造资产按发布规则省略，不写进正文）。
 - 链接只使用可核验真实 URL；无一键堆链，内链锚文本具名；CTA/导航不得链接到本资产自身 `target_url`，无真实地址时用占位按钮 + 中文提示。
 - 站外链接（CTA 按钮、商品页、政策页、来源）一律写成 `<a href="…" target="_blank" rel="noopener">`，避免成稿在预览 iframe 里被目标站点以 X-Frame-Options 拒绝嵌入；站内内链保持默认 target。
-- 语言全部为 `article_language`（缺省英文）；不出现中文正文。
+- 语言全部为 `article_language`（缺省英文；选中文时按简体/繁体输出），不得混排其它语言。
 - 字数达标；FAQ 原问句保留。新建 SKU 页（无 `source_page`）：正文（不含导航/页脚/规格表）按 brief 的 `word_count` ±20%，建议 ≤400 词；不要写成 700+ 词的落地页。字数超限视为未达标，写完后回读 brief 核对。
 - HTML 完整闭合，浏览器直接打开即可发布；无外链依赖、无 Markdown 残留（`**`、`| 表格 |` 等）。
 - 改造类 SKU：`changes` ≥6 条，`before` 必须引用抓取原文（缺失写“（页面无此模块）”），`after` 为实际改后文案，`problem` 说明解决的问题；参数表不得出现“待核验”行。

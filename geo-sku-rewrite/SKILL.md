@@ -95,7 +95,7 @@ description: SKU 商品页改造（geo-sku-rewrite）。把已有商品页改造
 - 价格有真实来源才写；抓不到价格就不给 `price` 字段（平台显示 Check current price）。
 - 商品卡字段（图片/SKU/GTIN/库存/评分）只填真实抓取值；图片回退顺序：JSON-LD image → og:image → 页面图片。
 - 语气是给买家看的商品文案，不是审计报告。
-- 正文语言跟随 `article_language`，禁止混入中文。
+- 正文语言跟随 `article_language`（缺省英文；选中文时按简体/繁体输出），禁止混排其它语言。
 
 ## 完成后
 - 输出一行阶段标记：`::STAGE:sku_rewrite::`

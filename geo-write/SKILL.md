@@ -1,6 +1,6 @@
 ---
 name: geo-write
-description: 海外 GEO 生文流水线第三阶段（写作）。根据 geo-plan 的大纲批量生成面向海外 AI 平台的英文文章（标准版/无营销知识库版/品牌版），输出完整 JSON，供 geo-polish 质检。当需要按已有大纲把 GEO 文章写成英文 HTML 正文时使用。
+description: 海外 GEO 生文流水线第三阶段（写作）。根据 geo-plan 的大纲批量生成面向海外 AI 平台的目标语言文章（缺省英文，支持中文简体/繁体）（标准版/无营销知识库版/品牌版），输出完整 JSON，供 geo-polish 质检。当需要按已有大纲把 GEO 文章写成英文 HTML 正文时使用。
 ---
 
 # GEO 写作（geo-write）
@@ -33,7 +33,7 @@ description: 海外 GEO 生文流水线第三阶段（写作）。根据 geo-pla
 按 publish_media 命中渠道（blog/qna/pr/social/linkedin/x/facebook/ecommerce/help/ads），执行该渠道的定位、风格、结构、竞品限制、链接与 AI 收录要点；渠道规则与提示词其他要求冲突时以渠道规则为准。完整规则见 [references/01-channel-rules.md](references/01-channel-rules.md)。
 
 ## 输出语言与质量红线
-- Output Language Override：全文英文，读者可见内容（title/description/content/标题/FAQ/示例）必须为自然英文；中文只允许出现在固定字段名。
+- Output Language Override：全文语言以任务字段 `article_language` 为准（缺省英文；选中文时按简体/繁体输出），读者可见内容（title/description/content/标题/FAQ/示例）必须为该语言的自然表达；其它语言只允许出现在固定字段名。
 - 真实性（P0，最高优先级）：事实只能来自知识库/画像/大纲，或 geo-research 联网核实并带 web_verified 来源标注的公开资料，禁止编造；「待核验」内容必须标注。
 - 竞品篇幅（P1）：对比文本品必须在竞品中第一个展示，竞品只允许一行点评表（官网渠道完全禁止竞品）。
 - 品牌词强化（P1）：主推品牌与核心卖点在标题/首屏/结论/H2 持续出现。
