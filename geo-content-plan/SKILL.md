@@ -26,7 +26,7 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
    - 画像决定内容角度与 FAQ 问题来源：每条 query 挂到对应画像分段（角色 / 场景 / 购买阶段 / 顾虑），Brief 的 `angle`、`key_points`、`faq` 响应画像关注的决策标准；
    - P0 必答问题必须进入资产 Brief 的 FAQ 或 `key_points`（普通资产至少 3 条以买家原问句写 FAQ）；cover target 的缺口作为该资产补写清单；
    - **优先级说明**：画像只影响「内容角度、FAQ 问题、重点顺序」，不改变事实、证据与分层；词包 / 采样 / 知识库有真实来源时一律以真实内容为准，画像不替代、不改写任何真实数据；
-   - 无 `research/` 产物时跳过本节，回到按词包直接规划。
+   - 无 `research/` 产物时，读任务输入里的 `agent_params.persona_json`（青蛙通道由平台内联同一份产物，含 persona/questions/coverage summary）；两者都没有才跳过本节，回到按词包直接规划。
 1. **清洗 query**：`keyword_pack` 每行一条；`topics` 提供主题归属；按大小写/单复数/标点归一后去重，问句保留原始问法。
 2. **意图分类**：逐条按 [references/intent-map.md](references/intent-map.md) 判定，必须写 `intent_signals`（词面证据）与 `confidence`。
 3. **节点归属（stage）**：逐条把 query 归到三层（`ai_exposure` AI曝光 / `pdp` 转化层 / `conversion` 对比决策）。存在 `plan/path_plan.json` 时直接用其 `stage` / `secondary_stage`；缺失时按 [references/stage-map.md](references/stage-map.md) 就地打标（1 主节点 + 1 次节点，次节点可 null）。stage 只决定「在哪层发力」，不替代渠道落位。

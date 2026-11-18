@@ -24,7 +24,8 @@ description: SKU 商品页改造（geo-sku-rewrite）。把已有商品页改造
    - `weight=must`（P0 必答）问题必须被改后商品信息直接回答：答案落到 `core_answer` / `specs` / `faq`，并在 `changes` 对应模块带 `gap_id`（如 Q-01）；
    - `coverage.json` 的 `items` 直接作为改前判定（`state` / `hit_zones` / `missing_slots`），`state=gap/partial` 条目写进 `info_gaps`；
    - 画像（persona.json）决定 FAQ 与内容角度的优先顺序，不改变事实与证据规则；
-   - 平台在成稿后会按 `changes[].gap_id` 与 FAQ 逐条核对 P0 覆盖，缺失即质检未过。
+   - 平台在成稿后会按 `changes[].gap_id` 与 FAQ 逐条核对 P0 覆盖，缺失即质检未过；
+   - 青蛙通道无 `research/` 文件时，读 `agent_params.persona_json`（平台内联同一份产物，结构同 questions.json/coverage.json）。
 1. 构建消费者真实购物问题集（`shopping_questions`）：来源优先级为商品数据本身、市场关键词、Marketplace 数据、采样 answers/sampling.json 的问题族、公开问答（如 Reddit/论坛/帮助中心）。示例（行车记录仪）：
    - Which dash cams offer 360-degree coverage?
    - Which dash cams support four cameras?
