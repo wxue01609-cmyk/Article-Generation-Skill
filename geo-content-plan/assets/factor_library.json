@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updated_at": "2026-11-18 14:16:23",
+  "updated_at": "2026-11-18 15:09:01",
   "generated_at": "2026-11-11",
   "status": "draft_cold_start",
   "scenario": "dtc_ecommerce",
@@ -656,8 +656,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 8,
-      "last_used_at": "2026-11-18 14:16:23",
+      "used_count": 10,
+      "last_used_at": "2026-11-18 15:09:01",
       "used_tasks": [
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
         "SKU内容升级-20261112-194353",
@@ -666,9 +666,11 @@
         "botslab-pdp测试-20261118-140137",
         "botslab-pdp测试-复诊-20261118-140321",
         "botslab-pdp测试-20261118-140819",
-        "botslab-pdp测试-20261118-141623"
+        "botslab-pdp测试-20261118-141623",
+        "画像冒烟-botslab-g980h-20261118-150404",
+        "G980H画像验证-正式-20261118-150900"
       ],
-      "last_used_task": "botslab-pdp测试-20261118-141623"
+      "last_used_task": "G980H画像验证-正式-20261118-150900"
     },
     {
       "factor_id": "F-P-002",
@@ -686,17 +688,19 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 6,
-      "last_used_at": "2026-11-18 14:16:23",
+      "used_count": 8,
+      "last_used_at": "2026-11-18 15:09:01",
       "used_tasks": [
         "SKU内容升级-20261112-194353",
         "青蛙联动-botslab1112-01-20261112-195255",
         "botslab-pdp测试-20261118-140137",
         "botslab-pdp测试-复诊-20261118-140321",
         "botslab-pdp测试-20261118-140819",
-        "botslab-pdp测试-20261118-141623"
+        "botslab-pdp测试-20261118-141623",
+        "画像冒烟-botslab-g980h-20261118-150404",
+        "G980H画像验证-正式-20261118-150900"
       ],
-      "last_used_task": "botslab-pdp测试-20261118-141623"
+      "last_used_task": "G980H画像验证-正式-20261118-150900"
     },
     {
       "factor_id": "F-P-003",
@@ -714,8 +718,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 8,
-      "last_used_at": "2026-11-18 14:16:23",
+      "used_count": 10,
+      "last_used_at": "2026-11-18 15:09:01",
       "used_tasks": [
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
         "SKU内容升级-20261112-194353",
@@ -724,9 +728,11 @@
         "botslab-pdp测试-20261118-140137",
         "botslab-pdp测试-复诊-20261118-140321",
         "botslab-pdp测试-20261118-140819",
-        "botslab-pdp测试-20261118-141623"
+        "botslab-pdp测试-20261118-141623",
+        "画像冒烟-botslab-g980h-20261118-150404",
+        "G980H画像验证-正式-20261118-150900"
       ],
-      "last_used_task": "botslab-pdp测试-20261118-141623"
+      "last_used_task": "G980H画像验证-正式-20261118-150900"
     },
     {
       "factor_id": "F-P-004",
@@ -763,17 +769,19 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 6,
-      "last_used_at": "2026-11-18 14:16:23",
+      "used_count": 8,
+      "last_used_at": "2026-11-18 15:09:01",
       "used_tasks": [
         "SKU内容升级-20261112-194353",
         "青蛙联动-botslab1112-01-20261112-195255",
         "botslab-pdp测试-20261118-140137",
         "botslab-pdp测试-复诊-20261118-140321",
         "botslab-pdp测试-20261118-140819",
-        "botslab-pdp测试-20261118-141623"
+        "botslab-pdp测试-20261118-141623",
+        "画像冒烟-botslab-g980h-20261118-150404",
+        "G980H画像验证-正式-20261118-150900"
       ],
-      "last_used_task": "botslab-pdp测试-20261118-141623"
+      "last_used_task": "G980H画像验证-正式-20261118-150900"
     },
     {
       "factor_id": "F-P-006",
@@ -815,17 +823,19 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 6,
-      "last_used_at": "2026-11-18 14:16:23",
+      "used_count": 8,
+      "last_used_at": "2026-11-18 15:09:01",
       "used_tasks": [
         "SKU内容升级-20261112-194353",
         "青蛙联动-botslab1112-01-20261112-195255",
         "botslab-pdp测试-20261118-140137",
         "botslab-pdp测试-复诊-20261118-140321",
         "botslab-pdp测试-20261118-140819",
-        "botslab-pdp测试-20261118-141623"
+        "botslab-pdp测试-20261118-141623",
+        "画像冒烟-botslab-g980h-20261118-150404",
+        "G980H画像验证-正式-20261118-150900"
       ],
-      "last_used_task": "botslab-pdp测试-20261118-141623"
+      "last_used_task": "G980H画像验证-正式-20261118-150900"
     },
     {
       "factor_id": "F-A-005",
