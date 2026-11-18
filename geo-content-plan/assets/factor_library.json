@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updated_at": "2026-11-18 15:52:24",
+  "updated_at": "2026-11-18 16:16:28",
   "generated_at": "2026-11-11",
   "status": "draft_cold_start",
   "scenario": "dtc_ecommerce",
@@ -125,8 +125,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 8,
-      "last_used_at": "2026-11-13 16:58:00",
+      "used_count": 10,
+      "last_used_at": "2026-11-18 16:15:48",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
         "frog-0e197a9540b240e993590dcc4d24969a",
@@ -135,9 +135,11 @@
         "frog-16eb3e5ed7644ecfac9b7e14d11afab6",
         "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
         "frog-42a3f828d9604c62a7a0f44bb20dc20b",
-        "frog-8448e2c9338b44b0a8502ee5464b777a"
+        "frog-8448e2c9338b44b0a8502ee5464b777a",
+        "frog-d16f3a924cfd44928c02814ed5f1597e",
+        "frog-7c74f67771464ef0bb56f93e927abd86"
       ],
-      "last_used_task": "frog-8448e2c9338b44b0a8502ee5464b777a"
+      "last_used_task": "frog-7c74f67771464ef0bb56f93e927abd86"
     },
     {
       "factor_id": "F-G-002",
@@ -153,8 +155,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 8,
-      "last_used_at": "2026-11-13 16:58:00",
+      "used_count": 9,
+      "last_used_at": "2026-11-18 16:15:48",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
         "frog-0e197a9540b240e993590dcc4d24969a",
@@ -163,9 +165,10 @@
         "frog-16eb3e5ed7644ecfac9b7e14d11afab6",
         "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
         "frog-42a3f828d9604c62a7a0f44bb20dc20b",
-        "frog-8448e2c9338b44b0a8502ee5464b777a"
+        "frog-8448e2c9338b44b0a8502ee5464b777a",
+        "frog-7c74f67771464ef0bb56f93e927abd86"
       ],
-      "last_used_task": "frog-8448e2c9338b44b0a8502ee5464b777a"
+      "last_used_task": "frog-7c74f67771464ef0bb56f93e927abd86"
     },
     {
       "factor_id": "F-G-003",
@@ -181,8 +184,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 8,
-      "last_used_at": "2026-11-13 16:58:00",
+      "used_count": 10,
+      "last_used_at": "2026-11-18 16:15:48",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
         "frog-0e197a9540b240e993590dcc4d24969a",
@@ -191,9 +194,11 @@
         "frog-16eb3e5ed7644ecfac9b7e14d11afab6",
         "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
         "frog-42a3f828d9604c62a7a0f44bb20dc20b",
-        "frog-8448e2c9338b44b0a8502ee5464b777a"
+        "frog-8448e2c9338b44b0a8502ee5464b777a",
+        "frog-d16f3a924cfd44928c02814ed5f1597e",
+        "frog-7c74f67771464ef0bb56f93e927abd86"
       ],
-      "last_used_task": "frog-8448e2c9338b44b0a8502ee5464b777a"
+      "last_used_task": "frog-7c74f67771464ef0bb56f93e927abd86"
     },
     {
       "factor_id": "F-G-004",
@@ -515,8 +520,12 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 0,
-      "last_used_at": null
+      "used_count": 1,
+      "last_used_at": "2026-11-18 16:15:47",
+      "used_tasks": [
+        "frog-d16f3a924cfd44928c02814ed5f1597e"
+      ],
+      "last_used_task": "frog-d16f3a924cfd44928c02814ed5f1597e"
     },
     {
       "factor_id": "F-C-003",
@@ -580,13 +589,15 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 2,
-      "last_used_at": "2026-11-12 19:52:55",
+      "used_count": 4,
+      "last_used_at": "2026-11-18 16:15:48",
       "used_tasks": [
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
-        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
+        "frog-d16f3a924cfd44928c02814ed5f1597e",
+        "frog-7c74f67771464ef0bb56f93e927abd86"
       ],
-      "last_used_task": "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
+      "last_used_task": "frog-7c74f67771464ef0bb56f93e927abd86"
     },
     {
       "factor_id": "F-C-006",
@@ -656,8 +667,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 12,
-      "last_used_at": "2026-11-18 15:52:24",
+      "used_count": 13,
+      "last_used_at": "2026-11-18 16:16:28",
       "used_tasks": [
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
         "SKU内容升级-20261112-194353",
@@ -670,9 +681,10 @@
         "画像冒烟-botslab-g980h-20261118-150404",
         "G980H画像验证-正式-20261118-150900",
         "画像冒烟-botslab-g980h-20261118-154525",
-        "画像冒烟2-botslab-g980h-20261118-155224"
+        "画像冒烟2-botslab-g980h-20261118-155224",
+        "botslab测试-20261118-161628"
       ],
-      "last_used_task": "画像冒烟2-botslab-g980h-20261118-155224"
+      "last_used_task": "botslab测试-20261118-161628"
     },
     {
       "factor_id": "F-P-002",
@@ -690,8 +702,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 10,
-      "last_used_at": "2026-11-18 15:52:24",
+      "used_count": 11,
+      "last_used_at": "2026-11-18 16:16:28",
       "used_tasks": [
         "SKU内容升级-20261112-194353",
         "青蛙联动-botslab1112-01-20261112-195255",
@@ -702,9 +714,10 @@
         "画像冒烟-botslab-g980h-20261118-150404",
         "G980H画像验证-正式-20261118-150900",
         "画像冒烟-botslab-g980h-20261118-154525",
-        "画像冒烟2-botslab-g980h-20261118-155224"
+        "画像冒烟2-botslab-g980h-20261118-155224",
+        "botslab测试-20261118-161628"
       ],
-      "last_used_task": "画像冒烟2-botslab-g980h-20261118-155224"
+      "last_used_task": "botslab测试-20261118-161628"
     },
     {
       "factor_id": "F-P-003",
@@ -722,8 +735,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 12,
-      "last_used_at": "2026-11-18 15:52:24",
+      "used_count": 13,
+      "last_used_at": "2026-11-18 16:16:28",
       "used_tasks": [
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
         "SKU内容升级-20261112-194353",
@@ -736,9 +749,10 @@
         "画像冒烟-botslab-g980h-20261118-150404",
         "G980H画像验证-正式-20261118-150900",
         "画像冒烟-botslab-g980h-20261118-154525",
-        "画像冒烟2-botslab-g980h-20261118-155224"
+        "画像冒烟2-botslab-g980h-20261118-155224",
+        "botslab测试-20261118-161628"
       ],
-      "last_used_task": "画像冒烟2-botslab-g980h-20261118-155224"
+      "last_used_task": "botslab测试-20261118-161628"
     },
     {
       "factor_id": "F-P-004",
@@ -775,8 +789,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 10,
-      "last_used_at": "2026-11-18 15:52:24",
+      "used_count": 11,
+      "last_used_at": "2026-11-18 16:16:28",
       "used_tasks": [
         "SKU内容升级-20261112-194353",
         "青蛙联动-botslab1112-01-20261112-195255",
@@ -787,9 +801,10 @@
         "画像冒烟-botslab-g980h-20261118-150404",
         "G980H画像验证-正式-20261118-150900",
         "画像冒烟-botslab-g980h-20261118-154525",
-        "画像冒烟2-botslab-g980h-20261118-155224"
+        "画像冒烟2-botslab-g980h-20261118-155224",
+        "botslab测试-20261118-161628"
       ],
-      "last_used_task": "画像冒烟2-botslab-g980h-20261118-155224"
+      "last_used_task": "botslab测试-20261118-161628"
     },
     {
       "factor_id": "F-P-006",
@@ -831,8 +846,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 10,
-      "last_used_at": "2026-11-18 15:52:24",
+      "used_count": 11,
+      "last_used_at": "2026-11-18 16:16:28",
       "used_tasks": [
         "SKU内容升级-20261112-194353",
         "青蛙联动-botslab1112-01-20261112-195255",
@@ -843,9 +858,10 @@
         "画像冒烟-botslab-g980h-20261118-150404",
         "G980H画像验证-正式-20261118-150900",
         "画像冒烟-botslab-g980h-20261118-154525",
-        "画像冒烟2-botslab-g980h-20261118-155224"
+        "画像冒烟2-botslab-g980h-20261118-155224",
+        "botslab测试-20261118-161628"
       ],
-      "last_used_task": "画像冒烟2-botslab-g980h-20261118-155224"
+      "last_used_task": "botslab测试-20261118-161628"
     },
     {
       "factor_id": "F-A-005",
