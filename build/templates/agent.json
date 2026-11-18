@@ -184,6 +184,12 @@
         "description": "可选：用户粘贴的真实 AI 答案（JSON 数组或 JSONL，每项 query/platform/answer/cited_sources/product_cards）。有值时优先按它聚合分层基线（source=answers_json），不要调用爬虫，也不要离线打标覆盖。"
       },
       {
+        "name": "persona_json",
+        "type": "string",
+        "required": false,
+        "description": "可选：平台自动生成的消费者画像与购物问题（JSON 字符串，与本地 research/persona.json、questions.json、coverage.json 同源，含 persona.segments / questions[].weight / coverage.summary）。没有 research/ 文件时读它做内容角度与 P0 必答问题；P0（weight=must）必须落进方案 Brief 的 FAQ/key_points，SKU 改造必须落进 FAQ 与 changes 并带 gap_id。"
+      },
+      {
         "name": "confirmed_facts_json",
         "type": "string",
         "required": false,
