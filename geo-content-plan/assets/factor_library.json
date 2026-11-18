@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updated_at": "2026-11-13 16:58:00",
+  "updated_at": "2026-11-18 14:03:21",
   "generated_at": "2026-11-11",
   "status": "draft_cold_start",
   "scenario": "dtc_ecommerce",
@@ -656,15 +656,17 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 4,
-      "last_used_at": "2026-11-12 19:52:55",
+      "used_count": 6,
+      "last_used_at": "2026-11-18 14:03:21",
       "used_tasks": [
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
         "SKU内容升级-20261112-194353",
         "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
-        "青蛙联动-botslab1112-01-20261112-195255"
+        "青蛙联动-botslab1112-01-20261112-195255",
+        "botslab-pdp测试-20261118-140137",
+        "botslab-pdp测试-复诊-20261118-140321"
       ],
-      "last_used_task": "青蛙联动-botslab1112-01-20261112-195255"
+      "last_used_task": "botslab-pdp测试-复诊-20261118-140321"
     },
     {
       "factor_id": "F-P-002",
@@ -682,13 +684,15 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 2,
-      "last_used_at": "2026-11-12 19:52:55",
+      "used_count": 4,
+      "last_used_at": "2026-11-18 14:03:21",
       "used_tasks": [
         "SKU内容升级-20261112-194353",
-        "青蛙联动-botslab1112-01-20261112-195255"
+        "青蛙联动-botslab1112-01-20261112-195255",
+        "botslab-pdp测试-20261118-140137",
+        "botslab-pdp测试-复诊-20261118-140321"
       ],
-      "last_used_task": "青蛙联动-botslab1112-01-20261112-195255"
+      "last_used_task": "botslab-pdp测试-复诊-20261118-140321"
     },
     {
       "factor_id": "F-P-003",
@@ -706,15 +710,17 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 4,
-      "last_used_at": "2026-11-12 19:52:55",
+      "used_count": 6,
+      "last_used_at": "2026-11-18 14:03:21",
       "used_tasks": [
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
         "SKU内容升级-20261112-194353",
         "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
-        "青蛙联动-botslab1112-01-20261112-195255"
+        "青蛙联动-botslab1112-01-20261112-195255",
+        "botslab-pdp测试-20261118-140137",
+        "botslab-pdp测试-复诊-20261118-140321"
       ],
-      "last_used_task": "青蛙联动-botslab1112-01-20261112-195255"
+      "last_used_task": "botslab-pdp测试-复诊-20261118-140321"
     },
     {
       "factor_id": "F-P-004",
@@ -751,13 +757,15 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 2,
-      "last_used_at": "2026-11-12 19:52:55",
+      "used_count": 4,
+      "last_used_at": "2026-11-18 14:03:21",
       "used_tasks": [
         "SKU内容升级-20261112-194353",
-        "青蛙联动-botslab1112-01-20261112-195255"
+        "青蛙联动-botslab1112-01-20261112-195255",
+        "botslab-pdp测试-20261118-140137",
+        "botslab-pdp测试-复诊-20261118-140321"
       ],
-      "last_used_task": "青蛙联动-botslab1112-01-20261112-195255"
+      "last_used_task": "botslab-pdp测试-复诊-20261118-140321"
     },
     {
       "factor_id": "F-P-006",
@@ -799,13 +807,15 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 2,
-      "last_used_at": "2026-11-12 19:52:55",
+      "used_count": 4,
+      "last_used_at": "2026-11-18 14:03:21",
       "used_tasks": [
         "SKU内容升级-20261112-194353",
-        "青蛙联动-botslab1112-01-20261112-195255"
+        "青蛙联动-botslab1112-01-20261112-195255",
+        "botslab-pdp测试-20261118-140137",
+        "botslab-pdp测试-复诊-20261118-140321"
       ],
-      "last_used_task": "青蛙联动-botslab1112-01-20261112-195255"
+      "last_used_task": "botslab-pdp测试-复诊-20261118-140321"
     },
     {
       "factor_id": "F-A-005",
