@@ -19,6 +19,12 @@ description: SKU 商品页改造（geo-sku-rewrite）。把已有商品页改造
 每个 SKU 改造前先回答一个问题：**为什么 AI 购物助手（ChatGPT / Amazon Rufus / Walmart Sparky 等）不理解、不推荐这个商品**；再按「信息缺口 → 消费者购物需求 → 竞品表现」重写商品数据，目标是让 AI 准确理解 SKU：知道它适合什么人、满足什么需求、相比竞品有什么优势。优化对象覆盖商品标题、五点描述、详情描述、规格/功能/材质/尺寸/适用场景、图片及 SKU/ASIN、品牌指南、卖点与已确认的产品声明。
 
 ### 0. 购物问题集与信息缺口（先诊断）
+0.0 **先读平台画像与问题集产物（`research/`）**：任务目录存在 `research/persona.json`、`research/questions.json`、`research/coverage.json` 时：
+   - `shopping_questions` 直接采用 `questions.json` 的 `selected` 条目（含 `question_id` / `weight` / `stage` / `from_query`），不必重复构建；无该产物时再按下方 0.1 自行构建 5-10 条；
+   - `weight=must`（P0 必答）问题必须被改后商品信息直接回答：答案落到 `core_answer` / `specs` / `faq`，并在 `changes` 对应模块带 `gap_id`（如 Q-01）；
+   - `coverage.json` 的 `items` 直接作为改前判定（`state` / `hit_zones` / `missing_slots`），`state=gap/partial` 条目写进 `info_gaps`；
+   - 画像（persona.json）决定 FAQ 与内容角度的优先顺序，不改变事实与证据规则；
+   - 平台在成稿后会按 `changes[].gap_id` 与 FAQ 逐条核对 P0 覆盖，缺失即质检未过。
 1. 构建消费者真实购物问题集（`shopping_questions`）：来源优先级为商品数据本身、市场关键词、Marketplace 数据、采样 answers/sampling.json 的问题族、公开问答（如 Reddit/论坛/帮助中心）。示例（行车记录仪）：
    - Which dash cams offer 360-degree coverage?
    - Which dash cams support four cameras?
