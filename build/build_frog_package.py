@@ -19,6 +19,7 @@ import re
 import shutil
 import subprocess
 import sys
+import pathlib
 import zipfile
 from pathlib import Path
 
@@ -28,7 +29,19 @@ TEMPLATES = BUILD_DIR / 'templates'
 PLATFORM = BUILD_DIR / 'platform'
 DIST = BUILD_DIR / 'dist'
 DESKTOP = Path.home() / 'Desktop'
-ZIP_NAME = '青蛙-内容建设agent-上传包v41.zip'
+ZIP_PREFIX = '青蛙-内容建设agent-上传包'
+ZIP_NAME = ZIP_PREFIX + 'v41.zip'
+
+
+def next_zip_name(desktop=None):
+    """按桌面已有包的最大版本号 +1，避免每次重建都覆盖同一个旧版本号"""
+    desktop = pathlib.Path(desktop or DESKTOP)
+    top = 0
+    for f in desktop.glob(ZIP_PREFIX + 'v*.zip'):
+        m = re.search(r'v(\d+)\.zip$', f.name)
+        if m:
+            top = max(top, int(m.group(1)))
+    return '%sv%d.zip' % (ZIP_PREFIX, top + 1)
 
 # 内容建设链路的 13 个技能，按实际执行顺序排列
 SKILLS = [
@@ -275,7 +288,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--out', default=str(DIST))
     parser.add_argument('--no-zip', action='store_true')
-    parser.add_argument('--zip-name', default=ZIP_NAME)
+    parser.add_argument('--zip-name', default=None)
     args = parser.parse_args()
 
     out = Path(args.out)
@@ -313,7 +326,7 @@ def main():
 
     print('构建完成：%s（%d 技能 / %d 工具）' % (out, len(SKILLS), len(list((out / 'tools').glob('*.py')))))
     if not args.no_zip:
-        zip_path = DESKTOP / args.zip_name
+        zip_path = DESKTOP / (args.zip_name or next_zip_name())
         write_zip(out, zip_path)
         print('已打包：%s（%.1f KB）' % (zip_path, zip_path.stat().st_size / 1024))
     return 0
