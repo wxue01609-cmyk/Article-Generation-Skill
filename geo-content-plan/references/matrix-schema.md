@@ -31,6 +31,7 @@
       "channel": "官网博客",
       "asset_type": "blog",
       "target_url": "/blog/how-to-choose-outdoor-led-display",
+      "target_models": ["LED-P4"],
       "source_page": 1,
       "source_url": "https://example.com/products/led-p4",
       "rewrite_mode": "existing_page",
@@ -91,6 +92,7 @@
 - 允许跨层落位（如 `ai_exposure` 的 `how to choose` 也可以落 FAQ），但 `stage` 仍是"主发力层"，不随渠道改
 
 ## 待改造页面字段（可选，仅 sku）
+- `target_models`：字符串数组，本条资产实际讲的型号；query 点名的型号必须写进来，`sku` 资产只能写 1 个；纯品类内容可为空数组。
 - `source_page`：整数，对应 `source/index.json` 的 `page`；只能取 `status` 为 `ok` / `manual` 的页面，抓取失败的页面禁止分配
 - `source_url`：该页面的 `final_url`（重定向后的真实地址）；手动粘贴的 `manual` 页面没有 URL 时留空
 - `rewrite_mode`：固定 `existing_page`；仅在挂载了 `source_page` 时出现

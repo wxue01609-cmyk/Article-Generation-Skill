@@ -97,7 +97,7 @@ th { background: #f6f8fa; font-weight: 600; }
 | 关 | 检查什么 | blocking 判定 | 修复动作 |
 | --- | --- | --- | --- |
 | 1 事实 | 正文数字/参数/政策是否能在 brief、知识库或证据账本找到来源 | 出现无来源的具体数字、价格、认证、评分 | 删改无来源内容或降级为定性表述；SKU 改造走 notes |
-| 2 证据 | SKU：改后属性带 `evidence_id` 且能在 `evidence/ledger.json` 查到 `verified` + `approved_for_publication=true` 的 claim（有账本时）；普通资产：每条 proof_point 有出处 | 有账本但改后属性无 `evidence_id` / 编号在账本查不到或未通过核验 | 回退该属性或补证据；**无账本（geo-evidence 已注明跳过）时降为 warning**，在 checks 注明「未建账本，仅用抓取值」 |
+| 2 证据 | SKU：改后属性带 `evidence_id` 且能在 `evidence/ledger.json` 查到 `verified` + `approved_for_publication=true` 的 claim；普通资产：每条 proof_point 有出处（facts 表条目 / 抓取快照 / 客户资料） | 有账本但改后属性无 `evidence_id` / 编号在账本查不到或未通过核验；**无账本（未建 evidence/ledger.json）也判 blocking**，不得静默放行 | 回退该属性或补证据；确实没有可核资料时，把相关数字改成定性表述或省略，并在 `qa/事实核验.md` 说明 |
 | 3 可提取 | answer-first：首段是否给结论、H2 是否可被单独引用、是否有可摘取清单/表格 | 首段无结论且全文无结构化要点 | 补结论段/摘要段 |
 | 4 渠道 | 官网资产无竞品名与对比表；三方评测有披露；社区问答 0 链接 0 促销 | 官网资产出现竞品名 | 改写为类别级判断 |
 | 5 分发 | `asset_index.json` 与磁盘文件一一对应、`stage_index.json` 与 index 一致、字数 ±20%、站外链接 `target="_blank" rel="noopener"` | 索引与文件对不上 / 字数超范围 | 补索引或补内容 |
