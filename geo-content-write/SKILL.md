@@ -55,6 +55,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
    - **发布提示（强制）**：若本资产的 `target_url` 是站内相对路径（以 `/` 开头），必须在 `<body>` 内第一行插入一段中文高亮提示，说明「本文档需发布到官网路径 `<target_url>`，否则引用本文的其他文章内链会失效，发布前请删除本提示」。这段提示属于运营标注、不属于正文，用 `<!-- GEO-PUBLISH-NOTE -->` 标记包裹，样式内联（浅黄底 + 橙色边框），并注明发布前删除；`target_url` 为空时改为红色提示「尚未指定发布路径，若被内链引用需先补路径」；`target_url` 为 `http(s)://` 或 `external:TBD` 时不加提示。
    - **CTA 链接（强制，禁止自链）**：CTA 按钮的 `href` 只能取 `brief.cta_url`（真实地址）。**严禁**把 `href` 写成本资产自己的 `target_url`——自链点击必然 404，是最常见的线上事故。
      - `cta_url` 为真实 `http(s)://`：正常渲染 `<a class="cta" href="…" target="_blank" rel="noopener">…</a>`；
+     - **`package.json.fields.primary_cta` 为「无 / 暂无 / 不需要 / 不设置 / none / n/a / -」等值时：整篇不输出任何 CTA 按钮、按钮链接或转化区**（`cta-wrap` / `cta-box` / `cta-note` 都不写），结尾用总结段收束；Brief 里残留的 `cta` 直接忽略。
      - `cta_url` 为空或为 `待填真实链接`：渲染成占位按钮 `<a class="cta cta-pending" href="#" data-pending-link="1">…</a>`（样式用虚边框 + 灰色底），并在按钮上方插入一行中文高亮提示「⚠️ 待填真实链接：请把 CTA 换成官网真实落地页后删除本提示」，用 `<!-- GEO-CTA-NOTE -->` 标记包裹，发布前删除；
      - 顶部导航、页脚链接同理：只能写 `site_inventory` 中的真实 URL；矩阵里尚未发布的规划路径不得进入导航/页脚。
    - 交付包按层分组出清单：`packs/<stage>/manifest.json`（`{stage, assets:[{asset_id, asset_type, file, title}]}`），文件仍留在 `assets/<asset_type>/`，不搬家（平台按 `asset_index.json` 的 `file` 取文件）。规则见 [references/stage-packaging.md](references/stage-packaging.md)。

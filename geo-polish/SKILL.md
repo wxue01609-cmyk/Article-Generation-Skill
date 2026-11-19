@@ -90,6 +90,7 @@ th { background: #f6f8fa; font-weight: 600; }
 - `model_check.json` 里的 `model_facts_insufficient` / `target_models_missing` / `model_not_in_facts` / `query_model_mismatch` → 方案层阻断：只能做定性内容，或先补事实表再重跑。
 - `qa/pending_facts.json` 与 `qa/pending_confirmations.json` 是待客户确认清单（区分「缺失」与「待核对」），质检报告里原样带出，不得自行删除。
 - 否定表述（`does not support …` / 不支持 / 无法）不判违规；事实表为空且正文无高危数字时只记 warning，不算通过。
+- **CTA 关闭核对**：`fields.primary_cta` 为「无/暂无/不需要/不设置」等值时，正文出现任何 CTA 按钮（`class` 含 `cta`）、`cta-wrap`/`cta-box` 转化区或「Shop now / Buy now / Book a demo / Contact us」类行动号召 → blocking，必须删除后重跑该层。
 
 ### 3.5 因子核验与打分卡（先于五关跑，按因子库逐条核验）
 读取 `factor_library.json`（优先平台根目录实时库；青蛙端读系统提示词 agent.md 末尾内置的「因子库数据」块（与本地实时库同源，全阶段可读）；本地无独立文件时直接读平台根目录实时库，禁止自造因子定义），只对「本层因子 + 全局因子」逐条核验（矩阵 item 带 `factor_details` 时以其 `check` 为准，不必再找文件）：

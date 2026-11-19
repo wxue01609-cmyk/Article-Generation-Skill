@@ -77,6 +77,7 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
    - 找不到真实地址时写 `待填真实链接`，并在 `risk_notes` 注明「CTA 需客户补真实落地页」；
    - 顶部导航与页脚链接同理：只能使用 `site_inventory` 中的真实 URL；矩阵内未发布的规划路径不得进入导航/页脚，最多作为正文内链锚文本；
    - `cta` 只写按钮文案（沿用 `primary_cta`，缺省 `Check it out`），URL 一律放 `cta_url`。
+   - **`primary_cta` 为「无 / 暂无 / 不需要 / 不设置 / none / n/a / -」等值时：`cta` 与 `cta_url` 一律留空字符串**，Brief 里不得出现按钮文案、购买引导语或任何转化区结构；平台会在成稿阶段再按代码删除残留 CTA。
 
 7. **优先级**：按购买意图强度、品牌/型号相关度、流量价值给 `P0/P1/P2`（`conversion` 层购买信号强，通常不低于 P1）。
 8. **型号绑定（硬规则）**：每个 item 必须写 `target_models`（数组）；query 里点名的型号必须出现在其中，`sku` 资产只能有 1 个型号；型号在 `facts/<brand>-<model>.json` 事实表里缺失的字段，不得写进 Brief 的具体数字，只能定性表述并记进 `risk_notes`。
