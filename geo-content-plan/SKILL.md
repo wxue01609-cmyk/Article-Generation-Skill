@@ -80,6 +80,9 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
 
 7. **优先级**：按购买意图强度、品牌/型号相关度、流量价值给 `P0/P1/P2`（`conversion` 层购买信号强，通常不低于 P1）。
 8. **型号绑定（硬规则）**：每个 item 必须写 `target_models`（数组）；query 里点名的型号必须出现在其中，`sku` 资产只能有 1 个型号；型号在 `facts/<brand>-<model>.json` 事实表里缺失的字段，不得写进 Brief 的具体数字，只能定性表述并记进 `risk_notes`。
+   - **参数类资产必须声明型号**：`sku` / `pdp` 资产，以及 query 含参数信号（英寸 / channel / USB / hardwire / GPS / 价格等）的 landing / category，`target_models` 不得为空；声明了事实表里不存在的型号同样判 blocking。
+   - **事实完备度闸门**：型号核心字段（screen_size / power / cameras / mount / gps / price / availability）命中 **< 5 项** 时判 `model_facts_insufficient`——该型号只能规划定性内容，不得安排参数类资产（尺寸/通道/供电/价格/支架/GPS），并把缺的字段与「需要客户补什么」写进 `risk_notes`。
+   - **场景词必须兑现**：query 含紧凑/USB/投屏/支架/GPS 等场景信号，而型号事实表没有对应字段 → blocking（补事实或换型号），不得把场景词硬挂到不匹配的型号上。
 9. **生成 Brief**：按 [references/asset-specs.md](references/asset-specs.md) 对应类型的骨架，填 `title` / `angle` / `outline` / `key_points` / `proof_points` / `cta` / `cta_url` / `internal_links` / `word_count` / `publish_order` / `dependencies`；带 `source_page` 的 sku Brief 以「改造清单」形式写，不写改后正文。每个 item 必须带 `stage` / `secondary_stage`。
 8.5 **引用内容参考**：`research/citations.json`（或 `sampling.json.citations`）存在且有 `status=ok` 条目时，把与 item `stage` **同层**的引用条目写入该 item 的 `reference_citations`（`[{title, url, domain, headings, excerpt 前 200 字}]`），并把「AI 正在引用这类结构」的可借鉴点落进 `key_points`。使用规则严格按 [references/citation-usage.md](references/citation-usage.md)：只借鉴结构与证据点，禁止照抄原文句子；官网资产不因引用内容引入竞品品牌名。
 9. **自检**（必须全部通过）：

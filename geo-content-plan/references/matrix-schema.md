@@ -93,6 +93,8 @@
 
 ## 待改造页面字段（可选，仅 sku）
 - `target_models`：字符串数组，本条资产实际讲的型号；query 点名的型号必须写进来，`sku` 资产只能写 1 个；纯品类内容可为空数组。
+  - `sku` / `pdp` 资产，以及 query 含参数信号（英寸/channel/USB/GPS/价格）的 landing / category：**不得为空**。
+  - 型号核心字段（screen_size / power / cameras / mount / gps / price / availability）命中 < 5 项时，该型号只能做定性资产，不得规划参数类内容。
 - `source_page`：整数，对应 `source/index.json` 的 `page`；只能取 `status` 为 `ok` / `manual` 的页面，抓取失败的页面禁止分配
 - `source_url`：该页面的 `final_url`（重定向后的真实地址）；手动粘贴的 `manual` 页面没有 URL 时留空
 - `rewrite_mode`：固定 `existing_page`；仅在挂载了 `source_page` 时出现

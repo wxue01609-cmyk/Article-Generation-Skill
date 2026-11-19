@@ -84,6 +84,13 @@ th { background: #f6f8fa; font-weight: 600; }
 - `learned.exceptions` 里的词不再报（误诊已登记）。
 报告写入 `qa/localization_report.json`，同时并入 `polish_report.json` 的 `localization` 区块（`{market, hard, soft, files}`）。本地化关的 blocking 修复后才能交付；只改词与表述，不改产品事实。
 
+### 第 0.5 关 · 型号事实（代码级，先于五关）
+平台会在成稿后生成 `qa/facts_check.json` 与 `qa/model_check.json`，这两份报告是代码判定，不允许模型用「已核对」覆盖：
+- `facts_check.json` 里任何 `blocking` → 该 stage 判 blocking，不得交付；常见规则：`value_not_allowed`（数字与事实表不符）、`fact_missing`（事实表没有该类数字）、`claim_without_fact`（USB/硬接线/投屏/四路等定性断言无事实）、`forbidden_combo`（命中型号禁用组合）、`cross_asset_inconsistent`（同型号跨篇参数打架）。
+- `model_check.json` 里的 `model_facts_insufficient` / `target_models_missing` / `model_not_in_facts` / `query_model_mismatch` → 方案层阻断：只能做定性内容，或先补事实表再重跑。
+- `qa/pending_facts.json` 与 `qa/pending_confirmations.json` 是待客户确认清单（区分「缺失」与「待核对」），质检报告里原样带出，不得自行删除。
+- 否定表述（`does not support …` / 不支持 / 无法）不判违规；事实表为空且正文无高危数字时只记 warning，不算通过。
+
 ### 3.5 因子核验与打分卡（先于五关跑，按因子库逐条核验）
 读取 `factor_library.json`（优先平台根目录实时库；青蛙端读系统提示词 agent.md 末尾内置的「因子库数据」块（与本地实时库同源，全阶段可读）；本地无独立文件时直接读平台根目录实时库，禁止自造因子定义），只对「本层因子 + 全局因子」逐条核验（矩阵 item 带 `factor_details` 时以其 `check` 为准，不必再找文件）：
 1. **准入因子（`admission_factors`，一票否决）**：a-01 核心 claim 全部 verified 且可发布（查证据账本）；a-02 官网类资产零竞品点名；a-03 正文零照抄（引用 excerpt 比对）；a-04 无禁用 claim / 合规限制；a-05 页面可抓取（site_audit 200 且无 noindex/robots 拦截）；a-06 电商参数/价格可追溯到账本。任一失败 → `blocking`，写进 `factor_audit.admission`，该资产不得交付。

@@ -37,6 +37,10 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
    - 本地化只改说法、单位、案例与本地引用，产品事实、参数、价格、证据规则不变。
 
 4. 事实铁律：只能来自 `facts/<brand>-<model>.json` 事实表、`attachments/` 客户资料、`source/` 抓取快照；**brief 不是事实源**。正文每个具体数字/参数/价格必须能在事实表里找到同型号同单位条目，并用 `data-fact="<fact_id>"` 标注；对不上的一律不写（改定性或省略）；平台会在成稿后做代码级数字比对，不通过直接判失败。普通资产 brief 中 `待核验` 内容照写并保留标注；SKU 改造资产按 [references/source-rewrite.md](references/source-rewrite.md) 的发布规则，正文不写 `待核验`，查不到就省略；禁止编造参数、价格、案例、客户。
+4.5 **定性断言同样受事实约束**：USB/Type-C 供电、硬接线、内置电池、投屏/CarPlay、吸盘/后视镜/背胶支架、内置 GPS、四路/三路/双录 —— 事实表对应字段（`power` / `mount` / `gps` / `carplay` / `cameras`）没有该取值时不得写；否定表述（`does not support …` / 不支持）不算违规。
+   - 型号核心字段命中 < 5 项时（事实表 `param_capable=false`），本篇只写定性描述，不写任何具体参数。
+   - 平台成稿后会跑代码级数字比对 + 定性断言比对（`qa/facts_check.json`），命中即判失败。
+
 5. 品牌/渠道规则：
    - 官网资产（blog/landing/category/sku/faq）：不出现任何竞品品牌名、竞品对比表、A vs B。
    - 三方评测/对比：必须含披露声明，结论按“不同需求→不同方案”。
