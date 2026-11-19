@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updated_at": "2026-11-18 17:25:58",
+  "updated_at": "2026-11-19 12:37:52",
   "generated_at": "2026-11-11",
   "status": "draft_cold_start",
   "scenario": "dtc_ecommerce",
@@ -125,8 +125,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 11,
-      "last_used_at": "2026-11-18 16:50:54",
+      "used_count": 12,
+      "last_used_at": "2026-11-19 11:36:11",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
         "frog-0e197a9540b240e993590dcc4d24969a",
@@ -138,9 +138,10 @@
         "frog-8448e2c9338b44b0a8502ee5464b777a",
         "frog-d16f3a924cfd44928c02814ed5f1597e",
         "frog-7c74f67771464ef0bb56f93e927abd86",
-        "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+        "frog-e7225d2e336c418bb71f0ed7cb1a7744",
+        "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
       ],
-      "last_used_task": "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+      "last_used_task": "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
     },
     {
       "factor_id": "F-G-002",
@@ -156,8 +157,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 10,
-      "last_used_at": "2026-11-18 16:50:54",
+      "used_count": 11,
+      "last_used_at": "2026-11-19 11:36:11",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
         "frog-0e197a9540b240e993590dcc4d24969a",
@@ -168,9 +169,10 @@
         "frog-42a3f828d9604c62a7a0f44bb20dc20b",
         "frog-8448e2c9338b44b0a8502ee5464b777a",
         "frog-7c74f67771464ef0bb56f93e927abd86",
-        "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+        "frog-e7225d2e336c418bb71f0ed7cb1a7744",
+        "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
       ],
-      "last_used_task": "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+      "last_used_task": "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
     },
     {
       "factor_id": "F-G-003",
@@ -186,8 +188,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 11,
-      "last_used_at": "2026-11-18 16:50:54",
+      "used_count": 12,
+      "last_used_at": "2026-11-19 11:36:11",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
         "frog-0e197a9540b240e993590dcc4d24969a",
@@ -199,9 +201,10 @@
         "frog-8448e2c9338b44b0a8502ee5464b777a",
         "frog-d16f3a924cfd44928c02814ed5f1597e",
         "frog-7c74f67771464ef0bb56f93e927abd86",
-        "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+        "frog-e7225d2e336c418bb71f0ed7cb1a7744",
+        "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
       ],
-      "last_used_task": "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+      "last_used_task": "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
     },
     {
       "factor_id": "F-G-004",
@@ -217,15 +220,16 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 4,
-      "last_used_at": "2026-11-13 15:25:56",
+      "used_count": 5,
+      "last_used_at": "2026-11-19 11:36:11",
       "used_tasks": [
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
         "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
         "frog-16eb3e5ed7644ecfac9b7e14d11afab6",
-        "frog-d7004b8a27cd4a96a1d8e208afff3b1f"
+        "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
+        "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
       ],
-      "last_used_task": "frog-d7004b8a27cd4a96a1d8e208afff3b1f"
+      "last_used_task": "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
     },
     {
       "factor_id": "F-G-005",
@@ -266,8 +270,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 8,
-      "last_used_at": "2026-11-18 16:50:54",
+      "used_count": 9,
+      "last_used_at": "2026-11-19 11:36:11",
       "used_tasks": [
         "frog-0e197a9540b240e993590dcc4d24969a",
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
@@ -276,9 +280,10 @@
         "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
         "frog-42a3f828d9604c62a7a0f44bb20dc20b",
         "frog-8448e2c9338b44b0a8502ee5464b777a",
-        "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+        "frog-e7225d2e336c418bb71f0ed7cb1a7744",
+        "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
       ],
-      "last_used_task": "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+      "last_used_task": "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
     },
     {
       "factor_id": "F-G-007",
@@ -384,16 +389,17 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 5,
-      "last_used_at": "2026-11-18 16:50:54",
+      "used_count": 6,
+      "last_used_at": "2026-11-19 11:36:11",
       "used_tasks": [
         "frog-16eb3e5ed7644ecfac9b7e14d11afab6",
         "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
         "frog-42a3f828d9604c62a7a0f44bb20dc20b",
         "frog-8448e2c9338b44b0a8502ee5464b777a",
-        "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+        "frog-e7225d2e336c418bb71f0ed7cb1a7744",
+        "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
       ],
-      "last_used_task": "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+      "last_used_task": "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
     },
     {
       "factor_id": "F-A-002",
@@ -412,15 +418,16 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 4,
-      "last_used_at": "2026-11-13 16:58:00",
+      "used_count": 5,
+      "last_used_at": "2026-11-19 11:36:11",
       "used_tasks": [
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
         "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
         "frog-42a3f828d9604c62a7a0f44bb20dc20b",
-        "frog-8448e2c9338b44b0a8502ee5464b777a"
+        "frog-8448e2c9338b44b0a8502ee5464b777a",
+        "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
       ],
-      "last_used_task": "frog-8448e2c9338b44b0a8502ee5464b777a"
+      "last_used_task": "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
     },
     {
       "factor_id": "F-A-003",
@@ -439,8 +446,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 9,
-      "last_used_at": "2026-11-18 16:50:54",
+      "used_count": 10,
+      "last_used_at": "2026-11-19 11:36:11",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
         "frog-0e197a9540b240e993590dcc4d24969a",
@@ -450,9 +457,10 @@
         "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
         "frog-42a3f828d9604c62a7a0f44bb20dc20b",
         "frog-8448e2c9338b44b0a8502ee5464b777a",
-        "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+        "frog-e7225d2e336c418bb71f0ed7cb1a7744",
+        "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
       ],
-      "last_used_task": "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+      "last_used_task": "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
     },
     {
       "factor_id": "F-A-004",
@@ -472,8 +480,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 9,
-      "last_used_at": "2026-11-18 16:50:54",
+      "used_count": 10,
+      "last_used_at": "2026-11-19 11:36:11",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
         "frog-0e197a9540b240e993590dcc4d24969a",
@@ -483,9 +491,10 @@
         "frog-d7004b8a27cd4a96a1d8e208afff3b1f",
         "frog-42a3f828d9604c62a7a0f44bb20dc20b",
         "frog-8448e2c9338b44b0a8502ee5464b777a",
-        "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+        "frog-e7225d2e336c418bb71f0ed7cb1a7744",
+        "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
       ],
-      "last_used_task": "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+      "last_used_task": "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
     },
     {
       "factor_id": "F-C-001",
@@ -533,12 +542,13 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 1,
-      "last_used_at": "2026-11-18 16:15:47",
+      "used_count": 2,
+      "last_used_at": "2026-11-19 11:36:11",
       "used_tasks": [
-        "frog-d16f3a924cfd44928c02814ed5f1597e"
+        "frog-d16f3a924cfd44928c02814ed5f1597e",
+        "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
       ],
-      "last_used_task": "frog-d16f3a924cfd44928c02814ed5f1597e"
+      "last_used_task": "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
     },
     {
       "factor_id": "F-C-003",
@@ -602,16 +612,17 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 5,
-      "last_used_at": "2026-11-18 16:50:54",
+      "used_count": 6,
+      "last_used_at": "2026-11-19 11:36:11",
       "used_tasks": [
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
         "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
         "frog-d16f3a924cfd44928c02814ed5f1597e",
         "frog-7c74f67771464ef0bb56f93e927abd86",
-        "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+        "frog-e7225d2e336c418bb71f0ed7cb1a7744",
+        "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
       ],
-      "last_used_task": "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+      "last_used_task": "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
     },
     {
       "factor_id": "F-C-006",
@@ -631,14 +642,15 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 3,
-      "last_used_at": "2026-11-18 16:50:54",
+      "used_count": 4,
+      "last_used_at": "2026-11-19 11:36:11",
       "used_tasks": [
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
         "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
-        "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+        "frog-e7225d2e336c418bb71f0ed7cb1a7744",
+        "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
       ],
-      "last_used_task": "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+      "last_used_task": "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
     },
     {
       "factor_id": "F-C-007",
@@ -682,8 +694,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 19,
-      "last_used_at": "2026-11-18 17:25:58",
+      "used_count": 23,
+      "last_used_at": "2026-11-19 12:37:52",
       "used_tasks": [
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
         "SKU内容升级-20261112-194353",
@@ -703,9 +715,13 @@
         "SKU内容升级-20261118-165739",
         "SKU内容升级-20261118-171626",
         "SKU内容升级-20261118-171631",
-        "SKU内容升级-20261118-172557"
+        "SKU内容升级-20261118-172557",
+        "frog-c055a855e74b4c80bbe8b2b7cab3cce4",
+        "SKU内容升级-20261119-123104",
+        "SKU内容升级-20261119-123124",
+        "SKU内容升级-20261119-123752"
       ],
-      "last_used_task": "SKU内容升级-20261118-172557"
+      "last_used_task": "SKU内容升级-20261119-123752"
     },
     {
       "factor_id": "F-P-002",
@@ -723,8 +739,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 16,
-      "last_used_at": "2026-11-18 17:25:58",
+      "used_count": 19,
+      "last_used_at": "2026-11-19 12:37:52",
       "used_tasks": [
         "SKU内容升级-20261112-194353",
         "青蛙联动-botslab1112-01-20261112-195255",
@@ -741,9 +757,12 @@
         "SKU内容升级-20261118-165739",
         "SKU内容升级-20261118-171626",
         "SKU内容升级-20261118-171631",
-        "SKU内容升级-20261118-172557"
+        "SKU内容升级-20261118-172557",
+        "SKU内容升级-20261119-123104",
+        "SKU内容升级-20261119-123124",
+        "SKU内容升级-20261119-123752"
       ],
-      "last_used_task": "SKU内容升级-20261118-172557"
+      "last_used_task": "SKU内容升级-20261119-123752"
     },
     {
       "factor_id": "F-P-003",
@@ -761,8 +780,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 19,
-      "last_used_at": "2026-11-18 17:25:58",
+      "used_count": 21,
+      "last_used_at": "2026-11-19 12:37:52",
       "used_tasks": [
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
         "SKU内容升级-20261112-194353",
@@ -782,9 +801,11 @@
         "SKU内容升级-20261118-165739",
         "SKU内容升级-20261118-171626",
         "SKU内容升级-20261118-171631",
-        "SKU内容升级-20261118-172557"
+        "SKU内容升级-20261118-172557",
+        "frog-c055a855e74b4c80bbe8b2b7cab3cce4",
+        "SKU内容升级-20261119-123752"
       ],
-      "last_used_task": "SKU内容升级-20261118-172557"
+      "last_used_task": "SKU内容升级-20261119-123752"
     },
     {
       "factor_id": "F-P-004",
@@ -821,8 +842,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 16,
-      "last_used_at": "2026-11-18 17:25:58",
+      "used_count": 19,
+      "last_used_at": "2026-11-19 12:37:52",
       "used_tasks": [
         "SKU内容升级-20261112-194353",
         "青蛙联动-botslab1112-01-20261112-195255",
@@ -839,9 +860,12 @@
         "SKU内容升级-20261118-165739",
         "SKU内容升级-20261118-171626",
         "SKU内容升级-20261118-171631",
-        "SKU内容升级-20261118-172557"
+        "SKU内容升级-20261118-172557",
+        "SKU内容升级-20261119-123104",
+        "SKU内容升级-20261119-123124",
+        "SKU内容升级-20261119-123752"
       ],
-      "last_used_task": "SKU内容升级-20261118-172557"
+      "last_used_task": "SKU内容升级-20261119-123752"
     },
     {
       "factor_id": "F-P-006",
@@ -859,13 +883,14 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 2,
-      "last_used_at": "2026-11-12 19:52:55",
+      "used_count": 3,
+      "last_used_at": "2026-11-19 11:36:11",
       "used_tasks": [
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
-        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
+        "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
+        "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
       ],
-      "last_used_task": "frog-d6e3e691ccbd46d2ac36e5f71916b0f7"
+      "last_used_task": "frog-c055a855e74b4c80bbe8b2b7cab3cce4"
     },
     {
       "factor_id": "F-P-007",
@@ -883,8 +908,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 16,
-      "last_used_at": "2026-11-18 17:25:58",
+      "used_count": 19,
+      "last_used_at": "2026-11-19 12:37:52",
       "used_tasks": [
         "SKU内容升级-20261112-194353",
         "青蛙联动-botslab1112-01-20261112-195255",
@@ -901,9 +926,12 @@
         "SKU内容升级-20261118-165739",
         "SKU内容升级-20261118-171626",
         "SKU内容升级-20261118-171631",
-        "SKU内容升级-20261118-172557"
+        "SKU内容升级-20261118-172557",
+        "SKU内容升级-20261119-123104",
+        "SKU内容升级-20261119-123124",
+        "SKU内容升级-20261119-123752"
       ],
-      "last_used_task": "SKU内容升级-20261118-172557"
+      "last_used_task": "SKU内容升级-20261119-123752"
     },
     {
       "factor_id": "F-A-005",
