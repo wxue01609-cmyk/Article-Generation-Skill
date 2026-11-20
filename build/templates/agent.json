@@ -1,7 +1,7 @@
 {
   "project_id": 7,
   "agent": {
-    "agent_key": "geo_content_agent_v1",
+    "agent_key": "geo_content_agent",
     "agent_name": "GEO 海外内容建设（内容建设方案）",
     "visibility": 0,
     "agent_type": 0,

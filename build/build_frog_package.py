@@ -200,6 +200,10 @@ def build_sample_tool():
 def build_agent_json(prompts_meta):
     """生成 agent.json：技能与描述来自本地 SKILL.md，其余平台字段沿用模板"""
     data = json.loads((TEMPLATES / 'agent.json').read_text(encoding='utf-8'))
+    # Agent Key 只允许英文字母、中划线、下划线；带数字会被青蛙平台拒绝，打包时直接拦下
+    _key = str((data.get('agent') or {}).get('agent_key') or '')
+    if not re.fullmatch(r'[A-Za-z_-]+', _key):
+        raise SystemExit('agent_key 只允许英文字母、中划线 - 和下划线 _，且不允许数字：%r' % _key)
     skills = []
     for skill in SKILLS:
         meta = prompts_meta[skill]
