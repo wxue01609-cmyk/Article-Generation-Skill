@@ -87,6 +87,7 @@ th { background: #f6f8fa; font-weight: 600; }
 ### 第 0.5 关 · 型号事实（代码级，先于五关）
 平台会在成稿后生成 `qa/facts_check.json` 与 `qa/model_check.json`，这两份报告是代码判定，不允许模型用「已核对」覆盖：
 - `facts_check.json` 里任何 `blocking` → 该 stage 判 blocking，不得交付；常见规则：`value_not_allowed`（数字与事实表不符）、`fact_missing`（事实表没有该类数字）、`claim_without_fact`（USB/硬接线/投屏/四路等定性断言无事实）、`forbidden_combo`（命中型号禁用组合）、`cross_asset_inconsistent`（同型号跨篇参数打架）。
+- `facts_check.json` 的 `gated` 为 `blocking` 时同样阻断：商品页快照缺失但方案涉及产品参数（尺寸/供电/摄像头/分辨率/价格/支架/GPS）的，不得降级放行；`blocking` 必须同步汇入 `polish_report.json` 的 `summary.blocking` 与 `by_stage.product_fact`，报告整体 `blocking > 0` 不得交付。
 - `model_check.json` 里的 `model_facts_insufficient` / `target_models_missing` / `model_not_in_facts` / `query_model_mismatch` → 方案层阻断：只能做定性内容，或先补事实表再重跑。
 - `qa/pending_facts.json` 与 `qa/pending_confirmations.json` 是待客户确认清单（区分「缺失」与「待核对」），质检报告里原样带出，不得自行删除。
 - 否定表述（`does not support …` / 不支持 / 无法）不判违规；事实表为空且正文无高危数字时只记 warning，不算通过。
