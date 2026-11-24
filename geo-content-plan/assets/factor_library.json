@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updated_at": "2026-11-20 16:20:35",
+  "updated_at": "2026-11-24 14:48:56",
   "generated_at": "2026-11-11",
   "status": "draft_cold_start",
   "scenario": "dtc_ecommerce",
@@ -131,8 +131,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 24,
-      "last_used_at": "2026-11-20 14:57:10",
+      "used_count": 26,
+      "last_used_at": "2026-11-24 14:48:55",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
         "frog-0e197a9540b240e993590dcc4d24969a",
@@ -157,9 +157,11 @@
         "frog-b96ab4b07c884777abc7acadecf87fd5",
         "frog-fc10056017dd409692cbfe42f4bfb540",
         "frog-e34e25c1184341de87ee7c0b261e7b24",
-        "frog-f5e3a265c3a24198b03d610282a8feb8"
+        "frog-f5e3a265c3a24198b03d610282a8feb8",
+        "frog-18fa3f57384f431f8b1b85d5ee6f4c34",
+        "frog-11944aab68304136b957e7addb24db71"
       ],
-      "last_used_task": "frog-f5e3a265c3a24198b03d610282a8feb8"
+      "last_used_task": "frog-11944aab68304136b957e7addb24db71"
     },
     {
       "factor_id": "F-G-002",
@@ -218,8 +220,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 24,
-      "last_used_at": "2026-11-20 14:57:10",
+      "used_count": 26,
+      "last_used_at": "2026-11-24 14:48:55",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
         "frog-0e197a9540b240e993590dcc4d24969a",
@@ -244,9 +246,11 @@
         "frog-b96ab4b07c884777abc7acadecf87fd5",
         "frog-fc10056017dd409692cbfe42f4bfb540",
         "frog-e34e25c1184341de87ee7c0b261e7b24",
-        "frog-f5e3a265c3a24198b03d610282a8feb8"
+        "frog-f5e3a265c3a24198b03d610282a8feb8",
+        "frog-18fa3f57384f431f8b1b85d5ee6f4c34",
+        "frog-11944aab68304136b957e7addb24db71"
       ],
-      "last_used_task": "frog-f5e3a265c3a24198b03d610282a8feb8"
+      "last_used_task": "frog-11944aab68304136b957e7addb24db71"
     },
     {
       "factor_id": "F-G-004",
@@ -823,8 +827,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 37,
-      "last_used_at": "2026-11-19 15:59:41",
+      "used_count": 43,
+      "last_used_at": "2026-11-24 14:48:56",
       "used_tasks": [
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
         "SKU内容升级-20261112-194353",
@@ -862,9 +866,15 @@
         "青蛙联动-DynamicPeer-20261119-150240",
         "frog-7931a4bc8bbb43cfb42f5f50640085a9",
         "青蛙联动-DynamicPeer-20261119-155940",
-        "青蛙联动-DynamicPeer-20261119-155940-2"
+        "青蛙联动-DynamicPeer-20261119-155940-2",
+        "frog-18fa3f57384f431f8b1b85d5ee6f4c34",
+        "SKU内容升级-20261124-143644",
+        "SKU内容升级-20261124-143651",
+        "frog-11944aab68304136b957e7addb24db71",
+        "青蛙联动-DynamicPeer-20261124-144855-2",
+        "青蛙联动-DynamicPeer-20261124-144855"
       ],
-      "last_used_task": "青蛙联动-DynamicPeer-20261119-155940-2"
+      "last_used_task": "青蛙联动-DynamicPeer-20261124-144855"
     },
     {
       "factor_id": "F-P-002",
@@ -882,8 +892,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 30,
-      "last_used_at": "2026-11-19 15:59:41",
+      "used_count": 34,
+      "last_used_at": "2026-11-24 14:48:56",
       "used_tasks": [
         "SKU内容升级-20261112-194353",
         "青蛙联动-botslab1112-01-20261112-195255",
@@ -914,9 +924,13 @@
         "青蛙联动-DynamicPeer-20261119-144815",
         "青蛙联动-DynamicPeer-20261119-150240",
         "青蛙联动-DynamicPeer-20261119-155940",
-        "青蛙联动-DynamicPeer-20261119-155940-2"
+        "青蛙联动-DynamicPeer-20261119-155940-2",
+        "SKU内容升级-20261124-143644",
+        "SKU内容升级-20261124-143651",
+        "青蛙联动-DynamicPeer-20261124-144855-2",
+        "青蛙联动-DynamicPeer-20261124-144855"
       ],
-      "last_used_task": "青蛙联动-DynamicPeer-20261119-155940-2"
+      "last_used_task": "青蛙联动-DynamicPeer-20261124-144855"
     },
     {
       "factor_id": "F-P-003",
@@ -934,8 +948,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 35,
-      "last_used_at": "2026-11-19 15:59:41",
+      "used_count": 41,
+      "last_used_at": "2026-11-24 14:48:56",
       "used_tasks": [
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
         "SKU内容升级-20261112-194353",
@@ -971,9 +985,15 @@
         "青蛙联动-DynamicPeer-20261119-150240",
         "frog-7931a4bc8bbb43cfb42f5f50640085a9",
         "青蛙联动-DynamicPeer-20261119-155940",
-        "青蛙联动-DynamicPeer-20261119-155940-2"
+        "青蛙联动-DynamicPeer-20261119-155940-2",
+        "frog-18fa3f57384f431f8b1b85d5ee6f4c34",
+        "SKU内容升级-20261124-143644",
+        "SKU内容升级-20261124-143651",
+        "frog-11944aab68304136b957e7addb24db71",
+        "青蛙联动-DynamicPeer-20261124-144855-2",
+        "青蛙联动-DynamicPeer-20261124-144855"
       ],
-      "last_used_task": "青蛙联动-DynamicPeer-20261119-155940-2"
+      "last_used_task": "青蛙联动-DynamicPeer-20261124-144855"
     },
     {
       "factor_id": "F-P-004",
@@ -1010,8 +1030,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 30,
-      "last_used_at": "2026-11-19 15:59:41",
+      "used_count": 34,
+      "last_used_at": "2026-11-24 14:48:56",
       "used_tasks": [
         "SKU内容升级-20261112-194353",
         "青蛙联动-botslab1112-01-20261112-195255",
@@ -1042,9 +1062,13 @@
         "青蛙联动-DynamicPeer-20261119-144815",
         "青蛙联动-DynamicPeer-20261119-150240",
         "青蛙联动-DynamicPeer-20261119-155940",
-        "青蛙联动-DynamicPeer-20261119-155940-2"
+        "青蛙联动-DynamicPeer-20261119-155940-2",
+        "SKU内容升级-20261124-143644",
+        "SKU内容升级-20261124-143651",
+        "青蛙联动-DynamicPeer-20261124-144855-2",
+        "青蛙联动-DynamicPeer-20261124-144855"
       ],
-      "last_used_task": "青蛙联动-DynamicPeer-20261119-155940-2"
+      "last_used_task": "青蛙联动-DynamicPeer-20261124-144855"
     },
     {
       "factor_id": "F-P-006",
@@ -1090,8 +1114,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 30,
-      "last_used_at": "2026-11-19 15:59:41",
+      "used_count": 34,
+      "last_used_at": "2026-11-24 14:48:56",
       "used_tasks": [
         "SKU内容升级-20261112-194353",
         "青蛙联动-botslab1112-01-20261112-195255",
@@ -1122,9 +1146,13 @@
         "青蛙联动-DynamicPeer-20261119-144815",
         "青蛙联动-DynamicPeer-20261119-150240",
         "青蛙联动-DynamicPeer-20261119-155940",
-        "青蛙联动-DynamicPeer-20261119-155940-2"
+        "青蛙联动-DynamicPeer-20261119-155940-2",
+        "SKU内容升级-20261124-143644",
+        "SKU内容升级-20261124-143651",
+        "青蛙联动-DynamicPeer-20261124-144855-2",
+        "青蛙联动-DynamicPeer-20261124-144855"
       ],
-      "last_used_task": "青蛙联动-DynamicPeer-20261119-155940-2"
+      "last_used_task": "青蛙联动-DynamicPeer-20261124-144855"
     },
     {
       "factor_id": "F-A-005",
