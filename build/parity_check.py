@@ -19,6 +19,7 @@ import importlib.util
 import json
 import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -294,9 +295,10 @@ def main():
         return 1
 
     print('== 7. 因子库一致性（本地 / GitHub / 青蛙包 / 平台根目录） ==')
+    factor_rel = 'geo-content-plan/assets/factor_library.json'
     factor_srcs = [
-        ('GitHub', REPO / 'geo-content-plan' / 'assets' / 'factor_library.json'),
-        ('本地 skill', LOCAL_SKILLS / 'geo-content-plan' / 'assets' / 'factor_library.json'),
+        ('GitHub(HEAD)', REPO / factor_rel),
+        ('本地 skill', LOCAL_SKILLS / factor_rel),
         ('平台根目录', local_platform / 'factor_library.json' if 'local_platform' in dir() else None),
     ]
     digests = {}
@@ -304,11 +306,17 @@ def main():
         if p is None or not p.exists():
             check('因子库 [%s] 存在' % label, False, '路径缺失: %s' % p)
             continue
-        digests[label] = md5_of(p)
+        # GitHub 侧取 HEAD（远端内容），其余取磁盘文件；比对时剔除使用计数与时间戳
+        lib = _load_repo_factor_lib() if label == 'GitHub(HEAD)' else _load_json(p)
+        if lib is None:
+            check('因子库 [%s] 可解析' % label, False, 'JSON 解析失败: %s' % p)
+            continue
+        digests[label] = _canonical_digest(_strip_volatile(lib))
         check('因子库 [%s] 存在' % label, True, p.name)
     if len(digests) >= 2:
         ok = len(set(digests.values())) == 1
-        check('因子库三端 MD5 一致', ok, ' / '.join('%s=%s' % (k, v[:8]) for k, v in digests.items()))
+        check('因子库三端一致（忽略使用计数/时间戳）', ok,
+              ' / '.join('%s=%s' % (k, v[:8]) for k, v in digests.items()))
     # 青蛙包 agent.md 必须内嵌因子库数据块（write/polish/diagnose 阶段读不到 plan 提示词）
     agent_md = (BUILD_DIR / 'dist' / 'agent.md')
     block_ok = False
@@ -317,16 +325,56 @@ def main():
         block_ok = '## 附：因子库数据' in atext and 'F-G-001' in atext and 'admission_factors' in atext
         check('agent.md 内嵌因子库数据块', block_ok)
         # 块内容必须与当前因子库一致：库变了但没重建包时 FAIL，防止青蛙端用旧权重
-        embed = _extract_factor_block(atext)
-        cur = _current_factor_compact()
-        check('agent.md 因子块与当前库一致', bool(embed) and bool(cur) and embed == cur,
-              '' if (embed and cur and embed == cur) else '因子库已变更，请重新构建青蛙包（python3 build/build_frog_package.py）')
+        embed = _strip_volatile(_extract_factor_block(atext)) if _extract_factor_block(atext) else None
+        cur = _strip_volatile(_current_factor_compact()) if _current_factor_compact() else None
+        same = bool(embed) and bool(cur) and embed == cur
+        check('agent.md 因子块与当前库一致（忽略使用计数/时间戳）', same,
+              '' if same else '因子库规则已变更，请重新构建青蛙包（python3 build/build_frog_package.py）')
     else:
         check('agent.md 内嵌因子库数据块', False, 'dist/agent.md 不存在，请先构建')
 
 
     print('校验结果：PASS —— 本地 / GitHub / 青蛙三端规则一致')
     return 0
+
+
+VOLATILE_FACTOR_KEYS = {'used_count', 'last_used_at', 'used_tasks', 'last_used_task', 'updated_at'}
+
+
+def _strip_volatile(obj):
+    """递归剔除因子库中的使用计数与时间戳，避免任务运行导致误报不一致。"""
+    if isinstance(obj, dict):
+        return {k: _strip_volatile(v) for k, v in obj.items() if k not in VOLATILE_FACTOR_KEYS}
+    if isinstance(obj, list):
+        return [_strip_volatile(v) for v in obj]
+    return obj
+
+
+def _canonical_digest(obj):
+    """对剔除易变字段后的对象做稳定序列化并取 MD5。"""
+    raw = json.dumps(obj, ensure_ascii=False, sort_keys=True, separators=(',', ':'))
+    return hashlib.md5(raw.encode('utf-8')).hexdigest()
+
+
+def _load_json(path):
+    """安全读取 JSON 文件，失败返回 None。"""
+    try:
+        return json.loads(Path(path).read_text(encoding='utf-8'))
+    except Exception:
+        return None
+
+
+def _load_repo_factor_lib():
+    """优先读取仓库 HEAD 版本（即 GitHub 远端内容），失败回退工作区文件。"""
+    rel = 'geo-content-plan/assets/factor_library.json'
+    try:
+        text = subprocess.check_output(
+            ['git', '-C', str(REPO), 'show', 'HEAD:%s' % rel],
+            stderr=subprocess.DEVNULL,
+        ).decode('utf-8')
+        return json.loads(text)
+    except Exception:
+        return _load_json(REPO / rel)
 
 
 def _extract_factor_block(text):

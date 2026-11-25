@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updated_at": "2026-11-24 14:48:56",
+  "updated_at": "2026-11-24 20:19:52",
   "generated_at": "2026-11-11",
   "status": "draft_cold_start",
   "scenario": "dtc_ecommerce",
@@ -131,8 +131,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 26,
-      "last_used_at": "2026-11-24 14:48:55",
+      "used_count": 30,
+      "last_used_at": "2026-11-24 20:19:52",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
         "frog-0e197a9540b240e993590dcc4d24969a",
@@ -159,9 +159,13 @@
         "frog-e34e25c1184341de87ee7c0b261e7b24",
         "frog-f5e3a265c3a24198b03d610282a8feb8",
         "frog-18fa3f57384f431f8b1b85d5ee6f4c34",
-        "frog-11944aab68304136b957e7addb24db71"
+        "frog-11944aab68304136b957e7addb24db71",
+        "frog-f1c55ed3dfa84018b2a25f3177e579d3",
+        "frog-d34c595a98a94778994321d65cda34d5",
+        "frog-a572c7518dba4772883d77db1c7ca200",
+        "frog-32896db6283b42b89657571a5ac3cb3e"
       ],
-      "last_used_task": "frog-11944aab68304136b957e7addb24db71"
+      "last_used_task": "frog-32896db6283b42b89657571a5ac3cb3e"
     },
     {
       "factor_id": "F-G-002",
@@ -177,8 +181,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 23,
-      "last_used_at": "2026-11-20 14:57:10",
+      "used_count": 27,
+      "last_used_at": "2026-11-24 20:19:52",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
         "frog-0e197a9540b240e993590dcc4d24969a",
@@ -202,9 +206,13 @@
         "frog-b96ab4b07c884777abc7acadecf87fd5",
         "frog-fc10056017dd409692cbfe42f4bfb540",
         "frog-e34e25c1184341de87ee7c0b261e7b24",
-        "frog-f5e3a265c3a24198b03d610282a8feb8"
+        "frog-f5e3a265c3a24198b03d610282a8feb8",
+        "frog-f1c55ed3dfa84018b2a25f3177e579d3",
+        "frog-d34c595a98a94778994321d65cda34d5",
+        "frog-a572c7518dba4772883d77db1c7ca200",
+        "frog-32896db6283b42b89657571a5ac3cb3e"
       ],
-      "last_used_task": "frog-f5e3a265c3a24198b03d610282a8feb8"
+      "last_used_task": "frog-32896db6283b42b89657571a5ac3cb3e"
     },
     {
       "factor_id": "F-G-003",
@@ -220,8 +228,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 26,
-      "last_used_at": "2026-11-24 14:48:55",
+      "used_count": 30,
+      "last_used_at": "2026-11-24 20:19:52",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
         "frog-0e197a9540b240e993590dcc4d24969a",
@@ -248,9 +256,13 @@
         "frog-e34e25c1184341de87ee7c0b261e7b24",
         "frog-f5e3a265c3a24198b03d610282a8feb8",
         "frog-18fa3f57384f431f8b1b85d5ee6f4c34",
-        "frog-11944aab68304136b957e7addb24db71"
+        "frog-11944aab68304136b957e7addb24db71",
+        "frog-f1c55ed3dfa84018b2a25f3177e579d3",
+        "frog-d34c595a98a94778994321d65cda34d5",
+        "frog-a572c7518dba4772883d77db1c7ca200",
+        "frog-32896db6283b42b89657571a5ac3cb3e"
       ],
-      "last_used_task": "frog-11944aab68304136b957e7addb24db71"
+      "last_used_task": "frog-32896db6283b42b89657571a5ac3cb3e"
     },
     {
       "factor_id": "F-G-004",
@@ -332,8 +344,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 21,
-      "last_used_at": "2026-11-20 14:57:10",
+      "used_count": 25,
+      "last_used_at": "2026-11-24 20:19:52",
       "used_tasks": [
         "frog-0e197a9540b240e993590dcc4d24969a",
         "frog-46f17ba9484a4614a73c7cdc0bd79ecc",
@@ -355,9 +367,13 @@
         "frog-b96ab4b07c884777abc7acadecf87fd5",
         "frog-fc10056017dd409692cbfe42f4bfb540",
         "frog-e34e25c1184341de87ee7c0b261e7b24",
-        "frog-f5e3a265c3a24198b03d610282a8feb8"
+        "frog-f5e3a265c3a24198b03d610282a8feb8",
+        "frog-f1c55ed3dfa84018b2a25f3177e579d3",
+        "frog-d34c595a98a94778994321d65cda34d5",
+        "frog-a572c7518dba4772883d77db1c7ca200",
+        "frog-32896db6283b42b89657571a5ac3cb3e"
       ],
-      "last_used_task": "frog-f5e3a265c3a24198b03d610282a8feb8"
+      "last_used_task": "frog-32896db6283b42b89657571a5ac3cb3e"
     },
     {
       "factor_id": "F-G-007",
@@ -396,13 +412,15 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 2,
-      "last_used_at": "2026-11-20 14:57:10",
+      "used_count": 4,
+      "last_used_at": "2026-11-24 20:19:52",
       "used_tasks": [
         "frog-e34e25c1184341de87ee7c0b261e7b24",
-        "frog-f5e3a265c3a24198b03d610282a8feb8"
+        "frog-f5e3a265c3a24198b03d610282a8feb8",
+        "frog-d34c595a98a94778994321d65cda34d5",
+        "frog-32896db6283b42b89657571a5ac3cb3e"
       ],
-      "last_used_task": "frog-f5e3a265c3a24198b03d610282a8feb8"
+      "last_used_task": "frog-32896db6283b42b89657571a5ac3cb3e"
     },
     {
       "factor_id": "F-G-009",
@@ -543,8 +561,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 22,
-      "last_used_at": "2026-11-20 14:57:10",
+      "used_count": 26,
+      "last_used_at": "2026-11-24 20:19:52",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
         "frog-0e197a9540b240e993590dcc4d24969a",
@@ -567,9 +585,13 @@
         "frog-b96ab4b07c884777abc7acadecf87fd5",
         "frog-fc10056017dd409692cbfe42f4bfb540",
         "frog-e34e25c1184341de87ee7c0b261e7b24",
-        "frog-f5e3a265c3a24198b03d610282a8feb8"
+        "frog-f5e3a265c3a24198b03d610282a8feb8",
+        "frog-f1c55ed3dfa84018b2a25f3177e579d3",
+        "frog-d34c595a98a94778994321d65cda34d5",
+        "frog-a572c7518dba4772883d77db1c7ca200",
+        "frog-32896db6283b42b89657571a5ac3cb3e"
       ],
-      "last_used_task": "frog-f5e3a265c3a24198b03d610282a8feb8"
+      "last_used_task": "frog-32896db6283b42b89657571a5ac3cb3e"
     },
     {
       "factor_id": "F-A-004",
@@ -589,8 +611,8 @@
       "is_new": false,
       "source": "v1_draft",
       "created_at": "2026-11-11",
-      "used_count": 20,
-      "last_used_at": "2026-11-20 14:57:10",
+      "used_count": 24,
+      "last_used_at": "2026-11-24 20:19:52",
       "used_tasks": [
         "frog-11dd7f3ff1bd489f94f4b02a2f2fb577",
         "frog-0e197a9540b240e993590dcc4d24969a",
@@ -611,9 +633,13 @@
         "frog-b96ab4b07c884777abc7acadecf87fd5",
         "frog-fc10056017dd409692cbfe42f4bfb540",
         "frog-e34e25c1184341de87ee7c0b261e7b24",
-        "frog-f5e3a265c3a24198b03d610282a8feb8"
+        "frog-f5e3a265c3a24198b03d610282a8feb8",
+        "frog-f1c55ed3dfa84018b2a25f3177e579d3",
+        "frog-d34c595a98a94778994321d65cda34d5",
+        "frog-a572c7518dba4772883d77db1c7ca200",
+        "frog-32896db6283b42b89657571a5ac3cb3e"
       ],
-      "last_used_task": "frog-f5e3a265c3a24198b03d610282a8feb8"
+      "last_used_task": "frog-32896db6283b42b89657571a5ac3cb3e"
     },
     {
       "factor_id": "F-C-001",
