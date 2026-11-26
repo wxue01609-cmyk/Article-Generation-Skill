@@ -13,7 +13,10 @@
 | 原始 HTML 正文词数（不执行 JS） | 脚本 | 低于 150 词提示内容依赖 JS 渲染，部分 AI 爬虫读不到 |
 | title / meta description / 单一 H1 | 脚本 | 主题识别弱 |
 | JSON-LD 类型与解析错误 | 脚本 | 实体与商品信息不可机读 |
-| sitemap 可访问 | 脚本 | 新页面发现慢 |
+| sitemap 可访问，且 `lastmod` 与页面实际更新日期一致 | 脚本 | 新页面发现慢，引用滞后 |
+| sitemap 已在 Google Search Console 与 Bing Webmaster Tools 提交 | 人工（向客户确认） | ChatGPT 检索依赖 Bing/OAI 索引，未提交等于收录慢半拍 |
+| 用 `curl -A "OAI-SearchBot"` 访问目标页，返回 200 且正文可见（非 403/验证码/JS 空壳） | 脚本 + 人工 | 页面进不了 AI 检索，判 `crawl_blocked` |
+| 文章类页面有 Article / FAQPage JSON-LD，且与可见文本一致 | 脚本 | 实体与问答不可机读，AI 摘要易漏 |
 | llms.txt | 脚本记录 | 目前没有证据表明它影响引用，只记录，不作为问题 |
 | 问题族是否有对应的自有页面、页面是否直接回答核心问法 | 人工 | `not_selected` / `cited_not_mentioned` 的主要原因 |
 | 品牌名、品类、核心能力在官网各页面描述是否一致 | 人工 | 实体混淆、描述错误 |

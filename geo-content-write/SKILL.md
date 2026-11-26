@@ -51,6 +51,8 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
      - 外链锚文本必须具名（如 "NIST Cybersecurity Framework"），不得写 "click here"；一律 `target="_blank" rel="noopener"`。平台成稿后会跑代码级检查（`qa/link_check.json`），竞品链接直接判失败。
 6. 输出文件（普通资产唯一交付物是 HTML，不是 Markdown）：
    - 每个资产写 `assets/<asset_type>/<asset_id>.html`：完整可发布页面，必须包含 `<!doctype html>`、`<html>`、`<head><meta charset><meta name="viewport"><title><style>…</style></head>`、`<body>`。
+   - **head 结构化字段（强制）**：`<head>` 还必须包含 `<meta name="description">`、`<link rel="canonical" href="最终发布绝对URL">`（`target_url` 是相对路径时拼 `site_inventory` 域名；客户没给域名时省略 canonical，平台只记提示）、`og:title` / `og:description` / `og:type` / `og:url`、`<meta name="author">`、`article:published_time` / `article:modified_time`，以及 `Article` JSON-LD（headline / description / datePublished / dateModified / author / publisher / inLanguage）；正文有 FAQ 区块时再加 `FAQPage` JSON-LD，问答文字必须与页面可见内容一致。平台成稿后会做代码校验（`qa/结构化检查.md`），新任务缺项直接阻断。
+   - **E-E-A-T（作者与一手经历）**：作者写品牌方编辑部或客户提供的真实作者/审稿人（`fields.author_name` / `fields.reviewer_name`），禁止编造人名、头衔与资质。只有拿到客户提供的实测数据、用户反馈或内部测试记录（附件 / 证据账本）时才允许写 `we tested`、`hands-on`、`实测`、`我们测试了` 这类口吻；没有材料就改为引用公开标准或第三方评测，不得虚构体验、拍摄、拆机、对比测试。每个核心结论尽量给出可核验依据（标准、认证、官方文档、公开数据）并写明来源名称。
    - 样式全部内联在 `<style>` 中，禁止外链 CSS/JS/字体；响应式，移动端可读；正文用语义化 `h1/h2/p/ul/ol/table/blockquote`，CTA 用可见按钮样式。
    - 不要用 ```html 代码块包裹；不要只输出 Markdown。可另写同名 `.md` 作为内部底稿，但不得作为交付物。
    - `asset_index.json` 的 `file` 字段必须指向 `.html`；全部完成后写 `assets/asset_index.json`：`[{asset_id, asset_type, stage, title, file, word_count, used_factors: [], checks: []}]`；`used_factors` 写本资产实际执行到的因子 id（供平台取消“新增”标注）。

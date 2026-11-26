@@ -100,6 +100,8 @@ th { background: #f6f8fa; font-weight: 600; }
 3. **打分**：`score = 100 × 命中因子的 weight 之和 ÷ Brief factors 的 weight 之和`；grade：≥85 excellent、≥70 pass、<70 fail。
 4. **fail 处理**：只重写命中失败因子的段落，最多 2 轮；2 轮后仍 <70 标 `needs_human`，不得整篇重写掩盖问题。
 5. **组合重复与套话（保留为 warning）**：同一 `stage` 内 ≥3 个资产、且 ≥80% 的因子组合完全相同 → warning「因子组合疑似套模板」，附复用理由（item.factor_reason）时放行；同一批 `authority_actions` 命中通用套话 ≥2 条（如「首段直答 / 拆 H2 / 列表/表格承载 / 只写可核验事实 / 单一主 CTA」）→ warning「权威动作过于通用，需按 query 具体化」。
+第 5 关的结构化与重复度以平台代码校验结果为准：`qa/head_check.json`、`qa/similarity_check.json` 为 blocking 时，不得在报告里放行；模型只负责修复，不负责改判。
+
 结果写入 `polish_report.json` 的 `factor_audit`（按 stage/asset：`{asset_id, stage, score, grade, factors:[{factor_id, name, check, result, evidence}], admission, needs_human}`），进入 summary 汇总。
 
 ### 五关（每关都要给 pass / warning / blocking）
@@ -109,7 +111,7 @@ th { background: #f6f8fa; font-weight: 600; }
 | 2 证据 | SKU：改后属性带 `evidence_id` 且能在 `evidence/ledger.json` 查到 `verified` + `approved_for_publication=true` 的 claim；普通资产：每条 proof_point 有出处（facts 表条目 / 抓取快照 / 客户资料） | 有账本但改后属性无 `evidence_id` / 编号在账本查不到或未通过核验；**无账本（未建 evidence/ledger.json）也判 blocking**，不得静默放行 | 回退该属性或补证据；确实没有可核资料时，把相关数字改成定性表述或省略，并在 `qa/事实核验.md` 说明 |
 | 3 可提取 | answer-first：首段是否给结论、H2 是否可被单独引用、是否有可摘取清单/表格 | 首段无结论且全文无结构化要点 | 补结论段/摘要段 |
 | 4 渠道 | 官网资产无竞品名与对比表；三方评测有披露；社区问答 0 链接 0 促销；文章类资产有 1 条权威外链或 `checks` 注明省略原因，且无竞品链接/推荐竞品页面 | 官网资产出现竞品名；出现竞品官网链接或推荐/对比竞品的页面链接 | 改写为类别级判断；删掉竞品链接，换成政府/标准/学术来源或直接省略 |
-| 5 分发 | `asset_index.json` 与磁盘文件一一对应、`stage_index.json` 与 index 一致、字数 ±20%、站外链接 `target="_blank" rel="noopener"` | 索引与文件对不上 / 字数超范围 | 补索引或补内容 |
+| 5 分发 | `asset_index.json` 与磁盘文件一一对应、`stage_index.json` 与 index 一致、字数 ±20%、站外链接 `target="_blank" rel="noopener"`；**head 结构化**（canonical / Article JSON-LD / dateModified / 作者 / og，见 `qa/head_check.json`、`qa/结构化检查.md`）；**规模化红线**（同 cluster ≤2 篇、5-gram 相似度 <0.35，见 `qa/similarity_check.json`、`qa/重复度检查.md`）；客户自有域名产出 `qa/发布前检查清单.md`（robots 放行 OAI-SearchBot/GPTBot/Googlebot/Bingbot、sitemap、GSC + Bing 提交） | 索引与文件对不上 / 字数超范围 / 缺 canonical、Article JSON-LD、更新时间或作者 / cluster 超过 2 篇或判定近重复 | 补索引或补内容；补 head 字段（客户未提供域名时 canonical 只记 warning）；合并或重写同构文章 |
 
 ### 输出 polish_report.json
 ```json

@@ -30,7 +30,9 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
 1. **清洗 query**：`keyword_pack` 每行一条；`topics` 提供主题归属；按大小写/单复数/标点归一后去重，问句保留原始问法。
 2. **意图分类**：逐条按 [references/intent-map.md](references/intent-map.md) 判定，必须写 `intent_signals`（词面证据）与 `confidence`。
 3. **节点归属（stage）**：逐条把 query 归到三层（`ai_exposure` AI曝光 / `pdp` 转化层 / `conversion` 对比决策）。存在 `plan/path_plan.json` 时直接用其 `stage` / `secondary_stage`；缺失时按 [references/stage-map.md](references/stage-map.md) 就地打标（1 主节点 + 1 次节点，次节点可 null）。stage 只决定「在哪层发力」，不替代渠道落位。
-4. **聚合 cluster**：同实体 + 同意图 + 同主题合并；一个 query 只能有一个 `primary_query` 归属。
+4. **聚合 cluster**：同实体 + 同意图 + 同主题合并；一个 query 只能有一个 `primary_query` 归属。**每个 item 必须写 `cluster`**（同主题聚合标识，建议「主实体-主题」），平台按它做规模化检查。
+   - **规模化红线**：同一 `cluster` 最多 2 篇（1 篇 pillar + 1 篇 supporting）。同 cluster 超过 2 条 query 时，必须合并进同一资产的 `secondary_keywords` 或正文小节，禁止按 query 变体（同义改写、长尾堆叠）批量造页。
+   - 平台成稿后会做 cluster 上限与近重复（5-gram 相似度）检查，见 `qa/重复度检查.md`；新任务超限或判定为同构内容即阻断，需合并重写。
 5. **渠道落位**：按 [references/channel-map.md](references/channel-map.md) 的决策树选择 `channel` / `asset_type`；只允许使用 `fields.asset_types` 里启用的类型；无法落位的进 `gaps`。
 5.5 **因子库（决定 Brief 的重点与排序）**：读取 `factor_library.json`（优先平台根目录实时库；skill 内 `assets/factor_library.json` 为 v1 草案兜底）。
    - 每个资产按 `stage` 选 2-4 个重点因子：全局因子（`category=global`）+ 本层因子（`category=stage` 且 `stage` 匹配），写入 item 的 `factors`（因子 id 数组）。
