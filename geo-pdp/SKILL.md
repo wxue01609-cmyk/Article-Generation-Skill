@@ -10,7 +10,7 @@ description: 海外 GEO 商品数据交付 skill（独立站电商专用，双�
 内容建设通道：处理矩阵中 `asset_type=sku` 且挂 `source_page`、需要 feed/JSON-LD 交付的资产（由 agent 编排按 `selected_asset_ids` 决定是否进入本轮）。SKU 改造通道：只处理 `executor=geo-pdp` 的改动卡，仅用于 `dtc_ecommerce` 场景。
 
 ## 前置条件（两条通道二选一）
-- 内容建设通道：`content_matrix.json` 中该 sku 资产已确认（`selected_asset_ids` 含它或全选），有 `source_page`/`source_url`，且 `evidence/evidence_map.json` 中该资产的可用 claim 覆盖其交付所需硬事实；证据不足的资产只产出“待补资料清单”。
+- 内容建设通道：`content_matrix.json` 中该 sku 资产已确认（`selected_asset_ids` 含它或全选），有 `source_page`/`source_url`；有 `evidence/evidence_map.json` 时优先使用其中可发布的 claim，没有账本时只写页面快照/知识库可见的事实，并在 `manifest.json` 标注 `evidence_status: missing`（交 geo-polish 记 warning）；证据不足的字段一律留空并列入“待补资料清单”，不得编造。
 - SKU 改造通道：改动卡 `status=planned`、`selected=true`，且证据账本中该卡 `change_coverage.status=ok`。
 - 现状资料：线上页面（`source/index.json` 对应页面或 `contract.inputs.ecommerce.pdp_export`）、feed 导出（如有）。
 

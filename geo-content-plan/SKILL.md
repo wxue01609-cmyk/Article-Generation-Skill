@@ -55,10 +55,16 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
 
 5.7 **企业类型资产倾斜（fields.business_type 命中时生效）**：读取 `business_profiles.json`。优先使用任务提示词中已内联/展开的档案数据（平台会在命中时直接展开本任务的渠道优先级与角度提示）；否则读取 skill 内 `assets/business_profiles.json`；两者都读不到时跳过本节。按 `aliases` 把 `fields.business_type` 映射到 profile key（B2B 制造商→b2b_manufacturer、B2C 品牌→b2c_brand、DTC 独立站→dtc_ecommerce、SaaS 软件→saas、服务型企业→service_provider）；未填、填「不确定（按通用）」或映射不到时**跳过本节**，完全走第 5 步既有决策树。命中档案时必须遵守：
    - **渠道落位校准**：第 5 步决策树给出多个合法候选、或同一条 query 可落多个 `asset_type` 时，按档案 `channel_priority` 的顺序优先（如 B2B 制造商：category > sku > landing（行业方案）> blog（案例/技术）；服务型企业：landing（地区页）> blog（案例/评价）> faq > category）；仍只允许 `fields.asset_types` 中启用的类型，硬约束不变（官网禁竞品、对比只落三方等）。
-   - **资产配比**：`asset_budget` 有限、按 P0→P2 截断时，同优先级下按 `channel_priority` 保前类资产；`focus_assets` 是档案预期的核心资产形态，如 B2B 的「产品分类/产品详情/行业方案/案例」、SaaS 的「功能页/行业解决方案/对比页/教程」。
+   - **资产配比**：`asset_budget` 有限、按 P0→P2 截断时，同优先级下按 `channel_priority` 保前类资产；`focus_assets` 是档案预期的核心资产形态，如 B2B 的「产品分类/产品详情/行业方案/案例」、SaaS 的「功能页/行业解决方案/能力对比页（自家功能对比，不点名竞品）/教程」。
    - **Brief 角度与权威动作**：按档案 `angle_hints` 落到 item 的 `angle` 与 `authority_actions`（如 B2B 偏规格/认证/OEM/案例证据，SaaS 偏功能价值/行业方案/对比边界/上手教程，服务型偏本地可达/案例评价/资质流程）；动作所需数据仍只能来自采样/知识库/抓取/证据账本，查不到写「待核验」或省略。
    - **内链组织**：按档案 `link_pattern` 组织站内互链（如 B2B：类目页→产品详情→行业方案→案例；服务型：地区页→服务页→案例/评价），内链目标仍必须在矩阵里有对应 `target_url`，禁止死链。
    - 企业类型只影响「形态/配比/角度/内链」，不改变意图判定、分层（stage）、证据与事实规则；与第 0 步采样基线、第 5.5 因子库并行生效，互不覆盖。
+
+5.8 **写作档位与内容目标（fields.article_length / fields.content_goal）**：
+   - `article_length`：`标准` → 按 [references/asset-specs.md](references/asset-specs.md) 的默认字数区间；`长文` → 在该类型上限基础上上浮 50%，并在每个 item 的 `word_count` 写入具体目标字数。
+   - `content_goal`（多选）：按目标调整资产配比与排序——`AI 引用/被推荐` 优先 blog/category/faq/三方评测；`自然搜索流量` 优先 category/landing/blog；`线索/询盘转化` 优先 landing/sku/faq；`第三方渠道铺量` 优先 thirdparty_pr/thirdparty_review/qna。多目标冲突时按上述顺序加权。
+   - 设置 `content_goal` 时，必须在 `summary.content_goal_applied` 写实际生效的目标短语（未设置留空），供 `check_matrix.py` 追溯是否真的落到方案；只写进字段、`summary` 不体现的，按 warning 处理。
+   - 两者只影响配比、排序与字数目标，不改变意图判定、stage 分层、事实与证据规则。
 
 6. **匹配待改造页面**：读取 `source/index.json`。当某条 query 被判为 `asset_type=sku`、且可用页面与 query 指向同一型号/品类时，按下面规则挂载改造信息：
    - item 增加 `source_page`（可用页面的 `page` 序号）、`source_url`（页面 `final_url`）、`rewrite_mode: "existing_page"`；
@@ -110,8 +116,8 @@ description: 海外内容建设第一阶段（策略规划）。读取 query 词
 
 ## 硬性规则
 - 方案阶段禁止写正文、段落草稿、完整文案；`outline` 只写小标题与要点，`key_points` 用短句。
-- `asset_budget` 是资产总数上限；超预算按 P0→P2 截断，剩余 query 进 `gaps`，`reason` 写 `budget`。
-- `article_count` 是可发布文章数量下限：只有文章类资产（blog / landing / category / pr / review / community / social / listing / faq）计入文章数，SKU 改造不计；规划时先保证文章类资产数 ≥ `article_count`（不足时把低价值非文章 query 改落为文章类；启用类型中没有文章类可用的，在 `risk_notes` 说明），再在预算内补其它资产。
+- `asset_budget` 是资产总数上限；超预算按 P0→P2 截断，剩余 query 进 `gaps`，`reason` 写 `budget`。预算不足以同时满足篇数下限时，先保 `article_count`，再压缩其它资产，禁止为了凑资产数顶破预算。
+- `article_count` 是可发布文章数量下限：只有文章类资产（blog / landing / category / thirdparty_pr / thirdparty_review / qna / social / ecommerce / faq）计入文章数，SKU 改造不计；规划时先保证文章类资产数 ≥ `article_count`（不足时把低价值非文章 query 改落为文章类；启用类型中没有文章类可用的，在 `risk_notes` 说明），再在预算内补其它资产。
 - 对比/替代/review 类只允许落三方媒体；官网只能写类别级判断标准，不点名竞品。**官网不做任何形式的竞品对比页——包括有证据的客观对比（即使逐项参数有真实来源，也不允许在官网点名竞品）**；坚持该口径，避免官网对比内容被 AI 当作竞品对比来源。
 - query 含问号或疑问词时，原问句必须进入对应 Brief 的 `query_text` 或 FAQ 问题列表。
 - 给了 URL 不等于必须改造：只有页面与 query 的产品/型号匹配时才挂 `source_page`；不匹配就在 `risk_notes` 说明并放弃使用该页面。

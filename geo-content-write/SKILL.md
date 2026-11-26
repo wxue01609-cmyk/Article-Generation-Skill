@@ -26,8 +26,9 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 3. 每个资产按 [references/asset-specs.md](references/asset-specs.md) 的类型模板成稿，严格遵守 brief：
    - 标题、角度、H 结构、要点顺序、CTA、内链锚文本不得偏离 brief；确需调整时在 `asset_index.json` 的 `checks` 里说明。
    - `word_count` ±20% 内；FAQ 问题保留原问句。
-   - **因子落实**：先按 id 查 `factor_library.json` 的 `definition` / `check` / `action`，再逐条落进正文（如 F-G-001 首段直接答案 → 首段 60 词内给结论；F-C-005 售后政策模块 → 独立政策小节），并用该因子的 `check`（优先取 item.factor_details 里的 `check`）自检是否真的做到；`authority_actions` 逐条执行，无法执行时在 `checks` 写明原因。`used_factors` 写实际落实的因子 id，未落实的必须写进 `checks` 说明，不得静默跳过。若同批 ≥3 篇因子组合完全相同，自查是否同诉求；不同诉求同一组合的，按 brief 的 `factor_reason` 调整各篇重点段落。`authority_actions` 里的具体动作数据查不到就标「待核验」并写进 `checks`，不得编造。
-   - 内链只允许指向本次生成（`selected_asset_ids` 内且产出 `assets/<type>/<id>.html`）的站内资产与真实 https 外部页；Brief 中指向未勾选/未生成资产的站内链接一律不写（平台会在成稿后统一清洗，避免死链）。
+   - **因子落实**：先按 id 查 `factor_library.json` 的 `definition` / `check` / `action`，再逐条落进正文（如 F-G-001 首段直接答案 → 首段 60 词内给结论；F-C-005 售后政策模块 → 独立政策小节），并用该因子的 `check`（优先取 item.factor_details 里的 `check`）自检是否真的做到；`authority_actions` 逐条执行，无法执行时在 `checks` 写明原因。`used_factors` 写实际落实的因子 id，未落实的必须写进 `checks` 说明，不得静默跳过。若同批 ≥3 篇因子组合完全相同，自查是否同诉求；不同诉求同一组合的，按 brief 的 `factor_reason` 调整各篇重点段落。`authority_actions` 里的具体动作数据查不到，就在 `checks` 里注明「数据待核验」，正文不写，不得编造。
+   - 内链只允许指向三类目标：本次生成（`selected_asset_ids` 内且产出 `assets/<type>/<id>.html`）的站内资产、`site_inventory` 里真实存在的站内页面、真实 https 外部页；Brief 中指向未勾选/未生成、且不在 `site_inventory` 的规划路径一律不写（平台会在成稿后统一清洗，避免死链）。
+   - 官网内容类资产（blog / landing / category / faq）正文至少带 1 条指向 `site_inventory` 真实页面的官网链接（首页/产品页/服务页均可，锚文本具名），用于强化站内权威与转化路径；社区问答仍按 0 链接执行；没有 `site_inventory` 时省略，不得用未发布路径凑数。
 3.5 **本地化执行（按目标市场，只改说法不改事实）**：读取 `locale_profiles.json`（优先平台根目录实时库；skill 内 `assets/locale_profiles.json` 兜底），按 `fields.target_market` 解析市场代码：
    - 该市场 `level=hard` 的 wrong 词禁止出现，一律用 right 词（新加坡：MRT 不用 railway、car park 不用 parking lot；英式：colour/centre/lift）；`soft` 词条同样必须采用（soft 与 hard 同权必改）；
    - 拼写变体整篇统一（en-US 或 en-GB），不混用 color/colour、center/centre、-ize/-ise；
@@ -36,7 +37,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
    - `whitelist`（白名单词）命中时不算 wrong 词误报；备注方括号里的中文含义（如【共管公寓】）出现却没用白名单词时，改用 `whitelist` 里的说法；
    - 本地化只改说法、单位、案例与本地引用，产品事实、参数、价格、证据规则不变。
 
-4. 事实铁律：只能来自 `facts/<brand>-<model>.json` 事实表、`attachments/` 客户资料、`source/` 抓取快照；**brief 不是事实源**。正文每个具体数字/参数/价格必须能在事实表里找到同型号同单位条目，并用 `data-fact="<fact_id>"` 标注；对不上的一律不写（改定性或省略）；平台会在成稿后做代码级数字比对，不通过直接判失败。普通资产 brief 中 `待核验` 内容照写并保留标注；SKU 改造资产按 [references/source-rewrite.md](references/source-rewrite.md) 的发布规则，正文不写 `待核验`，查不到就省略；禁止编造参数、价格、案例、客户。
+4. 事实铁律：只能来自 `facts/<brand>-<model>.json` 事实表、`attachments/` 客户资料、`source/` 抓取快照；**brief 不是事实源**。正文每个具体数字/参数/价格必须能在事实表里找到同型号同单位条目，并用 `data-fact="<fact_id>"` 标注；对不上的一律不写（改定性或省略）；平台会在成稿后做代码级数字比对，不通过直接判失败。`待核验` 只允许出现在 Brief 或 `checks` 备注里，**正文不得出现「待核验 / pending verification / 来源备注」等审核语**；正文只写事实表能核到的数字与断言，查不到就改定性或省略；SKU 改造资产按 [references/source-rewrite.md](references/source-rewrite.md) 的发布规则处理，查不到同样省略；禁止编造参数、价格、案例、客户。
 4.5 **定性断言同样受事实约束**：USB/Type-C 供电、硬接线、内置电池、投屏/CarPlay、吸盘/后视镜/背胶支架、内置 GPS、四路/三路/双录 —— 事实表对应字段（`power` / `mount` / `gps` / `carplay` / `cameras`）没有该取值时不得写；否定表述（`does not support …` / 不支持）不算违规。
    - 型号核心字段命中 < 5 项时（事实表 `param_capable=false`），本篇只写定性描述，不写任何具体参数。
    - 平台成稿后会跑代码级数字比对 + 定性断言比对（`qa/facts_check.json`），命中即判失败。

@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updated_at": "2026-11-24 20:19:52",
+  "updated_at": "2026-11-26 19:38:31",
   "generated_at": "2026-11-11",
   "status": "draft_cold_start",
   "scenario": "dtc_ecommerce",
@@ -38,6 +38,12 @@
       "action": "merge",
       "note": "合并同名近重复因子「平台与房源真实性核验路径」（F-A-012 → F-A-010，权重相加）；从 GitHub 恢复「新加坡官方规则口径复核（HDB/URA/MOE/CEA）」并改用 F-G-011 避免 id 冲突；层内权重重新归一",
       "factors": 37
+    },
+    {
+      "at": "2026-11-26",
+      "action": "scope",
+      "note": "因子加适用范围（scope.industries/markets）：自动沉淀的房产/洗鼻/行车记录仪因子不再跨行业复用；a-05 明确未发布资产记 not_applicable；补全 F-A-011 的 check/action",
+      "factors": 9
     }
   ],
   "admission_factors": [
@@ -45,7 +51,7 @@
       "factor_id": "a-01",
       "name": "核心 claim 全部 verified 且 approved_for_publication",
       "basis": "geo-evidence：核心 claim 有 blocked 禁止出终稿",
-      "check": "evidence/evidence_map.json 覆盖检查通过",
+      "check": "有证据账本时：evidence/evidence_map.json 覆盖检查通过；无账本（ledger_missing=true）记 not_applicable，改由事实闸门 facts_check 与商品页抓取快照兜底",
       "status": "active"
     },
     {
@@ -73,7 +79,7 @@
       "factor_id": "a-05",
       "name": "页面可抓取（200 + 无 noindex / robots 拦截）",
       "basis": "失败层 crawl_blocked：页面抓不到，改内容无意义",
-      "check": "site_audit 抓取状态 ok",
+      "check": "已存在页面：site_audit 抓取状态 ok 且无 noindex/robots 拦截；本次新写、尚未发布的资产记 not_applicable，发布后再回测",
       "status": "active"
     },
     {
@@ -1206,7 +1212,19 @@
         "frog-d6e3e691ccbd46d2ac36e5f71916b0f7",
         "frog-e7225d2e336c418bb71f0ed7cb1a7744"
       ],
-      "last_used_task": "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+      "last_used_task": "frog-e7225d2e336c418bb71f0ed7cb1a7744",
+      "scope": {
+        "industries": [
+          "行车记录仪",
+          "dash cam",
+          "行车",
+          "汽配",
+          "carplay",
+          "车载",
+          "摩托车",
+          "motorcycle"
+        ]
+      }
     },
     {
       "factor_id": "F-A-006",
@@ -1233,7 +1251,19 @@
         "frog-e34e25c1184341de87ee7c0b261e7b24",
         "frog-f5e3a265c3a24198b03d610282a8feb8"
       ],
-      "last_used_task": "frog-f5e3a265c3a24198b03d610282a8feb8"
+      "last_used_task": "frog-f5e3a265c3a24198b03d610282a8feb8",
+      "scope": {
+        "industries": [
+          "行车记录仪",
+          "dash cam",
+          "行车",
+          "汽配",
+          "carplay",
+          "车载",
+          "摩托车",
+          "motorcycle"
+        ]
+      }
     },
     {
       "factor_id": "F-A-007",
@@ -1259,7 +1289,19 @@
         "frog-e34e25c1184341de87ee7c0b261e7b24",
         "frog-f5e3a265c3a24198b03d610282a8feb8"
       ],
-      "last_used_task": "frog-f5e3a265c3a24198b03d610282a8feb8"
+      "last_used_task": "frog-f5e3a265c3a24198b03d610282a8feb8",
+      "scope": {
+        "industries": [
+          "行车记录仪",
+          "dash cam",
+          "行车",
+          "汽配",
+          "carplay",
+          "车载",
+          "摩托车",
+          "motorcycle"
+        ]
+      }
     },
     {
       "factor_id": "F-A-008",
@@ -1285,7 +1327,19 @@
       "used_tasks": [
         "frog-e7225d2e336c418bb71f0ed7cb1a7744"
       ],
-      "last_used_task": "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+      "last_used_task": "frog-e7225d2e336c418bb71f0ed7cb1a7744",
+      "scope": {
+        "industries": [
+          "行车记录仪",
+          "dash cam",
+          "行车",
+          "汽配",
+          "carplay",
+          "车载",
+          "摩托车",
+          "motorcycle"
+        ]
+      }
     },
     {
       "factor_id": "F-A-009",
@@ -1311,7 +1365,19 @@
       "used_tasks": [
         "frog-e7225d2e336c418bb71f0ed7cb1a7744"
       ],
-      "last_used_task": "frog-e7225d2e336c418bb71f0ed7cb1a7744"
+      "last_used_task": "frog-e7225d2e336c418bb71f0ed7cb1a7744",
+      "scope": {
+        "industries": [
+          "行车记录仪",
+          "dash cam",
+          "行车",
+          "汽配",
+          "carplay",
+          "车载",
+          "摩托车",
+          "motorcycle"
+        ]
+      }
     },
     {
       "factor_id": "F-A-010",
@@ -1345,7 +1411,24 @@
       "merged_from": [
         "F-A-012"
       ],
-      "merge_note": "2026-11-20 合并同名近重复因子 F-A-012，权重相加，使用记录取并集"
+      "merge_note": "2026-11-20 合并同名近重复因子 F-A-012，权重相加，使用记录取并集",
+      "scope": {
+        "industries": [
+          "房产",
+          "地产",
+          "real estate",
+          "property",
+          "condo",
+          "hdb",
+          "condominium",
+          "中介"
+        ],
+        "markets": [
+          "新加坡",
+          "singapore",
+          "sg"
+        ]
+      }
     },
     {
       "factor_id": "F-A-011",
@@ -1357,8 +1440,8 @@
       ],
       "weight": 0.024,
       "definition": "方案自动落入：任务发现的新因子（待完善）",
-      "check": "-",
-      "action": "-",
+      "check": "正文能区分一体式（摄像+冲洗+回收）与分离式/纯观察两类形态，并给出各自适用人群与判断依据",
+      "action": "按「形态判别 → 适用人群 → 使用边界」三段写，形态以产品实物结构为准，不臆造功能",
       "status": "active",
       "is_new": false,
       "source": "task:frog-6142af43f560470f8154c4c2302385d0",
@@ -1370,7 +1453,17 @@
         "frog-6142af43f560470f8154c4c2302385d0",
         "frog-47be6df0728943c083fa663863da025f"
       ],
-      "last_used_task": "frog-47be6df0728943c083fa663863da025f"
+      "last_used_task": "frog-47be6df0728943c083fa663863da025f",
+      "scope": {
+        "industries": [
+          "洗鼻",
+          "鼻腔",
+          "nasal",
+          "sinus",
+          "saline",
+          "rhinitis"
+        ]
+      }
     },
     {
       "factor_id": "F-A-013",
@@ -1390,7 +1483,19 @@
       "source": "task:frog-e34e25c1184341de87ee7c0b261e7b24",
       "created_at": "2026-11-20 14:52:38",
       "used_count": 0,
-      "last_used_at": null
+      "last_used_at": null,
+      "scope": {
+        "industries": [
+          "行车记录仪",
+          "dash cam",
+          "行车",
+          "汽配",
+          "carplay",
+          "车载",
+          "摩托车",
+          "motorcycle"
+        ]
+      }
     },
     {
       "factor_id": "F-G-011",
@@ -1419,7 +1524,24 @@
         "frog-1ba4f5e3d03948c882163f668f6c9c54"
       ],
       "last_used_task": "frog-1ba4f5e3d03948c882163f668f6c9c54",
-      "restored_from": "github:F-A-010（原 id 与本地同名因子冲突）"
+      "restored_from": "github:F-A-010（原 id 与本地同名因子冲突）",
+      "scope": {
+        "industries": [
+          "房产",
+          "地产",
+          "real estate",
+          "property",
+          "condo",
+          "hdb",
+          "condominium",
+          "中介"
+        ],
+        "markets": [
+          "新加坡",
+          "singapore",
+          "sg"
+        ]
+      }
     }
   ]
 }

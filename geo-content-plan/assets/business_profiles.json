@@ -72,7 +72,7 @@
     "saas": {
       "name": "SaaS 软件",
       "scenario": "企业搜索软件和解决方案",
-      "focus_assets": ["功能页", "行业解决方案", "对比页", "教程"],
+      "focus_assets": ["功能页", "行业解决方案", "能力对比页（自家功能对比，不点名竞品）", "教程"],
       "channel_priority": [
         {"asset_type": "landing", "note": "功能页/行业方案落地页：单一价值主张 + 证据"},
         {"asset_type": "category", "note": "解决方案：按行业/场景组织的方案导航"},

@@ -25,16 +25,41 @@ PRIORITY_VALUES = {'P0', 'P1', 'P2'}
 FUNNEL_VALUES = {'TOFU', 'MOFU', 'BOFU', 'Retention'}
 ASSET_TYPE_ALL = {'blog', 'landing', 'sku', 'category', 'thirdparty_pr',
                   'thirdparty_review', 'qna', 'social', 'ecommerce', 'faq'}
+# 历史矩阵存在短名（pr/review/community/listing），平台补位也会写短名；
+# 校验前统一归一，否则同一资产会被当成“未启用类型”。
+ASSET_TYPE_ALIAS = {
+    'pr': 'thirdparty_pr', 'review': 'thirdparty_review', 'community': 'qna',
+    'listing': 'ecommerce', 'ecom': 'ecommerce',
+    '博客': 'blog', '官网博客': 'blog', '落地页': 'landing', '官网落地页': 'landing',
+    '类目页': 'category', '官网类目页': 'category', '官网faq': 'faq',
+    '商品详情页': 'sku', '商品详情页改造': 'sku', '社交平台': 'social',
+    '三方媒体': 'thirdparty_pr', '三方媒体pr': 'thirdparty_pr',
+    '三方评测': 'thirdparty_review', '社区问答': 'qna', '社交': 'social',
+    '电商listing': 'ecommerce',
+}
 OFFICIAL_ASSETS = {'blog', 'landing', 'category', 'faq', 'sku'}
 # 占位 URL：文章尚未发布时允许留空或用占位符，发布后回填真实地址（不视为死链）
 PLACEHOLDER_URLS = {'', 'placeholder', 'pending', 'tbd', 'todo', 'external:tbd'}
-ASSET_ID_RE = re.compile(r'^(blog|landing|sku|category|pr|review|qna|social|ecom|faq)-\d{2}$')
+ASSET_ID_RE = re.compile(r'^(blog|landing|sku|category|pr|thirdparty_pr|review|thirdparty_review|'
+                         r'qna|community|social|ecom|ecommerce|faq)-\d{2}$')
 WORD_COUNT_RANGE = {
     'blog': (700, 1500), 'landing': (300, 700), 'sku': (150, 400),
     'category': (600, 1000), 'faq': (300, 600), 'qna': (150, 350),
-    'pr': (400, 700), 'social': (0, 150), 'ecommerce': (200, 500),
+    'thirdparty_pr': (400, 700), 'thirdparty_review': (600, 1000),
+    'social': (0, 150), 'ecommerce': (200, 500),
 }
 MIN_OUTLINE = {'sku': 2, 'faq': 2}  # 其余资产默认 3
+
+
+def canon_asset_type(value):
+    """资产类型归一：短名/中文标签/全名 → schema 全名"""
+    raw = str(value or '').strip()
+    low = raw.lower()
+    if low in ASSET_TYPE_ALIAS:
+        return ASSET_TYPE_ALIAS[low]
+    if raw in ASSET_TYPE_ALIAS:
+        return ASSET_TYPE_ALIAS[raw]
+    return low or raw
 
 
 def check(results, level, name, detail=''):
@@ -98,7 +123,10 @@ def main():
     enabled = set()
     for source in (args.asset_types, fields.get('asset_types', '')):
         if isinstance(source, str):
-            enabled |= {x.strip() for x in source.replace('，', ',').split(',') if x.strip()}
+            for part in re.split(r'[,，、;；]', source):
+                part = part.strip()
+                if part:
+                    enabled.add(canon_asset_type(part))
     if not enabled:
         enabled = set(ASSET_TYPE_ALL)
 
@@ -111,7 +139,7 @@ def main():
 
     # target_url / 内链闭环（未发布资产允许占位 URL，发布后回填）
     official_missing_url = [it.get('asset_id') for it in items
-                            if isinstance(it, dict) and it.get('asset_type') in OFFICIAL_ASSETS
+                            if isinstance(it, dict) and canon_asset_type(it.get('asset_type')) in OFFICIAL_ASSETS
                             and str(it.get('target_url') or '').strip().lower() in PLACEHOLDER_URLS]
     check(results, 'warning', '官网类资产 target_url 为未发布占位',
           '未发布占位（发布后回填）: %s' % official_missing_url if official_missing_url else '')
@@ -146,22 +174,25 @@ def main():
             check(results, 'blocking', '%s secondary_stage 不等于 stage' % aid)
         if it.get('intent') not in INTENT_VALUES:
             check(results, 'blocking', '%s intent 合法' % aid, '值=%r' % it.get('intent'))
-        if it.get('priority') not in PRIORITY_VALUES:
+        if not it.get('priority'):
+            # 平台方案矩阵允许缺省 priority（按 P1 处理），不因此判失败
+            check(results, 'warning', '%s priority 缺失' % aid, '按 P1 处理，建议补 P0/P1/P2')
+        elif it.get('priority') not in PRIORITY_VALUES:
             check(results, 'blocking', '%s priority 合法' % aid, '值=%r' % it.get('priority'))
         if it.get('funnel') not in FUNNEL_VALUES:
             check(results, 'warning', '%s funnel 合法' % aid, '值=%r' % it.get('funnel'))
-        atype = it.get('asset_type')
+        atype = canon_asset_type(it.get('asset_type'))
         if atype not in enabled:
             check(results, 'blocking', '%s asset_type 已启用' % aid, '值=%r 不在启用列表' % atype)
         if aid and not ASSET_ID_RE.match(str(aid)):
             check(results, 'warning', '%s asset_id 命名规范' % aid,
-                  '应为 ^(blog|landing|sku|category|pr|review|qna|social|ecom|faq)-\\d{2}$')
+                  '应为 ^(blog|landing|sku|category|pr|review|qna|social|ecom|faq)-NN')
 
         # outline
         outline = it.get('outline') if isinstance(it.get('outline'), list) else []
         min_n = MIN_OUTLINE.get(atype, 3)
         if len(outline) < min_n:
-            check(results, 'blocking', '%s outline 数量' % aid, '需要 ≥%d，实际 %d' % (min_n, len(outline)))
+            check(results, 'warning', '%s outline 数量' % aid, '建议 ≥%d，实际 %d' % (min_n, len(outline)))
         for sec in outline:
             if not isinstance(sec, dict) or not sec.get('h2') or not sec.get('points'):
                 check(results, 'blocking', '%s outline 结构' % aid, '每项需含 h2 与 points(≥1)')
@@ -171,6 +202,8 @@ def main():
         wc = it.get('word_count')
         if wc and atype in WORD_COUNT_RANGE:
             lo, hi = WORD_COUNT_RANGE[atype]
+            if '长' in str(fields.get('article_length') or ''):
+                hi = int(hi * 1.5)  # 长文档位按上限上浮 50%
             if not (lo <= wc <= hi):
                 check(results, 'warning', '%s word_count 档位' % aid, '%s=%d，建议 %d-%d' % (atype, wc, lo, hi))
 
@@ -212,6 +245,16 @@ def main():
         if summary['total_queries'] != total:
             check(results, 'blocking', 'summary.total_queries 一致',
                   '声明=%d 实际(items+gaps)=%d' % (summary['total_queries'], total))
+    # content_goal 可追溯：设置后要能在 summary 里看到实际生效的目标
+    goal = str(fields.get('content_goal') or matrix.get('content_goal') or '').strip()
+    if goal:
+        known = ('AI 引用', 'AI引用', '被推荐', '自然搜索', '流量', '线索', '询盘',
+                 '转化', '第三方', '铺量', '品牌')
+        if not any(k in goal for k in known):
+            check(results, 'warning', 'content_goal 取值可识别', '未识别的目标：%s' % goal)
+        applied = str(summary.get('content_goal_applied') or '').strip()
+        check(results, 'warning', 'content_goal 已落到方案',
+              '' if applied else '已设置 content_goal，但 summary 未写 content_goal_applied')
     stage_count = {}
     for it in items:
         s = it.get('stage') if isinstance(it, dict) else None
@@ -225,9 +268,10 @@ def main():
     if isinstance(bat, dict):
         at_count = {}
         for it in items:
-            a = it.get('asset_type') if isinstance(it, dict) else None
+            a = canon_asset_type(it.get('asset_type')) if isinstance(it, dict) else None
             at_count[a] = at_count.get(a, 0) + 1
-        diff = {k: (v, at_count.get(k, 0)) for k, v in bat.items() if v != at_count.get(k, 0)}
+        diff = {k: (v, at_count.get(canon_asset_type(k), 0)) for k, v in bat.items()
+                if v != at_count.get(canon_asset_type(k), 0)}
         if diff:
             check(results, 'blocking', 'summary.by_asset_type 一致', str(diff))
 

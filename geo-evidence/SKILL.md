@@ -29,7 +29,7 @@ description: 海外 GEO 事实证据账本（双通道）。按内容建设矩�
 
 ### 步骤 2 逐条找来源
 按 evidence-rules.md 的来源等级从高到低查找：
-1. 客户官网当前页面快照（`source/page-NN/page.txt` + `meta.json`）：摘录原文并记录 `final_url` 与抓取日期；与知识库/第一方文件冲突时**不自行选边**：以高等级来源（知识库/第一方 > 官网 > 第三方）为准，差异写进 claim 的 `scope_limits` 并标 `needs_client_confirmation`，进入客户确认清单。
+1. 客户官网当前页面快照（`source/page-NN/page.txt` + `meta.json`）：摘录原文并记录 `final_url` 与抓取日期；与知识库/第一方文件冲突时**不自行选边、也不得用任何一方覆盖另一方**：按来源等级（知识库/第一方 > 官网 > 第三方）记录冲突，差异写入 claim 的 `scope_limits` 并标 `needs_client_confirmation`，进入客户确认清单，确认前正文不得写具体值。
 2. 客户知识库与第一方文件（`inputs/knowledge/`）：逐字摘录原文，记录文件、页码/段落、文件日期。
 3. 监管与标准数据库（认证、注册信息）。
 4. 评论平台（评分、数量，注明日期）。
