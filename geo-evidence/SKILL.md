@@ -13,7 +13,7 @@ description: 海外 GEO 事实证据账本（双通道）。按内容建设矩�
 - 内容建设通道：`plan/content_matrix.json` 中已确认的资产（按 `asset_id` 核验），成稿前对本资产要用的硬事实（数字/参数/价格/政策/认证/评分）逐项建 claim；不依赖 `strategy/changes.json`。
 - SKU 改造通道：`strategy/changes.json` 中已有 `selected: true` 的改动卡（`tech_ticket` 除外），每张卡写明 `claims_required`。
 - 资料（按可信度从高到低，全部可选）：
-  1. `source/page-NN/`（`geo-source-fetch` 产物：`page.txt` 原文 + `meta.json` 的 URL/抓取日期/JSON-LD/参数表/价格）：**只要目录存在就必须先读**，它是「客户官网当前页面」的一手原文，优先级高于知识库旧文案；
+  1. `source/page-NN/`（`geo-source-fetch` 产物：`page.txt` 原文 + `meta.json` 的 URL/抓取日期/JSON-LD/参数表/价格）：**只要目录存在就必须先读**；它是「客户官网当前页面」的原文（B 级），优先级低于客户知识库/第一方文件（A 级），与知识库冲突时不自行取舍，按 citation 规则标记待客户确认；
   2. `inputs/knowledge/`（或平台知识库文本）下的客户资料；
   3. 有 `contract.constraints` 时按其禁用 claim 与合规叠加层执行，没有则跳过该检查。
 
@@ -29,7 +29,7 @@ description: 海外 GEO 事实证据账本（双通道）。按内容建设矩�
 
 ### 步骤 2 逐条找来源
 按 evidence-rules.md 的来源等级从高到低查找：
-1. 客户官网当前页面快照（`source/page-NN/page.txt` + `meta.json`）：摘录原文并记录 `final_url` 与抓取日期；快照与知识库冲突时以快照为准，并把差异写进 claim 的 `scope_limits` 或 `notes`。
+1. 客户官网当前页面快照（`source/page-NN/page.txt` + `meta.json`）：摘录原文并记录 `final_url` 与抓取日期；与知识库/第一方文件冲突时**不自行选边**：以高等级来源（知识库/第一方 > 官网 > 第三方）为准，差异写进 claim 的 `scope_limits` 并标 `needs_client_confirmation`，进入客户确认清单。
 2. 客户知识库与第一方文件（`inputs/knowledge/`）：逐字摘录原文，记录文件、页码/段落、文件日期。
 3. 监管与标准数据库（认证、注册信息）。
 4. 评论平台（评分、数量，注明日期）。
