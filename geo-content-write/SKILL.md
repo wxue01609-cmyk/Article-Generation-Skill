@@ -45,6 +45,10 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
    - 官网资产（blog/landing/category/sku/faq）：不出现任何竞品品牌名、竞品对比表、A vs B。
    - 三方评测/对比：必须含披露声明，结论按“不同需求→不同方案”。
    - 社区问答：0 链接、0 促销、口语化、结尾真实问题。
+   - **权威外链（每篇强制检查）**：文章类资产（blog/landing/category/pr/review/faq）应有且仅有 1 条权威外链（最多 2 条），指向政府/监管、标准组织、学术机构或国际组织（`.gov/.edu/.int`、ISO/IEC/NIST/WHO/OECD 等），优先引用与正文事实直接相关的原文页。
+     - **严禁**链接竞品官网，也**严禁**链接「推荐/对比竞品」的页面（best/top/alternatives 榜单、含竞品名的评测页）；
+     - 找不到合适权威来源时**不要硬加**：直接省略外链，并在 `asset_index.json` 的 `checks` 写「无合适权威来源，已省略外链」；
+     - 外链锚文本必须具名（如 "NIST Cybersecurity Framework"），不得写 "click here"；一律 `target="_blank" rel="noopener"`。平台成稿后会跑代码级检查（`qa/link_check.json`），竞品链接直接判失败。
 6. 输出文件（普通资产唯一交付物是 HTML，不是 Markdown）：
    - 每个资产写 `assets/<asset_type>/<asset_id>.html`：完整可发布页面，必须包含 `<!doctype html>`、`<html>`、`<head><meta charset><meta name="viewport"><title><style>…</style></head>`、`<body>`。
    - 样式全部内联在 `<style>` 中，禁止外链 CSS/JS/字体；响应式，移动端可读；正文用语义化 `h1/h2/p/ul/ol/table/blockquote`，CTA 用可见按钮样式。
@@ -68,6 +72,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
 - 没有绝对化营销词（best/#1/revolutionary/ultimate/世界第一等）。
 - 参数口径全文一致；普通资产未核验项带标注（SKU 改造资产按发布规则省略，不写进正文）。
 - 链接只使用可核验真实 URL；无一键堆链，内链锚文本具名；CTA/导航不得链接到本资产自身 `target_url`，无真实地址时用占位按钮 + 中文提示。
+- 每篇有 1 条权威外链，或在 `checks` 注明「无合适权威来源，已省略外链」；全文无竞品官网链接、无推荐/对比竞品的页面链接。
 - 站外链接（CTA 按钮、商品页、政策页、来源）一律写成 `<a href="…" target="_blank" rel="noopener">`，避免成稿在预览 iframe 里被目标站点以 X-Frame-Options 拒绝嵌入；站内内链保持默认 target。
 - 语言全部为 `article_language`（缺省英文；选中文时按简体/繁体输出），不得混排其它语言。
 - 字数达标；FAQ 原问句保留。新建 SKU 页（无 `source_page`）：正文（不含导航/页脚/规格表）按 brief 的 `word_count` ±20%，建议 ≤400 词；不要写成 700+ 词的落地页。字数超限视为未达标，写完后回读 brief 核对。
