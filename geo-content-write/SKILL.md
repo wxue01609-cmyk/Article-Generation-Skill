@@ -27,6 +27,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
    - 标题、角度、H 结构、要点顺序、CTA、内链锚文本不得偏离 brief；确需调整时在 `asset_index.json` 的 `checks` 里说明。
    - `word_count` ±20% 内；FAQ 问题保留原问句。
    - **因子落实**：先按 id 查 `factor_library.json` 的 `definition` / `check` / `action`，再逐条落进正文（如 F-G-001 首段直接答案 → 首段 60 词内给结论；F-C-005 售后政策模块 → 独立政策小节），并用该因子的 `check`（优先取 item.factor_details 里的 `check`）自检是否真的做到；`authority_actions` 逐条执行，无法执行时在 `checks` 写明原因。`used_factors` 写实际落实的因子 id，未落实的必须写进 `checks` 说明，不得静默跳过。若同批 ≥3 篇因子组合完全相同，自查是否同诉求；不同诉求同一组合的，按 brief 的 `factor_reason` 调整各篇重点段落。`authority_actions` 里的具体动作数据查不到，就在 `checks` 里注明「数据待核验」，正文不写，不得编造。
+   - **互链开关**：若 `package.json.fields.internal_links` 以「否」开头（客户选择不做文章互链），正文禁止出现任何指向本次生成资产的站内内链，也不要自行编造 `/blog/...`、`/landing/...` 等站内路径；需要提及其他文章时只写文字不加 `<a>`；外部真实链接与 `site_inventory` 真实页不受影响。
    - 内链只允许指向三类目标：本次生成（`selected_asset_ids` 内且产出 `assets/<type>/<id>.html`）的站内资产、`site_inventory` 里真实存在的站内页面、真实 https 外部页；Brief 中指向未勾选/未生成、且不在 `site_inventory` 的规划路径一律不写（平台会在成稿后统一清洗，避免死链）。
    - 官网内容类资产（blog / landing / category / faq）正文至少带 1 条指向 `site_inventory` 真实页面的官网链接（首页/产品页/服务页均可，锚文本具名），用于强化站内权威与转化路径；社区问答仍按 0 链接执行；没有 `site_inventory` 时省略，不得用未发布路径凑数。
 3.5 **本地化执行（按目标市场，只改说法不改事实）**：读取 `locale_profiles.json`（优先平台根目录实时库；skill 内 `assets/locale_profiles.json` 兜底），按 `fields.target_market` 解析市场代码：
@@ -59,7 +60,7 @@ description: 海外内容建设第二阶段（成稿）。读取 plan/content_ma
    - `asset_index.json` 的 `file` 字段必须指向 `.html`；全部完成后写 `assets/asset_index.json`：`[{asset_id, asset_type, stage, title, file, word_count, used_factors: [], checks: []}]`；`used_factors` 写本资产实际执行到的因子 id（供平台取消“新增”标注）。
    - **合并写，不整份覆盖**：已有 `asset_index.json` 时，同 `asset_id` 覆盖、其它层条目原样保留，写前按 `stage` 排序；这样只重跑一层不会丢其它层。
    - 另写 `assets/stage_index.json`（每次整份重写，只统计磁盘上真实存在的产物）：`{"ai_exposure": {"count": 3, "assets": ["blog-01", ...]}, "pdp": {...}, "conversion": {...}}`。
-   - **发布提示（强制）**：若本资产的 `target_url` 是站内相对路径（以 `/` 开头），必须在 `<body>` 内第一行插入一段中文高亮提示，说明「本文档需发布到官网路径 `<target_url>`，否则引用本文的其他文章内链会失效，发布前请删除本提示」。这段提示属于运营标注、不属于正文，用 `<!-- GEO-PUBLISH-NOTE -->` 标记包裹，样式内联（浅黄底 + 橙色边框），并注明发布前删除；`target_url` 为空时改为红色提示「尚未指定发布路径，若被内链引用需先补路径」；`target_url` 为 `http(s)://` 或 `external:TBD` 时不加提示。
+   - **发布提示（强制）**：仅当 `package.json.fields.internal_links` 不是「否」时才执行本条；`internal_links` 以「否」开头时，整篇不加任何发布提示（含 target_url 为空时的红色提示）。若本资产的 `target_url` 是站内相对路径（以 `/` 开头），必须在 `<body>` 内第一行插入一段中文高亮提示，说明「本文档需发布到官网路径 `<target_url>`，否则引用本文的其他文章内链会失效，发布前请删除本提示」。这段提示属于运营标注、不属于正文，用 `<!-- GEO-PUBLISH-NOTE -->` 标记包裹，样式内联（浅黄底 + 橙色边框），并注明发布前删除；`target_url` 为空时改为红色提示「尚未指定发布路径，若被内链引用需先补路径」；`target_url` 为 `http(s)://` 或 `external:TBD` 时不加提示。
    - **CTA 链接（强制，禁止自链）**：CTA 按钮的 `href` 只能取 `brief.cta_url`（真实地址）。**严禁**把 `href` 写成本资产自己的 `target_url`——自链点击必然 404，是最常见的线上事故。
      - `cta_url` 为真实 `http(s)://`：正常渲染 `<a class="cta" href="…" target="_blank" rel="noopener">…</a>`；
      - **`package.json.fields.primary_cta` 为「无 / 暂无 / 不需要 / 不设置 / none / n/a / -」等值时：整篇不输出任何 CTA 按钮、按钮链接或转化区**（`cta-wrap` / `cta-box` / `cta-note` 都不写），结尾用总结段收束；Brief 里残留的 `cta` 直接忽略。
