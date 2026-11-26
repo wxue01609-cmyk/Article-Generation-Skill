@@ -33,9 +33,16 @@ ZIP_PREFIX = '青蛙-内容建设agent-上传包'
 ZIP_NAME = ZIP_PREFIX + 'v41.zip'
 
 
+def package_dir(desktop=None):
+    """青蛙包统一放桌面「青蛙skill更新迭代」目录；该目录不存在时退回桌面根目录"""
+    base = pathlib.Path(desktop or DESKTOP)
+    archive = base / '青蛙skill更新迭代'
+    return archive if archive.is_dir() else base
+
+
 def next_zip_name(desktop=None):
-    """按桌面已有包的最大版本号 +1，避免每次重建都覆盖同一个旧版本号"""
-    desktop = pathlib.Path(desktop or DESKTOP)
+    """按已有包的最大版本号 +1，避免每次重建都覆盖同一个旧版本号"""
+    desktop = package_dir(desktop)
     top = 0
     for f in desktop.glob(ZIP_PREFIX + 'v*.zip'):
         m = re.search(r'v(\d+)\.zip$', f.name)
@@ -59,6 +66,15 @@ SKILLS = [
     'geo-polish',
     'geo-diagnose',
 ]
+
+# 青蛙平台技能提示词字段是 MySQL TEXT，上限 65535 字节，超了会被静默截断
+PROMPT_LIMIT_BYTES = 65535
+PROMPT_WARN_BYTES = 63000
+
+# 超出上限的技能不再内联这两个数据块（因子库已在系统提示词里，词库只在成稿/质检用）
+SKIP_ASSET_INLINE = {
+    'geo-content-plan': ('factor_library.json', 'locale_profiles.json'),
+}
 
 # 分类器唯一实现（本地平台与青蛙工具共用这一段代码）
 CLASSIFIER_SOURCE = REPO / 'geo-research' / 'scripts' / 'sample_by_stage.py'
@@ -107,10 +123,19 @@ def collect_references(skill_dir):
     return items
 
 
-def collect_assets(skill_dir):
-    """收集 assets 下的 JSON 数据文件（如 factor_library.json），内联进提示词。
+def minify_json(text):
+    """压缩 JSON：去掉缩进空白，降低提示词体积（平台单字段上限 64KB）"""
+    try:
+        return json.dumps(json.loads(text), ensure_ascii=False, separators=(',', ':'))
+    except Exception:
+        return text
 
-    青蛙包没有仓库目录结构，必须把默认数据一并内联，运行时才能读到 v1 草案因子库。
+
+def collect_assets(skill_dir, skip=()):
+    """收集 assets 下的 JSON 数据文件（如 factor_library.json），压缩后内联进提示词。
+
+    青蛙包没有仓库目录结构，必须把默认数据一并内联，运行时才能读到 v1 草案因子库；
+    skip 里的文件不内联（用于规避平台 64KB 单字段上限），改由提示词说明数据来源。
     """
     adir = skill_dir / 'assets'
     if not adir.is_dir():
@@ -119,8 +144,26 @@ def collect_assets(skill_dir):
     for path in sorted(adir.rglob('*.json')):
         if not path.is_file():
             continue
-        items.append((path.relative_to(adir).as_posix(), path.read_text(encoding='utf-8').strip()))
+        rel = path.relative_to(adir).as_posix()
+        if rel in skip:
+            continue
+        items.append((rel, minify_json(path.read_text(encoding='utf-8').strip())))
     return items
+
+
+def market_aliases_block(skill_dir):
+    """取出词库的市场别名表（很小），供方案阶段解析目标市场代码"""
+    path = skill_dir / 'assets' / 'locale_profiles.json'
+    if not path.exists():
+        return ''
+    try:
+        data = json.loads(path.read_text(encoding='utf-8'))
+    except Exception:
+        return ''
+    aliases = data.get('market_aliases') or {}
+    if not aliases:
+        return ''
+    return json.dumps(aliases, ensure_ascii=False, separators=(',', ':'))
 
 
 def build_prompt(skill):
@@ -130,7 +173,8 @@ def build_prompt(skill):
     meta, body = read_frontmatter(raw)
     body = body.strip()
     refs = collect_references(skill_dir)
-    assets = collect_assets(skill_dir)
+    skip_assets = SKIP_ASSET_INLINE.get(skill, ())
+    assets = collect_assets(skill_dir, skip_assets)
     common = (PLATFORM / '_common.md').read_text(encoding='utf-8').strip()
     specific_path = PLATFORM / (skill + '.md')
     specific = specific_path.read_text(encoding='utf-8').strip() if specific_path.exists() else ''
@@ -159,6 +203,19 @@ def build_prompt(skill):
         chunks += ['', '---', '', '# 默认数据文件（与本地 assets/ 一致，已内联）']
         for rel, content in assets:
             chunks += ['', '## assets/%s' % rel, '', '```json', content, '```']
+    if skip_assets:
+        chunks += ['', '---', '', '# 默认数据文件（未内联：超出平台单字段 64KB 上限）',
+                   '', '青蛙平台单个提示词字段上限 64KB，以下数据不在本技能重复内联：']
+        for rel in skip_assets:
+            if rel == 'factor_library.json':
+                chunks += ['', '- `assets/%s`：全文在系统提示词 `agent.md` 末尾「因子库数据」块（与本地同源），'
+                               '直接按 `factor_id` 引用，不要再找文件。' % rel]
+            elif rel == 'locale_profiles.json':
+                chunks += ['', '- `assets/%s`：词库全文内联在成稿 `geo-content-write` 与质检 `geo-polish` 提示词中；'
+                               '本阶段只用下面的市场别名表解析市场代码，具体用词约束由成稿阶段执行。' % rel,
+                           '', '```json', market_aliases_block(skill_dir), '```']
+            else:
+                chunks += ['', '- `assets/%s`：数据较大，未内联，运行时按规则说明取平台侧同源数据。' % rel]
     chunks += [
         '',
         '---',
@@ -310,7 +367,12 @@ def main():
         meta['title'] = skill_title(prompt, skill)
         prompts_meta[skill] = meta
         (out / 'prompts' / (skill + '.md')).write_text(prompt, encoding='utf-8')
-        print('  prompt  %-22s %6d 字符' % (skill, len(prompt)))
+        size = len(prompt.encode('utf-8'))
+        if size > PROMPT_LIMIT_BYTES:
+            sys.exit('提示词超出青蛙单字段上限：%s = %d 字节 > %d（会被平台截断）'
+                     % (skill, size, PROMPT_LIMIT_BYTES))
+        flag = '  ⚠ 接近上限' if size > PROMPT_WARN_BYTES else ''
+        print('  prompt  %-22s %6d 字符 %7d 字节%s' % (skill, len(prompt), size, flag))
 
     # 工具：三个原样复制，geo-sample 重新注入统一分类器
     for src in sorted((TEMPLATES / 'tools').glob('*.py')):
@@ -330,7 +392,7 @@ def main():
 
     print('构建完成：%s（%d 技能 / %d 工具）' % (out, len(SKILLS), len(list((out / 'tools').glob('*.py')))))
     if not args.no_zip:
-        zip_path = DESKTOP / (args.zip_name or next_zip_name())
+        zip_path = package_dir() / (args.zip_name or next_zip_name())
         write_zip(out, zip_path)
         print('已打包：%s（%.1f KB）' % (zip_path, zip_path.stat().st_size / 1024))
     return 0
