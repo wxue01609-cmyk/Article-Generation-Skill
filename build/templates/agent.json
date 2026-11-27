@@ -88,6 +88,12 @@
         "description": "发布媒体/渠道，如 官网 Blog、Reddit、Medium"
       },
       {
+        "name": "site_domain",
+        "type": "string",
+        "required": false,
+        "description": "官网域名（如 https://www.example.com），用于 canonical / og:url / sitemap；留空时从现有页面 URL 推断"
+      },
+      {
         "name": "site_inventory",
         "type": "string",
         "required": false,
