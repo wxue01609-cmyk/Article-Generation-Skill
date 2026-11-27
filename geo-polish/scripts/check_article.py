@@ -243,10 +243,19 @@ def main():
     parser.add_argument("--matrix", help="content_matrix.json；按 Brief 的 word_count ±20%% 校验字数")
     args = parser.parse_args()
 
+    # 模型偶尔漏传 --matrix：在 articles.json 附近自动找矩阵，避免又退回固定区间口径
+    matrix_path = args.matrix
+    if not matrix_path:
+        base = Path(args.articles).resolve().parent
+        for cand in (base / 'content_matrix.json', base / 'plan' / 'content_matrix.json',
+                     base.parent / 'plan' / 'content_matrix.json'):
+            if cand.is_file():
+                matrix_path = str(cand)
+                break
     targets = {}
-    if args.matrix:
+    if matrix_path:
         try:
-            data = json.loads(Path(args.matrix).read_text(encoding="utf-8"))
+            data = json.loads(Path(matrix_path).read_text(encoding="utf-8"))
             items = data if isinstance(data, list) else (data.get("items") or [])
             for item in items:
                 if isinstance(item, dict) and item.get("asset_id"):
