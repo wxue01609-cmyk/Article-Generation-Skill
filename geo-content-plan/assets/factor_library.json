@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updated_at": "2026-11-26 19:38:31",
+  "updated_at": "2026-11-27 09:41:18",
   "generated_at": "2026-11-11",
   "status": "draft_cold_start",
   "scenario": "dtc_ecommerce",
@@ -27,6 +27,12 @@
     ]
   },
   "changelog": [
+    {
+      "at": "2026-11-27",
+      "action": "scope",
+      "note": "F-G-011（新加坡官方规则复核）是行业专属因子，category 由 global 改为 stage（ai_exposure），全局组权重重新归一为 1.0",
+      "factors": 1
+    },
     {
       "at": "2026-11-11",
       "action": "seed",
@@ -129,7 +135,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.122,
+      "weight": 0.128,
       "definition": "正文首段在 60 词内直接回答主 query 的核心问题，不铺垫、不绕弯。",
       "check": "首段前 60 词包含答案关键词；无『在本文中/首先让我们』类空话开头。",
       "action": "首段按『结论先行』写，答案实体词放在前 2 句。",
@@ -179,7 +185,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.109,
+      "weight": 0.114,
       "definition": "H2/H3 层级清晰，关键信息用列表、表格、步骤块承载，便于 AI 逐段提取。",
       "check": "每篇含 ≥2 个 H2；参数/对比/FAQ 类信息以列表或表格呈现。",
       "action": "把要点拆成 H2 小节，列表与表格内不塞营销话术。",
@@ -226,7 +232,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.122,
+      "weight": 0.128,
       "definition": "正文含可核验的数字、型号、规格、日期、来源，而非模糊形容词。",
       "check": "硬事实（价格/参数/认证/政策）与证据账本一致并带 evidence_id；无『顶级/优秀/更好』类无证据断言。",
       "action": "每个关键数字落证据账本；无证据的断言删掉或改中性描述。",
@@ -276,7 +282,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.109,
+      "weight": 0.114,
       "definition": "内容含认证、检测报告、媒体评测、专家观点等权威信号，并注明来源口径。",
       "check": "引用第三方结论时给出机构/媒体名与日期，正文只转述不照抄。",
       "action": "用 geo-evidence 把可公开的认证/报告/评测转成 C 级 claim 后写入。",
@@ -311,7 +317,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.109,
+      "weight": 0.114,
       "definition": "正文标题、首段、摘要中品牌与型号以完整实体出现，AI 能准确关联。",
       "check": "首段出现『品牌 + 型号』全称；全文实体写法统一。",
       "action": "标题与首段写全『品牌 + 型号 + 品类』，避免代词指代模糊。",
@@ -342,7 +348,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.082,
+      "weight": 0.086,
       "definition": "覆盖主 query 的同义词、场景词、长尾问法与相关常问，提高命中面。",
       "check": "每个资产覆盖 ≥3 种同义/场景表达；FAQ 覆盖 PAA 里同主题问题。",
       "action": "按 query 词族与 PAA 扩展语义，写进小标题与 FAQ。",
@@ -387,7 +393,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.069,
+      "weight": 0.072,
       "definition": "页面标注更新日期；年度/榜单类内容带年份，AI 判断信息新鲜度。",
       "check": "页面含『更新于 2026-xx』；best/top 类标题带年份。",
       "action": "渲染时显示更新时间；榜单标题写『2026』。",
@@ -410,7 +416,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.082,
+      "weight": 0.086,
       "definition": "避免 AI 会过滤的营销词与自夸表述，保持客观可引用的表达。",
       "check": "不含『最好的/革命性/遥遥领先』等无证据营销词；违禁词清单命中即打回。",
       "action": "质检五关的违禁词关覆盖；命中词替换为中性事实表述。",
@@ -434,7 +440,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.069,
+      "weight": 0.072,
       "definition": "正文内链锚文本描述性且目标真实可达（发布后无死链），跨层互链。",
       "check": "内链 target 在矩阵中存在；发布后 404 即打回；锚文本含关键词而非『点击这里』。",
       "action": "内链只在矩阵目标回填后写入；成稿时高亮待发布路径。",
@@ -457,7 +463,7 @@
       "category": "global",
       "stage": null,
       "asset_types": [],
-      "weight": 0.082,
+      "weight": 0.086,
       "definition": "内容结尾给出明确的下一步（CTA/内链到商品页或政策页），承接购买决策。",
       "check": "每篇内容有 1 个主 CTA 指向站内真实页面；CTA 与正文结论一致。",
       "action": "按 asset_type 落 CTA（博客→商品页；FAQ→政策页；SKU→立即购买）。",
@@ -492,7 +498,7 @@
         "guide",
         "landing"
       ],
-      "weight": 0.179,
+      "weight": 0.171,
       "definition": "榜单/推荐类内容用显式排序（第1/第2…/最佳…），每项给理由与适用人群。",
       "check": "best/top 类标题；条目含排名+1条理由+1条适用场景。",
       "action": "榜单条目按『排名-理由-适用人群』模板写，避免并列模糊。",
@@ -527,7 +533,7 @@
         "blog",
         "thirdparty_review"
       ],
-      "weight": 0.179,
+      "weight": 0.171,
       "definition": "曝光层内容引用独立第三方评测/媒体结论，增强 AI 引用概率。",
       "check": "至少 1 处转述第三方评测结论并标来源媒体+日期；不做外链背书。",
       "action": "从引用采样里挑权威媒体结论转 claim 后写入；官网资产不点名竞品。",
@@ -559,7 +565,7 @@
         "blog",
         "guide"
       ],
-      "weight": 0.138,
+      "weight": 0.132,
       "definition": "how to choose/guide 类内容按步骤化解题，每步给判断标准。",
       "check": "含『第1步/第2步』或决策分支；每步含判断标准而非空建议。",
       "action": "步骤块+标准清单，结尾给自家型号的对照位置。",
@@ -609,7 +615,7 @@
         "guide",
         "thirdparty_review"
       ],
-      "weight": 0.12,
+      "weight": 0.115,
       "definition": "按使用场景/人群切分答案（通勤/长途/车主车型等），匹配 query 的细分意图。",
       "check": "正文含 ≥2 个场景小节，每节给适用型号/配置建议。",
       "action": "把 query 里的场景词拆成小节标题，逐节给建议。",
@@ -1196,7 +1202,7 @@
         "category",
         "landing"
       ],
-      "weight": 0.033,
+      "weight": 0.032,
       "definition": "内容在首屏或首个 H2 明确区分「四路车外侧（前/后/左/右）覆盖」与「前+后+车内双摄」两类多通道方案，避免用户与 AI 把车内覆盖误当车身侧面覆盖。",
       "check": "正文含两类形态的对照说明，并给出判断口径（镜头朝向 + 安装位置 + 典型事故类型）。",
       "action": "首屏或第一个 H2 先给形态二分支，再进入型号与参数。",
@@ -1234,7 +1240,7 @@
       "asset_types": [
         "blog"
       ],
-      "weight": 0.059,
+      "weight": 0.056,
       "definition": "按骑行平台（自行车/砾石 bike 与摩托车/ADV）分别给出导航设备建议，避免 AI 混用两类产品的参数与供电前提。",
       "check": "资产正文含自行车与摩托车两个平台小节，各自给适用形态与边界。",
       "action": "在选购框架类内容中显式分平台写建议，先定平台再选形态。",
@@ -1275,7 +1281,7 @@
         "category",
         "faq"
       ],
-      "weight": 0.026,
+      "weight": 0.025,
       "definition": "面向 remote trail / no cell coverage / offline map 类 query，正文必须覆盖离线地图下载、GPX 轨迹、内置 GPS 与手机投影的边界。",
       "check": "含『离线地图/offline maps』、『GPX』与『内置 GPS vs 手机投影』三要素之一以上，且给出可操作步骤或判断标准。",
       "action": "按『选 APP→下载离线图→导入 GPX→核对内置 GPS→出发前测试』步骤成稿，并说明镜像模式与独立导航的差异。",
@@ -1313,7 +1319,7 @@
         "category",
         "faq"
       ],
-      "weight": 0.05,
+      "weight": 0.048,
       "definition": "正文在首屏或第一个 H2 就区分超级电容与内置锂电两种电源形态，并给出“为什么锂电会鼓包 / 超级电容为什么没有这条失效路径”的判断口径与可查参数项（电源类型 + 工作温度）。",
       "check": "正文含“supercapacitor vs internal battery”对照，且给出至少一个可查参数（电源类型或工作温度范围）；不出现未核实的实测温度断言。",
       "action": "在参数与选型章节并列写电源形态 + 工作温度，并把“鼓包”拆成失效机理而不是恐惧诉求。",
@@ -1351,7 +1357,7 @@
         "faq",
         "sku"
       ],
-      "weight": 0.043,
+      "weight": 0.041,
       "definition": "针对 subscription / free download / no cloud 类 query，正文必须把“本地 Wi-Fi 直连取片”与“云存储/远程查看订阅”分成两件事写，并给出免账号导出原始片段的可操作步骤与速度口径。",
       "check": "正文同时出现“本地直连下载”与“云服务订阅”两个概念的清晰分界，并含 2 步以上的取片流程；不把云功能混写为必需。",
       "action": "按“连通方式 → 取片步骤 → 免订阅范围不覆盖什么”三段写，速度用绝对数值（MB/s）而非倍数宣传。",
@@ -1388,7 +1394,7 @@
         "blog",
         "faq"
       ],
-      "weight": 0.1,
+      "weight": 0.096,
       "definition": "内容把「房源广告是否真实」与「单位当前是否仍可售」拆成两个独立判断，并给出可执行的核验路径（CEA 注册号查询 / 更新日期 / 回复质量 / 单位级证据 / 举报与处理规则）；核验口径以 CEA 公众登记册当期信息为准，不点名竞品。",
       "check": "正文同时出现真实性核验与可售状态核验两层判断，列出 ≥3 个可勾选的核验动作（含至少 1 条 CEA 公众登记册查询），不把某个标签当作可售担保，不点名竞品。",
       "action": "按「真实性 → 可售状态」两段写，先讲两层判断的差别，再给分步核验清单与举报路径，最后说明自身核验动作及其边界；每家平台口径以官方当期页面为准。",
@@ -1438,7 +1444,7 @@
       "asset_types": [
         "blog"
       ],
-      "weight": 0.024,
+      "weight": 0.023,
       "definition": "方案自动落入：任务发现的新因子（待完善）",
       "check": "正文能区分一体式（摄像+冲洗+回收）与分离式/纯观察两类形态，并给出各自适用人群与判断依据",
       "action": "按「形态判别 → 适用人群 → 使用边界」三段写，形态以产品实物结构为准，不臆造功能",
@@ -1474,7 +1480,7 @@
         "blog",
         "landing"
       ],
-      "weight": 0.049,
+      "weight": 0.047,
       "definition": "针对「没有附件电源接口 / 要装到车把上」的 query，正文给出可执行的供电与接线前提：电源形态、B+/ACC/负极分工、哪些接口不得用于供电，并标注适用型号。",
       "check": "正文含 ≥2 项可核对的供电/接线事实（如 B+/ACC/负极、12V 1A、USB-A 最低 5V/2.5A、Type-C 不供电），且都绑定具体型号。",
       "action": "在安装类小节按「电源形态 → 接线顺序 → 常见错误」三段写，事实只取知识库已确认口径。",
@@ -1500,7 +1506,7 @@
     {
       "factor_id": "F-G-011",
       "name": "新加坡官方规则口径复核（HDB/URA/MOE/CEA）",
-      "category": "global",
+      "category": "stage",
       "stage": "ai_exposure",
       "asset_types": [
         "blog",
@@ -1508,7 +1514,7 @@
         "category",
         "landing"
       ],
-      "weight": 0.045,
+      "weight": 0.043,
       "definition": "新加坡房产内容凡涉及资格、 distancia 距离带、税率、报名规则、代理执业等规则类事实，必须引用 HDB / URA / MOE / CEA / IRAS / CPF 的现行官方口径，并标注机构名与核验日期；不得用第三方平台转述替代官方口径。",
       "check": "正文每条规则类断言可追溯到官方机构名 + 查询日期；无官方来源的数字一律不写或标待核验。",
       "action": "成稿前逐条核 HDB/URA/MOE/CEA/IRAS 官网现行页面；引用处写机构名与日期；查不到就不写数字。",

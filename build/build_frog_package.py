@@ -384,7 +384,15 @@ def main():
 
     agent_json = build_agent_json(prompts_meta)
     (out / 'agent.json').write_text(json.dumps(agent_json, ensure_ascii=False, indent=2), encoding='utf-8')
-    (out / 'agent.md').write_text(build_agent_md(prompts_meta), encoding='utf-8')
+    # 系统提示词同样是 MySQL TEXT 字段：超限会被静默截断，必须在打包时硬拦
+    agent_md = build_agent_md(prompts_meta)
+    md_bytes = len(agent_md.encode('utf-8'))
+    if md_bytes > PROMPT_LIMIT_BYTES:
+        sys.exit('系统提示词 agent.md 超出青蛙单字段上限：%d 字节 > %d（会被平台截断）'
+                 % (md_bytes, PROMPT_LIMIT_BYTES))
+    md_flag = '  ⚠ 接近上限' if md_bytes > PROMPT_WARN_BYTES else ''
+    print('  prompt  %-22s %6d 字符 %7d 字节%s' % ('agent.md', len(agent_md), md_bytes, md_flag))
+    (out / 'agent.md').write_text(agent_md, encoding='utf-8')
 
     # 语法自检：生成的 python 工具必须可编译（内存编译，不落 .pyc）
     for py in (out / 'tools').glob('*.py'):

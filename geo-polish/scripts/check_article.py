@@ -6,7 +6,7 @@
   python3 scripts/check_article.py --articles articles.json --channel blog
   python3 scripts/check_article.py --articles articles.json --channel social --keyword-pack keywords.txt
   python3 scripts/check_article.py --articles articles.json --length long
-  python3 scripts/check_article.py --articles articles.json --channel content_build --asset-type blog --keyword-pack keywords.txt
+  python3 scripts/check_article.py --articles articles.json --channel content_build --asset-type blog --keyword-pack keywords.txt --matrix plan/content_matrix.json
 
 articles.json：文章对象数组（或含 all_articles 的对象），每篇至少有 title / content（HTML）。
 --keyword-pack：词包文件，每行一个 query；与含 ? 的原问句完全相同的句子不判 best 违规。
@@ -14,6 +14,8 @@ articles.json：文章对象数组（或含 all_articles 的对象），每篇�
 --length：standard（默认）/ long。
 --channel content_build：内容建设成稿包通道（必须配 --asset-type）。档位按资产类型的字数区间；
   标题放宽为 >=3 词且 <=90 字符；CTA 与价格不判违规（由 brief 与证据关把关）；词包原词所在句子豁免绝对化词。
+--matrix：内容矩阵文件；给了就按 Brief 的 word_count ±20% 校验字数（与成稿口径一致），
+  匹配不到该资产时才退回资产类型固定区间。
 
 输出：JSON 数组，每篇含 index / title / word_count / band / issues；有 error 级问题时退出码 1。
 """
@@ -23,6 +25,7 @@ import html
 import json
 import re
 import sys
+from pathlib import Path
 
 BANDS = {
     "standard": (700, 900),
@@ -148,6 +151,15 @@ def check(article, channel, band, questions, content_build=False):
     plain = strip_html(content)
     words = word_count(plain)
     low, high = CONTENT_BUILD_BANDS[band] if content_build else BANDS[band]
+    # 内容建设：Brief 给了 word_count 时按 ±20% 校验（与 geo-content-write 口径一致）；
+    # 只有 Brief 没给目标字数时才退回资产类型固定区间，避免两套口径互相打脸
+    target = 0
+    try:
+        target = int(float(article.get("word_count_target") or 0))
+    except (TypeError, ValueError):
+        target = 0
+    if content_build and target > 0:
+        low, high = int(round(target * 0.8)), int(round(target * 1.2))
 
     if not (low <= words <= high):
         add("error", "word_count", "%d words, band %s is %d-%d" % (words, band, low, high))
@@ -170,6 +182,17 @@ def check(article, channel, band, questions, content_build=False):
 
     if "**" in content:
         add("error", "markdown_bold", "** found in content")
+
+    # 外链必须带 rel="noopener"（分发关的硬要求；此前只写在 SKILL.md 里、没有代码校验）
+    for match in re.finditer(r"<a\b[^>]*>", content, re.I):
+        tag = match.group(0)
+        href = re.search(r"href\s*=\s*[\"']([^\"']+)", tag, re.I)
+        if not href or not re.match(r"https?://", href.group(1), re.I):
+            continue
+        if (re.search(r"target\s*=\s*[\"']_blank", tag, re.I)
+                and not re.search(r"rel\s*=\s*[\"'][^\"']*noopener", tag, re.I)):
+            add("error", "rel_noopener", tag[:120])
+            break
 
     superlatives = find_superlatives(title + "\n" + plain, questions)
     if superlatives:
@@ -217,7 +240,19 @@ def main():
     parser.add_argument("--asset-type", default="",
                         help="content_build 通道的资产类型：blog/landing/sku/category/faq/qna/pr/social/ecommerce")
     parser.add_argument("--keyword-pack")
+    parser.add_argument("--matrix", help="content_matrix.json；按 Brief 的 word_count ±20%% 校验字数")
     args = parser.parse_args()
+
+    targets = {}
+    if args.matrix:
+        try:
+            data = json.loads(Path(args.matrix).read_text(encoding="utf-8"))
+            items = data if isinstance(data, list) else (data.get("items") or [])
+            for item in items:
+                if isinstance(item, dict) and item.get("asset_id"):
+                    targets[str(item["asset_id"])] = item.get("word_count") or 0
+        except (OSError, ValueError):
+            targets = {}
 
     channel = args.channel.strip().lower()
     content_build = channel == "content_build"
@@ -226,6 +261,11 @@ def main():
 
     results = []
     for index, article in enumerate(load_articles(args.articles), 1):
+        if targets and not article.get("word_count_target"):
+            target = targets.get(str(article.get("asset_id") or ""))
+            if target:
+                article = dict(article)
+                article["word_count_target"] = target
         result = check(article, channel, band, questions, content_build=content_build)
         result["index"] = index
         results.append(result)

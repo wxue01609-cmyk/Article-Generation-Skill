@@ -6,7 +6,7 @@
     "visibility": 0,
     "agent_type": 0,
     "agent_type_label": "内容建设",
-    "model_key": null,
+    "model_key": "openai/gpt-5.2",
     "system_prompt_ref": "./agent.md",
     "input_schema": [
       {
@@ -254,7 +254,7 @@
     ],
     "temperature": 0.4,
     "max_retries": 3,
-    "timeout_seconds": 600,
+    "timeout_seconds": 3600,
     "skill_refs": [
       "geo-content-plan",
       "geo-layered-sampling",

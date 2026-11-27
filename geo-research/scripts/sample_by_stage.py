@@ -53,7 +53,11 @@ STAGE_SIGNALS = {
         (r'\b(warranty|guarantee|保修)\b', 3),
         (r'\b(shipping|delivery|ship|运费|发货)\b', 3),
         (r'\b(support|contact|customer service|客服)\b', 3),
-        (r'\b(is it good for|does it work with|compatible|fit|能装|兼容)\b', 2),
+        # 适用性疑虑统一进转化层：除固定句式外，补齐「is <型号> good for …」「… for family/pet」等变体，
+        # 否则这类 query 全 0 分会默认落到 AI 曝光层，与 stage-map 口径不一致
+        (r'\bis\b[^?]{0,40}\bgood for\b', 2),
+        (r'\b(is it good for|does it work with|compatible|fit|suitable for|能装|兼容|适用)\b', 2),
+        (r'\bfor\b[^?]{0,25}\b(famil(?:y|ies)|kids?|children|truck|suv|pet|dog|cat|beginner|elderly|new driver)\b', 2),
         (r'\b(policy|policies)\b', 3),
         (r'\b(safe|reliable|legit|靠谱|安全)\b', 2),
     ],
