@@ -252,7 +252,7 @@
         "description": "诊断阶段（diagnose）输出：by_stage 指标、竞品、回流建议"
       }
     ],
-    "temperature": 0.4,
+    "temperature": 1,
     "max_retries": 3,
     "timeout_seconds": 3600,
     "skill_refs": [
