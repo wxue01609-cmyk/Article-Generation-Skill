@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updated_at": "2026-11-11 17:18:01",
+  "updated_at": "2026-11-27",
   "description": "海外内容本地化词库 v1（内置种子）：美/英/新加坡/澳/加 5 市场。level=hard 出现即阻断，soft 仅提示；zh_terms 用于中文输出。",
   "market_aliases": {
     "美国": "US",
@@ -89,7 +89,16 @@
           "right": "elevator",
           "level": "hard",
           "note": "美式表达",
-          "zh": "电梯"
+          "zh": "电梯",
+          "exclude": [
+            "\\bforklift\\b",
+            "\\bski\\s+lift\\b",
+            "\\bchairlift\\b",
+            "\\bdeadlift\\b",
+            "\\bface[- ]?lift\\b",
+            "\\blift[- ]?off\\b",
+            "\\blift\\s+the\\b"
+          ]
         },
         {
           "wrong": [
@@ -98,7 +107,13 @@
           "right": "apartment",
           "level": "hard",
           "note": "美式表达",
-          "zh": "公寓"
+          "zh": "公寓",
+          "exclude": [
+            "\\bflat[- ](?:screen|panel|top|bed|rate|fee|design|pack)\\b",
+            "\\bflat\\s+(?:tire|tyre|surface|roof|white|black|gray|grey|red|blue|green)\\b",
+            "\\blay\\s+flat\\b",
+            "\\bflat\\s+out\\b"
+          ]
         },
         {
           "wrong": [
@@ -125,7 +140,17 @@
           "right": "trunk",
           "level": "hard",
           "note": "汽车后备箱",
-          "zh": "汽车后备箱"
+          "zh": "汽车后备箱",
+          "exclude": [
+            "\\bboot(?:s|ed|ing)?\\s+up\\b",
+            "\\bat\\s+boot\\b",
+            "\\breboot\\w*\\b",
+            "\\bboot(?:able|loader|loop|time|menu|mode|camp|disk|image|partition|sequence|process)\\b",
+            "\\bdual[- ]boot\\b",
+            "\\bspring\\s+boot\\b",
+            "\\bboot\\s+(?:clutter|speed|performance|process|session|drive|record|experience)\\b",
+            "\\b(?:reduce|slow|speed\\s+up|faster|quick)\\s+boot\\b"
+          ]
         },
         {
           "wrong": [
@@ -363,7 +388,12 @@
           "right": "petrol",
           "level": "hard",
           "note": "英式表达",
-          "zh": "汽油"
+          "zh": "汽油",
+          "exclude": [
+            "\\bgas\\s+(?:spring|lift|strut|cylinder|shock|charged|assist|kettle|fire|burner|flow)\\b",
+            "\\bgreenhouse\\s+gas\\b",
+            "\\bgas[- ](?:powered|fired)\\b"
+          ]
         },
         {
           "wrong": [
@@ -372,7 +402,12 @@
           "right": "boot",
           "level": "hard",
           "note": "汽车后备箱",
-          "zh": "汽车后备箱"
+          "zh": "汽车后备箱",
+          "exclude": [
+            "\\btree\\s+trunk\\b",
+            "\\belephant\\b",
+            "\\bstorage\\s+trunk\\b"
+          ]
         },
         {
           "wrong": [
@@ -381,7 +416,12 @@
           "right": "bonnet",
           "level": "hard",
           "note": "汽车引擎盖",
-          "zh": "汽车引擎盖"
+          "zh": "汽车引擎盖",
+          "exclude": [
+            "\\bhoodie\\b",
+            "\\bcamera\\s+hood\\b",
+            "\\bhood(?:s)?\\s+of\\s+(?:the\\s+)?(?:machine|device|lens|camera)\\b"
+          ]
         },
         {
           "wrong": [
@@ -445,7 +485,11 @@
           "right": "biscuit",
           "level": "soft",
           "note": "非数码品类场景",
-          "zh": "饼干"
+          "zh": "饼干",
+          "exclude": [
+            "\\bcookies?\\b(?=[^.]{0,60}\\b(?:policy|settings|consent|banner|preferences|notice)\\b)",
+            "\\bweb\\s+cookies?\\b"
+          ]
         },
         {
           "wrong": [
@@ -520,7 +564,11 @@
           "right": "kilometre / metre",
           "level": "hard",
           "note": "英式拼写",
-          "zh": "公里"
+          "zh": "公里",
+          "exclude": [
+            "\\b(?:speed|power|water|electricity|parking|flow|volt|amp|pressure|lux|light|sound|noise|ph|moisture|temperature|gas|energy|smart|calorie)\\s+meter\\b",
+            "\\bmeter(?:s|ed|ing)?\\s+(?:the|a|an|it)\\b"
+          ]
         },
         {
           "wrong": [
@@ -529,7 +577,10 @@
           "right": "tyre",
           "level": "hard",
           "note": "英式拼写",
-          "zh": "轮胎"
+          "zh": "轮胎",
+          "exclude": [
+            "\\btire(?:s|d|ing)?\\s+(?:of|out)\\b"
+          ]
         },
         {
           "wrong": [
@@ -759,7 +810,10 @@
           "right": "coins (local notes/coins)",
           "level": "soft",
           "note": "货币语境：提示使用 SGD",
-          "zh": "硬币（货币）"
+          "zh": "硬币（货币）",
+          "exclude": [
+            "\\bcoin[- ](?:cell|battery|slot|operated)\\b"
+          ]
         },
         {
           "wrong": [
@@ -1302,6 +1356,259 @@
             "source": "excel:本地词库上传词.xlsx",
             "added_at": "2026-11-11 17:13:02",
             "zh": "转售（未满 TOP）"
+          },
+          {
+            "wrong": [
+              "on-sale status",
+              "on-sale badge",
+              "still on sale",
+              "actually on sale"
+            ],
+            "right": "listing status；availability badge；available for sale",
+            "whitelist": [],
+            "level": "soft",
+            "note": "`on sale` 在新加坡常指打折，房源语境易误解",
+            "zh": "可售状态；可售徽标；仍在售；当前可售",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "family structure"
+            ],
+            "right": "family nucleus；household composition",
+            "whitelist": [],
+            "level": "soft",
+            "note": "HDB 资格术语，官方用 family nucleus",
+            "zh": "家庭核心（HDB 申请单位）",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "eligibility letter (HFE)"
+            ],
+            "right": "HFE letter；HDB Flat Eligibility letter",
+            "whitelist": [],
+            "level": "soft",
+            "note": "首次出现写全，后文可用 HFE letter",
+            "zh": "组屋购房资格通知书",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "loan pre-assessment"
+            ],
+            "right": "IPA；HFE letter",
+            "whitelist": [],
+            "level": "soft",
+            "note": "银行房贷用 IPA，HDB 贷款用 HFE",
+            "zh": "银行房贷原则性批准；组屋贷款资格申请",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "unit block"
+            ],
+            "right": "block；block number",
+            "whitelist": [],
+            "level": "soft",
+            "note": "新加坡本地用 block，不用 unit block",
+            "zh": "楼栋；座号",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "A flat 400m on the map",
+              "a 500m flat"
+            ],
+            "right": "straight-line distance；unit 500m from the station",
+            "whitelist": [],
+            "level": "soft",
+            "note": "`flat` 易与 HDB flat 混淆",
+            "zh": "地图直线距离 400 米；距地铁站 500 米的单位",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "cash top-up"
+            ],
+            "right": "cash upfront；cash outlay",
+            "whitelist": [],
+            "level": "soft",
+            "note": "避免与 CPF top-up 混淆",
+            "zh": "现金支出；现金部分",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "deposit or reservation fee"
+            ],
+            "right": "option fee；booking fee；deposit",
+            "whitelist": [],
+            "level": "soft",
+            "note": "转售用 option fee，新盘用 booking fee",
+            "zh": "期权费、预订费或任何预付款",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "covered sections"
+            ],
+            "right": "covered linkways；sheltered walkways",
+            "whitelist": [],
+            "level": "soft",
+            "note": "本地常用 sheltered walkways",
+            "zh": "有盖走道",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "Maintenance and monthly service and conservancy charges"
+            ],
+            "right": "S&CC；service and conservancy charges",
+            "whitelist": [],
+            "level": "soft",
+            "note": "S&CC 是本地固定术语",
+            "zh": "每月服务与保养费（S&CC），另加维修费",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "cash-over-valuation amount"
+            ],
+            "right": "COV",
+            "whitelist": [],
+            "level": "soft",
+            "note": "首次出现写全，后文可用 COV",
+            "zh": "估价溢价（COV）",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "after the prescribed period"
+            ],
+            "right": "MOP；minimum occupation period；privatisation period",
+            "whitelist": [],
+            "level": "soft",
+            "note": "如指 MOP 应写 minimum occupation period，勿混用",
+            "zh": "十年私有化期后",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "government land sale"
+            ],
+            "right": "GLS；URA GLS",
+            "whitelist": [],
+            "level": "soft",
+            "note": "官方术语首字母大写",
+            "zh": "政府售地计划",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "shops",
+              "food",
+              "clinics"
+            ],
+            "right": "F&B；eateries",
+            "whitelist": [],
+            "level": "soft",
+            "note": "food 太泛，本地常用 eateries/F&B",
+            "zh": "商店、餐饮、诊所",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "newer block stock"
+            ],
+            "right": "newer blocks；newer flats",
+            "whitelist": [],
+            "level": "soft",
+            "note": "stock 偏行业内部说法",
+            "zh": "较新的组屋/楼栋",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "mature stock"
+            ],
+            "right": "mature estate",
+            "whitelist": [],
+            "level": "soft",
+            "note": "`mature estate` 可保留，`mature stock` 不建议",
+            "zh": "较旧的组屋单位",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "rentability"
+            ],
+            "right": "rental yield；rental demand",
+            "whitelist": [],
+            "level": "soft",
+            "note": "rentability 不常用",
+            "zh": "租赁需求",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "Dual-income commuters"
+            ],
+            "right": "dual-income households",
+            "whitelist": [],
+            "level": "soft",
+            "note": "；更自然的本地表达",
+            "zh": "双收入家庭",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
+          },
+          {
+            "wrong": [
+              "property website or app"
+            ],
+            "right": "property portal；property app",
+            "whitelist": [],
+            "level": "soft",
+            "note": "5 标题/正文；本地行业常用 property portal",
+            "zh": "房产门户网站或 App",
+            "lang": "en",
+            "source": "excel:新加坡本地化词库.xlsx",
+            "added_at": "2026-11-20 10:32:33"
           }
         ],
         "exceptions": []
@@ -1402,7 +1709,12 @@
           "right": "petrol",
           "level": "hard",
           "note": "澳洲说 petrol",
-          "zh": "汽油"
+          "zh": "汽油",
+          "exclude": [
+            "\\bgas\\s+(?:spring|lift|strut|cylinder|shock|charged|assist|kettle|fire|burner|flow)\\b",
+            "\\bgreenhouse\\s+gas\\b",
+            "\\bgas[- ](?:powered|fired)\\b"
+          ]
         },
         {
           "wrong": [
@@ -1411,7 +1723,12 @@
           "right": "boot",
           "level": "hard",
           "note": "汽车后备箱",
-          "zh": "汽车后备箱"
+          "zh": "汽车后备箱",
+          "exclude": [
+            "\\btree\\s+trunk\\b",
+            "\\belephant\\b",
+            "\\bstorage\\s+trunk\\b"
+          ]
         },
         {
           "wrong": [
@@ -1420,7 +1737,11 @@
           "right": "bonnet",
           "level": "hard",
           "note": "汽车引擎盖",
-          "zh": "汽车引擎盖"
+          "zh": "汽车引擎盖",
+          "exclude": [
+            "\\bhoodie\\b",
+            "\\bcamera\\s+hood\\b"
+          ]
         },
         {
           "wrong": [
@@ -1610,24 +1931,6 @@
         },
         {
           "wrong": [
-            "parking lot"
-          ],
-          "right": "parking lot",
-          "level": "soft",
-          "note": "北美通用，保留即可",
-          "zh": "停车场"
-        },
-        {
-          "wrong": [
-            "gas station"
-          ],
-          "right": "gas station",
-          "level": "soft",
-          "note": "北美通用",
-          "zh": "加油站"
-        },
-        {
-          "wrong": [
             "kilometer",
             "meter"
           ],
@@ -1635,15 +1938,6 @@
           "level": "soft",
           "note": "加式拼写",
           "zh": "公里"
-        },
-        {
-          "wrong": [
-            "-ize"
-          ],
-          "right": "-ize 或 -ise 均可",
-          "level": "soft",
-          "note": "加拿大两种拼法都接受，保持一致即可",
-          "zh": "动词后缀 -ize"
         }
       ],
       "zh_terms": [],

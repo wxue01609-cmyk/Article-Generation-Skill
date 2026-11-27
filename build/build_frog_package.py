@@ -123,10 +123,28 @@ def collect_references(skill_dir):
     return items
 
 
+def _prune_empty(node):
+    """递归去掉空值（"" / [] / {} / None / false），仅用于内联，不改磁盘文件。
+
+    词库里大量 per-market 的空 learned/whitelist 结构占体积，剪掉可稳定留出余量。
+    """
+    if isinstance(node, dict):
+        out = {}
+        for k, v in node.items():
+            pv = _prune_empty(v)
+            if pv in (None, '', [], {}, False):
+                continue
+            out[k] = pv
+        return out
+    if isinstance(node, list):
+        return [_prune_empty(x) for x in node]
+    return node
+
+
 def minify_json(text):
-    """压缩 JSON：去掉缩进空白，降低提示词体积（平台单字段上限 64KB）"""
+    """压缩 JSON：去掉缩进空白与空值，降低提示词体积（平台单字段上限 64KB）"""
     try:
-        return json.dumps(json.loads(text), ensure_ascii=False, separators=(',', ':'))
+        return json.dumps(_prune_empty(json.loads(text)), ensure_ascii=False, separators=(',', ':'))
     except Exception:
         return text
 
