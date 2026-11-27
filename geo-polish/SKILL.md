@@ -97,7 +97,7 @@ th { background: #f6f8fa; font-weight: 600; }
 
 ### 3.5 因子核验与打分卡（先于五关跑，按因子库逐条核验）
 读取 `factor_library.json`（优先平台根目录实时库；青蛙端读系统提示词 agent.md 末尾内置的「因子库数据」块（与本地实时库同源，全阶段可读）；本地无独立文件时直接读平台根目录实时库，禁止自造因子定义），只对「本层因子 + 全局因子」逐条核验（矩阵 item 带 `factor_details` 时以其 `check` 为准，不必再找文件）：
-1. **准入因子（`admission_factors`，一票否决）**：a-01 核心 claim 全部 verified 且可发布（查证据账本；**未建账本时记 `not_applicable`**，改由平台事实闸门与抓取快照兜底，并在报告标 `ledger_missing=true`）；a-02 官网类资产零竞品点名；a-03 正文零照抄（引用 excerpt 比对）；a-04 无禁用 claim / 合规限制；a-05 页面可抓取（**仅对已存在页面**：site_audit 200 且无 noindex/robots 拦截；本次新写、尚未发布的资产记 `not_applicable`，发布后再回测）；a-06 电商参数/价格可追溯到账本（无账本时同样记 `not_applicable`，缺失字段一律留空）。任一失败 → `blocking`，写进 `factor_audit.admission`，该资产不得交付。
+1. **准入因子（`admission_factors`，一票否决）**：a-01 核心 claim 全部 verified 且可发布（查证据账本；平台会在成稿收尾自动用「抓取事实表 + 客户知识库」生成最小账本。**未建账本时：正文含具体数字/政策/认证 → `blocking`；纯定性 → `not_applicable`**，并在报告标 `ledger_missing=true`）；a-02 官网类资产零竞品点名；a-03 正文零照抄（引用 excerpt 比对）；a-04 无禁用 claim / 合规限制；a-05 页面可抓取（**仅对已存在页面**：site_audit 200 且无 noindex/robots 拦截；本次新写、尚未发布的资产记 `not_applicable`，发布后再回测）；a-06 电商参数/价格可追溯到账本（无账本但改后属性写了参数/价格 → `blocking`；没有任何参数与价格时才记 `not_applicable`，缺失字段一律留空）。任一失败 → `blocking`，写进 `factor_audit.admission`，该资产不得交付。
 2. **增益因子逐条核验**：对每个资产 Brief `factors` 的因子，按库中 `check` 检查正文/JSON 是否做到，逐条记 `pass` / `warning` / `blocking`；`used_factors` 未覆盖 Brief 因子时记「未落实」warning，覆盖 <2/3 升 blocking。
 3. **打分**：`score = 100 × 命中因子的 weight 之和 ÷ Brief factors 的 weight 之和`；grade：≥85 excellent、≥70 pass、<70 fail。**总判定以 blocking 为准**：准入因子失败或因子覆盖率 <2/3 任一出现，该资产整体判 `blocking`，score 只用于排序与修复建议，不得用 ≥70 反推为“通过”。
 4. **fail 处理**：只重写命中失败因子的段落，最多 2 轮；2 轮后仍 <70 标 `needs_human`，不得整篇重写掩盖问题。
@@ -110,7 +110,7 @@ th { background: #f6f8fa; font-weight: 600; }
 | 关 | 检查什么 | blocking 判定 | 修复动作 |
 | --- | --- | --- | --- |
 | 1 事实 | 正文数字/参数/政策是否能在事实表、抓取快照、客户资料或证据账本找到来源（**brief 不是事实源**） | 出现无来源的具体数字、价格、认证、评分 | 删改无来源内容或降级为定性表述；SKU 改造走 notes |
-| 2 证据 | SKU：改后属性带 `evidence_id` 且能在 `evidence/ledger.json` 查到 `verified` + `approved_for_publication=true` 的 claim；普通资产：每条 proof_point 有出处（facts 表条目 / 抓取快照 / 客户资料） | 有账本但改后属性无 `evidence_id` / 编号在账本查不到或未通过核验 → `blocking`；**无账本（未建 evidence/ledger.json）→ `warning`**，但必须在 `polish_report.json` 标 `ledger_missing=true`，并说明本次仅靠平台事实闸门（数字比对）与抓取快照兜底，不得当作已核验 | 回退该属性或补证据；确实没有可核资料时，把相关数字改成定性表述或省略，并在 `qa/事实核验.md` 说明 |
+| 2 证据 | SKU：改后属性带 `evidence_id` 且能在 `evidence/ledger.json` 查到 `verified` + `approved_for_publication=true` 的 claim；普通资产：每条 proof_point 有出处（facts 表条目 / 抓取快照 / 客户资料） | 有账本但改后属性无 `evidence_id` / 编号在账本查不到或未通过核验 → `blocking`；**无账本（未建 evidence/ledger.json）且正文含具体数字/价格/认证/政策 → `blocking`**；无账本且全文为纯定性表述 → `warning`（须在报告标 `ledger_missing=true`，说明仅靠平台事实闸门兜底） | 回退该属性或补证据；确实没有可核资料时，把相关数字改成定性表述或省略，并在 `qa/事实核验.md` 说明 |
 | 3 可提取 | answer-first：首段是否给结论、H2 是否可被单独引用、是否有可摘取清单/表格 | 首段无结论且全文无结构化要点 | 补结论段/摘要段 |
 | 4 渠道 | 官网资产无竞品名与对比表；三方评测有披露；社区问答 0 链接 0 促销；文章类资产有 1 条权威外链或 `checks` 注明省略原因，且无竞品链接/推荐竞品页面 | 官网资产出现竞品名；出现竞品官网链接或推荐/对比竞品的页面链接 | 改写为类别级判断；删掉竞品链接，换成政府/标准/学术来源或直接省略 |
 | 5 分发 | `asset_index.json` 与磁盘文件一一对应、`stage_index.json` 与 index 一致、字数 ±20%、站外链接 `target="_blank" rel="noopener"`；**head 结构化**（canonical / Article JSON-LD / dateModified / 作者 / og，见 `qa/head_check.json`、`qa/结构化检查.md`）；**规模化红线**（同 cluster ≤2 篇、5-gram 相似度 <0.35，见 `qa/similarity_check.json`、`qa/重复度检查.md`）；客户自有域名产出 `qa/发布前检查清单.md`（robots 放行 OAI-SearchBot/GPTBot/Googlebot/Bingbot、sitemap、GSC + Bing 提交） | 索引与文件对不上 / 字数超范围 / 缺 canonical、Article JSON-LD、更新时间或作者 / cluster 超过 2 篇或判定近重复 | 补索引或补内容；补 head 字段（客户未提供域名时 canonical 只记 warning）；合并或重写同构文章 |
